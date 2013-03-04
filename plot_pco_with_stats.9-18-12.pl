@@ -42,6 +42,7 @@ if ( ! GetOptions (
 		   "data_file=s"       => \$data_file,
 		   "groups_list=s"     => \$groups_list,
 		   "input_dir=s"       => \$input_dir,
+		   "output_dir=s",     => \$output_dir,
 		   "output_PCoA_dir=s" => \$output_PCoA_dir,
 		   "print_dist=i"      => \$print_dist,
 		   "output_DIST_dir"   => \$output_DIST_dir,
@@ -58,8 +59,12 @@ if ( ! GetOptions (
 		  )
    ) { &usage(); }
 
+unless ($output_dir){
+  $output_dir = $current_dir."plot_pco_with_stats.".$data_file.".".$dist_method.".RESULTS/";
+}else{
+  $output_dir = $output_dir."/"."plot_pco_with_stats.".$data_file.".".$dist_method.".RESULTS/";
+}
 
-$output_dir = $current_dir."plot_pco_with_stats.".$data_file.".".$dist_method.".RESULTS/";
 $output_PCoA_dir =      $output_dir."PCoAs/";
 $output_DIST_dir =      $output_dir."DISTs/";
 $output_avg_DISTs_dir = $output_dir."AVG_DISTs/";
@@ -235,7 +240,7 @@ and a specified number of permutations of the original data to derive p values
 USAGE:
     --data_file        (string)  no default
                                     original data file (in R compatible tab delimited format)
-    --input_dir        (string)  default = current directory
+    --input_dir        (string)  default = $current_dir
                                     path that containts the data file
     --groups_list      (string)  default = $groups_list
                                     file that contains groups list
