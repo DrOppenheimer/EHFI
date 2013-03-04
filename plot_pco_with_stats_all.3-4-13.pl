@@ -136,7 +136,7 @@ print LOG "generate (".$num_perm.") permutations ... "."\n";
 my $R_rand_script = "$data_file.R_sample_script.".$time_stamp.".r";
 open(R_SCRIPT, ">", $R_rand_script) or die "cannot open R_SCRIPT $R_rand_script";
 
-exit 1;
+#exit 1;
 
 ##### CREATE AND PROCESS PERMUTED DATA
 
