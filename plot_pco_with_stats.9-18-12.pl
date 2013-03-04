@@ -60,8 +60,10 @@ if ( ! GetOptions (
    ) { &usage(); }
 
 unless ($output_dir){
+  print STDOUT "POOP"."\n";
   $output_dir = $current_dir."plot_pco_with_stats.".$data_file.".".$dist_method.".RESULTS/";
 }else{
+  print STDOUT "POOP"."\n";
   $output_dir = $output_dir."/"."plot_pco_with_stats.".$data_file.".".$dist_method.".RESULTS/";
 }
 
