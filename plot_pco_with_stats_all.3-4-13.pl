@@ -120,13 +120,14 @@ unless ($check_status eq "All groups members match a header from the data file")
 
 # process the original data_file to produce PCoA and DIST files
 print LOG "process original data file (".$data_file.") > *.PCoA & *.DIST ... "."\n";
-my $output_og_pco = $data_file.".".$dist_method.".OG.PCoA";
+# my $output_og_pco = $data_file.".".$dist_method.".OG.PCoA";
+print LOG "system(plot_pco_shell.sh ".$data_file." ".$input_dir." ".$output_dir." ".1." ".$output_dir." ".$dist_method $headers.")\n";
 system("plot_pco_shell.sh $data_file $input_dir $output_dir 1 $output_dir $dist_method $headers");
 print LOG "DONE at:"."\t".`date +%m-%d-%y_%H:%M:%S`."\n";
 
 # Process original data_file.DIST to produce original_file.DIST.AVG_DIST
 print LOG "process original data *.DIST file (".$data_file.".".$dist_method.".DIST) > *.AVG_DIST ... "."\n";
-#system("avg_distances.sh $data_file.$dist_method.DIST $current_dir $groups_list $data_file.$dist_method.DIST.AVG_DIST $current_dir");
+print LOG "system(avg_distances.sh ".$data_file." ".$dist_method."DIST ".$output_dir." ".$groups_list." ".$data_file.$dist_method."DIST ".$output_dir.")\n";
 system("avg_distances.sh $data_file.$dist_method.DIST $output_dir $groups_list $data_file.$dist_method.DIST $output_dir");
 print LOG "DONE at:"."\t".`date +%m-%d-%y_%H:%M:%S`."\n";
 
