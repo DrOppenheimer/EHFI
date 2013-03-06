@@ -59,11 +59,11 @@ if ( ! GetOptions (
 		  )
    ) { &usage(); }
 
-#unless ($output_dir){
-$output_dir = $current_dir."plot_pco_with_stats.".$data_file.".".$dist_method.".RESULTS/";
-#}else{
-#  $output_dir = $output_dir."/"."plot_pco_with_stats.".$data_file.".".$dist_method.".RESULTS/";
-#}
+unless ($output_dir){
+  $output_dir = $current_dir."plot_pco_with_stats.".$data_file.".".$dist_method.".RESULTS/";
+}else{
+  $output_dir = $output_dir."/"."plot_pco_with_stats.".$data_file.".".$dist_method.".RESULTS/";
+}
 
 $output_PCoA_dir =      $output_dir."PCoAs/";
 $output_DIST_dir =      $output_dir."DISTs/";
