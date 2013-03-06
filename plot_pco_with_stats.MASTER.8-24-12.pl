@@ -19,7 +19,7 @@ if ( (@ARGV > 0) && ($ARGV[0] =~ /-h/) ) { &usage(); }
 unless ( @ARGV > 0 || $command_file ) { &usage(); }
 
 if ( ! GetOptions (
-		   "command_file=s" => \$command_file
+		   "f|command_file=s" => \$command_file
 		  )
    ) { &usage(); }
 
@@ -109,7 +109,7 @@ It also creates a log for each job that records all of the error output text.
 Note that the plot... scripts also generate their own logs.
    
 USAGE:
-    --command_file (string)  no default
+    -f|--command_file (string)  no default
                                   
 An array of typical options (indicating defaults) for each of the drive scripts is
 provided below.  Note that each takes nearly, but not exactly, the same arguments.
