@@ -1,10 +1,14 @@
-sample_matrix <- function(file_name, file_dir = getwd(), num_perm = 1, perm_type = "sample_rand", write_files = 0, perm_dir = "./permutations/", verbose = 0, debug = 0){ #10-18-11 - function to generate permuations of data
+sample_matrix <- function(file_name, file_dir = getwd(), num_perm = 1, perm_type = "sample_rand", write_files = 1, perm_dir = "./permutations/", verbose = 0, debug = 0){ #10-18-11 - function to generate permuations of data
 
-  if ( nargs() == 0){print_usage()} 
+  if ( nargs() == 0){print_usage()}
+
+  # check to see if the permutations directory exists - if not, create one
+  if ( file.exists(perm_dir)==FALSE ){
+    dir.create(perm_dir)
+  }
 
   file_path_name <<- gsub(" ", "",paste(file_dir, "/", file_name))
- # my_data <<- data.matrix(read.table(file_name, row.names=1, header=TRUE, sep="\t", comment.char="", quote=""))
-   my_data <<- data.matrix(read.table(file_path_name, row.names=1, check.names=FALSE, header=TRUE, sep="\t", comment.char="", quote=""))
+  my_data <<- data.matrix(read.table(file_path_name, row.names=1, check.names=FALSE, header=TRUE, sep="\t", comment.char="", quote=""))
   row_names <<- dimnames(my_data)[[1]]
   col_names <<- dimnames(my_data)[[2]]
   
@@ -23,11 +27,11 @@ sample_matrix <- function(file_name, file_dir = getwd(), num_perm = 1, perm_type
   }
 
   if(identical(perm_type, "sample_rand")){
-    sample_rand_func(perm_dir, file_name, my_data, num_perm, sum_data, n_rows, n_cols, row_names, col_names, index_cols,  index_rows, write_files, verbose, debug)
+    sample_rand_func(perm_dir, file_name, my_data, num_perm, sum_data, n_rows, n_cols, row_names, col_names, index_cols, index_rows, write_files, verbose, debug)
   }else if(identical(perm_type, "dataset_rand")){
-    dataset_rand_func(perm_dir, file_name, my_data, num_perm, sum_data, n_rows, n_cols, row_names, col_names, index_cols,  index_rows, verbose, debug)
+    dataset_rand_func(perm_dir, file_name, my_data, num_perm, sum_data, n_rows, n_cols, row_names, col_names, index_cols, index_rows, write_files, verbose, debug)
   }else if(identical(perm_type, "complete_rand")){
-    complete_rand_func(perm_dir, file_name, num_perm, sum_data, n_rows, n_cols, row_names, col_names,  index_cols,  index_rows, verbose, debug)
+    complete_rand_func(perm_dir, file_name, num_perm, sum_data, n_rows, n_cols, row_names, col_names,  index_cols, index_rows, write_files, verbose, debug)
   }else{
     print("you did not supply a valid argument for perm_type")
     print_usage() 
