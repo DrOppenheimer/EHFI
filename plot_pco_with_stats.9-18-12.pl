@@ -39,19 +39,19 @@ if ( (@ARGV > 0) && ($ARGV[0] =~ /-h/) ) { &usage(); }
 unless ( @ARGV > 0 || $data_file ) { &usage(); }
 
 if ( ! GetOptions (
-		   "data_file=s"       => \$data_file,
-		   "groups_list=s"     => \$groups_list,
-		   "input_dir=s"       => \$input_dir,
-		   "output_dir=s",     => \$output_dir,
+		   "f|data_file=s"       => \$data_file,
+		   "g|groups_list=s"     => \$groups_list,
+		   "i|input_dir=s"       => \$input_dir,
+		   "o|output_dir=s",     => \$output_dir,
 		   "output_PCoA_dir=s" => \$output_PCoA_dir,
 		   "print_dist=i"      => \$print_dist,
 		   "output_DIST_dir"   => \$output_DIST_dir,
-		   "dist_method=s"     => \$dist_method,
+		   "m|dist_method=s"     => \$dist_method,
 		   "headers=i"         => \$headers,
-		   "perm_dir"          => \$perm_dir,
-		   "perm_type=s"       => \$perm_type,
-		   "num_perm=i"        => \$num_perm,
-		   "num_cpus=i"        => \$num_cpus,
+		   "x|perm_dir"          => \$perm_dir,
+		   "t|perm_type=s"       => \$perm_type,
+		   "p|num_perm=i"        => \$num_perm,
+		   "c|num_cpus=i"        => \$num_cpus,
 		   "cleanup!"          => \$cleanup,
 		   "help!"             => \$help, 
 		   "verbose!"          => \$verbose,
@@ -238,29 +238,30 @@ This script performs pco analysis with group distances on an original data file,
 and a specified number of permutations of the original data to derive p values
    
 USAGE:
-    --data_file        (string)  no default
+    -f|--data_file        (string)  no default
                                     original data file (in R compatible tab delimited format)
-    --input_dir        (string)  default = $current_dir
+    -i|--input_dir        (string)  default = $current_dir
                                     path that containts the data file
-    --groups_list      (string)  default = $groups_list
+    -o|--output_dir       (string)  default = $output_dir
+    -g|--groups_list      (string)  default = $groups_list
                                     file that contains groups list
                                     group per line, each sample in a group (line) is comma separated
                                     sample names should be same as in the data_file header
-    --num_perm         (integer) default = $num_perm 
+    -p|--num_perm         (integer) default = $num_perm 
                                     number of permutations to perform
-    --perm_type        (string)  default = $perm_type 
+    -t|--perm_type        (string)  default = $perm_type 
                                     --> choose from the following three methods <--
                                          sample_rand   - randomize fields in sample/column
                                          dataset_rand  - randomize fields across dataset
                                          complete_rand - randomize every individual count across dataset
-    --dist_method      (string)  default = $dist_method
+    -m|--dist_method      (string)  default = $dist_method
                                     --> can slect from the following distances/dissimilarities <-- 
                                          bray-curtis | maximum  | canberra    | binary   | minkowski  | 
                                          euclidean   | jacccard | mahalanobis | sorensen | difference |
                                          manhattan
-    --perm_dir         (string)  default = /results/permutations
+    -x|--perm_dir         (string)  default = $perm_dir
                                     directory to store permutations
-    --num_cpus         (integer) default = $num_cpus
+    -c|--num_cpus         (integer) default = $num_cpus
                                     number of cpus to use (xargs)
     -----------------------------------------------------------------------------------------------
     --cleanup          (flag)       delete all of the permutation temp files
