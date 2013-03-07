@@ -9,6 +9,10 @@ sample_matrix <- function(file_name, file_dir = getwd(), num_perm = 1, perm_type
 
   file_path_name <<- gsub(" ", "",paste(file_dir, "/", file_name))
   my_data <<- data.matrix(read.table(file_path_name, row.names=1, check.names=FALSE, header=TRUE, sep="\t", comment.char="", quote=""))
+
+
+  if(verbose==TRUE){print(my_data)}
+
   row_names <<- dimnames(my_data)[[1]]
   col_names <<- dimnames(my_data)[[2]]
   
@@ -41,6 +45,7 @@ sample_matrix <- function(file_name, file_dir = getwd(), num_perm = 1, perm_type
 
 
 
+
 ##### SUB FUNCTIONS #####
 
 # perform randomization that just shuffles values among fields withint a sample (column) - dataset distribution is maintained, as is the distribution for each sample (column)
@@ -66,14 +71,14 @@ dataset_rand_func<- function(perm_dir, file_name, my_data, num_perm, sum_data, n
     rand_data <<- matrix(0, n_rows, n_cols)
     dimnames(rand_data)[[1]] <<- row_names
     dimnames(rand_data)[[2]] <<- col_names
-    rand_values <- sample(matrix(as.integer(paste(my_data))))
+    rand_values <- sample(matrix(as.numeric(paste(my_data))))
     #if ( debug == 1 ) { print("rand_values:   "); print(rand_values) }
     #if ( debug == 1 ) { print("num_rand_values"); print(n_rows*n_cols) } 
     rand_values_index = 1
     if(rand_values_index<=(n_rows*n_cols)) {
     for (nr in 1:n_rows) {
         for (nc in 1:n_cols) {
-          rand_data[nr,nc] <<- rand_values[rand_values_index]
+          rand_data[nr,nc] <<- (rand_values[rand_values_index])
           rand_values_index = rand_values_index+1
         }
       }
@@ -141,7 +146,7 @@ print_usage <- function() {
                      (maintains total counts, the original data set distribution, and distribution in each sample(column))
                      \"dataset_rand\"  - shuffles fields within the entire data set
                      (maintains total counts and the original data set distribution)
-                     \"complete_rand\" - randomly distributes sum of counts about equally sized matrix
+                     \"complete_rand\" - randomly distributes sum of counts about equally sized matrix (only works with integers!!)
                      (maintains total counts, but not distribution)
        write_files : default = 0               : boolean, write a file for each permutation/iteration
        perm_dir    : default = \"./permutations/\", directory for permutation files
