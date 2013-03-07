@@ -150,7 +150,7 @@ print R_SCRIPT (
 # generate permutations with R script created above
 system( "R --vanilla --slave < $R_rand_script" );
 print LOG "DONE at:"."\t".`date +%m-%d-%y_%H:%M:%S`."\n";
-#system( "rm $R_rand_script" );
+system( "rm $R_rand_script" );
 
 # create list of the permutation files
 print LOG "creating list of permutated data files ... "."\n";
