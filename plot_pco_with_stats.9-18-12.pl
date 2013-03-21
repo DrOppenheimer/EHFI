@@ -258,6 +258,8 @@ USAGE:
                                          sample_rand   - randomize fields in sample/column
                                          dataset_rand  - randomize fields across dataset
                                          complete_rand - randomize every individual count across dataset
+                                         rowwise_rand  - randomize fields in taxon/row 
+                                         sampleid_rand - randomize sample/column labels only
     -m|--dist_method      (string)  default = $dist_method
                                     --> can slect from the following distances/dissimilarities <-- 
                                          bray-curtis | maximum  | canberra    | binary   | minkowski  | 
