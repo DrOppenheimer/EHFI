@@ -34,8 +34,12 @@ sample_matrix <- function(file_name, file_dir = getwd(), num_perm = 1, perm_type
     sample_rand_func(perm_dir, file_name, my_data, num_perm, sum_data, n_rows, n_cols, row_names, col_names, index_cols, index_rows, write_files, verbose, debug)
   }else if(identical(perm_type, "dataset_rand")){
     dataset_rand_func(perm_dir, file_name, my_data, num_perm, sum_data, n_rows, n_cols, row_names, col_names, index_cols, index_rows, write_files, verbose, debug)
+  }else if(identical(perm_type, "rowwise_rand")){
+    rowwise_rand_func(perm_dir, file_name, my_data, num_perm, sum_data, n_rows, n_cols, row_names, col_names, index_cols, index_rows, write_files, verbose, debug)
+  }else if(identical(perm_type, "sampleid_rand")){
+    sampleid_rand_func(perm_dir, file_name, my_data, num_perm, sum_data, n_rows, n_cols, row_names, col_names, index_cols, index_rows, write_files, verbose, debug)
   }else if(identical(perm_type, "complete_rand")){
-    complete_rand_func(perm_dir, file_name, num_perm, sum_data, n_rows, n_cols, row_names, col_names,  index_cols, index_rows, write_files, verbose, debug)
+    complete_rand_func(perm_dir, file_name,          num_perm, sum_data, n_rows, n_cols, row_names, col_names, index_cols, index_rows, write_files, verbose, debug)
   }else{
     print("you did not supply a valid argument for perm_type")
     print_usage() 
@@ -48,7 +52,7 @@ sample_matrix <- function(file_name, file_dir = getwd(), num_perm = 1, perm_type
 
 ##### SUB FUNCTIONS #####
 
-# perform randomization that just shuffles values among fields withint a sample (column) - dataset distribution is maintained, as is the distribution for each sample (column)
+# perform randomization that just shuffles values among fields within a sample (column) - dataset distribution is maintained, as is the distribution for each sample (column)
 # shuld try to keep randomization in a sample
 sample_rand_func <- function(perm_dir, file_name, my_data, num_perm, sum_data, n_rows, n_cols, row_names, col_names, index_cols, index_rows, write_files, verbose, debug) {
   for (k in 1:num_perm) {
@@ -91,6 +95,7 @@ dataset_rand_func<- function(perm_dir, file_name, my_data, num_perm, sum_data, n
 
 
 # perform a complete randomization of counts; all counts are randomly distributed -- should lose the sample and data set distributions
+# draws from the uniform multinomial distribution with exactly sum_data events in n_rows * n_cols buckets
 complete_rand_func <- function(perm_dir, file_name, num_perm, sum_data, n_rows, n_cols, row_names, col_names,  index_cols, index_rows, write_files, verbose, debug) { 
   for (k in 1:num_perm) {  
     rand_data <<- matrix(0, n_rows, n_cols)
@@ -106,6 +111,35 @@ complete_rand_func <- function(perm_dir, file_name, num_perm, sum_data, n_rows, 
   }  
 }
 
+# scramble rows
+rowwise_rand_func <- function(perm_dir, file_name, my_data, num_perm, sum_data, n_rows, n_cols, row_names, col_names, index_cols, index_rows, write_files, verbose, debug) {
+  for (k in 1:num_perm) {
+    rand_data <<- matrix(0, n_rows, n_cols)
+    dimnames(rand_data)[[1]] <<- row_names
+    dimnames(rand_data)[[2]] <<- col_names
+    for (cr in 1:n_rows){
+      rand_data[cr,] <<- sample(my_data[cr,])
+    }
+    if (verbose > 0) { sum_rand_data = base::sum(rand_data); verbose_report(k, sum_data, sum_rand_data, rand_data) }
+    if (write_files > 0) { write_files(perm_dir, file_name, rand_data, k) }
+  }
+}
+
+# scramble sample labels only
+sampleid_rand_func <- function(perm_dir, file_name, my_data, num_perm, sum_data, n_rows, n_cols, row_names, col_names, index_cols, index_rows, write_files, verbose, debug) {
+  for (k in 1:num_perm) {
+    rand_data <<- matrix(0, n_rows, n_cols)
+    dimnames(rand_data)[[1]] <<- row_names
+    dimnames(rand_data)[[2]] <<- col_names
+    scramble_col<<- sample(index_cols)
+
+    for (cn in 1:n_cols){
+      rand_data[,cn] <<- my_data[,scramble_col[cn]]
+    }
+    if (verbose > 0) { sum_rand_data = base::sum(rand_data); verbose_report(k, sum_data, sum_rand_data, rand_data) }
+    if (write_files > 0) { write_files(perm_dir, file_name, rand_data, k) }
+  }
+}
 
 
 
