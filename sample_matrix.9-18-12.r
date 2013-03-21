@@ -134,7 +134,7 @@ sampleid_rand_func <- function(perm_dir, file_name, my_data, num_perm, sum_data,
     scramble_col<<- sample(index_cols)
 
     for (cn in 1:n_cols){
-      rand_data[,cn] <<- rand_data[my_data[,scramble_col[cn]]]
+      rand_data[,cn] <<- my_data[,scramble_col[cn]]
     }
     if (verbose > 0) { sum_rand_data = base::sum(rand_data); verbose_report(k, sum_data, sum_rand_data, rand_data) }
     if (write_files > 0) { write_files(perm_dir, file_name, rand_data, k) }
