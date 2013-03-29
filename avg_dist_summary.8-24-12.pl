@@ -51,7 +51,7 @@ my $perm_sum_dist_avg_hash = {};
 my @og_line_array;
 
 
-$debug = 1;
+#$debug = 1;
 
 open(OG_FILE, "<", $og_avg_dist_file) or die "cannot open OG_FILE $og_avg_dist_file";
 

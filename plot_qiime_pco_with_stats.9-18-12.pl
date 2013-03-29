@@ -54,7 +54,7 @@ if ( ! GetOptions (
 		   "cleanup!"                   => \$cleanup,
 		   "help!"                      => \$help, 
 		   "verbose!"                   => \$verbose,
-		   "debug!"                     => \$debug,		   
+		   "debug!"                     => \$debug		   
 		  )
    ) { &usage(); }
 
