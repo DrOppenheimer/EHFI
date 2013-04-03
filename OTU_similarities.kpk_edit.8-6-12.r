@@ -79,13 +79,9 @@ OTU_dists<- function(
   if ( nargs() == 0 ){
     func_usage()
   }
-  
-  #data_file = "/Users/dan/Desktop/EHFI.all_OTU.m5RNA.raw.12-12-11.data"
-  #outfile = "/Users/dan/Desktop/out"
 
   # load data
   my_input_path_file <- gsub(" ", "", paste(input_dir,file_in))
-  #print(paste("MY FILE IN: ", file_in))
   Input <<- read.table (my_input_path_file, header = 1, sep = "\t", row.names = 1, quote = "", stringsAsFactors = FALSE)
   row.names (Input) <- NULL
   M <- t (Input)
@@ -93,16 +89,12 @@ OTU_dists<- function(
   # calculate distance matrix and produce *.DIST output files
   dist <- stats::dist (M)
   dist <- produce_dist(M, dist_method, dist)
-  ## weighted <- stats::dist (M) # weighted
-  ## unweighted <- stats::dist (M)
   
   # generate string used to name the output *.DIST file 
   DIST_file_out <- ""
   if ( dist_method== "w_OTU" ) { DIST_file_out <- gsub(" ", "", paste(output_DIST_dir, file_in, ".", dist_method, ".DIST")) }
   else { DIST_file_out <- gsub(" ", "", paste(output_DIST_dir, file_in, ".", dist_method, ".DIST")) }
   if ( print_dist == 1 ) { write_file(file_name = DIST_file_out, data = data.matrix(dist)) }
-  #write_file(file_name = DIST_file_out, data = data.matrix(dist))
-  #if( debug == TRUE ){print(paste("Dist_file_out:", DIST_file_out))} 
   
   # perform pco and write output(s)    
   my_pco <- pco(dist)
@@ -116,8 +108,6 @@ OTU_dists<- function(
   # label the eigen vectors
   eigen_vectors <<- data.matrix(my_pco$vectors) 
   dimnames(eigen_vectors)[[1]] <<- dimnames(Input)[[2]] #dimnames(Input)[[1]]
-
-# row.names (Input)
  
   # write eigen values and then eigen vectors to file_out
   PCoA_file_out = gsub(" ", "", paste(output_PCoA_dir, file_in, ".", dist_method, ".PCoA"))
