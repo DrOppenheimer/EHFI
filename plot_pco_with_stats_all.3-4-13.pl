@@ -180,27 +180,29 @@ if ( $dist_method =~ m/frac/ ){
 if ( $dist_pipe eq "qiime_pipe" ){
   process_original_qiime_data($data_file, $qiime_format, $dist_method, $tree, $input_dir, $output_dir, $log_file)
 }elsif ( $dist_pipe eq "OTU_pipe" ){
-  process_original_OTU_data($data_file, $dist_method, $input_dir, $output_dir, $log_file)
+    process_original_OTU_data($data_file, $dist_method, $input_dir, $output_dir, $log_file)
 }elsif ( $dist_pipe eq "MG-RAST_pipe" ){
-  process_original_data($data_file, $dist_method, $input_dir, $output_dir, $log_file)
+        process_original_data($data_file, $dist_method, $input_dir, $output_dir, $log_file)
 }else{
   print STDOUT "\n\n"."The selected dist_pipe (".$dist_pipe.") is not recognized - please check and try again"."\n";
   print $log_file "\n\n"."The selected dist_pipe (".$dist_pipe.") is not recognized - please check and try again"."\n";
   exit 1;
 }
 
-#  If qiime pipe is used, reformat data_file from old_qiime table to R friendly format before creating permuted data
+#  If qiime_pipe is used, and the qiime_format is changed to R_table if it is other
 if ( $dist_pipe eq "qiime_pipe" ){
-  print $log_file "executing: $DIR/qiime_2_R.pl -i $input_dir$data_file -o $input_dir$data_file -c 3"."\n";
-  system("$DIR/qiime_2_R.pl -i $input_dir$data_file -o $input_dir$data_file -c 3");
-  print $log_file "create R-formatted version of qiime abundance table:"."\n".
-    "( qiime_2_R.pl -i $input_dir$data_file -o $input_dir$data_file -c 3 )"."\n".
-      "DONE at:"."\t".`date +%m-%d-%y_%H:%M:%S`."\n\n";
+  unless ( $qiime_format eq "R_table" ){
+    print $log_file "executing: $DIR/qiime_2_R.pl -i $input_dir$data_file -o $input_dir$data_file -c 3"."\n";
+    system("$DIR/qiime_2_R.pl -i $input_dir$data_file -o $input_dir$data_file -c 3");
+    print $log_file "create R-formatted version of qiime abundance table:"."\n".
+      "( qiime_2_R.pl -i $input_dir$data_file -o $input_dir$data_file -c 3 )"."\n".
+	"DONE at:"."\t".`date +%m-%d-%y_%H:%M:%S`."\n\n";
+  }
 }
 
 
 
-# process permuted data
+# generate and process permuted data
 if ( $dist_pipe eq "qiime_pipe" ){
   process_permuted_qiime_data($data_file, $output_dir, $perm_list, $num_cpus, $perm_dir, $output_PCoA_dir, $output_DIST_dir, $output_avg_DISTs_dir, $dist_method, $tree, $headers, $log_file)
 }elsif ( $dist_pipe eq "OTU_pipe" ){
@@ -221,15 +223,12 @@ if ($cleanup) {
 }
 
 
-
+# log running time
 my $end = time;
 my $min = int(($end - $start) / 60);
 my $sec = ($end - $start) % 60;
-
-
-
-#print STDOUT "all DONE at:"."\t".`date +%m-%d-%y_%H:%M:%S`."\n";
-#print STDOUT "ELAPSED TIME: "."(".$min.")"."minutes "."(".$sec.")"."seconds"."\n";
+print STDOUT "all DONE at:"."\t".`date +%m-%d-%y_%H:%M:%S`."\n";
+print STDOUT "ELAPSED TIME: "."(".$min.")"."minutes "."(".$sec.")"."seconds"."\n";
 print $log_file "all DONE at:"."\t".`date +%m-%d-%y_%H:%M:%S`."\n";
 print $log_file "ELAPSED TIME: "."(".$min.")"."minutes "."(".$sec.")"."seconds"."\n";
 
@@ -294,8 +293,9 @@ USAGE:
                                      (**)     OTU      |   w_OTU                                     
                                      (***)    ...    
                                     --> in addition, 
-                                        *MG-RAST_pipe supports listed metrics (R pacakges \"stats\" and \"ecodist\")                                                       **OTU_pipe supports only the OTU and weighted_OTU (w_OTU) metrics
-                                        ***all qiime metrics supported by qiime_pipe 
+                                        *   MG-RAST_pipe supports listed metrics (R pacakges \"stats\" and \"ecodist\")
+                                        **  OTU_pipe supports only the OTU and weighted_OTU (w_OTU) metrics
+                                        *** all qiime metrics supported by qiime_pipe 
                                         (on a machine with qiime installed, see them with \"beta_diversity.py -s\")
     -z|--dist_pipe        (string)  default = $dist_pipe
                                     analysis pipe to use - in many (but not all) cases, the dist_method
@@ -412,8 +412,7 @@ sub process_original_data {
 
 }
 
-
-
+     
 # Process the original (non permuted) data, Qiime annotations
 sub process_original_qiime_data {
 
