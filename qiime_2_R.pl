@@ -14,6 +14,10 @@ my $conversion = 1;
 my $output_file_pattern;
 
 if($debug){print STDOUT "made it here"."\n";}
+
+# path of this script
+my $DIR=dirname(abs_path($0));  # directory of the current script, used to find other scripts + datafiles
+
 # check input args and display usage if not suitable
 if ( (@ARGV > 0) && ($ARGV[0] =~ /-h/) ) { &usage(); }
 
@@ -66,7 +70,7 @@ sub format_table_qiime_2_R { # creates an R_formatted version of a qiime table f
 
   my $file_check = `file $qiime_table_in`;   #check line terminators -- correct if needed
   if ( $file_check =~ m/long/ ) {
-    system("line_term.pl -i $qiime_table_in -o $qiime_table_in.lt_edit; mv $qiime_table_in.lt_edit $qiime_table_in") 
+    system("$DIR/line_term.pl -i $qiime_table_in -o $qiime_table_in.lt_edit; mv $qiime_table_in.lt_edit $qiime_table_in") 
   } 
   
   my $last_header_line_in = ''; # script assumes that there may be multiple comment lines before header line
@@ -111,7 +115,7 @@ sub format_table_qiime_2_R_qiime_ID { # creates an R_formatted version of a qiim
 
   my $file_check = `file $qiime_table_in`;   #check line terminators -- correct if needed
   if ( $file_check =~ m/long/ ) {
-    system("line_term.pl -i $qiime_table_in -o $qiime_table_in.lt_edit; mv $qiime_table_in.lt_edit $qiime_table_in") 
+    system("$DIR/line_term.pl -i $qiime_table_in -o $qiime_table_in.lt_edit; mv $qiime_table_in.lt_edit $qiime_table_in") 
   } 
   
   my $last_header_line_in = ''; # script assumes that there may be multiple comment lines before header line
@@ -159,7 +163,7 @@ sub format_table_qiime_2_R_qiime_ID_and_tax { # creates an R_formatted version o
 
   my $file_check = `file $qiime_table_in`;   #check line terminators -- correct if needed
   if ( $file_check =~ m/long/ ) {
-    system("line_term.pl -i $qiime_table_in -o $qiime_table_in.lt_edit; mv $qiime_table_in.lt_edit $qiime_table_in") 
+    system("$DIR/line_term.pl -i $qiime_table_in -o $qiime_table_in.lt_edit; mv $qiime_table_in.lt_edit $qiime_table_in") 
   } 
   
   my $last_header_line_in = ''; # script assumes that there may be multiple comment lines before header line
@@ -210,7 +214,7 @@ sub format_table_R_2_qiime { # script assumes just one line of header for R form
 
   my $file_check = `file $R_table_in`;   #check line terminators -- correct if needed
   if ( $file_check =~ m/long/ ) {
-    system("line_term.pl -i $R_table_in -o $R_table_in.lt_edit; mv $R_table_in.lt_edit $R_table_in") 
+    system("$DIR/line_term.pl -i $R_table_in -o $R_table_in.lt_edit; mv $R_table_in.lt_edit $R_table_in") 
   }
 
   open(R_TABLE_IN, "<", $R_table_in) or die "Can't open R_TABLE_IN $R_table_in"; 
@@ -255,7 +259,7 @@ sub format_table_R_2_qiime_with_prepended_qiime_IDs { # script assumes just one 
 
   my $file_check = `file $R_table_in`;   #check line terminators -- correct if needed
   if ( $file_check =~ m/long/ ) {
-    system("line_term.pl -i $R_table_in -o $R_table_in.lt_edit; mv $R_table_in.lt_edit $R_table_in") 
+    system("$DIR/line_term.pl -i $R_table_in -o $R_table_in.lt_edit; mv $R_table_in.lt_edit $R_table_in") 
   }
 
   open(R_TABLE_IN, "<", $R_table_in) or die "Can't open R_TABLE_IN $R_table_in"; 
