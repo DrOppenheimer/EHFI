@@ -7,6 +7,9 @@
 
 use warnings;
 use Getopt::Long;
+use Cwd;
+use Cwd 'abs_path';
+use File::Basename;
 
 my($input_file, $help, $verbose, $debug);
 
