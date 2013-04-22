@@ -13,6 +13,7 @@ use File::Basename;
 
 my($input_file, $help, $verbose, $debug);
 
+my $current_dir = getcwd()."/";
 my $conversion = 1;
 my $output_file_pattern;
 
@@ -106,7 +107,7 @@ sub format_table_qiime_2_R { # creates an R_formatted version of a qiime table f
 
   }
 
-  open(R_TABLE_OUT, ">", $R_table_out) or die "Can't open T_TABLE_OUT $R_table_out";
+  open(R_TABLE_OUT, ">", $R_table_out) or die "Can't open R_TABLE_OUT $R_table_out";
   print R_TABLE_OUT $header_line_out."\n".join("\n",@out_lines)."\n"; # print R formatted data to file
 
 }
@@ -153,7 +154,7 @@ sub format_table_qiime_2_R_qiime_ID { # creates an R_formatted version of a qiim
 
   }
 
-  open(R_TABLE_OUT, ">", $R_table_out) or die "Can't open T_TABLE_OUT $R_table_out";
+  open(R_TABLE_OUT, ">", $R_table_out) or die "Can't open R_TABLE_OUT $R_table_out";
   print R_TABLE_OUT $header_line_out."\n".join("\n",@out_lines)."\n"; # print R formatted data to file
 
 }
@@ -200,7 +201,7 @@ sub format_table_qiime_2_R_qiime_ID_and_tax { # creates an R_formatted version o
 
   }
 
-  open(R_TABLE_OUT, ">", $R_table_out) or die "Can't open T_TABLE_OUT $R_table_out";
+  open(R_TABLE_OUT, ">", $R_table_out) or die "Can't open R_TABLE_OUT $R_table_out";
   print R_TABLE_OUT $header_line_out."\n".join("\n",@out_lines)."\n"; # print R formatted data to file
   #print R_TABLE_OUT join("\n",@out_lines)."\n"; # print R formatted data to file
   
@@ -247,7 +248,7 @@ sub format_table_R_2_qiime { # script assumes just one line of header for R form
   
   }
 
-  open(QIIME_TABLE_OUT, ">", $qiime_table_out);
+  open(QIIME_TABLE_OUT, ">", $qiime_table_out) or die "Can't open QIIME_TABLE_OUT $qiime_table_out";
   print QIIME_TABLE_OUT $header_line_out."\n".join("\n",@out_lines);
   
 }
@@ -299,7 +300,7 @@ sub format_table_R_2_qiime_with_prepended_qiime_IDs { # script assumes just one 
   
   }
 
-  open(QIIME_TABLE_OUT, ">", $qiime_table_out);
+  open(QIIME_TABLE_OUT, ">",$qiime_table_out) or die "Can't open QIIME_TABLE_OUT $qiime_table_out";
   print QIIME_TABLE_OUT $header_line_out."\n".join("\n",@out_lines);
   
 }
@@ -325,12 +326,12 @@ USAGE: qiime_2_R.pl [-i input_file] [-o output_file_pattern] [-c conversion]
     -i|input_file                 (string)  NO DEFAULT
                                               original data file
 
-    -o|output_file_pattern        (string)  default = --input_file
+    -o|output_file_pattern        (string)  default = -input_file
                                               The outputfile will be name as
                                                    output_file_pattern.R_table(...) or
                                                    output_file_pattern.Qiime_table(...)
 
-    -c|conversion                 (int)     default = 1
+    -c|conversion                 (int)     default = $conversion
                                                    1 convert qiime to R - index by tax string
                                                    2 convert qiime to R - index by qiime id 
                                                    3 convert qiime to R - index by qiime id and
@@ -339,7 +340,8 @@ USAGE: qiime_2_R.pl [-i input_file] [-o output_file_pattern] [-c conversion]
                                                    4 convert R to qiime with arbitrary IDs
                                                    5 convert R to qiime with qiime IDs
                                                      (Note: input to 5 must be output from 3)
-________________________________________________________________________________________
+
+ _______________________________________________________________________________________
 
     -h|help                       (flag)       see the help/usage
     -v|verbose                    (flag)       run in verbose mode

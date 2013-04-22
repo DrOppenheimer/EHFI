@@ -140,21 +140,6 @@ if ( $dist_method =~ m/frac/ ){
   }
 }
 
-# exit if qiime pipe is selected with R_table
-if( $dist_pipe eq "qiime_pipe" ){
-  if( $qiime_format eq "biom" ){
-    print $log_file "dist_pipe: ( ".$dist_pipe." ) is ok with qiime_format ( ".$qiime_format." ), proceeding"."\n";
-  }elsif ( $qiime_format eq "qiime_table" ){
-    print $log_file "dist_pipe: ( ".$dist_pipe." ) is ok with qiime_format ( ".$qiime_format." ), proceeding"."\n";
-  }else{
-    print $log_file "dist_pipe: ( ".$dist_pipe." ) is not compatible with qiime_format ( ".$qiime_format." )"."\n".
-      "you must choose biom or qiime_table as a qiime_format with the qiime_pip"."\n";
-    print STDOUT "dist_pipe: ( ".$dist_pipe." ) is not compatible with qiime_format ( ".$qiime_format." )"."\n".
-      "you must choose biom or qiime_table as a qiime_format with the qiime_pip"."\n";
-    exit 1;
-  }
-}
-
 # function to log running status
 my $running_text = &running();
 print $log_file $running_text;
@@ -194,37 +179,37 @@ if ( $dist_method =~ m/frac/ ){
 
 # process original (non permuted) data using qiime to calculate all distances/ dissimilarities
 if ( $dist_pipe eq "qiime_pipe" ){
-  process_original_qiime_data($dist_pipe, $data_file, $qiime_format, $dist_method, $tree, $input_dir, $output_dir, $log_file, $DIR)
+  process_original_qiime_data($data_file, $qiime_format, $dist_method, $tree, $input_dir, $output_dir, $log_file, $DIR)
 }elsif ( $dist_pipe eq "OTU_pipe" ){
-    process_original_OTU_data($dist_pipe, $data_file, $dist_method, $input_dir, $output_dir, $log_file, $DIR)
+    process_original_OTU_data($data_file, $dist_method, $input_dir, $output_dir, $log_file, $DIR)
 }elsif ( $dist_pipe eq "MG-RAST_pipe" ){
-        process_original_data($dist_pipe, $data_file, $dist_method, $input_dir, $output_dir, $log_file, $DIR)
+        process_original_data($data_file, $dist_method, $input_dir, $output_dir, $log_file, $DIR)
 }else{
   print STDOUT "\n\n"."The selected dist_pipe (".$dist_pipe.") is not recognized - please check and try again"."\n";
   print $log_file "\n\n"."The selected dist_pipe (".$dist_pipe.") is not recognized - please check and try again"."\n";
   exit 1;
 }
 
-# #  If qiime_pipe is used, make sure there is an R_table version of the data that can be used to generate permutations
-# if ( $dist_pipe eq "qiime_pipe" ){
-#   unless ( $qiime_format eq "R_table" ){
-#     print $log_file "\n"."executing: $DIR/qiime_2_R.pl -i $input_dir$data_file -o $input_dir$data_file -c 3"."\n\n";
-#     system("$DIR/qiime_2_R.pl -i $input_dir$data_file -o $input_dir$data_file -c 3");
-#     print $log_file "create R-formatted version of qiime abundance table:"."\n".
-#       "( qiime_2_R.pl -i $input_dir$data_file -o $input_dir$data_file -c 3 )"."\n".
-# 	"DONE at:"."\t".`date +%m-%d-%y_%H:%M:%S`."\n\n";
-#   }
-# }
+#  If qiime_pipe is used, and the qiime_format is changed to R_table if it is other
+if ( $dist_pipe eq "qiime_pipe" ){
+  unless ( $qiime_format eq "R_table" ){
+    print $log_file "\n"."executing: $DIR/qiime_2_R.pl -i $input_dir$data_file -o $input_dir$data_file -c 3"."\n\n";
+    system("$DIR/qiime_2_R.pl -i $input_dir$data_file -o $input_dir$data_file -c 3");
+    print $log_file "create R-formatted version of qiime abundance table:"."\n".
+      "( qiime_2_R.pl -i $input_dir$data_file -o $input_dir$data_file -c 3 )"."\n".
+	"DONE at:"."\t".`date +%m-%d-%y_%H:%M:%S`."\n\n";
+  }
+}
 
 
 
 # generate and process permuted data
 if ( $dist_pipe eq "qiime_pipe" ){
-  process_permuted_qiime_data($dist_pipe, $data_file, $output_dir, $perm_list, $num_cpus, $perm_dir, $output_PCoA_dir, $output_DIST_dir, $output_avg_DISTs_dir, $dist_method, $tree, $headers, $log_file, $DIR)
+  process_permuted_qiime_data($data_file, $output_dir, $perm_list, $num_cpus, $perm_dir, $output_PCoA_dir, $output_DIST_dir, $output_avg_DISTs_dir, $dist_method, $tree, $headers, $log_file, $DIR)
 }elsif ( $dist_pipe eq "OTU_pipe" ){
-  process_permuted_OTU_data($dist_pipe, $data_file, $output_dir, $perm_list, $num_cpus, $perm_dir, $output_PCoA_dir, $output_DIST_dir, $output_avg_DISTs_dir, $dist_method, $headers, $log_file, $DIR)
+  process_permuted_OTU_data($data_file, $output_dir, $perm_list, $num_cpus, $perm_dir, $output_PCoA_dir, $output_DIST_dir, $output_avg_DISTs_dir, $dist_method, $headers, $log_file, $DIR)
 }elsif ( $dist_pipe eq "MG-RAST_pipe" ) {
-  process_permuted_data($dist_pipe, $data_file, $output_dir, $perm_list, $num_cpus, $perm_dir, $output_PCoA_dir, $output_DIST_dir, $output_avg_DISTs_dir, $dist_method, $headers, $log_file, $DIR)
+  process_permuted_data($data_file, $output_dir, $perm_list, $num_cpus, $perm_dir, $output_PCoA_dir, $output_DIST_dir, $output_avg_DISTs_dir, $dist_method, $headers, $log_file, $DIR)
 }else{
   print STDOUT "\n\n"."The selected dist_pipe (".$dist_pipe.") is not recognized - please check and try again"."\n";
   print $log_file "\n\n"."The selected dist_pipe (".$dist_pipe.") is not recognized - please check and try again"."\n";
@@ -322,9 +307,10 @@ USAGE:
                                               OTU_pipe     - distances calculated with custom R scripts
     -q|qiime_format       (string)  default = $qiime_format 
                                     input qiime format (only used if dist_pipe = qiime_pipe)
-                                         --> choose from the following 2 formats <--    
+                                         --> choose from the following 3 formats <--    
                                               biom        - biom file format (see http://www.biom-format.org)
                                               qiime_table - original qiime table format (tab delimited table)
+                                              R_table     - original qiime table formatted in an R-friendly way
     -a|tree               (string)  !!! NO DEFAULT !!!
                                     path/file for *.tre file
                                     example: /home/ubuntu/software/gg_otus-4feb2011-release/trees/gg_97_otus_4feb2011.tre
@@ -377,36 +363,8 @@ sub list_dir {
   my @dir_files_list = grep /$list_pattern/, readdir DIR; 
   print DIR_LIST join("\n", @dir_files_list); print DIR_LIST "\n";
   closedir DIR;
-
-  return @dir_files_list;
   
 }
-
-
-
-
-# sub list_dir {
-  
-#   my($dir_name, $list_pattern) = @_;
-  
-#   opendir(DIR, $dir_name) or die "\n\n"."can't open DIR $dir_name"."\n\n";
-  
-#   my @dir_files_list = grep /$list_pattern/, readdir DIR; 
-#   closedir DIR;
-  
-#   my @filtered_dir_files_list;
-#   while (my $dir_object = shift(@dir_files_list)) {
-#     $dir_object =~ s/^\.//;
-#     push(@filtered_dir_files_list, $dir_object);
-#     #print "DIR  ".$dir_name.$dir_object."\n";
-#   }
-  
-#   return @filtered_dir_files_list;
-  
-# }
-
-
-
 
 
 
@@ -436,7 +394,7 @@ sub correct_line_terminators {
 # Process the original (non permuted) data, MG-RAST annotations
 sub process_original_data {
 
-  my ($dist_pipe, $data_file, $dist_method, $input_dir, $output_dir, $log_file, $DIR) = @_;
+  my ($data_file, $dist_method, $input_dir, $output_dir, $log_file, $DIR) = @_;
 
   # process the original data_file to produce PCoA and DIST files
   my $original_data_dists_string = "$DIR/plot_pco_shell.sh $data_file $input_dir $output_dir 1 $output_dir $dist_method $headers";   		  
@@ -456,91 +414,75 @@ sub process_original_data {
 # Process the original (non permuted) data, Qiime annotations
 sub process_original_qiime_data {
 
-  my ($dist_pipe, $data_file, $qiime_format, $dist_method, $tree, $input_dir, $output_dir, $log_file, $DIR) = @_;
+  my ($data_file, $qiime_format, $dist_method, $tree, $input_dir, $output_dir, $log_file, $DIR) = @_;
    
-  # create name for biom formatted file
+  # File convesion -- ends up with a table in the old qiime_table format
+  # Three possible input types are qiime_table (just gets copied), biom, or R table -- latter 2 are converted as needed
+  # by convert_biom.py (qiime) or qiime_2_R.pl (Kevin)
+ 
   my $biom_file = $data_file.".biom";
-  my $R_table_file = $data_file.".R_table";
-  my $qiime_table = $data_file.".qiime_table";
-  
-  # file conversions -- copy biom to biom, convert qiime_table to biom, or quit
-  if ( $qiime_format eq "qiime_table" ){ # handle qiime_table format as input
-    print $log_file "dist_pipe is (".$dist_pipe.") and qiime_format is (".$qiime_format.")"."\n".
-      "if this is not correct - processing will fail unexpected results"."\n".
-      "converting $qiime_format to biom format for compatibility qiime beta_diversity.py"."\n"; 
-    my $qiime_table_2_biom_string = "convert_biom.py -i $input_dir$data_file -o $output_dir$biom_file --biom_table_type=\"otu table\""; 
-    print $log_file "\n"."executing:"."\n".$qiime_table_2_biom_string."\n";
-    system($qiime_table_2_biom_string); 
-    print $log_file "\n"."Creating R_table from qiime_table";
-    my $qiime_table_2_R_table_string = "$DIR/qiime_2_R.pl -i $input_dir$data_file -c 3 -o $output_dir$data_file";
-    print $log_file "\n"."executing:"."\n".$qiime_table_2_R_table_string."\n";
-    system($qiime_table_2_R_table_string);
-    print $log_file "\n"."Copying qiime_table from qiime_table";
-    my $copy_qiime_table_string = "cp $input_dir$data_file $output_dir$qiime_table";
-    print $log_file "\n"."executing:"."\n".$copy_qiime_table_string."\n";
-    system($copy_qiime_table_string);
-    print $log_file "DONE at:"."\t".`date +%m-%d-%y_%H:%M:%S`."\n\n"; 
-  
-  }elsif( $qiime_format eq "biom" ){ # handle biom format as input
+  if ( $qiime_format eq "biom" ){ # handle biom format as input
     print $log_file "dist_pipe is (".$dist_pipe.") and qiime_format is (".$qiime_format.")".      
-      "OK"."\n".
+      "assuming input is biom format, converting to old qiime table"."\n".
+	"if this is not correct - processing will fail unexpected results"."\n";
+    print $log_file "If your biom data are in another format (qiime_table or r_table, indiciate with the qiime_format option )";
+    print $log_file "\n"."executing: convert_biom.py -i $input_dir$data_file -o $output_dir$biom_file --biom_table_type=\"otu table\""."\n\n";
+    system("convert_biom.py -i $input_dir$data_file -o $output_dir$biom_file --biom_table_type=\"otu table\""); 
+    print $log_file "convert data_file to biom format"."\n".
+      "( ".$data_file." > ".$data_file.".biom )"."\n".
+	"DONE at:"."\t".`date +%m-%d-%y_%H:%M:%S`."\n\n"; 
+  }elsif( $qiime_format eq "qiime_table" ){ # handle qiime_table format as input
+    print $log_file "dist_pipe is (".$dist_pipe.") and qiime_format is (".$qiime_format.")".      
+      "assuming input is qiime_table"."\n".
 	"if this is not correct - processing will fail unexpected results"."\n";
     print $log_file "If your biom data are in another format (biom or r_table, indiciate with the qiime_format option )";
-    my $copy_biom_string = "cp $input_dir$data_file $output_dir$biom_file";
-    print $log_file "\n"."executing:"."\n".$copy_biom_string."\n";
-    system($copy_biom_string);
-    print $log_file "\n"."Creating qiime_table from biom file";
-    my $biom_2_qiime_table_string = "convert_biom.py -b -i $output_dir$biom_file -o $output_dir$qiime_table --header_key taxonomy";
-    print $log_file "\n"."executing:"."\n".$biom_2_qiime_table_string."\n";
-    system($biom_2_qiime_table_string);
-    print $log_file  "\n"."Creating R_table from qiime_table";
-    my $qiime_table_2_R_table_string = "$DIR/qiime_2_R.pl -i $input_dir$data_file -c 3 -o $output_dir$data_file";
-    print $log_file "\n"."executing:"."\n".$qiime_table_2_R_table_string."\n";
-    system($qiime_table_2_R_table_string);
-    print $log_file "DONE at:"."\t".`date +%m-%d-%y_%H:%M:%S`."\n\n";
-  
-  }else{ # handle R_table format as input (fail)
-    print $log_file "dist_pipe is (".$dist_pipe.") and qiime_format is (".$qiime_format.")"."\n"."These are not compatible"."\n";
-    print STDOUT "dist_pipe is (".$dist_pipe.") and qiime_format is (".$qiime_format.")"."\n"."These are not compatible"."\n";
-    print $log_file "DONE at:"."\t".`date +%m-%d-%y_%H:%M:%S`."\n\n";
-    exit 1;
+    print $log_file "\n"."executing: mv $input_dir$data_file $output_dir$biom_file"."\n\n";
+    system("mv $input_dir$data_file $output_dir$biom_file");
+  }else{ # handle R_table format as input
+    print $log_file "dist_pipe is (".$dist_pipe.") and qiime_format is (".$qiime_format.")".      
+      "assuming input is R_table"."\n".
+	"if this is not correct - processing will fail with unexpected results"."\n";
+    print $log_file "If your biom data are in another format (biom or qiime_table, indiciate with the qiime_format option )";
+    print $log_file "$DIR/qiime_2_R.pl -i $input_dir$data_file -o $output_dir$biom_file -c 5"."\n";
+    system("$DIR/qiime_2_R.pl -i $input_dir$data_file -o $output_dir$biom_file -c 5")
   }
   
   ##### produce a distance matrix (*.DIST) using qiime - *.tre needed for phylogenetically aware metrics (i.e. unifracs)
-  # calculate unifrac or weighted-unifrac distance
+  print $log_file "produce distance matrix with qiime:"."\n".
+    "( ".$data_file.".biom > ".$output_dir."distance-metric_".$data_file.".biom )"."\n";
+
+  # add the tree argument to beta_diversity.py for unifrac (phylogenetically aware) analyses
   if ( $dist_method =~ m/frac/) { 
-    
-    my $calculate_frac_distance_string = "beta_diversity.py -i $output_dir$biom_file -o $output_dir -m $dist_method -t $tree"."\n\n";
-    print $log_file "\n"."executing:"."\n".$calculate_frac_distance_string."\n";
-    system($calculate_frac_distance_string);
-    print $log_file "DONE at:"."\t".`date +%m-%d-%y_%H:%M:%S`."\n\n";
-  
-  }else{ # calculate non "frac" distances
-
-    my $calculate_non_frac_distance_string = "beta_diversity.py -i $output_dir$biom_file -o $output_dir -m $dist_method";
-    print $log_file "\n"."executing:"."\n".$calculate_non_frac_distance_string."\n";
-    system($calculate_non_frac_distance_string);
-    print $log_file "DONE at:"."\t".`date +%m-%d-%y_%H:%M:%S`."\n\n"; 
-
+    print $log_file "\n"."executing: beta_diversity.py -i $output_dir$biom_file -o $output_dir -m $dist_method -t $tree"."\n\n";
+    system("beta_diversity.py -i $output_dir$biom_file -o $output_dir -m $dist_method -t $tree");
+    print $log_file "qiime-based distance analysis:"."\n".
+      "( beta_diversity.py -i $output_dir$biom_file -o $output_dir -m $dist_method -t $tree )"."\n".
+	"DONE at:"."\t".`date +%m-%d-%y_%H:%M:%S`."\n\n";
+  }else{
+    print $log_file "\n"."executing beta_diversity.py -i $output_dir$biom_file -o $output_dir -m $dist_method"."\n\n";
+    system("beta_diversity.py -i $output_dir$biom_file -o $output_dir -m $dist_method");
+    print $log_file "qiime-based distance analysis:"."\n".
+      "( beta_diversity.py -i $output_dir$biom_file -o $output_dir -m $dist_method )"."\n".
+	"DONE at:"."\t".`date +%m-%d-%y_%H:%M:%S`."\n\n"; 
   }
   
   # rename the output dist file
   my $qimme_dist_filename = $output_dir.$dist_method."_".$data_file.".txt";
-  my $dist_filename = $data_file.".".$dist_method.".DIST";
-  my $rename_dist_string = "mv $qimme_dist_filename $output_dir$dist_filename";
-  print $log_file "\n"."executing:".$rename_dist_string."\n";
-  system($rename_dist_string);
-  print $log_file "DONE at:"."\t".`date +%m-%d-%y_%H:%M:%S`."\n\n";
+  my $dist_filename = $output_dir.$dist_method."_".$data_file.".DIST";
+  print $log_file "\n"."executing: mv $qimme_dist_filename $dist_filename"."\n\n";
+  system("mv $qimme_dist_filename $dist_filename");
 
-  # generate PCoA
-  my $pcoa_file = $data_file.".".$dist_method.".PCoA";
-  my $perform_pcoa_string = "$DIR/plot_qiime_pco_shell.sh $output_dir$dist_filename $output_dir$pcoa_file";
-  print $log_file "\n"."executing:"."\n".$perform_pcoa_string."\n";
-  system($perform_pcoa_string);
-  print $log_file "DONE at:"."\t".`date +%m-%d-%y_%H:%M:%S`."\n\n"; 
+  # use R to produce a PCoA from the distance matrix
+  my $pcoa_file = $output_dir.$dist_method."_".$data_file.".PCoA";
+  print $log_file "\n"."executing: $DIR/plot_qiime_pco_shell.sh $dist_filename $pcoa_file"."\n\n";
+  system("$DIR/plot_qiime_pco_shell.sh $dist_filename $pcoa_file");
+  print $log_file "produce PCoA from qiime distance:"."\n".
+    "( plot_qiime_pco_shell.sh $dist_filename $pcoa_file )"."\n".
+      "DONE at:"."\t".`date +%m-%d-%y_%H:%M:%S`."\n\n"; 
 
-  # create average_dist file
-  my $avg_dist_filename = $data_file.".".$dist_method.".DIST";
+  # create AVG_DIST file for the original data
+  $dist_filename = $dist_method."_".$data_file.".DIST";
+  my $avg_dist_filename = $dist_method."_".$data_file; ####### Kevin 4-2-13 does not look right 
   print $log_file "\n"."executing: $DIR/avg_distances.sh $dist_filename $output_dir $groups_list $avg_dist_filename $output_dir"."\n\n";
   system("$DIR/avg_distances.sh $dist_filename $output_dir $groups_list $avg_dist_filename $output_dir");
   print $log_file "Produce *.AVG_DIST file from the original data *.DIST file"."\n"."DONE at:"."\t".`date +%m-%d-%y_%H:%M:%S`."\n";
@@ -552,7 +494,7 @@ sub process_original_qiime_data {
 # Process the original (non permuted) data, with OTU distances
 sub process_original_OTU_data {
 
-  my ($dist_pipe, $data_file, $dist_method, $input_dir, $output_dir, $log_file, $DIR) = @_;
+  my($data_file, $dist_method, $input_dir, $output_dir, $log_file, $DIR) = @_;
 
   # process the original data_file to produce PCoA and DIST files
   print $log_file "process original data file (".$data_file.") > *.PCoA & *.DIST ... "."\n";
@@ -573,11 +515,11 @@ sub process_original_OTU_data {
 
 sub process_permuted_data {
 
-  my($dist_pipe, $data_file, $output_dir, $perm_list, $num_cpus, $perm_dir, $output_PCoA_dir, $output_DIST_dir, $output_avg_DISTs_dir, $dist_method, $headers, $log_file, $DIR) = @_;
+  my($data_file, $output_dir, $perm_list, $num_cpus, $perm_dir, $output_PCoA_dir, $output_DIST_dir, $output_avg_DISTs_dir, $dist_method, $headers, $log_file, $DIR) = @_;
 
   # use R script sample_matrix.r to generate permutations of the original data
   print $log_file "generate (".$num_perm.") permutations ... "."\n";
-
+  
   #create R script to generate permutations
   my $R_permutation_script_string = (
 				     "# script generated by plot_pco_with_stats.pl to run sample_matrix.r"."\n".
@@ -641,109 +583,89 @@ sub process_permuted_data {
 
 
 
-sub process_permuted_qiime_data { # starts with biom format
+sub process_permuted_qiime_data {
 
-  my($dist_pipe, $data_file, $output_dir, $perm_list, $num_cpus, $perm_dir, $output_PCoA_dir, $output_DIST_dir, $output_avg_DISTs_dir, $dist_method, $tree, $headers, $log_file, $DIR) = @_;
+  my($data_file, $output_dir, $perm_list, $num_cpus, $perm_dir, $output_PCoA_dir, $output_DIST_dir, $output_avg_DISTs_dir, $dist_method, $tree, $headers, $log_file, $DIR) = @_;
 
   # Create a version of the QIIME table in R friendly format
-  my $qiime_table_2_R_table_string = "$DIR/qiime_2_R.pl -i $input_dir$data_file -o $output_dir$data_file -c 3";
-  print $log_file "\n"."executing:"."\n".$qiime_table_2_R_table_string."\n";
-  system( $qiime_table_2_R_table_string );
-  print $log_file "DONE at:"."\t".`date +%m-%d-%y_%H:%M:%S`."\n\n";
+  print $log_file "\n"."executing: $DIR/qiime_2_R.pl -i $input_dir$data_file -o $input_dir$data_file -c 3"."\n\n";
+  system("$DIR/qiime_2_R.pl -i $input_dir$data_file -o $input_dir$data_file -c 3");
+  print STDERR "create R-formatted version of qiime abundance table:"."\n".
+    "( $DIR/qiime_2_R.pl -i $input_dir$data_file -o $input_dir$data_file -c 3 )"."\n".
+      "DONE at:"."\t".`date +%m-%d-%y_%H:%M:%S`."\n\n";
 
   # use R script sample_matrix.r to generate permutations of the original data
-  print $log_file "generate (".$num_perm.") permutations ... "."\n";
-
-  #create R script to generate the R_table permutations
-  my $R_permutation_script_string = (
-				     "# script generated by plot_qiime_pco_with_stats.pl to run sample_matrix.r"."\n".
-				     "source(\"$DIR/sample_matrix.9-18-12.r\")"."\n".
-				     "sample_matrix(file_name = \"$data_file.qiime_ID_and_tax_string.R_table\", file_dir = \"$output_dir\", num_perm = $num_perm, perm_type = \"$perm_type\", write_files = 1, perm_dir = \"$perm_dir\", verbose = 0, debug = 1)"
-				    );
-  my $R_rand_script = "$data_file.R_sample_script.".$time_stamp.".r";
-  print $log_file "\n".$R_rand_script." contains this:"."\n".$R_permutation_script_string."\n\n"; 
+  my $R_rand_script = "R_sample_matrix_script.".$time_stamp.".r"; # create R script to generate permutations
+  my $R_data_file = $data_file.".qiime_ID_and_tax_string.R_table";
+  if ($debug){print "R_data_file: $R_data_file"."\n";}
   open(R_SCRIPT, ">", $R_rand_script) or die "cannot open R_SCRIPT $R_rand_script";
-  print R_SCRIPT $R_permutation_script_string;
+  print R_SCRIPT (
+		  "# script generated by plot_qiime_pco_with_stats.pl to run sample_matrix.r"."\n".
+		  "source(\"$DIR/sample_matrix.9-18-12.r\")"."\n".
+		  "sample_matrix(file_name = \"$R_data_file\", file_dir = \"$input_dir\", num_perm = $num_perm, perm_type = \"$perm_type\", write_files = 1, perm_dir = \"$perm_dir\", verbose = 0, debug = 1)"
+	       );
+  print $log_file "\n"."executing: R --vanilla --slave < $R_rand_script"."\n\n";
+  system( "R --vanilla --slave < $R_rand_script" ); # run the script
+  print $log_file "rm $R_rand_script"."\n";
+  system( "rm $R_rand_script" );
+  print STDERR "generated (".$num_perm.") permutations in $perm_dir "."\n".
+    "DONE at:"."\t".`date +%m-%d-%y_%H:%M:%S`."\n\n";
 
-  # run the R script to generate the permuted R_table(s)
-  my $generate_permutations_string = "R --vanilla --slave < $R_rand_script";
-  print $log_file "\n"."executing:"."\n".$generate_permutations_string."\n";
-  system($generate_permutations_string);
-  print $log_file "DONE at:"."\t".`date +%m-%d-%y_%H:%M:%S`."\n\n";
 
-  # Delete the R script that created the permutations
-  my $delete_permutation_script_string = "rm $R_rand_script";
-  print $log_file "\n"."executing:"."\n".$delete_permutation_script_string."\n";
-  system($delete_permutation_script_string);
-  print $log_file "DONE at:"."\t".`date +%m-%d-%y_%H:%M:%S`."\n\n";
-
-  # create list of the permuated R_tables
+  # generate qiime formatted versions of the permuted data tables # could use xargs here too
   my $R_table_perm_list = $perm_list.".R_table";
-  my @R_permutation_list = &list_dir($perm_dir, "R_table",  $output_dir.$R_table_perm_list);
-  
-  # generate qiime formatted versions of the permuted data tables # could use xargs here too ?
+  my @R_permutation_list = &list_dir($perm_dir, "R_table", $output_dir.$R_table_perm_list);
   foreach my $R_permutation (@R_permutation_list){
-    if ( $debug ){ print "HELLO - R_PERM:     ".$R_permutation."\n"; }
-    my $R_table_2_qiime_table_string = "$DIR/qiime_2_R.pl -i $perm_dir$R_permutation -c 5";
-    print $log_file "\n"."executing:"."\n".$R_table_2_qiime_table_string."\n";
-    system($R_table_2_qiime_table_string);
-    #if($cleanup){ # delete R_tables (keep qiime_tables)
-    my $cleanup_string = "rm $perm_dir$R_permutation";
-    print $log_file "\n"."executing:".$cleanup_string."\n";
-    system($cleanup_string);
-    #}
+    print $log_file "\n"."executing: $DIR/qiime_2_R.pl -i $perm_dir$R_permutation -c 5"."\n\n";
+    system("$DIR/qiime_2_R.pl -i $perm_dir$R_permutation -c 5");
+    if($cleanup){
+      print $log_file "\n"."executing: rm $perm_dir$R_permutation"."\n\n";
+      system("rm $perm_dir$R_permutation");
+    }
   }
-  print $log_file "DONE at:"."\t".`date +%m-%d-%y_%H:%M:%S`."\n\n";
+  print $log_file "Generated *.Qiime_table files from *.R_table files in $perm_dir"."\n".
+    "deleted *.R_table"."\n".
+      "DONE at:"."\t".`date +%m-%d-%y_%H:%M:%S`."\n\n";
 
-  # generate biom format file for each qiime_formattted permutation table # could use xargs here too ?
-  # generate list of the qiime_table files
+  # generate biom format files from each qiime_formattted table # could use xargs here too
   my $qiime_table_perm_list = $perm_list.".qiime_table";
-  my @Qiime_permutation_list = &list_dir($perm_dir, "Qiime_table\$",  $output_dir.$qiime_table_perm_list);
-  # create biom file for each qiime_table file
+  my @Qiime_permutation_list = &list_dir($perm_dir, "Qiime_table\$", $output_dir.$qiime_table_perm_list);
   foreach my $Qiime_permutation (@Qiime_permutation_list){
-    if ( $debug ){ print "HELLO - QIIME_PERM: ".$Qiime_permutation."\n"; }
     my $biom_permutation = $Qiime_permutation.".biom";
-    my $qiime_table_2_biom_string = "convert_biom.py -i $perm_dir$Qiime_permutation -o $perm_dir$biom_permutation --biom_table_type=\"otu table\"";  
-    print $log_file "\n"."executing:"."\n".$qiime_table_2_biom_string."\n";
-    system($qiime_table_2_biom_string);
-    #if($cleanup){ # delete qiime_tables -- leaving the permuted biom files ...
-    my $cleanup_string = "rm $perm_dir$Qiime_permutation";
-    print $log_file "\n"."executing:"."\n".$cleanup_string."\n";
-    system($cleanup_string);
-    #}
+    print $log_file "\n"."executing: convert_biom.py -i $perm_dir$Qiime_permutation -o $perm_dir$biom_permutation --biom_table_type=\"otu table\""."\n\n";
+    system("convert_biom.py -i $perm_dir$Qiime_permutation -o $perm_dir$biom_permutation --biom_table_type=\"otu table\"");
+    if($cleanup){
+      print $log_file "\n"."executing: rm $perm_dir$Qiime_permutation"."\n\n";
+      system("rm $perm_dir$Qiime_permutation");
+    }
   }
-  print $log_file "DONE at:"."\t".`date +%m-%d-%y_%H:%M:%S`."\n\n";
- 
+  print $log_file "Generated biom tables from Qiime_formatted tables in $perm_dir"."\n".
+    "deleted *.Qiime_table"."\n".
+      "DONE at:"."\t".`date +%m-%d-%y_%H:%M:%S`."\n\n";
+
   # produce *.DIST files for each permutation - using qiime beta_diversity.py
-  # generate list of the biom files
-  #my $biom_file_list = "$perm_dir".$perm_list."."."biom_file_list";
-  my $biom_file_list = $perm_list.".biom";
-  if ($debug){print STDOUT "Hello"; print $log_file "\n\n"."Hello"."\n\n"."biom_list_file: ".$output_dir.$biom_file_list."\n\n"; }
-  my @biom_permutation_list = &list_dir($perm_dir, ".biom\$",  $output_dir.$biom_file_list);  
-  #open(BIOM_FILE_LIST, ">", $biom_file_list);
-  #print BIOM_FILE_LIST join("\n", @biom_permutation_list);
-  #close(BIOM_FILE_LIST);
-  if ($debug){print STDERR "HELLO.1"."\n";}
+  my @biom_permutation_list = &list_dir($perm_dir, ".biom\$");
+  my $biom_file_list = "$perm_dir"."biom_file_list";
+  open(BIOM_FILE_LIST, ">", $biom_file_list);
+  print BIOM_FILE_LIST join("\n", @biom_permutation_list);
+  close(BIOM_FILE_LIST);
 
-
-  # generate Qiime based distances
   if ( $dist_method =~ m/frac/ ) { # add the tree argument to beta_diversity.py for unifrac (phylogenetically aware) analyses
-    my $calc_frac_dists_string = "cat $output_dir$biom_file_list | xargs  -n1 -P $num_cpus -I{} beta_diversity.py -i '$perm_dir'{} -o $output_DIST_dir -m $dist_method -t $tree";
-    print $log_file "\n"."executing:"."\n".$calc_frac_dists_string."\n";
-    system( $calc_frac_dists_string );
-    "DONE at:"."\t".`date +%m-%d-%y_%H:%M:%S`."\n\n";
+    print $log_file "\n"."executing: cat $biom_file_list | xargs  -n1 -P $num_cpus -I{} beta_diversity.py -i '$perm_dir'{} -o $output_DIST_dir -m $dist_method -t $tree"."\n\n";
+    system( "cat $biom_file_list | xargs  -n1 -P $num_cpus -I{} beta_diversity.py -i '$perm_dir'{} -o $output_DIST_dir -m $dist_method -t $tree" );
+    
   }else{
-    my $calc_non_frac_dists_string = "cat $output_dir$biom_file_list | xargs  -n1 -P $num_cpus -I{} beta_diversity.py -i '$perm_dir'{} -o $output_DIST_dir -m $dist_method";
-    print $log_file "\n"."executing:"."\n".$calc_non_frac_dists_string."\n";
-    system( $calc_non_frac_dists_string );
-    "DONE at:"."\t".`date +%m-%d-%y_%H:%M:%S`."\n\n";
-  }
+    print $log_file "\n"."executing: cat $biom_file_list | xargs  -n1 -P $num_cpus -I{} beta_diversity.py -i '$perm_dir'{} -o $output_DIST_dir -m $dist_method"."\n\n";
+    system( "cat $biom_file_list | xargs  -n1 -P $num_cpus -I{} beta_diversity.py -i '$perm_dir'{} -o $output_DIST_dir -m $dist_method" );
+    
+}
+  print $log_file "produced *.DIST (distance matrixes) for each of (".$num_perm.") permutations in $perm_dir"."\n".
+    "Note that they have a *.txt extension, not *.DIST"."\n".
+      "DONE at:"."\t".`date +%m-%d-%y_%H:%M:%S`."\n\n";
 
-  if ($debug){print STDERR "HELLO.2"."\n";}
-  
   # produce *.AVG_DIST file for each *.DIST file
+  my @dist_permutation_list = &list_dir($output_DIST_dir, ".txt");
   my $dist_file_list = $output_DIST_dir."dist_file_list";
-  my @dist_permutation_list = &list_dir($output_DIST_dir, ".txt", $dist_file_list);
   open(DIST_FILE_LIST, ">", $dist_file_list);
   print DIST_FILE_LIST join("\n", @dist_permutation_list);
   close(DIST_FILE_LIST);
@@ -752,14 +674,11 @@ sub process_permuted_qiime_data { # starts with biom format
   print $log_file "produced *.AVG_DIST (distance matrixes) for each of (".$num_perm.") permutations in $output_DIST_dir"."\n".
     "DONE at:"."\t".`date +%m-%d-%y_%H:%M:%S`."\n\n";
 
-
-  if ($debug){print STDERR "HELLO.3"."\n";}
   # Create a list of all the *.AVG_DIST files
   print $log_file "creating list of *.AVG_DIST files ... "."\n"; 
   &list_dir($output_avg_DISTs_dir, "AVG_DIST", $output_dir.$avg_dists_list);
   print $log_file "DONE at:"."\t".`date +%m-%d-%y_%H:%M:%S`."\n";
 
-  if ($debug){print STDERR "HELLO.4"."\n";}
   # Run the final script to calculate P values by comparing the original to all permutaion derived distances matrixes
   my $output_p_value_summary = $output_dir.$data_file.".".$dist_method.".P_VALUES_SUMMARY";
   my $og_avg_dist_filename = $output_dir.$data_file.".".$dist_method."."."DIST.AVG_DIST";
@@ -774,7 +693,7 @@ sub process_permuted_qiime_data { # starts with biom format
 
 sub process_permuted_OTU_data {
 
-  my($dist_pipe, $data_file, $output_dir, $perm_list, $num_cpus, $perm_dir, $output_PCoA_dir, $output_DIST_dir, $output_avg_DISTs_dir, $dist_method, $headers, $log_file, $DIR) = @_;
+  my($data_file, $output_dir, $perm_list, $num_cpus, $perm_dir, $output_PCoA_dir, $output_DIST_dir, $output_avg_DISTs_dir, $dist_method, $headers, $log_file, $DIR) = @_;
   
   # create R script to generate permutations
   print $log_file "generate (".$num_perm.") permutations ... "."\n";
