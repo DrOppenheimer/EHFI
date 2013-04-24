@@ -42,7 +42,7 @@ while (my $line = <FILE>){
   unless ( ($line =~ m/^#/) || ($line =~ m/^\s*$/) ){
 
     print LOG "Start Command_".$job_counter."( ".$log_prefix." ) at ".`date +%m-%d-%y_%H:%M:%S`.$line."\n";
-    my $job_log = $current_dir.$command_file.".".$log_prefix.".job_".$job_counter.".error_log";
+    my $job_log = $current_dir.$command_file.".".$log_prefix.".command_".$job_counter.".error_log";
     
     if($debug){
       print("MADE IT HERE (0)"."\n");
