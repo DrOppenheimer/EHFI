@@ -9,7 +9,7 @@ then
     echo "USAGE: >plot_pco_shell.sh <file_in> <file_out>"
     echo   
     echo "     <file_in>         : (string)  name of the input file (tab delimited file)"
-    echo "     <file_out>        : (string)  name of the input file (tab delimited file)"
+    echo "     <file_out>        : (string)  name of the output file (tab delimited file)"
     echo     
     exit 1
 fi
