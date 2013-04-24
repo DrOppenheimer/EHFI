@@ -8,28 +8,32 @@ use File::Basename;
 use Statistics::Descriptive;
 
 
-my($ouput_file, $within_file, $between_file, $help, $verbose, $debug);
+
+my($mode, $ouput_file, $within_pattern, $between_pattern, $within_file, $between_file, $help, $verbose, $debug);
 
 my $current_dir = getcwd()."/";
 $output_file = "Within_Between.P_VALUE_SUMMARY";
+$mode = "exact";
 
 if($debug){print STDOUT "made it here"."\n";}
 
 # path of this script
 my $DIR=dirname(abs_path($0));  # directory of the current script, used to find other scripts + datafiles
 
+
 # check input args and display usage if not suitable
 if ( (@ARGV > 0) && ($ARGV[0] =~ /-h/) ) { &usage(); }
 
-unless ( @ARGV > 0 || $within_file || $between_file  ) { &usage(); }
+unless ( @ARGV > 0 || $within_pattern || $between_pattern  ) { &usage(); }
 
 if ( ! GetOptions (
-		   "o|output_file=s"       => \$output_file,
-		   "w|within_stat_file=s"  => \$within_file,
-		   "b|between_stat_file=s" => \$between_file,
-		   "h|help!"               => \$help, 
-		   "v|verbose!"            => \$verbose,
-		   "d|debug!"              => \$debug
+		   "m|file_search_mode=s" => \$mode,
+		   "o|output_file=s"      => \$output_file,
+		   "w|within_pattern=s"   => \$within_pattern,
+		   "b|between_pattern=s"  => \$between_pattern,
+		   "h|help!"              => \$help, 
+		   "v|verbose!"           => \$verbose,
+		   "d|debug!"             => \$debug
 		  )
    ) { &usage(); }
 
@@ -38,6 +42,25 @@ if ( ! GetOptions (
 ###################### MAIN ######################
 ##################################################
 ##################################################
+
+if($debug){print STDOUT "mode: ".$mode."\n\n";}
+
+if($mode eq "pattern"){
+  my $within_search = $current_dir.qx(ls $within_pattern*/*SUMMARY);
+  chomp $within_search;
+  $within_file = $within_search;
+  
+  my $between_search = $current_dir.qx(ls $between_pattern*/*SUMMARY);
+  chomp $between_search;
+  $between_file = $between_search;
+  
+  #if($debug){print STDERR "within_file:"."\n"."###".$within_file."###\n";}
+  #if($debug){print STDERR "between_file:"."\n"."###".$between_file."###\n";}
+}else{
+  $within_file = $within_pattern;
+  $between_file = $between_pattern;
+}
+
 
 open(OUTPUT_FILE, ">", $output_file) or die "Can't open OUTPUT_FILE $output_file";
 open(WITHIN_FILE, "<", $within_file) or die "Can't open WITHIN_FILE $within_file";
@@ -102,33 +125,33 @@ while ( my $within_line = <WITHIN_FILE> )  {
 
 my $stat_1 = Statistics::Descriptive::Full->new();
 $stat_1->add_data(@within_og_dist);
-my $avg_og_dist_avg = $stat_1->mean();#my $avg_og_dist_avg = sprintf("%.4f", $stat_1->mean());
+my $w_avg_og_dist_avg = $stat_1->mean();#my $avg_og_dist_avg = sprintf("%.4f", $stat_1->mean());
 if ($debug){ print STDOUT "avg_og_dist_avg: ".$avg_og_dist_avg."\n"; }
 if ($debug){ print STDOUT "avg_og_dist_avg: ".sprintf("%.4f", $avg_og_dist_avg)."\n"; }
 
 my $stat_2 = Statistics::Descriptive::Full->new();
 $stat_2->add_data(@within_og_dist_stdev);
-my $avg_og_dist_stdev = $stat_2->mean();
+my $w_avg_og_dist_stdev = $stat_2->mean();
 
 my $stat_3 = Statistics::Descriptive::Full->new();
 $stat_3->add_data(@within_scaled_dist);
-my $avg_scaled_dist = $stat_3->mean();
+my $w_avg_scaled_dist = $stat_3->mean();
 
 my $stat_4 = Statistics::Descriptive::Full->new();
 $stat_4->add_data(@within_p);
-my $avg_p = $stat_4->mean();
+my $w_avg_p = $stat_4->mean();
 
 my $stat_5 = Statistics::Descriptive::Full->new();
 $stat_5->add_data(@within_perm);
-my $avg_num_perm = $stat_5->mean();
+my $w_avg_num_perm = $stat_5->mean();
 
 print OUTPUT_FILE (
 		   "# Within group summary (average):"."\t".
-		   sprintf("%.4f", $avg_og_dist_avg)."\t".
-		   sprintf("%.4f", $avg_og_dist_stdev)."\t".
-		   sprintf("%.4f", $avg_scaled_dist)."\t".
-		   sprintf("%.4f", $avg_p)."\t".
-		   sprintf("%.4f", $avg_num_perm)."\n".
+		   sprintf("%.4f", $w_avg_og_dist_avg)."\t".
+		   sprintf("%.4f", $w_avg_og_dist_stdev)."\t".
+		   sprintf("%.4f", $w_avg_scaled_dist)."\t".
+		   sprintf("%.4f", $w_avg_p)."\t".
+		   sprintf("%.4f", $w_avg_num_perm)."\n".
 		   "#################################################################################"."\n"
 		  );
 
@@ -175,53 +198,70 @@ while ( my $between_line = <BETWEEN_FILE> )  {
   
 my $stat_6 = Statistics::Descriptive::Full->new();
 $stat_6->add_data(@between_og_dist);
-my $avg_og_dist_avg = sprintf("%.4f", $stat_6->mean());
+my $b_avg_og_dist_avg = sprintf("%.4f", $stat_6->mean());
 
 my $stat_7 = Statistics::Descriptive::Full->new();
 $stat_7->add_data(@between_og_dist_stdev);
-my $avg_og_dist_stdev = sprintf("%.4f", $stat_7->mean());
+my $b_avg_og_dist_stdev = sprintf("%.4f", $stat_7->mean());
 
 my $stat_8 = Statistics::Descriptive::Full->new();
 $stat_8->add_data(@between_scaled_dist);
-my $avg_scaled_dist = sprintf("%.4f", $stat_8->mean());
+my $b_avg_scaled_dist = sprintf("%.4f", $stat_8->mean());
 
 my $stat_9 = Statistics::Descriptive::Full->new();
 $stat_9->add_data(@between_p);
-my $avg_p = sprintf("%.4f", $stat_9->mean());
+my $b_avg_p = sprintf("%.4f", $stat_9->mean());
 
 my $stat_10 = Statistics::Descriptive::Full->new();
 $stat_10->add_data(@between_perm);
-my $avg_num_perm = sprintf("%.4f", $stat_10->mean());
+my $b_avg_num_perm = sprintf("%.4f", $stat_10->mean());
 
 print OUTPUT_FILE (
-		   "Between group summary (average):"."\t".$avg_og_dist_avg."\t".$avg_og_dist_stdev."\t".$avg_scaled_dist."\t".$avg_p."\t".$avg_num_perm."\n".
+		   "# Between group summary (average):"."\t".
+		   sprintf("%.4f", $b_avg_og_dist_avg)."\t".
+		   sprintf("%.4f", $b_avg_og_dist_stdev)."\t".
+		   sprintf("%.4f", $b_avg_scaled_dist)."\t".
+		   sprintf("%.4f", $b_avg_p)."\t".
+		   sprintf("%.4f", $b_avg_num_perm)."\n".
 		   "#################################################################################"."\n"
 		  );
 
 my $stat_11 = Statistics::Descriptive::Full->new();
 $stat_11->add_data(@all_og_dist);
-my $avg_og_dist_avg = sprintf("%.4f", $stat_11->mean());
+my $a_avg_og_dist_avg = sprintf("%.4f", $stat_11->mean());
 
 my $stat_12 = Statistics::Descriptive::Full->new();
 $stat_12->add_data(@all_og_dist_stdev);
-my $avg_og_dist_stdev = sprintf("%.4f", $stat_12->mean());
+my $a_avg_og_dist_stdev = sprintf("%.4f", $stat_12->mean());
 
 my $stat_13 = Statistics::Descriptive::Full->new();
 $stat_13->add_data(@all_scaled_dist);
-my $avg_scaled_dist = sprintf("%.4f", $stat_13->mean());
+my $a_avg_scaled_dist = sprintf("%.4f", $stat_13->mean());
 
 my $stat_14 = Statistics::Descriptive::Full->new();
 $stat_14->add_data(@all_p);
-my $avg_p = sprintf("%.4f", $stat_14->mean());
+my $a_avg_p = sprintf("%.4f", $stat_14->mean());
 
 my $stat_15 = Statistics::Descriptive::Full->new();
 $stat_15->add_data(@all_perm);
-my $avg_num_perm = sprintf("%.4f", $stat_15->mean());
+my $a_avg_num_perm = sprintf("%.4f", $stat_15->mean());
 
 print OUTPUT_FILE (
-		   "All summary (average):"."\t".$avg_og_dist_avg."\t".$avg_og_dist_stdev."\t".$avg_scaled_dist."\t".$avg_p."\t".$avg_num_perm."\n".
+		   "# All (Within and Between) group summary (average):"."\t".
+		   sprintf("%.4f", $a_avg_og_dist_avg)."\t".
+		   sprintf("%.4f", $a_avg_og_dist_stdev)."\t".
+		   sprintf("%.4f", $a_avg_scaled_dist)."\t".
+		   sprintf("%.4f", $a_avg_p)."\t".
+		   sprintf("%.4f", $a_avg_num_perm)."\n".
 		   "#################################################################################"."\n"
 		  );
+
+
+##################################################
+##################################################
+###################### SUBS ######################
+##################################################
+##################################################
 
 
 
@@ -236,13 +276,19 @@ DESCRIPTION:
 Script to combine within group *.P_VALUE_SUMMARY of one analysis with
 between group *.P_VALUE_SUMMARY of another
    
-USAGE: combine_summary_stats.pl [-w within_file] [-b between_file] [-o output_file] -h -v -d
+USAGE: combine_summary_stats.pl [-m file_search_mode][-w within_file] [-b between_file] [-o output_file] -h -v -d
  
-    -w|within_file        (string) NO DEFAULT
-                                   *.P_VALUE_SUMMARY from which within group stats will be pulled
+    -m|file_search_mode   (string) default = $mode
+                                   file search mode, can be "exact" to match exact file patch or 
+                                   "prefix" to search using file prefix for path and file
+          
+    -w|within_pattern     (string) NO DEFAULT
+                                   if search mode is exact, path and name of *.P_VALUE_SUMMARY from which within group stats will be pulled
+                                   if search is "prefix", uses pattern to find path and file of *.P_VALUE_SUMMARY 
 
-    -b|between_file       (string) NO DEFAULT
-                                   *.P_VALUE_SUMMARY from which within group stats will be pulled
+    -b|between_pattern    (string) NO DEFAULT
+                                   if search mode is exact, path and name of *.P_VALUE_SUMMARY from which within group stats will be pulled
+                                   if search is "prefix", uses pattern to find path and file of *.P_VALUE_SUMMARY
 
     -o|output_file        (string)  default = $output_file
                                     name for the output file          
@@ -255,3 +301,6 @@ USAGE: combine_summary_stats.pl [-w within_file] [-b between_file] [-o output_fi
 );
   exit 1;
 }
+
+
+

@@ -26,6 +26,7 @@ if ( ! GetOptions (
 my $current_dir = getcwd()."/";
 my $path_file = $current_dir.$command_file;
 my $log_file = $current_dir.$command_file.".MASTER.log";
+my $log_prefix = "my_log";
 
 open(LOG, ">", $log_file) or die "cant open LOG $log_file"."\n";
 print LOG "Start: ".$start_time_stamp."\n\n";
@@ -36,20 +37,11 @@ open(FILE, "<", $path_file) or die "can't open FILE $path_file"."\n";
 
 while (my $line = <FILE>){
 
-
-  
-
   chomp $line;
+  
   unless ( ($line =~ m/^#/) || ($line =~ m/^\s*$/) ){
 
-
-    ##### added Oct 9 2012 # try 
-    #if ($line =~ m/^>/){
-    #  
-    #}
-    #####
-
-    print LOG "Start Job_".$job_counter." at ".`date +%m-%d-%y_%H:%M:%S`."\n".$line."\n";
+    print LOG "Start Command_".$job_counter."( ".$log_prefix." ) at ".`date +%m-%d-%y_%H:%M:%S`.$line."\n";
     my $job_log = $current_dir.$command_file.".job_".$job_counter.".error_log";
     
     if($debug){
@@ -66,14 +58,24 @@ while (my $line = <FILE>){
     #system($line, @command_args);
     system($line);
     if($debug){print("MADE IT HERE (2)"."\n");}
-    print LOG "\n"."Finish Job_".$job_counter." at ".`date +%m-%d-%y_%H:%M:%S`."\n"."\n";
+    print LOG "Finish Command_".$job_counter." at ".`date +%m-%d-%y_%H:%M:%S`."\n";
     if($debug){print("MADE IT HERE (3)"."\n");}
     $job_counter++;
     
-  }
-  
+  }else{
+    
+    print LOG "\n".$line."\n\n";
+    
+    $line =~ s/#//;
+    $line =~ s/\s+//g;
 
+    $log_prefix = $line;
+
+ }
+  
 }
+print LOG "\n"."ALL DONE at ".`date +%m-%d-%y_%H:%M:%S`."\n";
+
 
 
 
@@ -96,8 +98,9 @@ DESCRIPTION:
 This a master script that allows you to queue jobs for the following three scripts:
 
      plot_pco_with_stats,
-     plot_qiime_pco_with_stats, or
-     plot_OTU_pco_with_stats
+     plot_qiime_pco_with_stats,
+     plot_OTU_pco_with_stats, or
+     plot_pco_with_stats_all
 
 The only argument is the name of the file that has the commands to run these scripts.
 Command file has to have each job in a single line.
@@ -109,6 +112,7 @@ It also creates a log for each job that records all of the error output text.
 Note that the plot... scripts also generate their own logs.
    
 USAGE:
+
     -f|--command_file (string)  no default
                                   
 An array of typical options (indicating defaults) for each of the drive scripts is
@@ -120,72 +124,3 @@ The QIIME one has the most unique arguments.
 );
   exit 1;
 }
-
-
-
-
-
-# for 
-
-
-# open(FILE_IN, "<", $fastas_dir."/".$ID_A_T_C_G_N_Length_file) or die "Couldn't open file FILE_IN $fastas_dir."/".$ID_A_T_C_G_N_Length_file"."\n";  
-# 	    my $num_reads = 0;
-# 	    my @read_lengths;
-	  
-# 	    while (my $line_input = <FILE_IN>){      
-
-
-
-
-
-
-
-# my($data_file, $dist_method, $cleanup, $help, $verbose, $debug);
-
-# my $current_dir = getcwd()."/";
-# if($debug) { print STDOUT "current_dir: "."\t".$current_dir."\n";}
-
-# #define defaults for variables that need & have them
-# my $groups_list                = "groups_list";
-# my $headers                    = 1;
-# my $num_cpus                   = 10;
-# my $num_perm                   = 1000;
-# my $perm_type                  = "sample_rand";
-# my $print_dist                 = 1;
-# my $tree                       = "/home/ubuntu/qiime/gg_otus-4feb2011-release/trees/gg_97_otus_4feb2011.tre"; # This is the path on Travis' Magellan image
-# my $output_DIST_dir            = $current_dir."DISTs/";
-# my $output_PCoA_dir            = $current_dir."PCoAs/";
-# my $perm_dir                   = $current_dir."permutations/";
-# my $permutations_data_dir      = $permutations_data_dir = "./PERMs/";
-# my $permutations_dists_dir     = $permutations_dists_dir = "./PERM_DISTs/";
-# my $permutations_avg_DISTs_dir = $permutations_avg_DISTs_dir = "./AVG_DISTs/"
-
-# # check input args and display usage if not suitable
-# if ( (@ARGV > 0) && ($ARGV[0] =~ /-h/) ) { &usage(); }
-
-# unless ( @ARGV > 0 || $data_file &&  $groups_list ) { &usage(); }
-
-# if ( ! GetOptions (
-
-# 		   "data_file=s"                   =>$data_file,
-# 		   "dist_method=s"                 =>$dist_method,
-# 		   "groups_list=s"                 =>$groups_list,
-# 		   "headers=i"                     =>$headers,
-# 		   "num_cpus=i"                    =>$num_cpus,
-# 		   "num_perm=i"                    =>$num_perm,
-# 		   "perm_type=s"                   =>$perm_type,
-# 		   "print_dist=i"                  =>$print_dist,
-# 		   "tree=s"                        =>$tree,
-# 		   "output_DIST_dir=s"             =>$output_DIST_dir,
-# 		   "output_PCoA_dir=s"             =>$output_PCoA_dir,
-# 		   "perm_dir=s"                    =>$perm_dir,
-# 		   "permutations_data_dir=s"       =>$permutations_data_dir,
-# 		   "permutations_dists_dir=s"      =>$permutations_dists_dir,
-# 		   "permutations_avg_DISTs_dir=s"  =>$permutations_avg_DISTs_dir,
-# 		   "cleanup!"                      =>$cleanup,
-# 		   "debug!"                        =>$debug,
-# 		   "help!"                         =>$help,
-# 		   "verbose!"                      =>$verbose 
-
-# 		  )
-#    ) { &usage(); }
