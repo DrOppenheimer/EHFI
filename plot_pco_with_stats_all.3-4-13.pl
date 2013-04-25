@@ -287,7 +287,7 @@ USAGE:
                                     sample names should be same as in the data_file header
     -i|--input_dir        (string)  default = $current_dir
                                     path that containts the data file
-    -o|--output_dir       (string)  default = $output_dir
+    -o|--output_prefix    (string)  default = $output_dir
                                     prefix added to the output directory name
     -p|--num_perm         (integer) default = $num_perm 
                                     number of permutations to perform
