@@ -63,7 +63,7 @@ if ( ! GetOptions (
 		  )
    ) { &usage(); }
 
-unless ($output_dir){
+unless ($output_dir){ # allow user to select output dir
   $output_dir = $current_dir."plot_pco_with_stats.".$data_file.".".$dist_method.".RESULTS/";
 }else{
   $output_dir = $output_dir."/"."plot_pco_with_stats.".$data_file.".".$dist_method.".RESULTS/";
@@ -85,7 +85,8 @@ unless (-d $output_DIST_dir) { mkdir $output_DIST_dir; }
 unless (-d $output_avg_DISTs_dir) { mkdir $output_avg_DISTs_dir;}
 
 # create a log file
-my $log_file = $data_file.".plot_pco_with_stats.log";
+#my $log_file = $data_file.".plot_pco_with_stats.log";
+my $log_file = $output_dir."/".$data_file.".plot_pco_with_stats.log"; # place log in the output dir
 open(LOG, ">", $log_file) or die "cannot open LOG $log_file";
 print LOG "start: "."\t"."\t".$time_stamp."\n";
 
@@ -123,13 +124,14 @@ unless ($check_status eq "All groups members match a header from the data file")
 
 # process the original data_file to produce PCoA and DIST files
 print LOG "process original data file (".$data_file.") > *.PCoA & *.DIST ... "."\n";
-my $output_og_pco = $data_file.".".$dist_method.".OG.PCoA";
+# my $output_og_pco = $data_file.".".$dist_method.".OG.PCoA";
+print LOG "system(plot_pco_shell.sh ".$data_file." ".$input_dir." ".$output_dir." ".1." ".$output_dir." ".$dist_method $headers.")\n";
 system("plot_pco_shell.sh $data_file $input_dir $output_dir 1 $output_dir $dist_method $headers");
 print LOG "DONE at:"."\t".`date +%m-%d-%y_%H:%M:%S`."\n";
 
 # Process original data_file.DIST to produce original_file.DIST.AVG_DIST
 print LOG "process original data *.DIST file (".$data_file.".".$dist_method.".DIST) > *.AVG_DIST ... "."\n";
-#system("avg_distances.sh $data_file.$dist_method.DIST $current_dir $groups_list $data_file.$dist_method.DIST.AVG_DIST $current_dir");
+print LOG "system(avg_distances.sh ".$data_file." ".$dist_method."DIST ".$output_dir." ".$groups_list." ".$data_file.$dist_method."DIST ".$output_dir.")\n";
 system("avg_distances.sh $data_file.$dist_method.DIST $output_dir $groups_list $data_file.$dist_method.DIST $output_dir");
 print LOG "DONE at:"."\t".`date +%m-%d-%y_%H:%M:%S`."\n";
 
@@ -138,7 +140,7 @@ print LOG "generate (".$num_perm.") permutations ... "."\n";
 my $R_rand_script = "$data_file.R_sample_script.".$time_stamp.".r";
 open(R_SCRIPT, ">", $R_rand_script) or die "cannot open R_SCRIPT $R_rand_script";
 
-
+#exit 1;
 
 ##### CREATE AND PROCESS PERMUTED DATA
 
