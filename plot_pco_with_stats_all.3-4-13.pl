@@ -580,14 +580,14 @@ sub process_permuted_data {
   print $log_file "DONE at:"."\t".`date +%m-%d-%y_%H:%M:%S`."\n\n";
 
   # perform PCoA on all of the permutations - outputs placed in directories created for the PCoA and DIST files
-  if ($create_perm_pcoas){
-    my $pcoa_permutations_script_string =  "cat $output_dir$perm_list | xargs -n1 -P$num_cpus -I{} $DIR/plot_pco_shell.sh {} $perm_dir $output_PCoA_dir 1 $output_DIST_dir $dist_method $headers";
-    print $log_file "\n"."executing:"."\n".$pcoa_permutations_script_string."\n";
-    system( $pcoa_permutations_script_string );
-    print $log_file "DONE at:"."\t".`date +%m-%d-%y_%H:%M:%S`."\n\n";
-  }else{
-    print $log_file "\n"."PCoAs not generated for permutations (not generated when the cleanup option is selected)"."\n\n"
-  }
+  #if ($create_perm_pcoas){
+  my $pcoa_permutations_script_string =  "cat $output_dir$perm_list | xargs -n1 -P$num_cpus -I{} $DIR/plot_pco_shell.sh {} $perm_dir $output_PCoA_dir 1 $output_DIST_dir $dist_method $headers";
+  print $log_file "\n"."executing:"."\n".$pcoa_permutations_script_string."\n";
+  system( $pcoa_permutations_script_string );
+  print $log_file "DONE at:"."\t".`date +%m-%d-%y_%H:%M:%S`."\n\n";
+  #}else{
+  #  print $log_file "\n"."PCoAs not generated for permutations (not generated when the cleanup option is selected)"."\n\n"
+  #}
 
   # Create list of all permutation *.DIST files
   print $log_file "creating list of *.DIST files produced from permutated data ... "."\n".$output_dir.$dist_list."\n"; 
@@ -830,14 +830,14 @@ sub process_permuted_OTU_data {
   print $log_file "DONE at:"."\t".`date +%m-%d-%y_%H:%M:%S`."\n\n";
  
   # perform PCoA on all of the permutations - outputs placed in directories created for the PCoA and DIST files
-  if($create_perm_pcoas){
-    my $pcoa_permutations_script_string = "cat $output_dir$perm_list | xargs -n1 -P$num_cpus -I{} $DIR/OTU_similarities_shell.7-31-12.sh {} $perm_dir $output_PCoA_dir 1 $output_DIST_dir $dist_method $headers";
-    print $log_file "\n"."executing:"."\n".$pcoa_permutations_script_string;
-    system( $pcoa_permutations_script_string );
-    print $log_file "DONE at:"."\t".`date +%m-%d-%y_%H:%M:%S`."\n";
-  }else{
-    print $log_file "\n"."PCoAs not generated for permutations (not generated when the cleanup option is selected)"."\n\n"
-  }
+  #if($create_perm_pcoas){
+  my $pcoa_permutations_script_string = "cat $output_dir$perm_list | xargs -n1 -P$num_cpus -I{} $DIR/OTU_similarities_shell.7-31-12.sh {} $perm_dir $output_PCoA_dir 1 $output_DIST_dir $dist_method $headers";
+  print $log_file "\n"."executing:"."\n".$pcoa_permutations_script_string;
+  system( $pcoa_permutations_script_string );
+  print $log_file "DONE at:"."\t".`date +%m-%d-%y_%H:%M:%S`."\n";
+  #}else{
+  #  print $log_file "\n"."PCoAs not generated for permutations (not generated when the cleanup option is selected)"."\n\n"
+  #}
 
   # Create list of all permutation *.DIST files
   print $log_file "creating list of *.DIST files produced from permutated data ... "."\n".$output_dir.$dist_list."\n";
