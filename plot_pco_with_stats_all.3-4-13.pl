@@ -215,11 +215,11 @@ if ( $dist_pipe eq "qiime_pipe" ){
 
 # generate and process permuted data
 if ( $dist_pipe eq "qiime_pipe" ){
-  process_permuted_qiime_data($dist_pipe, $data_file, $output_dir, $perm_list, $num_cpus, $perm_dir, $output_PCoA_dir, $create_perm_pcoas, $output_DIST_dir, $output_avg_DISTs_dir, $dist_method, $tree, $headers, $log_file, $DIR)
+  process_permuted_qiime_data($dist_pipe, $data_file, $output_dir, $perm_list, $num_cpus, $num_perm, $perm_dir, $output_PCoA_dir, $create_perm_pcoas, $output_DIST_dir, $output_avg_DISTs_dir, $dist_method, $tree, $qiime_format, $headers, $log_file, $DIR)
 }elsif ( $dist_pipe eq "OTU_pipe" ){
-  process_permuted_OTU_data($dist_pipe, $data_file, $output_dir, $perm_list, $num_cpus, $perm_dir, $output_PCoA_dir, $create_perm_pcoas, $output_DIST_dir, $output_avg_DISTs_dir, $dist_method, $headers, $log_file, $DIR)
+  process_permuted_OTU_data($dist_pipe, $data_file, $output_dir, $perm_list, $num_cpus, $num_perm, $perm_dir, $output_PCoA_dir, $create_perm_pcoas, $output_DIST_dir, $output_avg_DISTs_dir, $dist_method, $headers, $log_file, $DIR)
 }elsif ( $dist_pipe eq "MG-RAST_pipe" ) {
-  process_permuted_data($dist_pipe, $data_file, $output_dir, $perm_list, $num_cpus, $perm_dir, $output_PCoA_dir, $create_perm_pcoas, $output_DIST_dir, $output_avg_DISTs_dir, $dist_method, $headers, $log_file, $DIR)
+  process_permuted_data($dist_pipe, $data_file, $output_dir, $perm_list, $num_cpus, $num_perm, $perm_dir, $output_PCoA_dir, $create_perm_pcoas, $output_DIST_dir, $output_avg_DISTs_dir, $dist_method, $tree, $headers, $log_file, $DIR)
 }else{
   print STDOUT "\n\n"."The selected dist_pipe (".$dist_pipe.") is not recognized - please check and try again"."\n";
   print $log_file "\n\n"."The selected dist_pipe (".$dist_pipe.") is not recognized - please check and try again"."\n";
@@ -544,7 +544,7 @@ sub process_original_OTU_data {
 
 sub process_permuted_data {
 
-  my($dist_pipe, $data_file, $output_dir, $perm_list, $num_cpus, $perm_dir, $output_PCoA_dir, $create_perm_pcoas, $output_DIST_dir, $output_avg_DISTs_dir, $dist_method, $headers, $log_file, $DIR) = @_;
+  my($dist_pipe, $data_file, $output_dir, $perm_list, $num_cpus, $num_perm, $perm_dir, $output_PCoA_dir, $create_perm_pcoas, $output_DIST_dir, $output_avg_DISTs_dir, $dist_method, $tree, $headers, $log_file, $DIR) = @_;
 
   # use R script sample_matrix.r to generate permutations of the original data
   print $log_file "generate (".$num_perm.") permutations ... "."\n";
@@ -617,7 +617,7 @@ sub process_permuted_data {
 
 sub process_permuted_qiime_data { # starts with biom format
 
-  my($dist_pipe, $data_file, $output_dir, $perm_list, $num_cpus, $perm_dir, $output_PCoA_dir, $create_perm_pcoas, $output_DIST_dir, $output_avg_DISTs_dir, $dist_method, $tree, $headers, $log_file, $DIR) = @_;
+  my($dist_pipe, $data_file, $output_dir, $perm_list, $num_cpus, $num_perm, $perm_dir, $output_PCoA_dir, $create_perm_pcoas, $output_DIST_dir, $output_avg_DISTs_dir, $dist_method, $tree, $qiime_format, $headers, $log_file, $DIR) = @_;
 
   # Create a version of the QIIME table in R friendly format
   my $qiime_table_2_R_table_string = "$DIR/qiime_2_R.pl -i $input_dir$data_file -o $output_dir$data_file -c 3";
@@ -796,7 +796,7 @@ sub process_permuted_qiime_data { # starts with biom format
 
 sub process_permuted_OTU_data {
 
-  my($dist_pipe, $data_file, $output_dir, $perm_list, $num_cpus, $perm_dir, $output_PCoA_dir, $create_perm_pcoas, $output_DIST_dir, $output_avg_DISTs_dir, $dist_method, $headers, $log_file, $DIR) = @_;
+  my($dist_pipe, $data_file, $output_dir, $perm_list, $num_cpus, $num_perm, $perm_dir, $output_PCoA_dir, $create_perm_pcoas, $output_DIST_dir, $output_avg_DISTs_dir, $dist_method, $headers, $log_file, $DIR) = @_;
   
   print $log_file "generate (".$num_perm.") permutations ... "."\n";
 
