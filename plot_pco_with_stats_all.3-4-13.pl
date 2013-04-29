@@ -71,7 +71,9 @@ if ( ! GetOptions (
    ) { &usage(); }
 
 # flip $create_perm_pcoas to 0 if cleanup option is selection
-if ($cleanup){ $create_perm_pcoas = 0; }
+# this does not work right == hard coded to 1
+# if ($cleanup){ $create_perm_pcoas = 0; }
+$create_perm_pcoas = 1;
 
 # create name for the output directory
 if ($output_dir eq "NA"){
