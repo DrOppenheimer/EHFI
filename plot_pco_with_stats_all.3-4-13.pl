@@ -664,9 +664,9 @@ sub process_permuted_qiime_data { # starts with biom format
     print $log_file "\n"."executing:"."\n".$R_table_2_qiime_table_string."\n";
     system($R_table_2_qiime_table_string);
     #if($cleanup){ # delete R_tables (keep qiime_tables)
-    my $cleanup_string = "rm $perm_dir$R_permutation";
-    print $log_file "\n"."executing:".$cleanup_string."\n";
-    system($cleanup_string);
+    #my $cleanup_string = "rm $perm_dir$R_permutation";
+    #print $log_file "\n"."executing:".$cleanup_string."\n";
+    #system($cleanup_string);
     #}
   }
   print $log_file "DONE at:"."\t".`date +%m-%d-%y_%H:%M:%S`."\n\n";
@@ -683,9 +683,9 @@ sub process_permuted_qiime_data { # starts with biom format
     print $log_file "\n"."executing:"."\n".$qiime_table_2_biom_string."\n";
     system($qiime_table_2_biom_string);
     #if($cleanup){ # delete qiime_tables -- leaving the permuted biom files ...
-    my $cleanup_string = "rm $perm_dir$Qiime_permutation";
-    print $log_file "\n"."executing:"."\n".$cleanup_string."\n";
-    system($cleanup_string);
+    #my $cleanup_string = "rm $perm_dir$Qiime_permutation";
+    #print $log_file "\n"."executing:"."\n".$cleanup_string."\n";
+    #system($cleanup_string);
     #}
   }
   print $log_file "DONE at:"."\t".`date +%m-%d-%y_%H:%M:%S`."\n\n";
