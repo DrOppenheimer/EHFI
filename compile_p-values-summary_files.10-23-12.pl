@@ -51,7 +51,7 @@ my $dist_ps_header = "p's"."\n"."input_file";
 my $num_perms_header = "NUM_PERMS"."\n"."input_file";
       
 # read input file names into array
-@file_list = &list_dir($target_dir, ".P_VALUES_SUMMARY\$");  
+@file_list = &list_dir($target_dir, ".P_VALUE_SUMMARY\$");  
 
 my $file_counter = 0;
 foreach my $file (@file_list){ # process each file 
