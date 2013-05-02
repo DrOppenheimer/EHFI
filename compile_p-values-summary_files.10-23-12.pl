@@ -17,6 +17,7 @@ my($group_name, $raw_dist, $group_dist_stdev, $scaled_dist, $dist_p, $num_perm, 
 #if($debug) { print STDOUT "current_dir: "."\t".$current_dir."\n";}
 
 # check input args and display usage if not suitable
+if ( @ARGV==0 ) { &usage(); }
 if ( (@ARGV > 0) && ($ARGV[0] =~ /-h/) ) { &usage(); }
 
 #unless ( @ARGV > 0 || $data_file ) { &usage(); }
