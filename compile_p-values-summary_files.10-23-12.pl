@@ -26,12 +26,12 @@ if ( (@ARGV > 0) && ($ARGV[0] =~ /-h/) ) { &usage(); }
 
 if ( ! GetOptions (
 		   "d|target_dir=s"     => \$target_dir,
-		   "i|input_pattern=s"  => $input_pattern,
+		   "i|input_pattern=s"  => \$input_pattern,
 		   "o|output_pattern=s" => \$output_pattern,
 		   "g|go!"              => \$go,
-		   "h|help!"              => \$help, 
-		   "v|verbose!"           => \$verbose,
-		   "b|debug!"             => \$debug
+		   "h|help!"            => \$help, 
+		   "v|verbose!"         => \$verbose,
+		   "b|debug!"           => \$debug
 		  )
    ) { &usage(); }
 
