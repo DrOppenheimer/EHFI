@@ -245,7 +245,7 @@ compile_p-values-summary_files -d|--dir_path <dir path> -i|--input_pattern <inpu
      -i|--input_pattern   default = $input_pattern
                           pattern or extension to match at the end of the files
 
-     -o|--output_prefix   default = $output_prefix
+     -o|--output_prefix   default = $output_pattern
                           prefix for the output files
 
      -h|--help
