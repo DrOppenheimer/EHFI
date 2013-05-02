@@ -10,6 +10,7 @@ my $start_time_stamp = `date +%m-%d-%y_%H:%M:%S`;
 chomp $start_time_stamp;
 
 my ($target_dir, $output_pattern, $help, $verbose, $debug);
+my $input_pattern = ".P_VALUE_SUMMARY\$";
 my $current_dir = getcwd()."/";
 my($group_name, $raw_dist, $group_dist_stdev, $scaled_dist, $dist_p, $num_perm, $group_members);
 #my $raw_dists_out ="";
@@ -23,11 +24,12 @@ if ( (@ARGV > 0) && ($ARGV[0] =~ /-h/) ) { &usage(); }
 #unless ( @ARGV > 0 || $data_file ) { &usage(); }
 
 if ( ! GetOptions (
-		   "target_dir=s"      => \$target_dir,
-		   "output_pattern=s"  => \$output_pattern,
-		   "help!"             => \$help, 
-		   "verbose!"          => \$verbose,
-		   "debug!"            => \$debug
+		   "-d|--target_dir=s"      => \$target_dir,
+		   "-i|--input_pattern=s" => $input_pattern,
+		   "-o|--output_pattern=s"  => \$output_pattern,
+		   "-h|help!"             => \$help, 
+		   "-v|verbose!"          => \$verbose,
+		   "-b|debug!"            => \$debug
 		  )
    ) { &usage(); }
 
@@ -52,7 +54,7 @@ my $dist_ps_header = "p's"."\n"."input_file";
 my $num_perms_header = "NUM_PERMS"."\n"."input_file";
       
 # read input file names into array
-@file_list = &list_dir($target_dir, ".P_VALUE_SUMMARY\$");  
+@file_list = &list_dir($target_dir, $input_pattern);  
 
 my $file_counter = 0;
 foreach my $file (@file_list){ # process each file 
@@ -234,7 +236,20 @@ time stamp:           $start_time_stamp
 script:               $0
 
 USAGE:
-compile_p-values-summary_files --dir_path <dir path> --output_prefix <output prefix>
+compile_p-values-summary_files -d|--dir_path <dir path> -i|--input_pattern <input pattern> -o|--output_prefix <output prefix>
+
+     -d|--dir_path        default = $current_dir
+                          string - path for directory with files (default is current directory)
+
+     -i|--input_pattern   default = $input_pattern
+                          pattern or extension to match at the end of the files
+
+     -o|--output_prefix   default = $output_prefix
+                          prefix for the output files
+
+     -h|--help
+     -v|--verbose
+     -b|--debug
 
 DESCRIPTION:
 This script will produce a single output file from multiple *.P_VALUES_SUMMARY files
@@ -242,8 +257,9 @@ produced from plot_pco_with_stats.MASTER, or any of the individual scripts that 
 drives:
 
      plot_pco_with_stats,
-     plot_qiime_pco_with_stats, or
-     plot_OTU_pco_with_stats
+     plot_qiime_pco_with_stats,
+     plot_OTU_pco_with_stats, or
+     plot_pco_with_stats_all
 
 The script produces 5 output files that contain the:
 
