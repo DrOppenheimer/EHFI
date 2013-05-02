@@ -9,8 +9,9 @@ use Cwd;
 my $start_time_stamp = `date +%m-%d-%y_%H:%M:%S`;
 chomp $start_time_stamp;
 
-my ($target_dir, $output_pattern, $help, $verbose, $debug);
+my ($target_dir, $help, $verbose, $debug);
 my $input_pattern = ".P_VALUE_SUMMARY\$";
+my $output_pattern = "compiled.P_VALUES_SUMMARY".$start_time_stamp;
 my $current_dir = getcwd()."/";
 my($group_name, $raw_dist, $group_dist_stdev, $scaled_dist, $dist_p, $num_perm, $group_members);
 #my $raw_dists_out ="";
