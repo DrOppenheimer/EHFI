@@ -19,18 +19,19 @@ my($group_name, $raw_dist, $group_dist_stdev, $scaled_dist, $dist_p, $num_perm, 
 #if($debug) { print STDOUT "current_dir: "."\t".$current_dir."\n";}
 
 # check input args and display usage if not suitable
-if ( @ARGV==0 ) { &usage(); }
+unless($go){if ( @ARGV==0 ) { &usage(); }}
 if ( (@ARGV > 0) && ($ARGV[0] =~ /-h/) ) { &usage(); }
 
 #unless ( @ARGV > 0 || $data_file ) { &usage(); }
 
 if ( ! GetOptions (
-		   "-d|--target_dir=s"      => \$target_dir,
-		   "-i|--input_pattern=s" => $input_pattern,
-		   "-o|--output_pattern=s"  => \$output_pattern,
-		   "-h|help!"             => \$help, 
-		   "-v|verbose!"          => \$verbose,
-		   "-b|debug!"            => \$debug
+		   "-d|--target_dir=s"     => \$target_dir,
+		   "-i|--input_pattern=s"  => $input_pattern,
+		   "-o|--output_pattern=s" => \$output_pattern,
+		   "-g|--go!"              => \$go,
+		   "-h|help!"              => \$help, 
+		   "-v|verbose!"           => \$verbose,
+		   "-b|debug!"             => \$debug
 		  )
    ) { &usage(); }
 
@@ -247,6 +248,8 @@ compile_p-values-summary_files -d|--dir_path <dir path> -i|--input_pattern <inpu
 
      -o|--output_prefix   default = $output_pattern
                           prefix for the output files
+
+     -g|--go              run with all default values
 
      -h|--help
      -v|--verbose
