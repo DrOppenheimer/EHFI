@@ -12,6 +12,8 @@ my $avg_dists_dir = "./AVG_DISTs/";
 
 my $avg_dists_list = "AVG_DISTs_list";
 
+my $sig_if = "lt";
+
 my $time_stamp =`date +%m-%d-%y_%H:%M:%S`;  # create the time stamp month-day-year_hour:min:sec:nanosec
 chomp $time_stamp;
 my $output_file = "P_SUMMARY";
@@ -22,6 +24,7 @@ unless ( @ARGV > 0 || $og_avg_dist_file ) { &usage(); }
 
 if ( ! GetOptions (
 		   "og_avg_dist_file=s" => \$og_avg_dist_file,
+                   "sig_if=s"           => \$sig_if,
 		   "avg_dists_dir=s"    => \$avg_dists_dir,
 		   "avg_dists_list=s"   => \$avg_dists_list,
 		   "output_file=s"      => \$output_file,
@@ -108,10 +111,17 @@ foreach my $perm (@avg_dist_list){
 
       my @perm_line_array = split("\t", $perm_line);
       my $perm_line_key = $perm_line_array[0];
-      
-      if ( $perm_line_array[1] < $og_dist_avg_hash->{$perm_line_array[0]} ){
-	
-	$perm_sum_dist_avg_hash->{$perm_line_array[0]}++;
+     
+      if ($sig_if eq "lt"){
+	if ( $perm_line_array[1] < $og_dist_avg_hash->{$perm_line_array[0]} ){
+	  $perm_sum_dist_avg_hash->{$perm_line_array[0]}++;
+	}elsif($sig_if eq "gt"){
+	  if ( $perm_line_array[1] > $og_dist_avg_hash->{$perm_line_array[0]} ){
+	  $perm_sum_dist_avg_hash->{$perm_line_array[0]}++;
+	}else{
+	  print STDOUT "\n\n"."invalid sig_if value ( ".$sig_if." )"."\n"."value must be \"lt\" or \"gt\""."\n\n";
+	  exit 1;
+	}
 	
       }
     }
@@ -205,14 +215,32 @@ script:               $0
 num supplied args:    $num_args
 
 DESCRIPTION:
-Produce P values from original and permutation derived *.AVG_DIST files
+Produce P values from original and permutation derived *.AVG_DIST files.
+Be very careful to select the correct setting for sig_if -- details below:
    
 USAGE:
 
+               
     --og_avg_dist_file (string) NO DEFAULT               : path and filename of the original (non-permuted) *.AVG_DIST file
+
+    --sig_if           (string) default = $sig_if        : lt or gt - determines if permutation distances less or greater than 
+                                                           original are deemed significant
+
+                                                           The default \"lt\" is appropriate for determination of significance
+                                                           within a group -- distances are significant if they are less than
+                                                           that observed in the real data. Permutations would be expected to 
+                                                           exhibit within group distances larger than the original.
+                                                           We expect the opposite behvaior for between group distances; \"gt\" is 
+                                                           appropriate for determination of significance between groups.
+                                                           Permutations would be expected to exhibit between group distances
+                                                           smaller than those observed in the original.  
+
     --avg_dists_dir    (string) default = $avg_dists_dir : path where the permutation *.AVG_DIST files can be found
+
     --avg_dists_list   (string) default = $avg_dists_list : path/file for the list of files in AVG_DISTS dir
-    --output_file      (string) default = "P_SUMMARY"    : name (or path and name) for the output file 
+
+    --output_file      (string) default = "P_SUMMARY"    : name (or path and name) for the output file
+     
     -----------------------------------------------------------------------------------------------------------------------
     --help             (flag)                            : see the help/usage
     --verbose          (flag)                            : run in verbose mode

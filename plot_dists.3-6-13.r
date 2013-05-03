@@ -206,16 +206,16 @@ plot_dists<- function(
   y_max = max(E1.hist$counts, C.hist$counts , Ch.hist$counts , R.hist$counts , W.hist$counts , groups.hist$counts, na.rm=TRUE)
 
   # hists second time round, using the same breaks for all -- from hist with max breaks value (x_max) from the first round
-  #E1.hist <- hist(E1_matrix, plot=FALSE, breaks = num_breaks)
-  #C.hist <<- hist(C_matrix, plot=FALSE, breaks = num_breaks)
-  #Ch.hist <<- hist(Ch_matrix, plot=FALSE, breaks = num_breaks)
-  #R.hist <<- hist(R_matrix, plot=FALSE, breaks = num_breaks)
-  #W.hist <<- hist(W_matrix, plot=FALSE, breaks = num_breaks)
-  #Ch1.hist <<- hist(Ch1_matrix, plot=FALSE, breaks = num_breaks)
-  #Ch2.hist <<- hist(Ch2_matrix, plot=FALSE, breaks = num_breaks)
-  #Ch3.hist <<- hist(Ch3_matrix, plot=FALSE, breaks = num_breaks)
-  #Ch4.hist <<- hist(Ch4_matrix, plot=FALSE, breaks = num_breaks)
-  #Ch5.hist <<- hist(Ch5_matrix, plot=FALSE, breaks = num_breaks)
+  E1.hist <- hist(E1_matrix, plot=FALSE, breaks = num_breaks)
+  C.hist <<- hist(C_matrix, plot=FALSE, breaks = num_breaks)
+  Ch.hist <<- hist(Ch_matrix, plot=FALSE, breaks = num_breaks)
+  R.hist <<- hist(R_matrix, plot=FALSE, breaks = num_breaks)
+  W.hist <<- hist(W_matrix, plot=FALSE, breaks = num_breaks)
+  Ch1.hist <<- hist(Ch1_matrix, plot=FALSE, breaks = num_breaks)
+  Ch2.hist <<- hist(Ch2_matrix, plot=FALSE, breaks = num_breaks)
+  Ch3.hist <<- hist(Ch3_matrix, plot=FALSE, breaks = num_breaks)
+  Ch4.hist <<- hist(Ch4_matrix, plot=FALSE, breaks = num_breaks)
+  Ch5.hist <<- hist(Ch5_matrix, plot=FALSE, breaks = num_breaks)
 
   
   legend_colors <- c("blue", "green", "purple", "orange", "brown", "black", "purple", "purple", "purple", "purple", "purple")
@@ -237,10 +237,10 @@ plot_dists<- function(
   pdf(width=12, height=6, file = paste(file_in, ".dists.hist.pdf", sep=""))
   
   plot(
-       #x = E1.hist$breaks,
-       #y = c(E1.hist$counts, 0),
-       x,
-       y,
+       x = E1.hist$breaks,
+       y = c(E1.hist$counts, 0),
+       #x,
+       #y,
        ylab="abundance",
        xlab="dist",
        type="l",
