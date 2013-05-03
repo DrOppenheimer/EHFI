@@ -23,6 +23,7 @@ my $perm_dir = "default";
 
 #define defaults for variables that need them
 my $groups_list = "groups_list";
+my $sig_if = "lt";
 my $dist_pipe = "MG-RAST_pipe";
 my $qiime_format = "biom"; # qiime_table R_table
 my $input_dir = $current_dir;
@@ -49,6 +50,7 @@ unless ( @ARGV > 0 || $data_file ) { &usage(); }
 if ( ! GetOptions (
 		   "f|data_file=s"     => \$data_file,
 		   "g|groups_list=s"   => \$groups_list,
+		   "s|sig_if=s"        => \$sig_if,
 		   "z|dist_pipe=s"     => \$dist_pipe,
 		   "q|qiime_format=s"  => \$qiime_format,
 		   "i|input_dir=s"     => \$input_dir,
@@ -105,6 +107,7 @@ print $log_file "start:"."\t".$time_stamp."\n";
 print $log_file "\n"."PARAMETERS USED:"."\n";
 if ($data_file)       {print $log_file "     data_file:      "."\t".$data_file."\n";}
 if ($groups_list)     {print $log_file "     groups_list:    "."\t".$groups_list."\n";}
+if ($sig_if)          {print $log_file "     sig_if:         "."\t".$sig_if."\n";}
 if ($dist_pipe)       {print $log_file "     dist_pipe:      "."\t".$dist_pipe."\n";}
 if ($qiime_format)    {print $log_file "     qiime_format:   "."\t".$qiime_format."\n";}
 if ($input_dir)       {print $log_file "     input_dir:      "."\t".$input_dir."\n";}
@@ -287,6 +290,17 @@ USAGE:
                                     file that contains groups list
                                     group per line, each sample in a group (line) is comma separated
                                     sample names should be same as in the data_file header
+    -s|--sig_if           (string)  default = $sig_if        
+                                    lt or gt - determines if permutation distances less or greater than 
+                                    original are deemed significant
+                                    The default \"lt\" is appropriate for determination of significance
+                                    within a group -- distances are significant if they are less than
+                                    that observed in the real data. Permutations would be expected to 
+                                    exhibit within group distances larger than the original.
+                                    We expect the opposite behvaior for between group distances; \"gt\" is 
+                                    appropriate for determination of significance between groups.
+                                    Permutations would be expected to exhibit between group distances
+                                    smaller than those observed in the original.
     -i|--input_dir        (string)  default = $current_dir
                                     path that containts the data file
     -o|--output_prefix    (string)  default = $output_dir
@@ -608,7 +622,7 @@ sub process_permuted_data {
   # Run the final script to calculate P values by comparing the original to all permutaion derived distances matrixes
   my $output_p_value_summary = $output_dir.$data_file.".".$dist_method.".P_VALUES_SUMMARY";
   my $og_avg_dist_filename = $output_dir.$data_file.".".$dist_method."."."DIST.AVG_DIST";
-  my $produce_ps_string = "$DIR/avg_dist_summary.8-24-12.pl -og_avg_dist_file $og_avg_dist_filename -avg_dists_dir $output_avg_DISTs_dir -avg_dists_list $output_dir$avg_dists_list -output_file $output_p_value_summary";
+  my $produce_ps_string = "$DIR/avg_dist_summary.8-24-12.pl -og_avg_dist_file $og_avg_dist_filename -sig_if $sig_if -avg_dists_dir $output_avg_DISTs_dir -avg_dists_list $output_dir$avg_dists_list -output_file $output_p_value_summary";
   print $log_file "\n"."executing:"."\n".$produce_ps_string."\n";
   system( $produce_ps_string );
   print $log_file "DONE at:"."\t".`date +%m-%d-%y_%H:%M:%S`."\n\n";
@@ -706,7 +720,7 @@ sub process_permuted_qiime_data { # starts with biom format
     my $calc_non_frac_dists_string = "cat $output_dir$biom_file_list | xargs  -n1 -P $num_cpus -I{} beta_diversity.py -i '$perm_dir'{} -o $output_DIST_dir -m $dist_method";
     print $log_file "\n"."executing:"."\n".$calc_non_frac_dists_string."\n";
     system( $calc_non_frac_dists_string );
-    "DONE at:"."\t".`date +%m-%d-%y_%H:%M:%S`."\n\n";
+    print $log_file "DONE at:"."\t".`date +%m-%d-%y_%H:%M:%S`."\n\n";
   }
 
   # rename the output dist files
@@ -734,7 +748,7 @@ sub process_permuted_qiime_data { # starts with biom format
     if($debug){print "\n".$rename_string."\n"; }
     system($rename_string);
   }
-  "DONE at:"."\t".`date +%m-%d-%y_%H:%M:%S`."\n\n";
+  print $log_file "DONE at:"."\t".`date +%m-%d-%y_%H:%M:%S`."\n\n";
 
   # create list of renamed *.DIST files
   my $dist_file_list = $output_DIST_dir."dist_file_list";
@@ -746,10 +760,10 @@ sub process_permuted_qiime_data { # starts with biom format
   open(DIST_FILE_LIST, ">", $dist_file_list);
   print DIST_FILE_LIST join("\n", @dist_permutation_list);
   close(DIST_FILE_LIST);
-  print $log_file "\n"."executing: cat $dist_file_list | xargs -n1 -P $num_cpus -I{} $DIR/avg_distances.sh {} $output_DIST_dir $groups_list {} $output_avg_DISTs_dir"."\n\n";
-  system ( "cat $dist_file_list | xargs -n1 -P $num_cpus -I{} $DIR/avg_distances.sh {} $output_DIST_dir $groups_list {} $output_avg_DISTs_dir" );
-  print $log_file "produced *.AVG_DIST (distance matrixes) for each of (".$num_perm.") permutations in $output_DIST_dir"."\n".
-    "DONE at:"."\t".`date +%m-%d-%y_%H:%M:%S`."\n\n";
+  my $avg_dist_string = "cat $dist_file_list | xargs -n1 -P $num_cpus -I{} $DIR/avg_distances.sh {} $output_DIST_dir $groups_list {} $output_avg_DISTs_dir";
+  print $log_file "\n"."executing:"."\n".$avg_dist_string."\n";
+  system ( $avg_dist_string );
+  print $log_file "DONE at:"."\t".`date +%m-%d-%y_%H:%M:%S`."\n\n";
 
   if ($debug){print STDERR "HELLO.3"."\n";}
 
@@ -785,10 +799,10 @@ sub process_permuted_qiime_data { # starts with biom format
   # Run the final script to calculate P values by comparing the original to all permutaion derived distances matrixes
   my $output_p_value_summary = $output_dir.$data_file.".".$dist_method.".P_VALUES_SUMMARY";
   my $og_avg_dist_filename = $output_dir.$data_file.".".$dist_method."."."DIST.AVG_DIST";
-  print $log_file "\n"."executing: $DIR/avg_dist_summary.8-24-12.pl -og_avg_dist_file $og_avg_dist_filename -avg_dists_dir $output_avg_DISTs_dir -avg_dists_list $output_dir$avg_dists_list -output_file $output_p_value_summary"."\n\n";
-  system( "$DIR/avg_dist_summary.8-24-12.pl -og_avg_dist_file $og_avg_dist_filename -avg_dists_dir $output_avg_DISTs_dir -avg_dists_list $output_dir$avg_dists_list -output_file $output_p_value_summary" );
-  print $log_file "produced final summary:"."\n".$output_dir.$data_file.".P_VALUES_SUMMARY"."\n".
-    "DONE at:"."\t".`date +%m-%d-%y_%H:%M:%S`."\n\n";
+  my $produce_ps_string = "$DIR/avg_dist_summary.8-24-12.pl -og_avg_dist_file $og_avg_dist_filename -sig_if $sig_if -avg_dists_dir $output_avg_DISTs_dir -avg_dists_list $output_dir$avg_dists_list -output_file $output_p_value_summary";
+  print $log_file "\n"."executing:"."\n".$produce_ps_string."\n";
+  system( $produce_ps_string );
+  print $log_file "DONE at:"."\t".`date +%m-%d-%y_%H:%M:%S`."\n";
 
   if ($debug){print STDERR "HELLO.7"."\n";}
 
@@ -858,7 +872,7 @@ sub process_permuted_OTU_data {
   # Run the final script to calculate P values by comparing the original to all permutaion derived distances matrixes
   my $output_p_value_summary = $output_dir.$data_file.".".$dist_method.".P_VALUES_SUMMARY";
   my $og_avg_dist_filename = $output_dir.$data_file.".".$dist_method."."."DIST.AVG_DIST";
-  my $produce_ps_string = "$DIR/avg_dist_summary.8-24-12.pl -og_avg_dist_file $og_avg_dist_filename -avg_dists_dir $output_avg_DISTs_dir -avg_dists_list $output_dir$avg_dists_list -output_file $output_p_value_summary";
+  my $produce_ps_string = "$DIR/avg_dist_summary.8-24-12.pl -og_avg_dist_file $og_avg_dist_filename -sig_if $sig_if -avg_dists_dir $output_avg_DISTs_dir -avg_dists_list $output_dir$avg_dists_list -output_file $output_p_value_summary";
   print $log_file "\n"."executing:"."\n".$produce_ps_string."\n";
   system( $produce_ps_string );
   print $log_file "DONE at:"."\t".`date +%m-%d-%y_%H:%M:%S`."\n\n";
