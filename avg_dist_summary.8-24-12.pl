@@ -117,7 +117,8 @@ foreach my $perm (@avg_dist_list){
 	  $perm_sum_dist_avg_hash->{$perm_line_array[0]}++;
 	}elsif($sig_if eq "gt"){
 	  if ( $perm_line_array[1] > $og_dist_avg_hash->{$perm_line_array[0]} ){
-	  $perm_sum_dist_avg_hash->{$perm_line_array[0]}++;
+	    $perm_sum_dist_avg_hash->{$perm_line_array[0]}++;
+	  }
 	}else{
 	  print STDOUT "\n\n"."invalid sig_if value ( ".$sig_if." )"."\n"."value must be \"lt\" or \"gt\""."\n\n";
 	  exit 1;
