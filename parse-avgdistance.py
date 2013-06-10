@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 '''Script to extract average distances from EHFI output and produce simple table, outputs to std out'''
+
 import sys, os
-from scipy import stats
 import numpy as np
 from optparse import OptionParser
 import re

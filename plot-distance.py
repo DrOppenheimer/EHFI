@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 '''  Plots heatmap from distance matrix in plain format.'''
+
 import sys, os
-from scipy import stats
 import numpy as np
 from optparse import OptionParser
 import matplotlib.pyplot as plt
