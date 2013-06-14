@@ -79,4 +79,4 @@ if __name__ == '__main__':
     grouplabels = [index[i] for i in range(0, NUMGROUPS) ]
     print "#Pvalues\t", "\t".join(grouplabels)
     for i in range(0, NUMGROUPS):
-        print grouplabels[i]+"\t"+"\t".join( "%.05f"%(1-m) for m in (map(float, (h[(i, j)] for j in range(NUMGROUPS) ))))
+        print grouplabels[i]+"\t"+"\t".join( "%.05f"%(m) for m in (map(float, (h[(i, j)] for j in range(NUMGROUPS) ))))
