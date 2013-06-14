@@ -1,0 +1,17 @@
+# command list 
+
+# QIIME-dependent analysis
+# ~/EHFI/plot_pco_with_stats_all.3-4-13.pl -f o-0.0001 -g o.groups -m euclidean -t dataset_rand -z qiime_pipe -q qiime_table -o test_a   # -cleanup
+# ~/EHFI/plot_pco_with_stats_all.3-4-13.pl -f o-0.0001 -g o.groups -m euclidean -t rowwise_rand -z qiime_pipe -q qiime_table -o test_b   # -cleanup
+
+#  No differences
+~/EHFI/plot_pco_with_stats_all.3-4-13.pl -f o-0.0001.simplex -g o.groups -s lt -p 100 -t dataset_rand -m euclidean -z MG-RAST_pipe -c 10 -o Test_1w # -cleanup
+~/EHFI/plot_pco_with_stats_all.3-4-13.pl -f o-0.0001.simplex -g o.groups -s gt -p 100 -t rowwise_rand -m euclidean -z MG-RAST_pipe -c 10 -o Test_1b # -cleanup
+~/EHFI/combine_summary_stats.pl -m pattern -w Test_1w -b Test_1b -o Test_1.P_VALUE_SUMMARY
+
+#  No differences
+~/EHFI/plot_pco_with_stats_all.3-4-13.pl -f o-10.simplex -g o.groups -s lt -p 100 -t dataset_rand -m euclidean -z MG-RAST_pipe -c 10 -o Test_2w # -cleanup
+~/EHFI/plot_pco_with_stats_all.3-4-13.pl -f o-10.simplex -g o.groups -s gt -p 100 -t rowwise_rand -m euclidean -z MG-RAST_pipe -c 10 -o Test_2b # -cleanup
+~/EHFI/combine_summary_stats.pl -m pattern -w Test_2w -b Test_2b -o Test_2.P_VALUE_SUMMARY
+
+
