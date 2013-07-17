@@ -1,0 +1,139 @@
+# Analysis_5
+~/EHFI/plot_pco_with_stats_all.3-4-13.pl -f Zhou.11.Qiime.Qiime_default.included.raw -g Zhou.groups -s lt -p 10000 -t dataset_rand -m unifrac -z qiime_pipe  -q qiime_table  -a ~/qiime_software/gg_otus-12_10-release/trees/97_otus.tree -c 10 -o Analysis_5w -cleanup
+~/EHFI/plot_pco_with_stats_all.3-4-13.pl -f Zhou.11.Qiime.Qiime_default.included.raw  -g Zhou.groups -s gt -p 10000 -t rowwise_rand -m unifrac -z qiime_pipe  -q qiime_table  -a ~/qiime_software/gg_otus-12_10-release/trees/97_otus.tree -c 10 -o Analysis_5b -cleanup
+~/EHFI/combine_summary_stats.pl -m pattern -w Analysis_5w -b Analysis_5b -o Analysis_5.P_VALUE_SUMMARY
+
+# Analysis_6
+~/EHFI/plot_pco_with_stats_all.3-4-13.pl -f Zhou.12.Qiime.Qiime_default.included.norm -g Zhou.groups -s lt -p 10000 -t dataset_rand -m weighted_unifrac -z qiime_pipe  -q qiime_table  -a ~/qiime_software/gg_otus-12_10-release/trees/97_otus.tree -c 10 -o Analysis_6w -cleanup
+~/EHFI/plot_pco_with_stats_all.3-4-13.pl -f Zhou.12.Qiime.Qiime_default.included.norm  -g Zhou.groups -s gt -p 10000 -t rowwise_rand -m weighted_unifrac -z qiime_pipe  -q qiime_table  -a ~/qiime_software/gg_otus-12_10-release/trees/97_otus.tree -c 10 -o Analysis_6b -cleanup
+~/EHFI/combine_summary_stats.pl -m pattern -w Analysis_6w -b Analysis_6b -o Analysis_6.P_VALUE_SUMMARY
+
+# Analysis_7
+~/EHFI/plot_pco_with_stats_all.3-4-13.pl -f Zhou.11.Qiime.Qiime_default.included.raw -g Zhou.groups -s lt -p 10000 -t dataset_rand -m weighted_unifrac -z qiime_pipe  -q qiime_table  -a ~/qiime_software/gg_otus-12_10-release/trees/97_otus.tree -c 10 -o Analysis_7w -cleanup
+~/EHFI/plot_pco_with_stats_all.3-4-13.pl -f Zhou.11.Qiime.Qiime_default.included.raw  -g Zhou.groups -s gt -p 10000 -t rowwise_rand -m weighted_unifrac -z qiime_pipe  -q qiime_table  -a ~/qiime_software/gg_otus-12_10-release/trees/97_otus.tree -c 10 -o Analysis_7b -cleanup
+~/EHFI/combine_summary_stats.pl -m pattern -w Analysis_7w -b Analysis_7b -o Analysis_7.P_VALUE_SUMMARY
+
+# Analysis_12
+~/EHFI/plot_pco_with_stats_all.3-4-13.pl -f Zhou.9.Qiime.Qiime_default.removed.raw -g Zhou.groups -s lt -p 10000 -t dataset_rand -m unifrac -z qiime_pipe  -q qiime_table  -a ~/qiime_software/gg_otus-12_10-release/trees/97_otus.tree -c 10 -o Analysis_12w -cleanup
+~/EHFI/plot_pco_with_stats_all.3-4-13.pl -f Zhou.9.Qiime.Qiime_default.removed.raw  -g Zhou.groups -s gt -p 10000 -t rowwise_rand -m unifrac -z qiime_pipe  -q qiime_table  -a ~/qiime_software/gg_otus-12_10-release/trees/97_otus.tree -c 10 -o Analysis_12b -cleanup
+~/EHFI/combine_summary_stats.pl -m pattern -w Analysis_12w -b Analysis_12b -o Analysis_12.P_VALUE_SUMMARY
+
+# Analysis_13
+~/EHFI/plot_pco_with_stats_all.3-4-13.pl -f Zhou.10.Qiime.Qiime_default.removed.norm -g Zhou.groups -s lt -p 10000 -t dataset_rand -m weighted_unifrac -z qiime_pipe  -q qiime_table  -a ~/qiime_software/gg_otus-12_10-release/trees/97_otus.tree -c 10 -o Analysis_13w -cleanup
+~/EHFI/plot_pco_with_stats_all.3-4-13.pl -f Zhou.10.Qiime.Qiime_default.removed.norm  -g Zhou.groups -s gt -p 10000 -t rowwise_rand -m weighted_unifrac -z qiime_pipe  -q qiime_table  -a ~/qiime_software/gg_otus-12_10-release/trees/97_otus.tree -c 10 -o Analysis_13b -cleanup
+~/EHFI/combine_summary_stats.pl -m pattern -w Analysis_13w -b Analysis_13b -o Analysis_13.P_VALUE_SUMMARY
+
+# Analysis_14
+~/EHFI/plot_pco_with_stats_all.3-4-13.pl -f Zhou.9.Qiime.Qiime_default.removed.raw -g Zhou.groups -s lt -p 10000 -t dataset_rand -m weighted_unifrac -z qiime_pipe  -q qiime_table  -a ~/qiime_software/gg_otus-12_10-release/trees/97_otus.tree -c 10 -o Analysis_14w -cleanup
+~/EHFI/plot_pco_with_stats_all.3-4-13.pl -f Zhou.9.Qiime.Qiime_default.removed.raw  -g Zhou.groups -s gt -p 10000 -t rowwise_rand -m weighted_unifrac -z qiime_pipe  -q qiime_table  -a ~/qiime_software/gg_otus-12_10-release/trees/97_otus.tree -c 10 -o Analysis_14b -cleanup
+~/EHFI/combine_summary_stats.pl -m pattern -w Analysis_14w -b Analysis_14b -o Analysis_14.P_VALUE_SUMMARY
+
+# Analysis_19
+~/EHFI/plot_pco_with_stats_all.3-4-13.pl -f Zhou.15.Qiime.100p.included.raw -g Zhou.groups -s lt -p 10000 -t dataset_rand -m unifrac -z qiime_pipe  -q qiime_table  -a ~/EHFI/qiime_trees/16S_all_gg_2011_1.tree -c 10 -o Analysis_19w -cleanup
+~/EHFI/plot_pco_with_stats_all.3-4-13.pl -f Zhou.15.Qiime.100p.included.raw  -g Zhou.groups -s gt -p 10000 -t rowwise_rand -m unifrac -z qiime_pipe  -q qiime_table  -a ~/EHFI/qiime_trees/16S_all_gg_2011_1.tree -c 10 -o Analysis_19b -cleanup
+~/EHFI/combine_summary_stats.pl -m pattern -w Analysis_19w -b Analysis_19b -o Analysis_19.P_VALUE_SUMMARY
+
+# Analysis_20
+~/EHFI/plot_pco_with_stats_all.3-4-13.pl -f Zhou.16.Qiime.100p.included.norm -g Zhou.groups -s lt -p 10000 -t dataset_rand -m weighted_unifrac -z qiime_pipe  -q qiime_table  -a ~/EHFI/qiime_trees/16S_all_gg_2011_1.tree -c 10 -o Analysis_20w -cleanup
+~/EHFI/plot_pco_with_stats_all.3-4-13.pl -f Zhou.16.Qiime.100p.included.norm  -g Zhou.groups -s gt -p 10000 -t rowwise_rand -m weighted_unifrac -z qiime_pipe  -q qiime_table  -a ~/EHFI/qiime_trees/16S_all_gg_2011_1.tree -c 10 -o Analysis_20b -cleanup
+~/EHFI/combine_summary_stats.pl -m pattern -w Analysis_20w -b Analysis_20b -o Analysis_20.P_VALUE_SUMMARY
+
+# Analysis_21
+~/EHFI/plot_pco_with_stats_all.3-4-13.pl -f Zhou.15.Qiime.100p.included.raw -g Zhou.groups -s lt -p 10000 -t dataset_rand -m weighted_unifrac -z qiime_pipe  -q qiime_table  -a ~/EHFI/qiime_trees/16S_all_gg_2011_1.tree -c 10 -o Analysis_21w -cleanup
+~/EHFI/plot_pco_with_stats_all.3-4-13.pl -f Zhou.15.Qiime.100p.included.raw  -g Zhou.groups -s gt -p 10000 -t rowwise_rand -m weighted_unifrac -z qiime_pipe  -q qiime_table  -a ~/EHFI/qiime_trees/16S_all_gg_2011_1.tree -c 10 -o Analysis_21b -cleanup
+~/EHFI/combine_summary_stats.pl -m pattern -w Analysis_21w -b Analysis_21b -o Analysis_21.P_VALUE_SUMMARY
+
+# Analysis_26
+~/EHFI/plot_pco_with_stats_all.3-4-13.pl -f Zhou.13.Qiime.100p.removed.raw -g Zhou.groups -s lt -p 10000 -t dataset_rand -m unifrac -z qiime_pipe  -q qiime_table  -a ~/EHFI/qiime_trees/16S_all_gg_2011_1.tree -c 10 -o Analysis_26w -cleanup
+~/EHFI/plot_pco_with_stats_all.3-4-13.pl -f Zhou.13.Qiime.100p.removed.raw  -g Zhou.groups -s gt -p 10000 -t rowwise_rand -m unifrac -z qiime_pipe  -q qiime_table  -a ~/EHFI/qiime_trees/16S_all_gg_2011_1.tree -c 10 -o Analysis_26b -cleanup
+~/EHFI/combine_summary_stats.pl -m pattern -w Analysis_26w -b Analysis_26b -o Analysis_26.P_VALUE_SUMMARY
+
+# Analysis_27
+~/EHFI/plot_pco_with_stats_all.3-4-13.pl -f Zhou.14.Qiime.100p.removed.norm -g Zhou.groups -s lt -p 10000 -t dataset_rand -m weighted_unifrac -z qiime_pipe  -q qiime_table  -a ~/EHFI/qiime_trees/16S_all_gg_2011_1.tree -c 10 -o Analysis_27w -cleanup
+~/EHFI/plot_pco_with_stats_all.3-4-13.pl -f Zhou.14.Qiime.100p.removed.norm  -g Zhou.groups -s gt -p 10000 -t rowwise_rand -m weighted_unifrac -z qiime_pipe  -q qiime_table  -a ~/EHFI/qiime_trees/16S_all_gg_2011_1.tree -c 10 -o Analysis_27b -cleanup
+~/EHFI/combine_summary_stats.pl -m pattern -w Analysis_27w -b Analysis_27b -o Analysis_27.P_VALUE_SUMMARY
+
+# Analysis_28
+~/EHFI/plot_pco_with_stats_all.3-4-13.pl -f Zhou.13.Qiime.100p.removed.raw -g Zhou.groups -s lt -p 10000 -t dataset_rand -m weighted_unifrac -z qiime_pipe  -q qiime_table  -a ~/EHFI/qiime_trees/16S_all_gg_2011_1.tree -c 10 -o Analysis_28w -cleanup
+~/EHFI/plot_pco_with_stats_all.3-4-13.pl -f Zhou.13.Qiime.100p.removed.raw  -g Zhou.groups -s gt -p 10000 -t rowwise_rand -m weighted_unifrac -z qiime_pipe  -q qiime_table  -a ~/EHFI/qiime_trees/16S_all_gg_2011_1.tree -c 10 -o Analysis_28b -cleanup
+~/EHFI/combine_summary_stats.pl -m pattern -w Analysis_28w -b Analysis_28b -o Analysis_28.P_VALUE_SUMMARY
+
+# Analysis_39
+~/EHFI/plot_pco_with_stats_all.3-4-13.pl -f Zhou.15.Qiime.100p.included.raw -g Zhou.groups -s lt -p 10000 -t dataset_rand -m euclidean -z qiime_pipe  -q qiime_table  -a ~/EHFI/qiime_trees/16S_all_gg_2011_1.tree -c 10 -o Analysis_39w -cleanup
+~/EHFI/plot_pco_with_stats_all.3-4-13.pl -f Zhou.15.Qiime.100p.included.raw  -g Zhou.groups -s gt -p 10000 -t rowwise_rand -m euclidean -z qiime_pipe  -q qiime_table  -a ~/EHFI/qiime_trees/16S_all_gg_2011_1.tree -c 10 -o Analysis_39b -cleanup
+~/EHFI/combine_summary_stats.pl -m pattern -w Analysis_39w -b Analysis_39b -o Analysis_39.P_VALUE_SUMMARY
+
+# Analysis_40
+~/EHFI/plot_pco_with_stats_all.3-4-13.pl -f Zhou.16.Qiime.100p.included.norm -g Zhou.groups -s lt -p 10000 -t dataset_rand -m euclidean -z qiime_pipe  -q qiime_table  -a ~/EHFI/qiime_trees/16S_all_gg_2011_1.tree -c 10 -o Analysis_40w -cleanup
+~/EHFI/plot_pco_with_stats_all.3-4-13.pl -f Zhou.16.Qiime.100p.included.norm  -g Zhou.groups -s gt -p 10000 -t rowwise_rand -m euclidean -z qiime_pipe  -q qiime_table  -a ~/EHFI/qiime_trees/16S_all_gg_2011_1.tree -c 10 -o Analysis_40b -cleanup
+~/EHFI/combine_summary_stats.pl -m pattern -w Analysis_40w -b Analysis_40b -o Analysis_40.P_VALUE_SUMMARY
+
+# Analysis_41
+~/EHFI/plot_pco_with_stats_all.3-4-13.pl -f Zhou.13.Qiime.100p.removed.raw -g Zhou.groups -s lt -p 10000 -t dataset_rand -m euclidean -z qiime_pipe  -q qiime_table  -a ~/EHFI/qiime_trees/16S_all_gg_2011_1.tree -c 10 -o Analysis_41w -cleanup
+~/EHFI/plot_pco_with_stats_all.3-4-13.pl -f Zhou.13.Qiime.100p.removed.raw  -g Zhou.groups -s gt -p 10000 -t rowwise_rand -m euclidean -z qiime_pipe  -q qiime_table  -a ~/EHFI/qiime_trees/16S_all_gg_2011_1.tree -c 10 -o Analysis_41b -cleanup
+~/EHFI/combine_summary_stats.pl -m pattern -w Analysis_41w -b Analysis_41b -o Analysis_41.P_VALUE_SUMMARY
+
+# Analysis_42
+~/EHFI/plot_pco_with_stats_all.3-4-13.pl -f Zhou.14.Qiime.100p.removed.norm -g Zhou.groups -s lt -p 10000 -t dataset_rand -m euclidean -z qiime_pipe  -q qiime_table  -a ~/EHFI/qiime_trees/16S_all_gg_2011_1.tree -c 10 -o Analysis_42w -cleanup
+~/EHFI/plot_pco_with_stats_all.3-4-13.pl -f Zhou.14.Qiime.100p.removed.norm  -g Zhou.groups -s gt -p 10000 -t rowwise_rand -m euclidean -z qiime_pipe  -q qiime_table  -a ~/EHFI/qiime_trees/16S_all_gg_2011_1.tree -c 10 -o Analysis_42b -cleanup
+~/EHFI/combine_summary_stats.pl -m pattern -w Analysis_42w -b Analysis_42b -o Analysis_42.P_VALUE_SUMMARY
+
+# Analysis_43
+~/EHFI/plot_pco_with_stats_all.3-4-13.pl -f Zhou.15.Qiime.100p.included.raw -g Zhou.groups -s lt -p 10000 -t dataset_rand -m bray_curtis -z qiime_pipe  -q qiime_table  -a ~/EHFI/qiime_trees/16S_all_gg_2011_1.tree -c 10 -o Analysis_43w -cleanup
+~/EHFI/plot_pco_with_stats_all.3-4-13.pl -f Zhou.15.Qiime.100p.included.raw  -g Zhou.groups -s gt -p 10000 -t rowwise_rand -m bray_curtis -z qiime_pipe  -q qiime_table  -a ~/EHFI/qiime_trees/16S_all_gg_2011_1.tree -c 10 -o Analysis_43b -cleanup
+~/EHFI/combine_summary_stats.pl -m pattern -w Analysis_43w -b Analysis_43b -o Analysis_43.P_VALUE_SUMMARY
+
+# Analysis_44
+~/EHFI/plot_pco_with_stats_all.3-4-13.pl -f Zhou.16.Qiime.100p.included.norm -g Zhou.groups -s lt -p 10000 -t dataset_rand -m bray_curtis -z qiime_pipe  -q qiime_table  -a ~/EHFI/qiime_trees/16S_all_gg_2011_1.tree -c 10 -o Analysis_44w -cleanup
+~/EHFI/plot_pco_with_stats_all.3-4-13.pl -f Zhou.16.Qiime.100p.included.norm  -g Zhou.groups -s gt -p 10000 -t rowwise_rand -m bray_curtis -z qiime_pipe  -q qiime_table  -a ~/EHFI/qiime_trees/16S_all_gg_2011_1.tree -c 10 -o Analysis_44b -cleanup
+~/EHFI/combine_summary_stats.pl -m pattern -w Analysis_44w -b Analysis_44b -o Analysis_44.P_VALUE_SUMMARY
+
+# Analysis_45
+~/EHFI/plot_pco_with_stats_all.3-4-13.pl -f Zhou.13.Qiime.100p.removed.raw -g Zhou.groups -s lt -p 10000 -t dataset_rand -m bray_curtis -z qiime_pipe  -q qiime_table  -a ~/EHFI/qiime_trees/16S_all_gg_2011_1.tree -c 10 -o Analysis_45w -cleanup
+~/EHFI/plot_pco_with_stats_all.3-4-13.pl -f Zhou.13.Qiime.100p.removed.raw  -g Zhou.groups -s gt -p 10000 -t rowwise_rand -m bray_curtis -z qiime_pipe  -q qiime_table  -a ~/EHFI/qiime_trees/16S_all_gg_2011_1.tree -c 10 -o Analysis_45b -cleanup
+~/EHFI/combine_summary_stats.pl -m pattern -w Analysis_45w -b Analysis_45b -o Analysis_45.P_VALUE_SUMMARY
+
+# Analysis_46
+~/EHFI/plot_pco_with_stats_all.3-4-13.pl -f Zhou.14.Qiime.100p.removed.norm -g Zhou.groups -s lt -p 10000 -t dataset_rand -m bray_curtis -z qiime_pipe  -q qiime_table  -a ~/EHFI/qiime_trees/16S_all_gg_2011_1.tree -c 10 -o Analysis_46w -cleanup
+~/EHFI/plot_pco_with_stats_all.3-4-13.pl -f Zhou.14.Qiime.100p.removed.norm  -g Zhou.groups -s gt -p 10000 -t rowwise_rand -m bray_curtis -z qiime_pipe  -q qiime_table  -a ~/EHFI/qiime_trees/16S_all_gg_2011_1.tree -c 10 -o Analysis_46b -cleanup
+~/EHFI/combine_summary_stats.pl -m pattern -w Analysis_46w -b Analysis_46b -o Analysis_46.P_VALUE_SUMMARY
+
+# Analysis_47
+~/EHFI/plot_pco_with_stats_all.3-4-13.pl -f Zhou.11.Qiime.Qiime_default.included.raw -g Zhou.groups -s lt -p 10000 -t dataset_rand -m bray_curtis -z qiime_pipe  -q qiime_table  -a ~/qiime_software/gg_otus-12_10-release/trees/97_otus.tree -c 10 -o Analysis_47w -cleanup
+~/EHFI/plot_pco_with_stats_all.3-4-13.pl -f Zhou.11.Qiime.Qiime_default.included.raw  -g Zhou.groups -s gt -p 10000 -t rowwise_rand -m bray_curtis -z qiime_pipe  -q qiime_table  -a ~/qiime_software/gg_otus-12_10-release/trees/97_otus.tree -c 10 -o Analysis_47b -cleanup
+~/EHFI/combine_summary_stats.pl -m pattern -w Analysis_47w -b Analysis_47b -o Analysis_47.P_VALUE_SUMMARY
+
+# Analysis_48
+~/EHFI/plot_pco_with_stats_all.3-4-13.pl -f Zhou.11.Qiime.Qiime_default.included.raw -g Zhou.groups -s lt -p 10000 -t dataset_rand -m euclidean -z qiime_pipe  -q qiime_table  -a ~/qiime_software/gg_otus-12_10-release/trees/97_otus.tree -c 10 -o Analysis_48w -cleanup
+~/EHFI/plot_pco_with_stats_all.3-4-13.pl -f Zhou.11.Qiime.Qiime_default.included.raw  -g Zhou.groups -s gt -p 10000 -t rowwise_rand -m euclidean -z qiime_pipe  -q qiime_table  -a ~/qiime_software/gg_otus-12_10-release/trees/97_otus.tree -c 10 -o Analysis_48b -cleanup
+~/EHFI/combine_summary_stats.pl -m pattern -w Analysis_48w -b Analysis_48b -o Analysis_48.P_VALUE_SUMMARY
+
+# Analysis_49
+~/EHFI/plot_pco_with_stats_all.3-4-13.pl -f Zhou.9.Qiime.Qiime_default.removed.raw -g Zhou.groups -s lt -p 10000 -t dataset_rand -m bray_curtis -z qiime_pipe  -q qiime_table  -a ~/qiime_software/gg_otus-12_10-release/trees/97_otus.tree -c 10 -o Analysis_49w -cleanup
+~/EHFI/plot_pco_with_stats_all.3-4-13.pl -f Zhou.9.Qiime.Qiime_default.removed.raw  -g Zhou.groups -s gt -p 10000 -t rowwise_rand -m bray_curtis -z qiime_pipe  -q qiime_table  -a ~/qiime_software/gg_otus-12_10-release/trees/97_otus.tree -c 10 -o Analysis_49b -cleanup
+~/EHFI/combine_summary_stats.pl -m pattern -w Analysis_49w -b Analysis_49b -o Analysis_49.P_VALUE_SUMMARY
+
+# Analysis_50
+~/EHFI/plot_pco_with_stats_all.3-4-13.pl -f Zhou.9.Qiime.Qiime_default.removed.raw -g Zhou.groups -s lt -p 10000 -t dataset_rand -m euclidean -z qiime_pipe  -q qiime_table  -a ~/qiime_software/gg_otus-12_10-release/trees/97_otus.tree -c 10 -o Analysis_50w -cleanup
+~/EHFI/plot_pco_with_stats_all.3-4-13.pl -f Zhou.9.Qiime.Qiime_default.removed.raw  -g Zhou.groups -s gt -p 10000 -t rowwise_rand -m euclidean -z qiime_pipe  -q qiime_table  -a ~/qiime_software/gg_otus-12_10-release/trees/97_otus.tree -c 10 -o Analysis_50b -cleanup
+~/EHFI/combine_summary_stats.pl -m pattern -w Analysis_50w -b Analysis_50b -o Analysis_50.P_VALUE_SUMMARY
+
+# Analysis_51
+~/EHFI/plot_pco_with_stats_all.3-4-13.pl -f Zhou.12.Qiime.Qiime_default.included.norm -g Zhou.groups -s lt -p 10000 -t dataset_rand -m bray_curtis -z qiime_pipe  -q qiime_table  -a ~/qiime_software/gg_otus-12_10-release/trees/97_otus.tree -c 10 -o Analysis_51w -cleanup
+~/EHFI/plot_pco_with_stats_all.3-4-13.pl -f Zhou.12.Qiime.Qiime_default.included.norm  -g Zhou.groups -s gt -p 10000 -t rowwise_rand -m bray_curtis -z qiime_pipe  -q qiime_table  -a ~/qiime_software/gg_otus-12_10-release/trees/97_otus.tree -c 10 -o Analysis_51b -cleanup
+~/EHFI/combine_summary_stats.pl -m pattern -w Analysis_51w -b Analysis_51b -o Analysis_51.P_VALUE_SUMMARY
+
+# Analysis_52
+~/EHFI/plot_pco_with_stats_all.3-4-13.pl -f Zhou.12.Qiime.Qiime_default.included.norm -g Zhou.groups -s lt -p 10000 -t dataset_rand -m euclidean -z qiime_pipe  -q qiime_table  -a ~/qiime_software/gg_otus-12_10-release/trees/97_otus.tree -c 10 -o Analysis_52w -cleanup
+~/EHFI/plot_pco_with_stats_all.3-4-13.pl -f Zhou.12.Qiime.Qiime_default.included.norm  -g Zhou.groups -s gt -p 10000 -t rowwise_rand -m euclidean -z qiime_pipe  -q qiime_table  -a ~/qiime_software/gg_otus-12_10-release/trees/97_otus.tree -c 10 -o Analysis_52b -cleanup
+~/EHFI/combine_summary_stats.pl -m pattern -w Analysis_52w -b Analysis_52b -o Analysis_52.P_VALUE_SUMMARY
+
+# Analysis_53
+~/EHFI/plot_pco_with_stats_all.3-4-13.pl -f Zhou.10.Qiime.Qiime_default.removed.norm -g Zhou.groups -s lt -p 10000 -t dataset_rand -m bray_curtis -z qiime_pipe  -q qiime_table  -a ~/qiime_software/gg_otus-12_10-release/trees/97_otus.tree -c 10 -o Analysis_53w -cleanup
+~/EHFI/plot_pco_with_stats_all.3-4-13.pl -f Zhou.10.Qiime.Qiime_default.removed.norm  -g Zhou.groups -s gt -p 10000 -t rowwise_rand -m bray_curtis -z qiime_pipe  -q qiime_table  -a ~/qiime_software/gg_otus-12_10-release/trees/97_otus.tree -c 10 -o Analysis_53b -cleanup
+~/EHFI/combine_summary_stats.pl -m pattern -w Analysis_53w -b Analysis_53b -o Analysis_53.P_VALUE_SUMMARY
+
+# Analysis_54
+~/EHFI/plot_pco_with_stats_all.3-4-13.pl -f Zhou.10.Qiime.Qiime_default.removed.norm -g Zhou.groups -s lt -p 10000 -t dataset_rand -m euclidean -z qiime_pipe  -q qiime_table  -a ~/qiime_software/gg_otus-12_10-release/trees/97_otus.tree -c 10 -o Analysis_54w -cleanup
+~/EHFI/plot_pco_with_stats_all.3-4-13.pl -f Zhou.10.Qiime.Qiime_default.removed.norm  -g Zhou.groups -s gt -p 10000 -t rowwise_rand -m euclidean -z qiime_pipe  -q qiime_table  -a ~/qiime_software/gg_otus-12_10-release/trees/97_otus.tree -c 10 -o Analysis_54b -cleanup
+~/EHFI/combine_summary_stats.pl -m pattern -w Analysis_54w -b Analysis_54b -o Analysis_54.P_VALUE_SUMMARY
