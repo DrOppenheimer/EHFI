@@ -82,7 +82,7 @@ OTU_dists<- function(
 
   # load data
   my_input_path_file <- gsub(" ", "", paste(input_dir,file_in))
-  Input <<- read.table (my_input_path_file, header = 1, sep = "\t", row.names = 1, quote = "", stringsAsFactors = FALSE)
+  Input <<- read.table (my_input_path_file, header = 1, sep = "\t", row.names = 1, quote = "", stringsAsFactors = FALSE, check.names=FALSE)
 
   num_data_rows = dim(Input)[1] # substitute 0 for NA's if they exist in the data
   num_data_cols = dim(Input)[2]
