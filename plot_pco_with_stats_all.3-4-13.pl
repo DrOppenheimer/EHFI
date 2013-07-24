@@ -543,14 +543,14 @@ sub process_original_OTU_data {
   if ($debug){ print STDERR "HELLO.OTU.1"."\n"; }
   # process the original data_file to produce PCoA and DIST files
   print $log_file "process original data file (".$data_file.") > *.PCoA & *.DIST ... "."\n";
-  print $log_file "\n"."executing: $DIR/OTU_similarities_shell.7-31-12.sh $data_file $input_dir $output_dir 1 $output_dir $dist_method $headers"."\n\n";
+  print $log_file "\n"."executing:"."\n".$DIR/OTU_similarities_shell.7-31-12.sh $data_file $input_dir $output_dir 1 $output_dir $dist_method $headers"."\n\n";
   system("$DIR/OTU_similarities_shell.7-31-12.sh $data_file $input_dir $output_dir 1 $output_dir $dist_method $headers");
   print $log_file "DONE at:"."\t".`date +%m-%d-%y_%H:%M:%S`."\n";
 
   if ($debug){ print STDERR "HELLO.OTU.2"."\n"; }
   # process original data_file.DIST to produce original_file.DIST.AVG_DIST
   print $log_file "process original data *.DIST file (".$data_file.".".$dist_method.".DIST) > *.AVG_DIST ... "."\n";
-  print $log_file "\n"."executing: $DIR/avg_distances.sh $data_file.$dist_method.DIST $output_dir $groups_list $data_file.$dist_method.DIST $output_dir"."\n\n";
+  print $log_file "\n"."executing:"."\n".$DIR/avg_distances.sh $data_file.$dist_method.DIST $output_dir $groups_list $data_file.$dist_method.DIST $output_dir"."\n\n";
   system("$DIR/avg_distances.sh $data_file.$dist_method.DIST $output_dir $groups_list $data_file.$dist_method.DIST $output_dir");
   print $log_file "DONE at:"."\t".`date +%m-%d-%y_%H:%M:%S`."\n";
 
