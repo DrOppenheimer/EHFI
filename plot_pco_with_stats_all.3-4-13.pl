@@ -516,7 +516,7 @@ sub process_original_qiime_data {
   my $qimme_dist_filename = $output_dir.$dist_method."_".$data_file.".txt";
   my $dist_filename = $data_file.".".$dist_method.".DIST";
   my $rename_dist_string = "mv $qimme_dist_filename $output_dir$dist_filename";
-  print $log_file "\n"."executing:".$rename_dist_string."\n";
+  print $log_file "\n"."executing:"."\n".$rename_dist_string."\n";
   system($rename_dist_string);
   print $log_file "DONE at:"."\t".`date +%m-%d-%y_%H:%M:%S`."\n\n";
 
