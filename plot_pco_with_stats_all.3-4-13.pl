@@ -529,7 +529,7 @@ sub process_original_qiime_data {
 
   # create average_dist file
   my $avg_dist_filename = $data_file.".".$dist_method.".DIST";
-  print $log_file "\n"."executing: $DIR/avg_distances.sh $dist_filename $output_dir $groups_list $avg_dist_filename $output_dir"."\n\n";
+  print $log_file "\n"."executing:"."\n". $DIR/avg_distances.sh $dist_filename $output_dir $groups_list $avg_dist_filename $output_dir"."\n\n";
   system("$DIR/avg_distances.sh $dist_filename $output_dir $groups_list $avg_dist_filename $output_dir");
   print $log_file "Produce *.AVG_DIST file from the original data *.DIST file"."\n"."DONE at:"."\t".`date +%m-%d-%y_%H:%M:%S`."\n";
 
