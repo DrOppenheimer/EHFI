@@ -7,9 +7,6 @@ create_eight <- function(
                          output_prefix=""
                          ){
 
-  # use counts_file as output_prefix if no other output_prefix was specified
-  if ( identical(output_prefix ,"") ) { output_prefix <- counts_file }
-  
   # usage function
   if ( nargs() == 0 ){
     writeLines("
@@ -232,6 +229,8 @@ create_eight <- function(
 #####################################################################################################################
 #####################################################################################################################
 
+  # use counts_file as output_prefix if no other output_prefix was specified
+  if ( identical(output_prefix ,"") ) { output_prefix <- counts_file }
   
   # create all 8 outputs
   if ( create==8 ){
