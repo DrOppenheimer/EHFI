@@ -47,7 +47,7 @@ create_eight <- function(
 #####################################################################################################################
 #####################################################################################################################
   remove_singletons <- function(
-                                my.matrix, abundance_limit = 1, debug=FALSE
+                                my.matrix, abundance_limit = 1, debug=FALSE, tag=""
                                 )
     {
       
@@ -81,7 +81,7 @@ create_eight <- function(
                    )
       }
 
-      print(paste("     removing singletons from matrix ...")) 
+      print(paste("     removing singletons from matrix", tag, "...")) 
       
       dim_matrix <- dim(my.matrix)
       num_row <- dim_matrix[1]
@@ -128,7 +128,7 @@ create_eight <- function(
         }
       }
 
-      print(paste("     removing singletons from matrix DONE"))
+       print(paste("     removing singletons from matrix", tag, "DONE"))
       return(filtered.matrix)
 
       
@@ -146,7 +146,7 @@ create_eight <- function(
 ###################################### FUNCTION TO NORM CENTER SCALE ################################################
 #####################################################################################################################
 #####################################################################################################################
-  norm_center_scale <<- function(matrix_in) # end inputarguments
+  norm_center_scale <<- function(matrix_in, tag="") # end inputarguments
     {
       
       if ( nargs() == 0 ){
@@ -173,7 +173,7 @@ create_eight <- function(
                    )
       }
 
-      print(paste("     normalizing matrix ..."))
+      print(paste("     normalizing matrix", tag, "..."))
       
       ###### replace NA's with 0
       matrix_in[ is.na(matrix_in) ]<-0
@@ -213,7 +213,7 @@ create_eight <- function(
       }
       
       ####### return norm_center_scaled matrix
-      print(paste("     normalizing matrix DONE"))
+      print(paste("     normalizing matrix", tag, "..."))
       return(log2_cent_data)
       
     }
@@ -249,15 +249,15 @@ create_eight <- function(
     print("     checking agreement of counts and percentid files DONE")
     
     # raw counts with singletons removed (output_1)
-    raw_counts.singletons_rm.matrix <- remove_singletons(raw_counts.matrix, abundance_limit = 1)
+    raw_counts.singletons_rm.matrix <- remove_singletons(raw_counts.matrix, abundance_limit = 1, tag="make_out_1")
     #rownames(raw_counts.singletons_rm.matrix) <- rownames(raw_counts.matrix)
     #colnames(raw_counts.singletons_rm.matrix) <- colnames(raw_counts.matrix)
 
     # normalized raw counts with singletons removed (output_2)
-    normed_counts.singletons_rm.matrix <- norm_center_scale(raw_counts.singletons_rm.matrix)
+    normed_counts.singletons_rm.matrix <- norm_center_scale(raw_counts.singletons_rm.matrix, tag="make_out_2")
 
     # normalized raw counts with singletons included (output_4)
-    normed_counts.matrix <- norm_center_scale(raw_counts.matrix)
+    normed_counts.matrix <- norm_center_scale(raw_counts.matrix, tag="make_out_4")
 
     # counts that are the same or greater than percent_screen (filtered to remove rows that sum to 0) # make output_7
     raw_counts.pass_screen.matrix <<- matrix(0,dim(raw_counts.matrix)[1],dim(raw_counts.matrix)[2]) 
@@ -274,18 +274,18 @@ create_eight <- function(
     }
     print(paste("     filtering for percentid", percent_screen, "% ID DONE"))
 
-    raw_counts.pass_screen.matrix <<- remove_singletons(raw_counts.pass_screen.matrix, abundance_limit = 0)
+    raw_counts.pass_screen.matrix <<- remove_singletons(raw_counts.pass_screen.matrix, abundance_limit = 0, tag="make_out_7_rm_0s")
 
     # pass_screen counts with singletons removed (output_5)
-    raw_counts.pass_screen.singletons_rm.matrix <- remove_singletons(raw_counts.pass_screen.matrix, abundance_limit = 1)
+    raw_counts.pass_screen.singletons_rm.matrix <- remove_singletons(raw_counts.pass_screen.matrix, abundance_limit = 1, tag="make_out_5")
     #rownames(raw_counts.pass_screen.singletons_rm.matrix) <- rownames(raw_counts.matrix)
     #colnames(raw_counts.pass_screen.singletons_rm.matrix) <- colnames(raw_counts.matrix) 
   
     # pass_screen normalized raw counts with singletons removed (output_6)
-    normed_counts.pass_screen.singletons_rm.matrix <- norm_center_scale(raw_counts.pass_screen.singletons_rm.matrix)
+    normed_counts.pass_screen.singletons_rm.matrix <- norm_center_scale(raw_counts.pass_screen.singletons_rm.matrix, tag="make_out_6")
   
     # pass_screen normalized raw counts with singletons included (output_8)
-    normed_counts.pass_screen.matrix <- norm_center_scale(raw_counts.pass_screen.matrix)
+    normed_counts.pass_screen.matrix <- norm_center_scale(raw_counts.pass_screen.matrix, tag="make_out_8")
   
     # Write all 8 of the output files
     print("     printing output files ...")
@@ -334,15 +334,15 @@ create_eight <- function(
     print("     checking agreement of counts and percentid files DONE")
 
     # raw counts with singletons removed (output_1)
-    raw_counts.singletons_rm.matrix <- remove_singletons(raw_counts.matrix, abundance_limit = 1)
+    raw_counts.singletons_rm.matrix <- remove_singletons(raw_counts.matrix, abundance_limit = 1, tag="make_out_1")
     #rownames(raw_counts.singletons_rm.matrix) <- rownames(raw_counts.matrix)
     #colnames(raw_counts.singletons_rm.matrix) <- colnames(raw_counts.matrix)
 
     # normalized raw counts with singletons removed (output_2)
-    normed_counts.singletons_rm.matrix <- norm_center_scale(raw_counts.singletons_rm.matrix)
+    normed_counts.singletons_rm.matrix <- norm_center_scale(raw_counts.singletons_rm.matrix, tag="make_out_2")
 
     # normalized raw counts with singletons included (output_4)
-    normed_counts.matrix <- norm_center_scale(raw_counts.matrix)
+    normed_counts.matrix <- norm_center_scale(raw_counts.matrix, tag="make_out_4")
 
     # Write 4 output files
     print("     printing output files ...")
