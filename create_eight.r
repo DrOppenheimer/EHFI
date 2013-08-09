@@ -4,7 +4,7 @@ create_eight <- function(
                          percent_file,
                          percent_screen = 100,
                          create=8,
-                         output_prefix=""
+                         output_prefix="my_out"
                          ){
 
   # usage function
@@ -230,7 +230,7 @@ create_eight <- function(
 #####################################################################################################################
 
   # use counts_file as output_prefix if no other output_prefix was specified
-  if ( identical(output_prefix ,"") ) { output_prefix <- counts_file }
+  if ( identical(output_prefix , "my_out") ) { output_prefix <- counts_file }
   
   # create all 8 outputs
   if ( create==8 ){
