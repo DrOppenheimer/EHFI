@@ -127,10 +127,11 @@ create_eight <- function(
           
         }
       }
-      
-      return(filtered.matrix)
 
       print(paste("     removing singletons from matrix DONE"))
+      return(filtered.matrix)
+
+      
       
     }
 #####################################################################################################################
@@ -212,9 +213,8 @@ create_eight <- function(
       }
       
       ####### return norm_center_scaled matrix
-      return(log2_cent_data)
-
       print(paste("     normalizing matrix DONE"))
+      return(log2_cent_data)
       
     }
 #####################################################################################################################
@@ -261,8 +261,8 @@ create_eight <- function(
 
     # counts that are the same or greater than percent_screen (filtered to remove rows that sum to 0) # make output_7
     raw_counts.pass_screen.matrix <<- matrix(0,dim(raw_counts.matrix)[1],dim(raw_counts.matrix)[2]) 
-    rownames(raw_counts.pass_screen.matrix) <- rownames(raw_counts.matrix)
-    colnames(raw_counts.pass_screen.matrix) <- colnames(raw_counts.matrix)
+    rownames(raw_counts.pass_screen.matrix) <<- rownames(raw_counts.matrix)
+    colnames(raw_counts.pass_screen.matrix) <<- colnames(raw_counts.matrix)
 
     print(paste("     filtering for percentid", percent_screen, "% ID ..."))
     for (i in 1:dim(raw_counts.matrix)[1]){
