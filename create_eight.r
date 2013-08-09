@@ -45,7 +45,6 @@ create_eight <- function(
     data.matrix(read.table(file_name, row.names=1, header=TRUE, sep="\t", comment.char="", quote="", check.names=FALSE))
   }
 
-
 #####################################################################################################################
 ###################################### FUNCTION TO REMOVE SINGLETONS ################################################
 #####################################################################################################################
@@ -84,6 +83,8 @@ create_eight <- function(
      "
                    )
       }
+
+      print(paste("     removing singletons from", my.matrix, "...")) 
       
       dim_matrix <- dim(my.matrix)
       num_row <- dim_matrix[1]
@@ -131,6 +132,8 @@ create_eight <- function(
       }
       
       return(filtered.matrix)
+
+      print(paste("     removing singletons from", my.matrix, "DONE"))
       
     }
 #####################################################################################################################
@@ -172,6 +175,8 @@ create_eight <- function(
                    )
       }
 
+      print(paste("     normalizing", my.matrix, "..."))
+      
       ###### replace NA's with 0
       matrix_in[ is.na(matrix_in) ]<-0
 
@@ -211,6 +216,9 @@ create_eight <- function(
       
       ####### return norm_center_scaled matrix
       return(log2_cent_data)
+
+      print(paste("     normalizing", my.matrix, "DONE"))
+      
     }
 #####################################################################################################################
 #####################################################################################################################
@@ -224,17 +232,23 @@ create_eight <- function(
 #####################################################################################################################
 #####################################################################################################################
 
+  
   # create all 8 outputs
   if ( create==8 ){
+    print("     creating 8 files ...")
     
     # import data
+    print("     importing data ...")
     raw_counts.matrix <- import_data(counts_file) # (output_3)
     my_id.matrix <- import_data(percent_file)
-  
+    print("     importing data DONE")
+
+    print("     checking agreement of counts and percentid files ...")
     # Make sure rows and columns agree between two files
     my_id.matrix[ rownames(raw_counts.matrix), ] 
     my_id.matrix[ ,colnames(raw_counts.matrix) ]
-
+    print("     checking agreement of counts and percentid files DONE")
+    
     # raw counts with singletons removed (output_1)
     raw_counts.singletons_rm.matrix <- remove_singletons(raw_counts.matrix, abundance_limit = 1)
     rownames(raw_counts.singletons_rm.matrix) <- rownames(raw_counts.matrix)
@@ -251,6 +265,7 @@ create_eight <- function(
     rownames(raw_counts.pass_screen.matrix) <- rownames(raw_counts.matrix)
     colnames(raw_counts.pass_screen.matrix) <- colnames(raw_counts.matrix)
 
+    print(paste("     filtering for percentid", percent_screen, "% ID ..."))
     for (i in 1:dim(raw_counts.matrix)[1]){
       for (j in dim(raw_counts.matrix)[2]){
         if ( my_id.matrix[i,j] >= percent_screen){
@@ -258,6 +273,7 @@ create_eight <- function(
         }
       }
     }
+    print(paste("     filtering for percentid", percent_screen, "% ID DONE"))
 
     raw_counts.pass_screen.matrix <- remove_singletons(raw_counts.pass_screen.matrix, abundance_limit = 0)
 
@@ -273,6 +289,8 @@ create_eight <- function(
     normed_counts.pass_screen.matrix <- norm_center_scale(raw_counts.pass_screen.matrix)
   
     # Write all 8 of the output files
+    print("     printing output files ...")
+    
     output_1_filename <- gsub(" ", "", paste( output_prefix,".raw.percent_default.removed.txt" ))
     write.table(raw_counts.singletons_rm.matrix, file = output_1_filename, col.names=NA, row.names = TRUE, sep="\t", quote=FALSE)
 
@@ -297,13 +315,24 @@ create_eight <- function(
     output_8_filename <- gsub(" ", "", paste( output_prefix,".norm.percent_screen.included" ))
     write.table(normed_counts.pass_screen.matrix, file = output_8_filename, col.names=NA, row.names = TRUE, sep="\t", quote=FALSE)
 
-  }else if (create==4) { # create just the first 4 outputs 
+    print("     printing output files DONE")
+    print("     creating 8 files DONE")
 
+  }else if (create==4) {
+
+    # create just the first 4 outputs 
+    print("     creating 4 files ...")
+    
+    # import data
+    print("     importing data ...")
     raw_counts.matrix <- import_data(counts_file) # (output_3)
+    print("     importing data DONE")
     
     # Make sure rows and columns agree between two files
+    print("     checking agreement of counts and percentid files ...")
     my_id.matrix[ rownames(raw_counts.matrix), ] 
     my_id.matrix[ ,colnames(raw_counts.matrix) ]
+    print("     checking agreement of counts and percentid files DONE")
 
     # raw counts with singletons removed (output_1)
     raw_counts.singletons_rm.matrix <- remove_singletons(raw_counts.matrix, abundance_limit = 1)
@@ -317,6 +346,8 @@ create_eight <- function(
     normed_counts.matrix <- norm_center_scale(raw_counts.matrix)
 
     # Write 4 output files
+    print("     printing output files ...")
+    
     output_1_filename <- gsub(" ", "", paste( output_prefix,".raw.percent_default.removed.txt" ))
     write.table(raw_counts.singletons_rm.matrix, file = output_1_filename, col.names=NA, row.names = TRUE, sep="\t", quote=FALSE)
 
@@ -328,6 +359,9 @@ create_eight <- function(
 
     output_4_filename <- gsub(" ", "", paste( output_prefix,".norm.percent_default.included" ))
     write.table(normed_counts.matrix, file = output_4_filename, col.names=NA, row.names = TRUE, sep="\t", quote=FALSE)
+
+    print("     printing output files DONE")
+    print("     creating 4 files DONE")
 
   }else{
 
