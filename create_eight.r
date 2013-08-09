@@ -260,7 +260,7 @@ create_eight <- function(
     normed_counts.matrix <- norm_center_scale(raw_counts.matrix)
 
     # counts that are the same or greater than percent_screen (filtered to remove rows that sum to 0) # make output_7
-    raw_counts.pass_screen.matrix <- matrix(0,dim(raw_counts.matrix)[1],dim(raw_counts.matrix)[2]) 
+    raw_counts.pass_screen.matrix <<- matrix(0,dim(raw_counts.matrix)[1],dim(raw_counts.matrix)[2]) 
     #rownames(raw_counts.pass_screen.matrix) <- rownames(raw_counts.matrix)
     #colnames(raw_counts.pass_screen.matrix) <- colnames(raw_counts.matrix)
 
@@ -268,13 +268,13 @@ create_eight <- function(
     for (i in 1:dim(raw_counts.matrix)[1]){
       for (j in dim(raw_counts.matrix)[2]){
         if ( my_id.matrix[i,j] >= percent_screen){
-          raw_counts.pass_screen.matrix[i,j]<-raw_counts.matrix[i,j]
+          raw_counts.pass_screen.matrix[i,j]<<-raw_counts.matrix[i,j]
         }
       }
     }
     print(paste("     filtering for percentid", percent_screen, "% ID DONE"))
 
-    raw_counts.pass_screen.matrix <- remove_singletons(raw_counts.pass_screen.matrix, abundance_limit = 0)
+    raw_counts.pass_screen.matrix <<- remove_singletons(raw_counts.pass_screen.matrix, abundance_limit = 0)
 
     # pass_screen counts with singletons removed (output_5)
     raw_counts.pass_screen.singletons_rm.matrix <- remove_singletons(raw_counts.pass_screen.matrix, abundance_limit = 1)
