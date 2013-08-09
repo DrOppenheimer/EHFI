@@ -213,7 +213,7 @@ create_eight <- function(
       }
       
       ####### return norm_center_scaled matrix
-      print(paste("     normalizing matrix", tag, "..."))
+      print(paste("     normalizing matrix", tag, "DONE"))
       return(log2_cent_data)
       
     }
@@ -239,7 +239,7 @@ create_eight <- function(
     # import data
     print("     importing data ...")
     raw_counts.matrix <- import_data(counts_file) # (output_3)
-    my_id.matrix <<- import_data(percent_file)
+    my_id.matrix <- import_data(percent_file)
     print("     importing data DONE")
 
     print("     checking agreement of counts and percentid files ...")
@@ -260,21 +260,21 @@ create_eight <- function(
     normed_counts.matrix <- norm_center_scale(raw_counts.matrix, tag="make_out_4")
 
     # counts that are the same or greater than percent_screen (filtered to remove rows that sum to 0) # make output_7
-    raw_counts.pass_screen.matrix <<- matrix(0,dim(raw_counts.matrix)[1],dim(raw_counts.matrix)[2]) 
-    rownames(raw_counts.pass_screen.matrix) <<- rownames(raw_counts.matrix)
-    colnames(raw_counts.pass_screen.matrix) <<- colnames(raw_counts.matrix)
+    raw_counts.pass_screen.matrix <- matrix(0,dim(raw_counts.matrix)[1],dim(raw_counts.matrix)[2]) 
+    rownames(raw_counts.pass_screen.matrix) <- rownames(raw_counts.matrix)
+    colnames(raw_counts.pass_screen.matrix) <- colnames(raw_counts.matrix)
 
     print(paste("     filtering for percentid", percent_screen, "% ID ..."))
     for (i in 1:dim(raw_counts.matrix)[1]){
       for (j in dim(raw_counts.matrix)[2]){
         if ( my_id.matrix[i,j] >= percent_screen){
-          raw_counts.pass_screen.matrix[i,j]<<-raw_counts.matrix[i,j]
+          raw_counts.pass_screen.matrix[i,j]<-raw_counts.matrix[i,j]
         }
       }
     }
     print(paste("     filtering for percentid", percent_screen, "% ID DONE"))
 
-    raw_counts.pass_screen.matrix <<- remove_singletons(raw_counts.pass_screen.matrix, abundance_limit = 0, tag="make_out_7_rm_0s")
+    raw_counts.pass_screen.matrix <- remove_singletons(raw_counts.pass_screen.matrix, abundance_limit = 0, tag="make_out_7_rm_0s")
 
     # pass_screen counts with singletons removed (output_5)
     raw_counts.pass_screen.singletons_rm.matrix <- remove_singletons(raw_counts.pass_screen.matrix, abundance_limit = 1, tag="make_out_5")
