@@ -81,7 +81,7 @@ create_eight <- function(
                    )
       }
 
-      print(paste("     removing singletons from", my.matrix, "...")) 
+      print(paste("     removing singletons from matrix ...")) 
       
       dim_matrix <- dim(my.matrix)
       num_row <- dim_matrix[1]
@@ -130,7 +130,7 @@ create_eight <- function(
       
       return(filtered.matrix)
 
-      print(paste("     removing singletons from", my.matrix, "DONE"))
+      print(paste("     removing singletons from matrix DONE"))
       
     }
 #####################################################################################################################
@@ -172,7 +172,7 @@ create_eight <- function(
                    )
       }
 
-      print(paste("     normalizing", my.matrix, "..."))
+      print(paste("     normalizing matrix ..."))
       
       ###### replace NA's with 0
       matrix_in[ is.na(matrix_in) ]<-0
@@ -214,7 +214,7 @@ create_eight <- function(
       ####### return norm_center_scaled matrix
       return(log2_cent_data)
 
-      print(paste("     normalizing", my.matrix, "DONE"))
+      print(paste("     normalizing matrix DONE"))
       
     }
 #####################################################################################################################
