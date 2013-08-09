@@ -238,7 +238,7 @@ create_eight <- function(
     
     # import data
     print("     importing data ...")
-    raw_counts.matrix <- import_data(counts_file) # (output_3)
+    raw_counts.matrix <<- import_data(counts_file) # (output_3)
     my_id.matrix <- import_data(percent_file)
     print("     importing data DONE")
 
