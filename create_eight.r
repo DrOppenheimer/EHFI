@@ -186,11 +186,11 @@ create_eight <- function(
       log2_data = log2(matrix_in + 1)
 
       ###### create object to store data that are log transformed and centered  
-      log2_cent_data <<- matrix(0, number_entries, number_samples)
+      log2_cent_data <- matrix(0, number_entries, number_samples) # <<
 
       ###### pull column and row names from the input_data   
-      dimnames(log2_cent_data)[[2]] <<- dimnames(matrix_in)[[2]] # colnames #edited 6-15-10
-      dimnames(log2_cent_data)[[1]] <<- dimnames(matrix_in)[[1]] # rownames #edited 6-15-10
+      dimnames(log2_cent_data)[[2]] <- dimnames(matrix_in)[[2]] # colnames #edited 6-15-10 # <<
+      dimnames(log2_cent_data)[[1]] <- dimnames(matrix_in)[[1]] # rownames #edited 6-15-10 # <<
 
       ###### center data from each sample (column)  
       for (i in 1:number_samples){ 
@@ -198,7 +198,7 @@ create_eight <- function(
         mean_sample = mean(sample) 
         stdev_sample = sd(sample)
         for (j in 1:number_entries){
-          log2_cent_data[j,i] <<- ((log2_data[j,i] - mean_sample)/stdev_sample)
+          log2_cent_data[j,i] <- ((log2_data[j,i] - mean_sample)/stdev_sample) # <<
         } 
       }
 
@@ -207,7 +207,7 @@ create_eight <- function(
       max_value = max(log2_cent_data)
       for (i in 1:number_samples){ 
         for (j in 1:number_entries){
-          log2_cent_data[j,i] <<- (  (log2_cent_data[j,i] + abs(min_value))/(max_value + abs(min_value)))
+          log2_cent_data[j,i] <- (  (log2_cent_data[j,i] + abs(min_value))/(max_value + abs(min_value))) #<<
         } 
       }
 
