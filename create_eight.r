@@ -192,7 +192,6 @@ create_eight <- function(
       dimnames(log2_cent_data)[[2]] <<- dimnames(matrix_in)[[2]] # colnames #edited 6-15-10
       dimnames(log2_cent_data)[[1]] <<- dimnames(matrix_in)[[1]] # rownames #edited 6-15-10
 
-      
       ###### center data from each sample (column)  
       for (i in 1:number_samples){ 
         sample = log2_data[,i]
@@ -211,7 +210,7 @@ create_eight <- function(
           log2_cent_data[j,i] <<- (  (log2_cent_data[j,i] + abs(min_value))/(max_value + abs(min_value)))
         } 
       }
-      
+
       ####### return norm_center_scaled matrix
       print(paste("     normalizing matrix", tag, "DONE"))
       return(log2_cent_data)
