@@ -146,7 +146,7 @@ create_eight <- function(
 ###################################### FUNCTION TO NORM CENTER SCALE ################################################
 #####################################################################################################################
 #####################################################################################################################
-  norm_center_scale <<- function(matrix_in, tag="") # end inputarguments
+  norm_center_scale <- function(matrix_in, tag="") # end inputarguments
     {
       
       if ( nargs() == 0 ){
@@ -249,7 +249,7 @@ create_eight <- function(
     print("     checking agreement of counts and percentid files DONE")
     
     # raw counts with singletons removed (output_1)
-    raw_counts.singletons_rm.matrix <- remove_singletons(raw_counts.matrix, abundance_limit = 1, tag="make_out_1")
+    raw_counts.singletons_rm.matrix <<- remove_singletons(raw_counts.matrix, abundance_limit = 1, tag="make_out_1")
     #rownames(raw_counts.singletons_rm.matrix) <- rownames(raw_counts.matrix)
     #colnames(raw_counts.singletons_rm.matrix) <- colnames(raw_counts.matrix)
 
