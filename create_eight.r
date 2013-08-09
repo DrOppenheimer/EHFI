@@ -290,28 +290,28 @@ create_eight <- function(
     # Write all 8 of the output files
     print("     printing output files ...")
     
-    output_1_filename <- gsub(" ", "", paste( output_prefix,".raw.percent_default.removed.txt" ))
+    output_1_filename <- gsub(" ", "", paste( "1.", output_prefix,".raw.percent_default.removed.txt" ))
     write.table(raw_counts.singletons_rm.matrix, file = output_1_filename, col.names=NA, row.names = TRUE, sep="\t", quote=FALSE)
 
-    output_2_filename <- gsub(" ", "", paste( output_prefix,".norm.percent_default.removed" ))
+    output_2_filename <- gsub(" ", "", paste( "2.", output_prefix,".norm.percent_default.removed" ))
     write.table(normed_counts.singletons_rm.matrix, file = output_2_filename, col.names=NA, row.names = TRUE, sep="\t", quote=FALSE)
   
-    output_3_filename <- gsub(" ", "", paste( output_prefix,".raw.percent_default.included" ))
+    output_3_filename <- gsub(" ", "", paste( "3.", output_prefix,".raw.percent_default.included" ))
     write.table(raw_counts.matrix, file = output_3_filename, col.names=NA, row.names = TRUE, sep="\t", quote=FALSE)
 
-    output_4_filename <- gsub(" ", "", paste( output_prefix,".norm.percent_default.included" ))
+    output_4_filename <- gsub(" ", "", paste( "4.", output_prefix,".norm.percent_default.included" ))
     write.table(normed_counts.matrix, file = output_4_filename, col.names=NA, row.names = TRUE, sep="\t", quote=FALSE)
     
-    output_5_filename <- gsub(" ", "", paste( output_prefix,".raw.percent_screen.removed" ))
+    output_5_filename <- gsub(" ", "", paste( "5.", output_prefix,".raw.percent_screen.removed" ))
     write.table(raw_counts.pass_screen.singletons_rm.matrix, file = output_5_filename, col.names=NA, row.names = TRUE, sep="\t", quote=FALSE)
 
-    output_6_filename <- gsub(" ", "", paste( output_prefix,".norm.percent_screen.removed" ))
+    output_6_filename <- gsub(" ", "", paste( "6.", output_prefix,".norm.percent_screen.removed" ))
     write.table(normed_counts.pass_screen.singletons_rm.matrix, file = output_6_filename, col.names=NA, row.names = TRUE, sep="\t", quote=FALSE)
 
-    output_7_filename <- gsub(" ", "", paste( output_prefix,".raw.percent_screen.included" ))
+    output_7_filename <- gsub(" ", "", paste( "7.", output_prefix,".raw.percent_screen.included" ))
     write.table(raw_counts.pass_screen.matrix, file = output_7_filename, col.names=NA, row.names = TRUE, sep="\t", quote=FALSE)
   
-    output_8_filename <- gsub(" ", "", paste( output_prefix,".norm.percent_screen.included" ))
+    output_8_filename <- gsub(" ", "", paste( "8.", output_prefix,".norm.percent_screen.included" ))
     write.table(normed_counts.pass_screen.matrix, file = output_8_filename, col.names=NA, row.names = TRUE, sep="\t", quote=FALSE)
 
     print("     printing output files DONE")
@@ -347,16 +347,16 @@ create_eight <- function(
     # Write 4 output files
     print("     printing output files ...")
     
-    output_1_filename <- gsub(" ", "", paste( output_prefix,".raw.percent_default.removed.txt" ))
+    output_1_filename <- gsub(" ", "", paste( "1.", output_prefix,".raw.percent_default.removed.txt" ))
     write.table(raw_counts.singletons_rm.matrix, file = output_1_filename, col.names=NA, row.names = TRUE, sep="\t", quote=FALSE)
 
-    output_2_filename <- gsub(" ", "", paste( output_prefix,".norm.percent_default.removed" ))
+    output_2_filename <- gsub(" ", "", paste( "2.", output_prefix,".norm.percent_default.removed" ))
     write.table(normed_counts.singletons_rm.matrix, file = output_2_filename, col.names=NA, row.names = TRUE, sep="\t", quote=FALSE)
   
-    output_3_filename <- gsub(" ", "", paste( output_prefix,".raw.percent_default.included" ))
+    output_3_filename <- gsub(" ", "", paste( "3.", output_prefix,".raw.percent_default.included" ))
     write.table(raw_counts.matrix, file = output_3_filename, col.names=NA, row.names = TRUE, sep="\t", quote=FALSE)
 
-    output_4_filename <- gsub(" ", "", paste( output_prefix,".norm.percent_default.included" ))
+    output_4_filename <- gsub(" ", "", paste( "4.", output_prefix,".norm.percent_default.included" ))
     write.table(normed_counts.matrix, file = output_4_filename, col.names=NA, row.names = TRUE, sep="\t", quote=FALSE)
 
     print("     printing output files DONE")
