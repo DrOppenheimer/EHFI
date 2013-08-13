@@ -257,10 +257,10 @@ create_eight <- function(
     normed_counts.singletons_rm.matrix <- norm_center_scale(raw_counts.singletons_rm.matrix, tag="make_out_2")
 
     # normalized raw counts with singletons included (output_4)
-    normed_counts.matrix <<- norm_center_scale(raw_counts.matrix, tag="make_out_4")
+    normed_counts.matrix <- norm_center_scale(raw_counts.matrix, tag="make_out_4")
 
     # counts that are the same or greater than percent_screen (filtered to remove rows that sum to 0) # make output_7
-    raw_counts.pass_screen.matrix <- matrix(0,dim(raw_counts.matrix)[1],dim(raw_counts.matrix)[2]) 
+    raw_counts.pass_screen.matrix <<- matrix(0,dim(raw_counts.matrix)[1],dim(raw_counts.matrix)[2]) 
     rownames(raw_counts.pass_screen.matrix) <- rownames(raw_counts.matrix)
     colnames(raw_counts.pass_screen.matrix) <- colnames(raw_counts.matrix)
 
@@ -268,7 +268,7 @@ create_eight <- function(
     for (i in 1:dim(raw_counts.matrix)[1]){
       for (j in dim(raw_counts.matrix)[2]){
         if ( my_id.matrix[i,j] >= percent_screen){
-          raw_counts.pass_screen.matrix[i,j]<-raw_counts.matrix[i,j]
+          raw_counts.pass_screen.matrix[i,j]<<-raw_counts.matrix[i,j]
         }
       }
     }
