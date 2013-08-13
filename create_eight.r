@@ -274,18 +274,18 @@ create_eight <- function(
     }
     print(paste("     filtering for percentid", percent_screen, "% ID DONE"))
 
-    raw_counts.pass_screen.matrix <- remove_singletons(raw_counts.pass_screen.matrix, abundance_limit = 0, tag="make_out_7_rm_0s")
+    raw_counts.pass_screen2.matrix <- remove_singletons(raw_counts.pass_screen.matrix, abundance_limit = 0, tag="make_out_7_rm_0s")
 
     # pass_screen counts with singletons removed (output_5)
-    raw_counts.pass_screen.singletons_rm.matrix <- remove_singletons(raw_counts.pass_screen.matrix, abundance_limit = 1, tag="make_out_5")
+    raw_counts.pass_screen2.singletons_rm.matrix <- remove_singletons(raw_counts.pass_screen2.matrix, abundance_limit = 1, tag="make_out_5")
     #rownames(raw_counts.pass_screen.singletons_rm.matrix) <- rownames(raw_counts.matrix)
     #colnames(raw_counts.pass_screen.singletons_rm.matrix) <- colnames(raw_counts.matrix) 
   
     # pass_screen normalized raw counts with singletons removed (output_6)
-    normed_counts.pass_screen.singletons_rm.matrix <- norm_center_scale(raw_counts.pass_screen.singletons_rm.matrix, tag="make_out_6")
+    normed_counts.pass_screen2.singletons_rm.matrix <- norm_center_scale(raw_counts.pass_screen2.singletons_rm.matrix, tag="make_out_6")
   
     # pass_screen normalized raw counts with singletons included (output_8)
-    normed_counts.pass_screen.matrix <- norm_center_scale(raw_counts.pass_screen.matrix, tag="make_out_8")
+    normed_counts.pass_screen2.matrix <- norm_center_scale(raw_counts.pass_screen2.matrix, tag="make_out_8")
   
     # Write all 8 of the output files
     print("     printing output files ...")
@@ -303,16 +303,16 @@ create_eight <- function(
     write.table(normed_counts.matrix, file = output_4_filename, col.names=NA, row.names = TRUE, sep="\t", quote=FALSE)
     
     output_5_filename <- gsub(" ", "", paste( "5.", output_prefix,".raw.percent_screen_", percent_screen, "p",".removed.txt" ))
-    write.table(raw_counts.pass_screen.singletons_rm.matrix, file = output_5_filename, col.names=NA, row.names = TRUE, sep="\t", quote=FALSE)
+    write.table(raw_counts.pass_screen2.singletons_rm.matrix, file = output_5_filename, col.names=NA, row.names = TRUE, sep="\t", quote=FALSE)
 
     output_6_filename <- gsub(" ", "", paste( "6.", output_prefix,".norm.percent_screen_", percent_screen, "p", "removed.txt" ))
-    write.table(normed_counts.pass_screen.singletons_rm.matrix, file = output_6_filename, col.names=NA, row.names = TRUE, sep="\t", quote=FALSE)
+    write.table(normed_counts.pass_screen2.singletons_rm.matrix, file = output_6_filename, col.names=NA, row.names = TRUE, sep="\t", quote=FALSE)
 
     output_7_filename <- gsub(" ", "", paste( "7.", output_prefix,".raw.percent_screen_", percent_screen, "p", ".included.txt" ))
-    write.table(raw_counts.pass_screen.matrix, file = output_7_filename, col.names=NA, row.names = TRUE, sep="\t", quote=FALSE)
+    write.table(raw_counts.pass_screen2.matrix, file = output_7_filename, col.names=NA, row.names = TRUE, sep="\t", quote=FALSE)
   
     output_8_filename <- gsub(" ", "", paste( "8.", output_prefix,".norm.percent_screen_", percent_screen, "p", ".included.txt" ))
-    write.table(normed_counts.pass_screen.matrix, file = output_8_filename, col.names=NA, row.names = TRUE, sep="\t", quote=FALSE)
+    write.table(normed_counts.pass_screen2.matrix, file = output_8_filename, col.names=NA, row.names = TRUE, sep="\t", quote=FALSE)
 
     print("     printing output files DONE")
     print("     creating 8 files DONE")
