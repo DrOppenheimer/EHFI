@@ -37,6 +37,7 @@ create_eight <- function(
      ")
   }
 
+  
   # function to import the data
   import_data <- function(file_name){
     data.matrix(read.table(file_name, row.names=1, header=TRUE, sep="\t", comment.char="", quote="", check.names=FALSE))
@@ -301,16 +302,16 @@ create_eight <- function(
     output_4_filename <- gsub(" ", "", paste( "4.", output_prefix,".norm.percent_default.included.txt" ))
     write.table(normed_counts.matrix, file = output_4_filename, col.names=NA, row.names = TRUE, sep="\t", quote=FALSE)
     
-    output_5_filename <- gsub(" ", "", paste( "5.", output_prefix,".raw.percent_screen.removed.txt" ))
+    output_5_filename <- gsub(" ", "", paste( "5.", output_prefix,".raw.percent_screen_", percent_screen, "p",".removed.txt" ))
     write.table(raw_counts.pass_screen.singletons_rm.matrix, file = output_5_filename, col.names=NA, row.names = TRUE, sep="\t", quote=FALSE)
 
-    output_6_filename <- gsub(" ", "", paste( "6.", output_prefix,".norm.percent_screen.removed.txt" ))
+    output_6_filename <- gsub(" ", "", paste( "6.", output_prefix,".norm.percent_screen_", percent_screen, "p", "removed.txt" ))
     write.table(normed_counts.pass_screen.singletons_rm.matrix, file = output_6_filename, col.names=NA, row.names = TRUE, sep="\t", quote=FALSE)
 
-    output_7_filename <- gsub(" ", "", paste( "7.", output_prefix,".raw.percent_screen.included.txt" ))
+    output_7_filename <- gsub(" ", "", paste( "7.", output_prefix,".raw.percent_screen_", percent_screen, "p", ".included.txt" ))
     write.table(raw_counts.pass_screen.matrix, file = output_7_filename, col.names=NA, row.names = TRUE, sep="\t", quote=FALSE)
   
-    output_8_filename <- gsub(" ", "", paste( "8.", output_prefix,".norm.percent_screen.included.txt" ))
+    output_8_filename <- gsub(" ", "", paste( "8.", output_prefix,".norm.percent_screen_", percent_screen, "p", ".included.txt" ))
     write.table(normed_counts.pass_screen.matrix, file = output_8_filename, col.names=NA, row.names = TRUE, sep="\t", quote=FALSE)
 
     print("     printing output files DONE")
