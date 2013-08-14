@@ -266,7 +266,7 @@ create_eight <- function(
 
     print(paste("     filtering for percentid", percent_screen, "% ID ..."))
     for (i in 1:dim(raw_counts.matrix)[1]){
-      for (j in dim(raw_counts.matrix)[2]){
+      for (j in 1:dim(raw_counts.matrix)[2]){
         if ( my_id.matrix[i,j] >= percent_screen ){
           raw_counts.pass_screen.matrix[i,j]<<-raw_counts.matrix[i,j]
         }
