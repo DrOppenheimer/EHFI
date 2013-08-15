@@ -902,7 +902,8 @@ sub check_groups { # script hashes the headers from the data file and checks to 
   #if($debug){ my $num_headers = 0; }
   foreach (@header_array){ # iterate through the array of headers and place them in a hash
     $header_hash->{$_} = 1;
-    if($debug){ $num_headers++; print STDOUT "Data Header(".$num_headers."): ".$_."\n"; }
+    #if($debug){ $num_headers++; print STDOUT "Data Header(".$num_headers."): ".$_."\n"; }
+    $num_headers++; print STDOUT "Data Header(".$num_headers."): ".$_."\n";
   }
   
   open(GROUPS_FILE, "<", $input_dir."/".$groups_list) or die "\n\n"."can't open GROUPS_LIST $groups_list"."\n\n"; 
