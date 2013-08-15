@@ -903,7 +903,6 @@ sub check_groups { # script hashes the headers from the data file and checks to 
   foreach (@header_array){ # iterate through the array of headers and place them in a hash
     $header_hash->{$_} = 1;
     #if($debug){ $num_headers++; print STDOUT "Data Header(".$num_headers."): ".$_."\n"; }
-    $num_headers++; print STDOUT "Data Header(".$num_headers."): ".$_."\n";
   }
   
   open(GROUPS_FILE, "<", $input_dir."/".$groups_list) or die "\n\n"."can't open GROUPS_LIST $groups_list"."\n\n"; 
@@ -911,6 +910,7 @@ sub check_groups { # script hashes the headers from the data file and checks to 
     chomp $groups_line;
     my @line_array = split(",", $groups_line);
     foreach (@line_array){
+      print STDOUT "Groups ID: ".$_."\n";
       unless ( $header_hash->{$_} ){
 	#$check_status = "\n"."FAIL - "."groups id: ".$_." does not exist in the data file: ";
 	$check_status = $check_status."\n"."FAIL - "."groups id: ".$_." does not exist in the data file: ";
