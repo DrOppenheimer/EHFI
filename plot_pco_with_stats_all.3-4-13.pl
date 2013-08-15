@@ -911,7 +911,7 @@ sub check_groups { # script hashes the headers from the data file and checks to 
     chomp $groups_line;
     my @line_array = split(",", $groups_line);
     foreach (@line_array){
-      $stupid_counter++;
+      $groups_sample_counter++;
       #if($debug){print STDOUT "Groups ID(".$stupid_counter."): ".$_."\n";}
       unless ( $header_hash->{$_} ){
 	#$check_status = "\n"."FAIL - "."groups id: ".$_." does not exist in the data file: ";
