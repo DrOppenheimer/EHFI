@@ -905,17 +905,17 @@ sub check_groups { # script hashes the headers from the data file and checks to 
     #if($debug){ $num_headers++; print STDOUT "Data Header(".$num_headers."): ".$_."\n"; }
   }
   
-  my $stupid_counter=0;
+  my $groups_sample_counter=0;
   open(GROUPS_FILE, "<", $input_dir."/".$groups_list) or die "\n\n"."can't open GROUPS_LIST $groups_list"."\n\n"; 
   while (my $groups_line = <GROUPS_FILE>){
     chomp $groups_line;
     my @line_array = split(",", $groups_line);
     foreach (@line_array){
       $stupid_counter++;
-      print STDOUT "Groups ID(".$stupid_counter."): ".$_."\n";
+      #if($debug){print STDOUT "Groups ID(".$stupid_counter."): ".$_."\n";}
       unless ( $header_hash->{$_} ){
 	#$check_status = "\n"."FAIL - "."groups id: ".$_." does not exist in the data file: ";
-	$check_status = $check_status."\n"."FAIL - "."groups id: ".$_." does not exist in the data file: ";
+	$check_status = $check_status."\n"."FAIL - "."groups id(".$groups_sample_counter."): ".$_." does not exist in the data file: ";
       }
     }
 
