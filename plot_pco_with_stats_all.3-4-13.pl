@@ -413,6 +413,8 @@ sub correct_line_terminators {
     $line =~ s/\r\n|\n\r|\n|\r/\n/g;  #get rid of the line ends that are there #replace them with \n
     print TEMP_FILE $line; 
   }
+  close FILE;
+  close TEMP_FILE;
   
   unlink $input_dir."/".$file or die "\n"."Couldn't delete FILE $file"."\n";
   rename $input_dir."/".$temp_file, $input_dir."/".$file or die "\n"."Couldn't rename TEMP_FILE $temp_file to FILE $file"."\n";
