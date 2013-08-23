@@ -327,17 +327,9 @@ create_eight <- function(
     raw_counts.matrix <- import_data(counts_file) # (output_3)
     print("     importing data DONE")
     
-    # Make sure rows and columns agree between two files
-    print("     checking agreement of counts and percentid files ...")
-    my_id.matrix[ rownames(raw_counts.matrix), ] 
-    my_id.matrix[ ,colnames(raw_counts.matrix) ]
-    print("     checking agreement of counts and percentid files DONE")
-
     # raw counts with singletons removed (output_1)
     raw_counts.singletons_rm.matrix <- remove_singletons(raw_counts.matrix, abundance_limit = 1, tag="make_out_1")
-    #rownames(raw_counts.singletons_rm.matrix) <- rownames(raw_counts.matrix)
-    #colnames(raw_counts.singletons_rm.matrix) <- colnames(raw_counts.matrix)
-
+    
     # normalized raw counts with singletons removed (output_2)
     normed_counts.singletons_rm.matrix <- norm_center_scale(raw_counts.singletons_rm.matrix, tag="make_out_2")
 

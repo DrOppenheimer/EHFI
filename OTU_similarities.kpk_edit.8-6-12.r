@@ -82,8 +82,12 @@ OTU_dists<- function(
 
   # load data
   my_input_path_file <- gsub(" ", "", paste(input_dir,file_in))
-  Input <<- read.table (my_input_path_file, header = 1, sep = "\t", row.names = 1, quote = "", stringsAsFactors = FALSE, check.names=FALSE)
+  #Input <<- read.table(my_input_path_file, header = 1, sep = "\t", row.names = 1, quote = "", stringsAsFactors = FALSE, check.names=FALSE)
+  Input <<- read.table(my_input_path_file, row.names=1, check.names=FALSE, header=TRUE, sep="\t", comment.char="", quote="", stringsAsFactors = FALSE )
+  #           read.table(input_data_path,   row.names=1, check.names=FALSE, header=TRUE, sep="\t", comment.char="", quote="")
+  #my_data <<- flipud(rot90(data.matrix(read.table(input_data_path, row.names=1, check.names=FALSE, header=TRUE, sep="\t", comment.char="", quote=""))))
 
+  
   num_data_rows = dim(Input)[1] # substitute 0 for NA's if they exist in the data
   num_data_cols = dim(Input)[2]
   for (row_num in (1:num_data_rows)){
