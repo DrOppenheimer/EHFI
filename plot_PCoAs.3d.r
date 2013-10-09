@@ -20,164 +20,164 @@ plot_pcoa_3d <- function(
     ####################### CUSTOM SETTINGS #######################
 
     # HMP reduced
-    ## my_colors <- c(
-    ##                "Stool.40"="blue",
-    ##                "Stool.34"="blue",
-    ##                "Stool.143"="blue",
-    ##                "Stool.110"="blue",
-    ##                "Stool.2"="blue",
-    ##                "Stool.14"="blue",
-    ##                "Stool.29"="blue",
-    ##                "Stool.17"="blue",
-    ##                "Stool.129"="blue",
-    ##                "Stool.106"="blue",
-    ##                "Stool.131"="blue",
-    ##                "Stool.24"="blue",
-    ##                "Stool.39"="blue",
-    ##                "Stool.201"="blue",
-    ##                "Stool.116"="blue",
-    ##                "Stool.1"="blue",
-    ##                "Stool.128"="blue",
-    ##                "Stool.170"="blue",
-    ##                "Stool.52"="blue",
-    ##                "Stool.113"="blue",
-    ##                "Stool.107"="blue",
-    ##                "Stool.90"="blue",
-    ##                "Stool.61"="blue",
-    ##                "Stool.30"="blue",
-    ##                "Stool.46"="blue",
-    ##                "Stool.25"="blue",
-    ##                "Stool.22"="blue",
-    ##                "Stool.203"="blue",
-    ##                "Stool.55"="blue",
-    ##                "Stool.111"="blue",
-    ##                "Stool.109"="blue",
-    ##                "Stool.66"="blue",
-    ##                "Stool.4"="blue",
-    ##                "Stool.45"="blue",
-    ##                "Stool.137"="blue",
-    ##                "Stool.6"="blue",
-    ##                "Stool.92"="blue",
-    ##                "Stool.153"="blue",
-    ##                "Stool.8"="blue",
-    ##                "Stool.206"="blue",
-    ##                "Stool.28"="blue",
-    ##                "Stool.81"="blue",
-    ##                "Stool.3"="blue",
-    ##                "Stool.31"="blue",
-    ##                "Stool.120"="blue",
-    ##                "Stool.94"="blue",
-    ##                "Stool.145"="blue",
-    ##                "Stool.176"="blue",
-    ##                "Stool.173"="blue",
-    ##                "Stool.158"="blue",
-    ##                "Tongue_dorsum.113"="red",
-    ##                "Tongue_dorsum.87"="red",
-    ##                "Tongue_dorsum.120"="red",
-    ##                "Tongue_dorsum.43"="red",
-    ##                "Tongue_dorsum.56"="red",
-    ##                "Tongue_dorsum.37"="red",
-    ##                "Tongue_dorsum.45"="red",
-    ##                "Tongue_dorsum.102"="red",
-    ##                "Tongue_dorsum.26"="red",
-    ##                "Tongue_dorsum.51"="red",
-    ##                "Tongue_dorsum.35"="red",
-    ##                "Tongue_dorsum.71"="red",
-    ##                "Tongue_dorsum.112"="red",
-    ##                "Tongue_dorsum.50"="red",
-    ##                "Tongue_dorsum.78"="red",
-    ##                "Tongue_dorsum.90"="red",
-    ##                "Tongue_dorsum.53"="red",
-    ##                "Tongue_dorsum.80"="red",
-    ##                "Tongue_dorsum.29"="red",
-    ##                "Tongue_dorsum.149"="red",
-    ##                "Tongue_dorsum.17"="red",
-    ##                "Tongue_dorsum.213"="red",
-    ##                "Tongue_dorsum.58"="red",
-    ##                "Tongue_dorsum.25"="red",
-    ##                "Tongue_dorsum.65"="red",
-    ##                "Tongue_dorsum.21"="red",
-    ##                "Tongue_dorsum.169"="red",
-    ##                "Tongue_dorsum.34"="red",
-    ##                "Tongue_dorsum.198"="red",
-    ##                "Tongue_dorsum.67"="red",
-    ##                "Tongue_dorsum.54"="red",
-    ##                "Tongue_dorsum.12"="red",
-    ##                "Tongue_dorsum.212"="red",
-    ##                "Tongue_dorsum.128"="red",
-    ##                "Tongue_dorsum.158"="red",
-    ##                "Tongue_dorsum.30"="red",
-    ##                "Tongue_dorsum.10"="red",
-    ##                "Tongue_dorsum.9"="red",
-    ##                "Tongue_dorsum.31"="red",
-    ##                "Tongue_dorsum.18"="red",
-    ##                "Tongue_dorsum.147"="red",
-    ##                "Tongue_dorsum.123"="red",
-    ##                "Tongue_dorsum.38"="red",
-    ##                "Tongue_dorsum.61"="red",
-    ##                "Tongue_dorsum.32"="red",
-    ##                "Tongue_dorsum.3"="red",
-    ##                "Tongue_dorsum.238"="red",
-    ##                "Tongue_dorsum.77"="red",
-    ##                "Tongue_dorsum.166"="red",
-    ##                "Tongue_dorsum.174"="red",
-    ##                "Supragingival_plaque.17"="green",
-    ##                "Supragingival_plaque.2"="green",
-    ##                "Supragingival_plaque.79"="green",
-    ##                "Supragingival_plaque.33"="green",
-    ##                "Supragingival_plaque.81"="green",
-    ##                "Supragingival_plaque.35"="green",
-    ##                "Supragingival_plaque.51"="green",
-    ##                "Supragingival_plaque.77"="green",
-    ##                "Supragingival_plaque.80"="green",
-    ##                "Supragingival_plaque.38"="green",
-    ##                "Supragingival_plaque.83"="green",
-    ##                "Supragingival_plaque.87"="green",
-    ##                "Supragingival_plaque.217"="green",
-    ##                "Supragingival_plaque.104"="green",
-    ##                "Supragingival_plaque.221"="green",
-    ##                "Supragingival_plaque.86"="green",
-    ##                "Supragingival_plaque.8"="green",
-    ##                "Supragingival_plaque.115"="green",
-    ##                "Supragingival_plaque.91"="green",
-    ##                "Supragingival_plaque.161"="green",
-    ##                "Supragingival_plaque.170"="green",
-    ##                "Supragingival_plaque.61"="green",
-    ##                "Supragingival_plaque.23"="green",
-    ##                "Supragingival_plaque.116"="green",
-    ##                "Supragingival_plaque.9"="green",
-    ##                "Supragingival_plaque.71"="green",
-    ##                "Supragingival_plaque.12"="green",
-    ##                "Supragingival_plaque.16"="green",
-    ##                "Supragingival_plaque.101"="green",
-    ##                "Supragingival_plaque.92"="green",
-    ##                "Supragingival_plaque.50"="green",
-    ##                "Supragingival_plaque.52"="green",
-    ##                "Supragingival_plaque.18"="green",
-    ##                "Supragingival_plaque.14"="green",
-    ##                "Supragingival_plaque.130"="green",
-    ##                "Supragingival_plaque.53"="green",
-    ##                "Supragingival_plaque.68"="green",
-    ##                "Supragingival_plaque.145"="green",
-    ##                "Supragingival_plaque.57"="green",
-    ##                "Supragingival_plaque.141"="green",
-    ##                "Supragingival_plaque.5"="green",
-    ##                "Supragingival_plaque.162"="green",
-    ##                "Supragingival_plaque.119"="green",
-    ##                "Supragingival_plaque.118"="green",
-    ##                "Supragingival_plaque.32"="green",
-    ##                "Supragingival_plaque.159"="green",
-    ##                "Supragingival_plaque.3"="green",
-    ##                "Supragingival_plaque.20"="green",
-    ##                "Supragingival_plaque.84"="green",
-    ##                "Supragingival_plaque.49"="green"
-    ##                )
+    my_colors <- c(
+                   "Stool.40"="blue",
+                   "Stool.34"="blue",
+                   "Stool.143"="blue",
+                   "Stool.110"="blue",
+                   "Stool.2"="blue",
+                   "Stool.14"="blue",
+                   "Stool.29"="blue",
+                   "Stool.17"="blue",
+                   "Stool.129"="blue",
+                   "Stool.106"="blue",
+                   "Stool.131"="blue",
+                   "Stool.24"="blue",
+                   "Stool.39"="blue",
+                   "Stool.201"="blue",
+                   "Stool.116"="blue",
+                   "Stool.1"="blue",
+                   "Stool.128"="blue",
+                   "Stool.170"="blue",
+                   "Stool.52"="blue",
+                   "Stool.113"="blue",
+                   "Stool.107"="blue",
+                   "Stool.90"="blue",
+                   "Stool.61"="blue",
+                   "Stool.30"="blue",
+                   "Stool.46"="blue",
+                   "Stool.25"="blue",
+                   "Stool.22"="blue",
+                   "Stool.203"="blue",
+                   "Stool.55"="blue",
+                   "Stool.111"="blue",
+                   "Stool.109"="blue",
+                   "Stool.66"="blue",
+                   "Stool.4"="blue",
+                   "Stool.45"="blue",
+                   "Stool.137"="blue",
+                   "Stool.6"="blue",
+                   "Stool.92"="blue",
+                   "Stool.153"="blue",
+                   "Stool.8"="blue",
+                   "Stool.206"="blue",
+                   "Stool.28"="blue",
+                   "Stool.81"="blue",
+                   "Stool.3"="blue",
+                   "Stool.31"="blue",
+                   "Stool.120"="blue",
+                   "Stool.94"="blue",
+                   "Stool.145"="blue",
+                   "Stool.176"="blue",
+                   "Stool.173"="blue",
+                   "Stool.158"="blue",
+                   "Tongue_dorsum.113"="red",
+                   "Tongue_dorsum.87"="red",
+                   "Tongue_dorsum.120"="red",
+                   "Tongue_dorsum.43"="red",
+                   "Tongue_dorsum.56"="red",
+                   "Tongue_dorsum.37"="red",
+                   "Tongue_dorsum.45"="red",
+                   "Tongue_dorsum.102"="red",
+                   "Tongue_dorsum.26"="red",
+                   "Tongue_dorsum.51"="red",
+                   "Tongue_dorsum.35"="red",
+                   "Tongue_dorsum.71"="red",
+                   "Tongue_dorsum.112"="red",
+                   "Tongue_dorsum.50"="red",
+                   "Tongue_dorsum.78"="red",
+                   "Tongue_dorsum.90"="red",
+                   "Tongue_dorsum.53"="red",
+                   "Tongue_dorsum.80"="red",
+                   "Tongue_dorsum.29"="red",
+                   "Tongue_dorsum.149"="red",
+                   "Tongue_dorsum.17"="red",
+                   "Tongue_dorsum.213"="red",
+                   "Tongue_dorsum.58"="red",
+                   "Tongue_dorsum.25"="red",
+                   "Tongue_dorsum.65"="red",
+                   "Tongue_dorsum.21"="red",
+                   "Tongue_dorsum.169"="red",
+                   "Tongue_dorsum.34"="red",
+                   "Tongue_dorsum.198"="red",
+                   "Tongue_dorsum.67"="red",
+                   "Tongue_dorsum.54"="red",
+                   "Tongue_dorsum.12"="red",
+                   "Tongue_dorsum.212"="red",
+                   "Tongue_dorsum.128"="red",
+                   "Tongue_dorsum.158"="red",
+                   "Tongue_dorsum.30"="red",
+                   "Tongue_dorsum.10"="red",
+                   "Tongue_dorsum.9"="red",
+                   "Tongue_dorsum.31"="red",
+                   "Tongue_dorsum.18"="red",
+                   "Tongue_dorsum.147"="red",
+                   "Tongue_dorsum.123"="red",
+                   "Tongue_dorsum.38"="red",
+                   "Tongue_dorsum.61"="red",
+                   "Tongue_dorsum.32"="red",
+                   "Tongue_dorsum.3"="red",
+                   "Tongue_dorsum.238"="red",
+                   "Tongue_dorsum.77"="red",
+                   "Tongue_dorsum.166"="red",
+                   "Tongue_dorsum.174"="red",
+                   "Supragingival_plaque.17"="green",
+                   "Supragingival_plaque.2"="green",
+                   "Supragingival_plaque.79"="green",
+                   "Supragingival_plaque.33"="green",
+                   "Supragingival_plaque.81"="green",
+                   "Supragingival_plaque.35"="green",
+                   "Supragingival_plaque.51"="green",
+                   "Supragingival_plaque.77"="green",
+                   "Supragingival_plaque.80"="green",
+                   "Supragingival_plaque.38"="green",
+                   "Supragingival_plaque.83"="green",
+                   "Supragingival_plaque.87"="green",
+                   "Supragingival_plaque.217"="green",
+                   "Supragingival_plaque.104"="green",
+                   "Supragingival_plaque.221"="green",
+                   "Supragingival_plaque.86"="green",
+                   "Supragingival_plaque.8"="green",
+                   "Supragingival_plaque.115"="green",
+                   "Supragingival_plaque.91"="green",
+                   "Supragingival_plaque.161"="green",
+                   "Supragingival_plaque.170"="green",
+                   "Supragingival_plaque.61"="green",
+                   "Supragingival_plaque.23"="green",
+                   "Supragingival_plaque.116"="green",
+                   "Supragingival_plaque.9"="green",
+                   "Supragingival_plaque.71"="green",
+                   "Supragingival_plaque.12"="green",
+                   "Supragingival_plaque.16"="green",
+                   "Supragingival_plaque.101"="green",
+                   "Supragingival_plaque.92"="green",
+                   "Supragingival_plaque.50"="green",
+                   "Supragingival_plaque.52"="green",
+                   "Supragingival_plaque.18"="green",
+                   "Supragingival_plaque.14"="green",
+                   "Supragingival_plaque.130"="green",
+                   "Supragingival_plaque.53"="green",
+                   "Supragingival_plaque.68"="green",
+                   "Supragingival_plaque.145"="green",
+                   "Supragingival_plaque.57"="green",
+                   "Supragingival_plaque.141"="green",
+                   "Supragingival_plaque.5"="green",
+                   "Supragingival_plaque.162"="green",
+                   "Supragingival_plaque.119"="green",
+                   "Supragingival_plaque.118"="green",
+                   "Supragingival_plaque.32"="green",
+                   "Supragingival_plaque.159"="green",
+                   "Supragingival_plaque.3"="green",
+                   "Supragingival_plaque.20"="green",
+                   "Supragingival_plaque.84"="green",
+                   "Supragingival_plaque.49"="green"
+                   )
 
-    ##  my_pch = 21
+     my_pch = 21
     
-    ## legend_colors <- c ("blue", "red", "green")
+    legend_colors <- c ("blue", "red", "green")
     
-    ## names (legend_colors) <- c ("Stool","Tongue_dorsum","Supravaginal_plaque")
+    names (legend_colors) <- c ("Stool","Tongue_dorsum","Supravaginal_plaque")
 
     
     # Zhou_colors_technical
@@ -322,9 +322,9 @@ plot_pcoa_3d <- function(
     ##                "We"="brown"
     ##                )
     
-    legend_colors <- c ("blue", "green", "purple", "orange", "brown")
+    ## legend_colors <- c ("blue", "green", "purple", "orange", "brown")
 
-    names (legend_colors) <- c ("E1","C","Ch","R", "W")
+    ## names (legend_colors) <- c ("E1","C","Ch","R", "W")
 
      # OLD VERSION THAT WORKS FOR EHFI DATA
       ## points(x=((sorted_my_data[,PC1])[1:5]), y=((sorted_my_data[,PC2])[1:5]), pch=23, col="green", bg = "green", cex=my_cex) #C
@@ -462,25 +462,25 @@ plot_pcoa_3d <- function(
       if(debug==TRUE){print("made it here 9")}
 
       # general solution
-      ## points(
-      ##        x=(sorted_my_data[,PC1]),
-      ##        y=(sorted_my_data[,PC2]),
-      ##        pch=my_ordered_pch,
-      ##        col=my_ordered_colors,
-      ##        bg=my_ordered_colors,
-      ##        cex=my_cex
-      ##        )
+      points(
+             x=(sorted_my_data[,PC1]),
+             y=(sorted_my_data[,PC2]),
+             pch=my_ordered_pch,
+             col=my_ordered_colors,
+             bg=my_ordered_colors,
+             cex=my_cex
+             )
 
       ## OLD VERSION THAT WORKS FOR EHFI DATA
-      points(x=((sorted_my_data[,PC1])[1:5]), y=((sorted_my_data[,PC2])[1:5]), pch=23, col="green", bg = "green", cex=my_cex) #C
-      points(x=((sorted_my_data[,PC1])[6:10]), y=((sorted_my_data[,PC2])[6:10]), pch=21, col="purple", bg = "purple", cex=my_cex) #ch1
-      points(x=((sorted_my_data[,PC1])[11:15]), y=((sorted_my_data[,PC2])[11:15]), pch=22, col="purple", bg = "purple", cex=my_cex) #ch2
-      points(x=((sorted_my_data[,PC1])[16:20]), y=((sorted_my_data[,PC2])[16:20]), pch=23, col="purple", bg = "purple", cex=my_cex) #ch3
-      points(x=((sorted_my_data[,PC1])[21:25]), y=((sorted_my_data[,PC2])[21:25]), pch=24, col="purple", bg = "purple", cex=my_cex) #ch4
-      points(x=((sorted_my_data[,PC1])[26:30]), y=((sorted_my_data[,PC2])[26:30]), pch=25, col="purple", bg = "purple", cex=my_cex) #ch5
-      points(x=((sorted_my_data[,PC1])[31:35]), y=((sorted_my_data[,PC2])[31:35]), pch=21, col="blue", bg = "blue", cex=my_cex) #E1
-      points(x=((sorted_my_data[,PC1])[36:40]), y=((sorted_my_data[,PC2])[36:40]), pch="X", col="orange", bg = "orange", cex=0.7*my_cex, lwd=3) #R
-      points(x=((sorted_my_data[,PC1])[41:45]), y=((sorted_my_data[,PC2])[41:45]), pch="+", col="brown", bg = "brown", cex=my_cex, lwd=3) #W
+      ## points(x=((sorted_my_data[,PC1])[1:5]), y=((sorted_my_data[,PC2])[1:5]), pch=23, col="green", bg = "green", cex=my_cex) #C
+      ## points(x=((sorted_my_data[,PC1])[6:10]), y=((sorted_my_data[,PC2])[6:10]), pch=21, col="purple", bg = "purple", cex=my_cex) #ch1
+      ## points(x=((sorted_my_data[,PC1])[11:15]), y=((sorted_my_data[,PC2])[11:15]), pch=22, col="purple", bg = "purple", cex=my_cex) #ch2
+      ## points(x=((sorted_my_data[,PC1])[16:20]), y=((sorted_my_data[,PC2])[16:20]), pch=23, col="purple", bg = "purple", cex=my_cex) #ch3
+      ## points(x=((sorted_my_data[,PC1])[21:25]), y=((sorted_my_data[,PC2])[21:25]), pch=24, col="purple", bg = "purple", cex=my_cex) #ch4
+      ## points(x=((sorted_my_data[,PC1])[26:30]), y=((sorted_my_data[,PC2])[26:30]), pch=25, col="purple", bg = "purple", cex=my_cex) #ch5
+      ## points(x=((sorted_my_data[,PC1])[31:35]), y=((sorted_my_data[,PC2])[31:35]), pch=21, col="blue", bg = "blue", cex=my_cex) #E1
+      ## points(x=((sorted_my_data[,PC1])[36:40]), y=((sorted_my_data[,PC2])[36:40]), pch="X", col="orange", bg = "orange", cex=0.7*my_cex, lwd=3) #R
+      ## points(x=((sorted_my_data[,PC1])[41:45]), y=((sorted_my_data[,PC2])[41:45]), pch="+", col="brown", bg = "brown", cex=my_cex, lwd=3) #W
       
       
       if(debug==TRUE){print("made it here 10")}
@@ -542,26 +542,26 @@ plot_pcoa_3d <- function(
         my_cex <- 1.2
 
         ## General
-        ## my_3d_plot$points3d(
-        ##          x=((sorted_my_data[,PC1])),
-        ##          y=((sorted_my_data[,PC2])),
-        ##          z=((sorted_my_data[,PC3])),
-        ##          pch=my_ordered_pch,
-        ##          col=my_ordered_colors,
-        ##          bg=my_ordered_colors,
-        ##          cex=my_cex
-        ##          )
+        my_3d_plot$points3d(
+                 x=((sorted_my_data[,PC1])),
+                 y=((sorted_my_data[,PC2])),
+                 z=((sorted_my_data[,PC3])),
+                 pch=my_ordered_pch,
+                 col=my_ordered_colors,
+                 bg=my_ordered_colors,
+                 cex=my_cex
+                 )
 
         ## For AMETHST/EHFI
-        my_3d_plot$points3d( x=((sorted_my_data[,PC1])[1:5]),  y=((sorted_my_data[,PC2])[1:5]),   z=((sorted_my_data[,PC2])[1:5]),   pch=23,  col="green",  bg = "green",  cex=my_cex) #C
-        my_3d_plot$points3d(x=((sorted_my_data[,PC1])[6:10]),  y=((sorted_my_data[,PC2])[6:10]),  z=((sorted_my_data[,PC3])[6:10]),  pch=21,  col="purple", bg = "purple", cex=my_cex) #ch1
-        my_3d_plot$points3d(x=((sorted_my_data[,PC1])[11:15]), y=((sorted_my_data[,PC2])[11:15]), z=((sorted_my_data[,PC3])[11:15]), pch=22,  col="purple", bg = "purple", cex=my_cex) #ch2
-        my_3d_plot$points3d(x=((sorted_my_data[,PC1])[16:20]), y=((sorted_my_data[,PC2])[16:20]), z=((sorted_my_data[,PC3])[16:20]), pch=23,  col="purple", bg = "purple", cex=my_cex) #ch3
-        my_3d_plot$points3d(x=((sorted_my_data[,PC1])[21:25]), y=((sorted_my_data[,PC2])[21:25]), z=((sorted_my_data[,PC3])[21:25]), pch=24,  col="purple", bg = "purple", cex=my_cex) #ch4
-        my_3d_plot$points3d(x=((sorted_my_data[,PC1])[26:30]), y=((sorted_my_data[,PC2])[26:30]), z=((sorted_my_data[,PC3])[26:30]), pch=25,  col="purple", bg = "purple", cex=my_cex) #ch5
-        my_3d_plot$points3d(x=((sorted_my_data[,PC1])[31:35]), y=((sorted_my_data[,PC2])[31:35]), z=((sorted_my_data[,PC3])[31:35]), pch=21,  col="blue",   bg = "blue",   cex=my_cex) #E1
-        my_3d_plot$points3d(x=((sorted_my_data[,PC1])[36:40]), y=((sorted_my_data[,PC2])[36:40]), z=((sorted_my_data[,PC3])[36:40]), pch="X", col="orange", bg = "orange", cex=0.7*my_cex, lwd=3) #R
-        my_3d_plot$points3d(x=((sorted_my_data[,PC1])[41:45]), y=((sorted_my_data[,PC2])[41:45]), z=((sorted_my_data[,PC3])[41:45]), pch="+", col="brown",  bg = "brown",  cex=my_cex, lwd=3) #W
+        ## my_3d_plot$points3d( x=((sorted_my_data[,PC1])[1:5]),  y=((sorted_my_data[,PC2])[1:5]),   z=((sorted_my_data[,PC2])[1:5]),   pch=23,  col="green",  bg = "green",  cex=my_cex) #C
+        ## my_3d_plot$points3d(x=((sorted_my_data[,PC1])[6:10]),  y=((sorted_my_data[,PC2])[6:10]),  z=((sorted_my_data[,PC3])[6:10]),  pch=21,  col="purple", bg = "purple", cex=my_cex) #ch1
+        ## my_3d_plot$points3d(x=((sorted_my_data[,PC1])[11:15]), y=((sorted_my_data[,PC2])[11:15]), z=((sorted_my_data[,PC3])[11:15]), pch=22,  col="purple", bg = "purple", cex=my_cex) #ch2
+        ## my_3d_plot$points3d(x=((sorted_my_data[,PC1])[16:20]), y=((sorted_my_data[,PC2])[16:20]), z=((sorted_my_data[,PC3])[16:20]), pch=23,  col="purple", bg = "purple", cex=my_cex) #ch3
+        ## my_3d_plot$points3d(x=((sorted_my_data[,PC1])[21:25]), y=((sorted_my_data[,PC2])[21:25]), z=((sorted_my_data[,PC3])[21:25]), pch=24,  col="purple", bg = "purple", cex=my_cex) #ch4
+        ## my_3d_plot$points3d(x=((sorted_my_data[,PC1])[26:30]), y=((sorted_my_data[,PC2])[26:30]), z=((sorted_my_data[,PC3])[26:30]), pch=25,  col="purple", bg = "purple", cex=my_cex) #ch5
+        ## my_3d_plot$points3d(x=((sorted_my_data[,PC1])[31:35]), y=((sorted_my_data[,PC2])[31:35]), z=((sorted_my_data[,PC3])[31:35]), pch=21,  col="blue",   bg = "blue",   cex=my_cex) #E1
+        ## my_3d_plot$points3d(x=((sorted_my_data[,PC1])[36:40]), y=((sorted_my_data[,PC2])[36:40]), z=((sorted_my_data[,PC3])[36:40]), pch="X", col="orange", bg = "orange", cex=0.7*my_cex, lwd=3) #R
+        ## my_3d_plot$points3d(x=((sorted_my_data[,PC1])[41:45]), y=((sorted_my_data[,PC2])[41:45]), z=((sorted_my_data[,PC3])[41:45]), pch="+", col="brown",  bg = "brown",  cex=my_cex, lwd=3) #W
 
         
         title( (paste(out_prefix,"\n", "PC", PC1, "vs PC", PC2 , "vs PC", PC3 )), cex.main = 0.8)
