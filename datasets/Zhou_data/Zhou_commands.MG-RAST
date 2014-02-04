@@ -1,129 +1,129 @@
 # Analysis_1
-~/EHFI/plot_pco_with_stats_all.3-4-13.pl -f Zhou.4.MG-RAST.MG-RAST_default.included.norm -g Zhou.groups -s lt -p 10000 -t dataset_rand -m bray-curtis -z MG-RAST_pipe -c 10 -o Analysis_1w -cleanup
-~/EHFI/plot_pco_with_stats_all.3-4-13.pl -f Zhou.4.MG-RAST.MG-RAST_default.included.norm -g Zhou.groups -s gt -p 10000 -t rowwise_rand -m bray-curtis -z MG-RAST_pipe -c 10 -o Analysis_1b -cleanup
-~/EHFI/combine_summary_stats.pl -m pattern -w Analysis_1w -b Analysis_1b -o Analysis_1.P_VALUE_SUMMARY
+~/AMETHST/plot_pco_with_stats_all.3-4-13.pl -f Zhou.4.MG-RAST.MG-RAST_default.included.norm -g Zhou.groups -s lt -p 10000 -t dataset_rand -m bray-curtis -z MG-RAST_pipe -c 10 -o Analysis_1w -cleanup
+~/AMETHST/plot_pco_with_stats_all.3-4-13.pl -f Zhou.4.MG-RAST.MG-RAST_default.included.norm -g Zhou.groups -s gt -p 10000 -t rowwise_rand -m bray-curtis -z MG-RAST_pipe -c 10 -o Analysis_1b -cleanup
+~/AMETHST/combine_summary_stats.pl -m pattern -w Analysis_1w -b Analysis_1b -o Analysis_1.P_VALUE_SUMMARY
 
 # Analysis_2
-~/EHFI/plot_pco_with_stats_all.3-4-13.pl -f Zhou.3.MG-RAST.MG-RAST_default.included.raw -g Zhou.groups -s lt -p 10000 -t dataset_rand -m bray-curtis -z MG-RAST_pipe -c 10 -o Analysis_2w -cleanup
-~/EHFI/plot_pco_with_stats_all.3-4-13.pl -f Zhou.3.MG-RAST.MG-RAST_default.included.raw  -g Zhou.groups -s gt -p 10000 -t rowwise_rand -m bray-curtis -z MG-RAST_pipe -c 10 -o Analysis_2b -cleanup
-~/EHFI/combine_summary_stats.pl -m pattern -w Analysis_2w -b Analysis_2b -o Analysis_2.P_VALUE_SUMMARY
+~/AMETHST/plot_pco_with_stats_all.3-4-13.pl -f Zhou.3.MG-RAST.MG-RAST_default.included.raw -g Zhou.groups -s lt -p 10000 -t dataset_rand -m bray-curtis -z MG-RAST_pipe -c 10 -o Analysis_2w -cleanup
+~/AMETHST/plot_pco_with_stats_all.3-4-13.pl -f Zhou.3.MG-RAST.MG-RAST_default.included.raw  -g Zhou.groups -s gt -p 10000 -t rowwise_rand -m bray-curtis -z MG-RAST_pipe -c 10 -o Analysis_2b -cleanup
+~/AMETHST/combine_summary_stats.pl -m pattern -w Analysis_2w -b Analysis_2b -o Analysis_2.P_VALUE_SUMMARY
 
 # Analysis_3
-~/EHFI/plot_pco_with_stats_all.3-4-13.pl -f Zhou.4.MG-RAST.MG-RAST_default.included.norm -g Zhou.groups -s lt -p 10000 -t dataset_rand -m euclidean -z MG-RAST_pipe -c 10 -o Analysis_3w -cleanup
-~/EHFI/plot_pco_with_stats_all.3-4-13.pl -f Zhou.4.MG-RAST.MG-RAST_default.included.norm  -g Zhou.groups -s gt -p 10000 -t rowwise_rand -m euclidean -z MG-RAST_pipe -c 10 -o Analysis_3b -cleanup
-~/EHFI/combine_summary_stats.pl -m pattern -w Analysis_3w -b Analysis_3b -o Analysis_3.P_VALUE_SUMMARY
+~/AMETHST/plot_pco_with_stats_all.3-4-13.pl -f Zhou.4.MG-RAST.MG-RAST_default.included.norm -g Zhou.groups -s lt -p 10000 -t dataset_rand -m euclidean -z MG-RAST_pipe -c 10 -o Analysis_3w -cleanup
+~/AMETHST/plot_pco_with_stats_all.3-4-13.pl -f Zhou.4.MG-RAST.MG-RAST_default.included.norm  -g Zhou.groups -s gt -p 10000 -t rowwise_rand -m euclidean -z MG-RAST_pipe -c 10 -o Analysis_3b -cleanup
+~/AMETHST/combine_summary_stats.pl -m pattern -w Analysis_3w -b Analysis_3b -o Analysis_3.P_VALUE_SUMMARY
 
 # Analysis_4
-~/EHFI/plot_pco_with_stats_all.3-4-13.pl -f Zhou.3.MG-RAST.MG-RAST_default.included.raw -g Zhou.groups -s lt -p 10000 -t dataset_rand -m euclidean -z MG-RAST_pipe -c 10 -o Analysis_4w -cleanup
-~/EHFI/plot_pco_with_stats_all.3-4-13.pl -f Zhou.3.MG-RAST.MG-RAST_default.included.raw  -g Zhou.groups -s gt -p 10000 -t rowwise_rand -m euclidean -z MG-RAST_pipe -c 10 -o Analysis_4b -cleanup
-~/EHFI/combine_summary_stats.pl -m pattern -w Analysis_4w -b Analysis_4b -o Analysis_4.P_VALUE_SUMMARY
+~/AMETHST/plot_pco_with_stats_all.3-4-13.pl -f Zhou.3.MG-RAST.MG-RAST_default.included.raw -g Zhou.groups -s lt -p 10000 -t dataset_rand -m euclidean -z MG-RAST_pipe -c 10 -o Analysis_4w -cleanup
+~/AMETHST/plot_pco_with_stats_all.3-4-13.pl -f Zhou.3.MG-RAST.MG-RAST_default.included.raw  -g Zhou.groups -s gt -p 10000 -t rowwise_rand -m euclidean -z MG-RAST_pipe -c 10 -o Analysis_4b -cleanup
+~/AMETHST/combine_summary_stats.pl -m pattern -w Analysis_4w -b Analysis_4b -o Analysis_4.P_VALUE_SUMMARY
 
 # Analysis_8
-~/EHFI/plot_pco_with_stats_all.3-4-13.pl -f Zhou.2.MG-RAST.MG-RAST_default.removed.norm -g Zhou.groups -s lt -p 10000 -t dataset_rand -m bray-curtis -z MG-RAST_pipe -c 10 -o Analysis_8w -cleanup
-~/EHFI/plot_pco_with_stats_all.3-4-13.pl -f Zhou.2.MG-RAST.MG-RAST_default.removed.norm  -g Zhou.groups -s gt -p 10000 -t rowwise_rand -m bray-curtis -z MG-RAST_pipe -c 10 -o Analysis_8b -cleanup
-~/EHFI/combine_summary_stats.pl -m pattern -w Analysis_8w -b Analysis_8b -o Analysis_8.P_VALUE_SUMMARY
+~/AMETHST/plot_pco_with_stats_all.3-4-13.pl -f Zhou.2.MG-RAST.MG-RAST_default.removed.norm -g Zhou.groups -s lt -p 10000 -t dataset_rand -m bray-curtis -z MG-RAST_pipe -c 10 -o Analysis_8w -cleanup
+~/AMETHST/plot_pco_with_stats_all.3-4-13.pl -f Zhou.2.MG-RAST.MG-RAST_default.removed.norm  -g Zhou.groups -s gt -p 10000 -t rowwise_rand -m bray-curtis -z MG-RAST_pipe -c 10 -o Analysis_8b -cleanup
+~/AMETHST/combine_summary_stats.pl -m pattern -w Analysis_8w -b Analysis_8b -o Analysis_8.P_VALUE_SUMMARY
 
 # Analysis_9
-~/EHFI/plot_pco_with_stats_all.3-4-13.pl -f Zhou.1.MG-RAST.MG-RAST_default.removed.raw -g Zhou.groups -s lt -p 10000 -t dataset_rand -m bray-curtis -z MG-RAST_pipe -c 10 -o Analysis_9w -cleanup
-~/EHFI/plot_pco_with_stats_all.3-4-13.pl -f Zhou.1.MG-RAST.MG-RAST_default.removed.raw -g Zhou.groups -s gt -p 10000 -t rowwise_rand -m bray-curtis -z MG-RAST_pipe -c 10 -o Analysis_9b -cleanup
-~/EHFI/combine_summary_stats.pl -m pattern -w Analysis_9w -b Analysis_9b -o Analysis_9.P_VALUE_SUMMARY
+~/AMETHST/plot_pco_with_stats_all.3-4-13.pl -f Zhou.1.MG-RAST.MG-RAST_default.removed.raw -g Zhou.groups -s lt -p 10000 -t dataset_rand -m bray-curtis -z MG-RAST_pipe -c 10 -o Analysis_9w -cleanup
+~/AMETHST/plot_pco_with_stats_all.3-4-13.pl -f Zhou.1.MG-RAST.MG-RAST_default.removed.raw -g Zhou.groups -s gt -p 10000 -t rowwise_rand -m bray-curtis -z MG-RAST_pipe -c 10 -o Analysis_9b -cleanup
+~/AMETHST/combine_summary_stats.pl -m pattern -w Analysis_9w -b Analysis_9b -o Analysis_9.P_VALUE_SUMMARY
 
 # Analysis_10
-~/EHFI/plot_pco_with_stats_all.3-4-13.pl -f Zhou.2.MG-RAST.MG-RAST_default.removed.norm -g Zhou.groups -s lt -p 10000 -t dataset_rand -m euclidean -z MG-RAST_pipe -c 10 -o Analysis_10w -cleanup
-~/EHFI/plot_pco_with_stats_all.3-4-13.pl -f Zhou.2.MG-RAST.MG-RAST_default.removed.norm  -g Zhou.groups -s gt -p 10000 -t rowwise_rand -m euclidean -z MG-RAST_pipe -c 10 -o Analysis_10b -cleanup
-~/EHFI/combine_summary_stats.pl -m pattern -w Analysis_10w -b Analysis_10b -o Analysis_10.P_VALUE_SUMMARY
+~/AMETHST/plot_pco_with_stats_all.3-4-13.pl -f Zhou.2.MG-RAST.MG-RAST_default.removed.norm -g Zhou.groups -s lt -p 10000 -t dataset_rand -m euclidean -z MG-RAST_pipe -c 10 -o Analysis_10w -cleanup
+~/AMETHST/plot_pco_with_stats_all.3-4-13.pl -f Zhou.2.MG-RAST.MG-RAST_default.removed.norm  -g Zhou.groups -s gt -p 10000 -t rowwise_rand -m euclidean -z MG-RAST_pipe -c 10 -o Analysis_10b -cleanup
+~/AMETHST/combine_summary_stats.pl -m pattern -w Analysis_10w -b Analysis_10b -o Analysis_10.P_VALUE_SUMMARY
 
 # Analysis_11
-~/EHFI/plot_pco_with_stats_all.3-4-13.pl -f Zhou.1.MG-RAST.MG-RAST_default.removed.raw -g Zhou.groups -s lt -p 10000 -t dataset_rand -m euclidean -z MG-RAST_pipe -c 10 -o Analysis_11w -cleanup
-~/EHFI/plot_pco_with_stats_all.3-4-13.pl -f Zhou.1.MG-RAST.MG-RAST_default.removed.raw -g Zhou.groups -s gt -p 10000 -t rowwise_rand -m euclidean -z MG-RAST_pipe -c 10 -o Analysis_11b -cleanup
-~/EHFI/combine_summary_stats.pl -m pattern -w Analysis_11w -b Analysis_11b -o Analysis_11.P_VALUE_SUMMARY
+~/AMETHST/plot_pco_with_stats_all.3-4-13.pl -f Zhou.1.MG-RAST.MG-RAST_default.removed.raw -g Zhou.groups -s lt -p 10000 -t dataset_rand -m euclidean -z MG-RAST_pipe -c 10 -o Analysis_11w -cleanup
+~/AMETHST/plot_pco_with_stats_all.3-4-13.pl -f Zhou.1.MG-RAST.MG-RAST_default.removed.raw -g Zhou.groups -s gt -p 10000 -t rowwise_rand -m euclidean -z MG-RAST_pipe -c 10 -o Analysis_11b -cleanup
+~/AMETHST/combine_summary_stats.pl -m pattern -w Analysis_11w -b Analysis_11b -o Analysis_11.P_VALUE_SUMMARY
 
 # Analysis_15
-~/EHFI/plot_pco_with_stats_all.3-4-13.pl -f Zhou.8.MG-RAST.100p.included.norm -g Zhou.groups -s lt -p 10000 -t dataset_rand -m bray-curtis -z MG-RAST_pipe -c 10 -o Analysis_15w -cleanup
-~/EHFI/plot_pco_with_stats_all.3-4-13.pl -f Zhou.8.MG-RAST.100p.included.norm  -g Zhou.groups -s gt -p 10000 -t rowwise_rand -m bray-curtis -z MG-RAST_pipe -c 10 -o Analysis_15b -cleanup
-~/EHFI/combine_summary_stats.pl -m pattern -w Analysis_15w -b Analysis_15b -o Analysis_15.P_VALUE_SUMMARY
+~/AMETHST/plot_pco_with_stats_all.3-4-13.pl -f Zhou.8.MG-RAST.100p.included.norm -g Zhou.groups -s lt -p 10000 -t dataset_rand -m bray-curtis -z MG-RAST_pipe -c 10 -o Analysis_15w -cleanup
+~/AMETHST/plot_pco_with_stats_all.3-4-13.pl -f Zhou.8.MG-RAST.100p.included.norm  -g Zhou.groups -s gt -p 10000 -t rowwise_rand -m bray-curtis -z MG-RAST_pipe -c 10 -o Analysis_15b -cleanup
+~/AMETHST/combine_summary_stats.pl -m pattern -w Analysis_15w -b Analysis_15b -o Analysis_15.P_VALUE_SUMMARY
 
 # Analysis_16
-~/EHFI/plot_pco_with_stats_all.3-4-13.pl -f Zhou.7.MG-RAST.100p.included.raw -g Zhou.groups -s lt -p 10000 -t dataset_rand -m bray-curtis -z MG-RAST_pipe -c 10 -o Analysis_16w -cleanup
-~/EHFI/plot_pco_with_stats_all.3-4-13.pl -f Zhou.7.MG-RAST.100p.included.raw  -g Zhou.groups -s gt -p 10000 -t rowwise_rand -m bray-curtis -z MG-RAST_pipe -c 10 -o Analysis_16b -cleanup
-~/EHFI/combine_summary_stats.pl -m pattern -w Analysis_16w -b Analysis_16b -o Analysis_16.P_VALUE_SUMMARY
+~/AMETHST/plot_pco_with_stats_all.3-4-13.pl -f Zhou.7.MG-RAST.100p.included.raw -g Zhou.groups -s lt -p 10000 -t dataset_rand -m bray-curtis -z MG-RAST_pipe -c 10 -o Analysis_16w -cleanup
+~/AMETHST/plot_pco_with_stats_all.3-4-13.pl -f Zhou.7.MG-RAST.100p.included.raw  -g Zhou.groups -s gt -p 10000 -t rowwise_rand -m bray-curtis -z MG-RAST_pipe -c 10 -o Analysis_16b -cleanup
+~/AMETHST/combine_summary_stats.pl -m pattern -w Analysis_16w -b Analysis_16b -o Analysis_16.P_VALUE_SUMMARY
 
 # Analysis_17
-~/EHFI/plot_pco_with_stats_all.3-4-13.pl -f Zhou.8.MG-RAST.100p.included.norm -g Zhou.groups -s lt -p 10000 -t dataset_rand -m euclidean -z MG-RAST_pipe -c 10 -o Analysis_17w -cleanup
-~/EHFI/plot_pco_with_stats_all.3-4-13.pl -f Zhou.8.MG-RAST.100p.included.norm  -g Zhou.groups -s gt -p 10000 -t rowwise_rand -m euclidean -z MG-RAST_pipe -c 10 -o Analysis_17b -cleanup
-~/EHFI/combine_summary_stats.pl -m pattern -w Analysis_17w -b Analysis_17b -o Analysis_17.P_VALUE_SUMMARY
+~/AMETHST/plot_pco_with_stats_all.3-4-13.pl -f Zhou.8.MG-RAST.100p.included.norm -g Zhou.groups -s lt -p 10000 -t dataset_rand -m euclidean -z MG-RAST_pipe -c 10 -o Analysis_17w -cleanup
+~/AMETHST/plot_pco_with_stats_all.3-4-13.pl -f Zhou.8.MG-RAST.100p.included.norm  -g Zhou.groups -s gt -p 10000 -t rowwise_rand -m euclidean -z MG-RAST_pipe -c 10 -o Analysis_17b -cleanup
+~/AMETHST/combine_summary_stats.pl -m pattern -w Analysis_17w -b Analysis_17b -o Analysis_17.P_VALUE_SUMMARY
 
 # Analysis_18
-~/EHFI/plot_pco_with_stats_all.3-4-13.pl -f Zhou.7.MG-RAST.100p.included.raw -g Zhou.groups -s lt -p 10000 -t dataset_rand -m euclidean -z MG-RAST_pipe -c 10 -o Analysis_18w -cleanup
-~/EHFI/plot_pco_with_stats_all.3-4-13.pl -f Zhou.7.MG-RAST.100p.included.raw  -g Zhou.groups -s gt -p 10000 -t rowwise_rand -m euclidean -z MG-RAST_pipe -c 10 -o Analysis_18b -cleanup
-~/EHFI/combine_summary_stats.pl -m pattern -w Analysis_18w -b Analysis_18b -o Analysis_18.P_VALUE_SUMMARY
+~/AMETHST/plot_pco_with_stats_all.3-4-13.pl -f Zhou.7.MG-RAST.100p.included.raw -g Zhou.groups -s lt -p 10000 -t dataset_rand -m euclidean -z MG-RAST_pipe -c 10 -o Analysis_18w -cleanup
+~/AMETHST/plot_pco_with_stats_all.3-4-13.pl -f Zhou.7.MG-RAST.100p.included.raw  -g Zhou.groups -s gt -p 10000 -t rowwise_rand -m euclidean -z MG-RAST_pipe -c 10 -o Analysis_18b -cleanup
+~/AMETHST/combine_summary_stats.pl -m pattern -w Analysis_18w -b Analysis_18b -o Analysis_18.P_VALUE_SUMMARY
 
 # Analysis_22
-~/EHFI/plot_pco_with_stats_all.3-4-13.pl -f Zhou.6.MG-RAST.100p.removed.norm -g Zhou.groups -s lt -p 10000 -t dataset_rand -m bray-curtis -z MG-RAST_pipe -c 10 -o Analysis_22w -cleanup
-~/EHFI/plot_pco_with_stats_all.3-4-13.pl -f Zhou.6.MG-RAST.100p.removed.norm  -g Zhou.groups -s gt -p 10000 -t rowwise_rand -m bray-curtis -z MG-RAST_pipe -c 10 -o Analysis_22b -cleanup
-~/EHFI/combine_summary_stats.pl -m pattern -w Analysis_22w -b Analysis_22b -o Analysis_22.P_VALUE_SUMMARY
+~/AMETHST/plot_pco_with_stats_all.3-4-13.pl -f Zhou.6.MG-RAST.100p.removed.norm -g Zhou.groups -s lt -p 10000 -t dataset_rand -m bray-curtis -z MG-RAST_pipe -c 10 -o Analysis_22w -cleanup
+~/AMETHST/plot_pco_with_stats_all.3-4-13.pl -f Zhou.6.MG-RAST.100p.removed.norm  -g Zhou.groups -s gt -p 10000 -t rowwise_rand -m bray-curtis -z MG-RAST_pipe -c 10 -o Analysis_22b -cleanup
+~/AMETHST/combine_summary_stats.pl -m pattern -w Analysis_22w -b Analysis_22b -o Analysis_22.P_VALUE_SUMMARY
 
 # Analysis_23
-~/EHFI/plot_pco_with_stats_all.3-4-13.pl -f Zhou.5.MG-RAST.100p.removed.raw -g Zhou.groups -s lt -p 10000 -t dataset_rand -m bray-curtis -z MG-RAST_pipe -c 10 -o Analysis_23w -cleanup
-~/EHFI/plot_pco_with_stats_all.3-4-13.pl -f Zhou.5.MG-RAST.100p.removed.raw  -g Zhou.groups -s gt -p 10000 -t rowwise_rand -m bray-curtis -z MG-RAST_pipe -c 10 -o Analysis_23b -cleanup
-~/EHFI/combine_summary_stats.pl -m pattern -w Analysis_23w -b Analysis_23b -o Analysis_23.P_VALUE_SUMMARY
+~/AMETHST/plot_pco_with_stats_all.3-4-13.pl -f Zhou.5.MG-RAST.100p.removed.raw -g Zhou.groups -s lt -p 10000 -t dataset_rand -m bray-curtis -z MG-RAST_pipe -c 10 -o Analysis_23w -cleanup
+~/AMETHST/plot_pco_with_stats_all.3-4-13.pl -f Zhou.5.MG-RAST.100p.removed.raw  -g Zhou.groups -s gt -p 10000 -t rowwise_rand -m bray-curtis -z MG-RAST_pipe -c 10 -o Analysis_23b -cleanup
+~/AMETHST/combine_summary_stats.pl -m pattern -w Analysis_23w -b Analysis_23b -o Analysis_23.P_VALUE_SUMMARY
 
 # Analysis_24
-~/EHFI/plot_pco_with_stats_all.3-4-13.pl -f Zhou.6.MG-RAST.100p.removed.norm -g Zhou.groups -s lt -p 10000 -t dataset_rand -m euclidean -z MG-RAST_pipe -c 10 -o Analysis_24w -cleanup
-~/EHFI/plot_pco_with_stats_all.3-4-13.pl -f Zhou.6.MG-RAST.100p.removed.norm  -g Zhou.groups -s gt -p 10000 -t rowwise_rand -m euclidean -z MG-RAST_pipe -c 10 -o Analysis_24b -cleanup
-~/EHFI/combine_summary_stats.pl -m pattern -w Analysis_24w -b Analysis_24b -o Analysis_24.P_VALUE_SUMMARY
+~/AMETHST/plot_pco_with_stats_all.3-4-13.pl -f Zhou.6.MG-RAST.100p.removed.norm -g Zhou.groups -s lt -p 10000 -t dataset_rand -m euclidean -z MG-RAST_pipe -c 10 -o Analysis_24w -cleanup
+~/AMETHST/plot_pco_with_stats_all.3-4-13.pl -f Zhou.6.MG-RAST.100p.removed.norm  -g Zhou.groups -s gt -p 10000 -t rowwise_rand -m euclidean -z MG-RAST_pipe -c 10 -o Analysis_24b -cleanup
+~/AMETHST/combine_summary_stats.pl -m pattern -w Analysis_24w -b Analysis_24b -o Analysis_24.P_VALUE_SUMMARY
 
 # Analysis_25
-~/EHFI/plot_pco_with_stats_all.3-4-13.pl -f Zhou.5.MG-RAST.100p.removed.raw -g Zhou.groups -s lt -p 10000 -t dataset_rand -m euclidean -z MG-RAST_pipe -c 10 -o Analysis_25w -cleanup
-~/EHFI/plot_pco_with_stats_all.3-4-13.pl -f Zhou.5.MG-RAST.100p.removed.raw  -g Zhou.groups -s gt -p 10000 -t rowwise_rand -m euclidean -z MG-RAST_pipe -c 10 -o Analysis_25b -cleanup
-~/EHFI/combine_summary_stats.pl -m pattern -w Analysis_25w -b Analysis_25b -o Analysis_25.P_VALUE_SUMMARY
+~/AMETHST/plot_pco_with_stats_all.3-4-13.pl -f Zhou.5.MG-RAST.100p.removed.raw -g Zhou.groups -s lt -p 10000 -t dataset_rand -m euclidean -z MG-RAST_pipe -c 10 -o Analysis_25w -cleanup
+~/AMETHST/plot_pco_with_stats_all.3-4-13.pl -f Zhou.5.MG-RAST.100p.removed.raw  -g Zhou.groups -s gt -p 10000 -t rowwise_rand -m euclidean -z MG-RAST_pipe -c 10 -o Analysis_25b -cleanup
+~/AMETHST/combine_summary_stats.pl -m pattern -w Analysis_25w -b Analysis_25b -o Analysis_25.P_VALUE_SUMMARY
 
 # Analysis_29
-~/EHFI/plot_pco_with_stats_all.3-4-13.pl -f Zhou.3.MG-RAST.MG-RAST_default.included.raw -g Zhou.groups -s lt -p 10000 -t dataset_rand -m euclidean -z MG-RAST_pipe -c 10 -o Analysis_29w -cleanup
-~/EHFI/plot_pco_with_stats_all.3-4-13.pl -f Zhou.3.MG-RAST.MG-RAST_default.included.raw  -g Zhou.groups -s gt -p 10000 -t rowwise_rand -m euclidean -z MG-RAST_pipe -c 10 -o Analysis_29b -cleanup
-~/EHFI/combine_summary_stats.pl -m pattern -w Analysis_29w -b Analysis_29b -o Analysis_29.P_VALUE_SUMMARY
+~/AMETHST/plot_pco_with_stats_all.3-4-13.pl -f Zhou.3.MG-RAST.MG-RAST_default.included.raw -g Zhou.groups -s lt -p 10000 -t dataset_rand -m euclidean -z MG-RAST_pipe -c 10 -o Analysis_29w -cleanup
+~/AMETHST/plot_pco_with_stats_all.3-4-13.pl -f Zhou.3.MG-RAST.MG-RAST_default.included.raw  -g Zhou.groups -s gt -p 10000 -t rowwise_rand -m euclidean -z MG-RAST_pipe -c 10 -o Analysis_29b -cleanup
+~/AMETHST/combine_summary_stats.pl -m pattern -w Analysis_29w -b Analysis_29b -o Analysis_29.P_VALUE_SUMMARY
 
 # Analysis_30
-~/EHFI/plot_pco_with_stats_all.3-4-13.pl -f Zhou.4.MG-RAST.MG-RAST_default.included.norm -g Zhou.groups -s lt -p 10000 -t dataset_rand -m euclidean -z MG-RAST_pipe -c 10 -o Analysis_30w -cleanup
-~/EHFI/plot_pco_with_stats_all.3-4-13.pl -f Zhou.4.MG-RAST.MG-RAST_default.included.norm  -g Zhou.groups -s gt -p 10000 -t rowwise_rand -m euclidean -z MG-RAST_pipe -c 10 -o Analysis_30b -cleanup
-~/EHFI/combine_summary_stats.pl -m pattern -w Analysis_30w -b Analysis_30b -o Analysis_30.P_VALUE_SUMMARY
+~/AMETHST/plot_pco_with_stats_all.3-4-13.pl -f Zhou.4.MG-RAST.MG-RAST_default.included.norm -g Zhou.groups -s lt -p 10000 -t dataset_rand -m euclidean -z MG-RAST_pipe -c 10 -o Analysis_30w -cleanup
+~/AMETHST/plot_pco_with_stats_all.3-4-13.pl -f Zhou.4.MG-RAST.MG-RAST_default.included.norm  -g Zhou.groups -s gt -p 10000 -t rowwise_rand -m euclidean -z MG-RAST_pipe -c 10 -o Analysis_30b -cleanup
+~/AMETHST/combine_summary_stats.pl -m pattern -w Analysis_30w -b Analysis_30b -o Analysis_30.P_VALUE_SUMMARY
 
 # Analysis_31
-~/EHFI/plot_pco_with_stats_all.3-4-13.pl -f Zhou.7.MG-RAST.100p.included.raw -g Zhou.groups -s lt -p 10000 -t dataset_rand -m euclidean -z MG-RAST_pipe -c 10 -o Analysis_31w -cleanup
-~/EHFI/plot_pco_with_stats_all.3-4-13.pl -f Zhou.7.MG-RAST.100p.included.raw  -g Zhou.groups -s gt -p 10000 -t rowwise_rand -m euclidean -z MG-RAST_pipe -c 10 -o Analysis_31b -cleanup
-~/EHFI/combine_summary_stats.pl -m pattern -w Analysis_31w -b Analysis_31b -o Analysis_31.P_VALUE_SUMMARY
+~/AMETHST/plot_pco_with_stats_all.3-4-13.pl -f Zhou.7.MG-RAST.100p.included.raw -g Zhou.groups -s lt -p 10000 -t dataset_rand -m euclidean -z MG-RAST_pipe -c 10 -o Analysis_31w -cleanup
+~/AMETHST/plot_pco_with_stats_all.3-4-13.pl -f Zhou.7.MG-RAST.100p.included.raw  -g Zhou.groups -s gt -p 10000 -t rowwise_rand -m euclidean -z MG-RAST_pipe -c 10 -o Analysis_31b -cleanup
+~/AMETHST/combine_summary_stats.pl -m pattern -w Analysis_31w -b Analysis_31b -o Analysis_31.P_VALUE_SUMMARY
 
 # Analysis_32
-~/EHFI/plot_pco_with_stats_all.3-4-13.pl -f Zhou.8.MG-RAST.100p.included.norm -g Zhou.groups -s lt -p 10000 -t dataset_rand -m euclidean -z MG-RAST_pipe -c 10 -o Analysis_32w -cleanup
-~/EHFI/plot_pco_with_stats_all.3-4-13.pl -f Zhou.8.MG-RAST.100p.included.norm  -g Zhou.groups -s gt -p 10000 -t rowwise_rand -m euclidean -z MG-RAST_pipe -c 10 -o Analysis_32b -cleanup
-~/EHFI/combine_summary_stats.pl -m pattern -w Analysis_32w -b Analysis_32b -o Analysis_32.P_VALUE_SUMMARY
+~/AMETHST/plot_pco_with_stats_all.3-4-13.pl -f Zhou.8.MG-RAST.100p.included.norm -g Zhou.groups -s lt -p 10000 -t dataset_rand -m euclidean -z MG-RAST_pipe -c 10 -o Analysis_32w -cleanup
+~/AMETHST/plot_pco_with_stats_all.3-4-13.pl -f Zhou.8.MG-RAST.100p.included.norm  -g Zhou.groups -s gt -p 10000 -t rowwise_rand -m euclidean -z MG-RAST_pipe -c 10 -o Analysis_32b -cleanup
+~/AMETHST/combine_summary_stats.pl -m pattern -w Analysis_32w -b Analysis_32b -o Analysis_32.P_VALUE_SUMMARY
 
 # Analysis_33
-~/EHFI/plot_pco_with_stats_all.3-4-13.pl -f Zhou.3.MG-RAST.MG-RAST_default.included.raw -g Zhou.groups -s lt -p 10000 -t dataset_rand -m euclidean -z MG-RAST_pipe -c 10 -o Analysis_33w -cleanup
-~/EHFI/plot_pco_with_stats_all.3-4-13.pl -f Zhou.3.MG-RAST.MG-RAST_default.included.raw  -g Zhou.groups -s gt -p 10000 -t rowwise_rand -m euclidean -z MG-RAST_pipe -c 10 -o Analysis_33b -cleanup
-~/EHFI/combine_summary_stats.pl -m pattern -w Analysis_33w -b Analysis_33b -o Analysis_33.P_VALUE_SUMMARY
+~/AMETHST/plot_pco_with_stats_all.3-4-13.pl -f Zhou.3.MG-RAST.MG-RAST_default.included.raw -g Zhou.groups -s lt -p 10000 -t dataset_rand -m euclidean -z MG-RAST_pipe -c 10 -o Analysis_33w -cleanup
+~/AMETHST/plot_pco_with_stats_all.3-4-13.pl -f Zhou.3.MG-RAST.MG-RAST_default.included.raw  -g Zhou.groups -s gt -p 10000 -t rowwise_rand -m euclidean -z MG-RAST_pipe -c 10 -o Analysis_33b -cleanup
+~/AMETHST/combine_summary_stats.pl -m pattern -w Analysis_33w -b Analysis_33b -o Analysis_33.P_VALUE_SUMMARY
 
 # Analysis_34
-~/EHFI/plot_pco_with_stats_all.3-4-13.pl -f Zhou.4.MG-RAST.MG-RAST_default.included.norm -g Zhou.groups -s lt -p 10000 -t dataset_rand -m euclidean -z MG-RAST_pipe -c 10 -o Analysis_34w -cleanup
-~/EHFI/plot_pco_with_stats_all.3-4-13.pl -f Zhou.4.MG-RAST.MG-RAST_default.included.norm  -g Zhou.groups -s gt -p 10000 -t rowwise_rand -m euclidean -z MG-RAST_pipe -c 10 -o Analysis_34b -cleanup
-~/EHFI/combine_summary_stats.pl -m pattern -w Analysis_34w -b Analysis_34b -o Analysis_34.P_VALUE_SUMMARY
+~/AMETHST/plot_pco_with_stats_all.3-4-13.pl -f Zhou.4.MG-RAST.MG-RAST_default.included.norm -g Zhou.groups -s lt -p 10000 -t dataset_rand -m euclidean -z MG-RAST_pipe -c 10 -o Analysis_34w -cleanup
+~/AMETHST/plot_pco_with_stats_all.3-4-13.pl -f Zhou.4.MG-RAST.MG-RAST_default.included.norm  -g Zhou.groups -s gt -p 10000 -t rowwise_rand -m euclidean -z MG-RAST_pipe -c 10 -o Analysis_34b -cleanup
+~/AMETHST/combine_summary_stats.pl -m pattern -w Analysis_34w -b Analysis_34b -o Analysis_34.P_VALUE_SUMMARY
 
 # Analysis_35
-~/EHFI/plot_pco_with_stats_all.3-4-13.pl -f Zhou.7.MG-RAST.100p.included.raw -g Zhou.groups -s lt -p 10000 -t dataset_rand -m euclidean -z MG-RAST_pipe -c 10 -o Analysis_35w -cleanup
-~/EHFI/plot_pco_with_stats_all.3-4-13.pl -f Zhou.7.MG-RAST.100p.included.raw  -g Zhou.groups -s gt -p 10000 -t rowwise_rand -m euclidean -z MG-RAST_pipe -c 10 -o Analysis_35b -cleanup
-~/EHFI/combine_summary_stats.pl -m pattern -w Analysis_35w -b Analysis_35b -o Analysis_35.P_VALUE_SUMMARY
+~/AMETHST/plot_pco_with_stats_all.3-4-13.pl -f Zhou.7.MG-RAST.100p.included.raw -g Zhou.groups -s lt -p 10000 -t dataset_rand -m euclidean -z MG-RAST_pipe -c 10 -o Analysis_35w -cleanup
+~/AMETHST/plot_pco_with_stats_all.3-4-13.pl -f Zhou.7.MG-RAST.100p.included.raw  -g Zhou.groups -s gt -p 10000 -t rowwise_rand -m euclidean -z MG-RAST_pipe -c 10 -o Analysis_35b -cleanup
+~/AMETHST/combine_summary_stats.pl -m pattern -w Analysis_35w -b Analysis_35b -o Analysis_35.P_VALUE_SUMMARY
 
 # Analysis_36
-~/EHFI/plot_pco_with_stats_all.3-4-13.pl -f Zhou.8.MG-RAST.100p.included.norm -g Zhou.groups -s lt -p 10000 -t dataset_rand -m euclidean -z MG-RAST_pipe  -c 10 -o Analysis_36w -cleanup
-~/EHFI/plot_pco_with_stats_all.3-4-13.pl -f Zhou.8.MG-RAST.100p.included.norm  -g Zhou.groups -s gt -p 10000 -t rowwise_rand -m euclidean -z MG-RAST_pipe  -c 10 -o Analysis_36b -cleanup
-~/EHFI/combine_summary_stats.pl -m pattern -w Analysis_36w -b Analysis_36b -o Analysis_36.P_VALUE_SUMMARY
+~/AMETHST/plot_pco_with_stats_all.3-4-13.pl -f Zhou.8.MG-RAST.100p.included.norm -g Zhou.groups -s lt -p 10000 -t dataset_rand -m euclidean -z MG-RAST_pipe  -c 10 -o Analysis_36w -cleanup
+~/AMETHST/plot_pco_with_stats_all.3-4-13.pl -f Zhou.8.MG-RAST.100p.included.norm  -g Zhou.groups -s gt -p 10000 -t rowwise_rand -m euclidean -z MG-RAST_pipe  -c 10 -o Analysis_36b -cleanup
+~/AMETHST/combine_summary_stats.pl -m pattern -w Analysis_36w -b Analysis_36b -o Analysis_36.P_VALUE_SUMMARY
 
 # Analysis_37
-~/EHFI/plot_pco_with_stats_all.3-4-13.pl -f Zhou.3.MG-RAST.MG-RAST_default.included.raw -g Zhou.groups -s lt -p 10000 -t dataset_rand -m OTU -z OTU_pipe -c 10 -o Analysis_37w -cleanup
-~/EHFI/plot_pco_with_stats_all.3-4-13.pl -f Zhou.3.MG-RAST.MG-RAST_default.included.raw  -g Zhou.groups -s gt -p 10000 -t rowwise_rand -m OTU -z OTU_pipe -c 10 -o Analysis_37b -cleanup
-~/EHFI/combine_summary_stats.pl -m pattern -w Analysis_37w -b Analysis_37b -o Analysis_37.P_VALUE_SUMMARY
+~/AMETHST/plot_pco_with_stats_all.3-4-13.pl -f Zhou.3.MG-RAST.MG-RAST_default.included.raw -g Zhou.groups -s lt -p 10000 -t dataset_rand -m OTU -z OTU_pipe -c 10 -o Analysis_37w -cleanup
+~/AMETHST/plot_pco_with_stats_all.3-4-13.pl -f Zhou.3.MG-RAST.MG-RAST_default.included.raw  -g Zhou.groups -s gt -p 10000 -t rowwise_rand -m OTU -z OTU_pipe -c 10 -o Analysis_37b -cleanup
+~/AMETHST/combine_summary_stats.pl -m pattern -w Analysis_37w -b Analysis_37b -o Analysis_37.P_VALUE_SUMMARY
 
 # Analysis_38
-~/EHFI/plot_pco_with_stats_all.3-4-13.pl -f Zhou.3.MG-RAST.MG-RAST_default.included.raw -g Zhou.groups -s lt -p 10000 -t dataset_rand -m w_OTU -z OTU_pipe -c 10 -o Analysis_38w -cleanup
-~/EHFI/plot_pco_with_stats_all.3-4-13.pl -f Zhou.3.MG-RAST.MG-RAST_default.included.raw  -g Zhou.groups -s gt -p 10000 -t rowwise_rand -m w_OTU -z OTU_pipe -c 10 -o Analysis_38b -cleanup
-~/EHFI/combine_summary_stats.pl -m pattern -w Analysis_38w -b Analysis_38b -o Analysis_38.P_VALUE_SUMMARY
+~/AMETHST/plot_pco_with_stats_all.3-4-13.pl -f Zhou.3.MG-RAST.MG-RAST_default.included.raw -g Zhou.groups -s lt -p 10000 -t dataset_rand -m w_OTU -z OTU_pipe -c 10 -o Analysis_38w -cleanup
+~/AMETHST/plot_pco_with_stats_all.3-4-13.pl -f Zhou.3.MG-RAST.MG-RAST_default.included.raw  -g Zhou.groups -s gt -p 10000 -t rowwise_rand -m w_OTU -z OTU_pipe -c 10 -o Analysis_38b -cleanup
+~/AMETHST/combine_summary_stats.pl -m pattern -w Analysis_38w -b Analysis_38b -o Analysis_38.P_VALUE_SUMMARY

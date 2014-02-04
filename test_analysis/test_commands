@@ -1,4 +1,4 @@
 # test_analysis
-~/EHFI/plot_pco_with_stats_all.3-4-13.pl -f 16.Qiime.100p.included.norm.qiime_table -g EHFI.groups -m euclidean -t dataset_rand -z qiime_pipe -q qiime_table -o test_a -cleanup
-~/EHFI/plot_pco_with_stats_all.3-4-13.pl -f 16.Qiime.100p.included.norm.qiime_table -g EHFI.groups -m euclidean -t rowwise_rand -z qiime_pipe -q qiime_table -o test_b -cleanup
-~/EHFI/combine_summary_stats.pl -m pattern -w test_a -b test_b -o test_out_again
+~/AMETHST/plot_pco_with_stats_all.3-4-13.pl -f 16.Qiime.100p.included.norm.qiime_table -g AMETHST.groups -m euclidean -t dataset_rand -z qiime_pipe -q qiime_table -o test_a -cleanup
+~/AMETHST/plot_pco_with_stats_all.3-4-13.pl -f 16.Qiime.100p.included.norm.qiime_table -g AMETHST.groups -m euclidean -t rowwise_rand -z qiime_pipe -q qiime_table -o test_b -cleanup
+~/AMETHST/combine_summary_stats.pl -m pattern -w test_a -b test_b -o test_out_again

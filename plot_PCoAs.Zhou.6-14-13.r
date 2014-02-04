@@ -1,4 +1,4 @@
-# THis is a more generalized version of 10-15-12 -- created specifically to plot the EHFI data -- this does some more automated stuff
+# THis is a more generalized version of 10-15-12 -- created specifically to plot the AMETHST data -- this does some more automated stuff
 #
 # This is a script to plot the PCoA outputs of the following functions:
 #

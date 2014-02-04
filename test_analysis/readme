@@ -1,6 +1,6 @@
-# If the EHFI repo was cloned into your home, you can run the test analysis as follows
+# If the AMETHST repo was cloned into your home, you can run the test analysis as follows
 
->cd ~/EHFI/test_analysis
+>cd ~/AMETHST/test_analysis
 
 > ~/plot_pco_with_stats.MASTER.8-24-12.pl -f test_commands
 

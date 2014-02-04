@@ -1,2 +1,2 @@
-AMETHST (formerly EHFI)
+AMETHST
 ====
