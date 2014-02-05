@@ -3,6 +3,6 @@
 
 >cd ~/AMETHST/test_analysis
 
-> AMETHST.pl -f test_commands
+>AMETHST.pl -f test_commands
 
 # that's it
