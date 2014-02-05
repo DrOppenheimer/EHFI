@@ -2,6 +2,6 @@
 
 >cd ~/AMETHST/test_analysis
 
-> ~/AMETHST.pl -f test_commands
+> ~/plot_pco_with_stats.MASTER.8-24-12.pl -f test_commands
 
 # that's it
