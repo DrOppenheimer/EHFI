@@ -10,4 +10,4 @@ Ra,Rb,Rc,Rd,Re
 Wa,Wb,Wc,Wd,We
 
 
-~/AMETHST/plot_pco_with_stats_all.3-4-13.pl -f 4.HMP_8.norm.percent_default.included.txt -g HMP_groups.txt -s lt -p 100 -t dataset_rand -m bray-curtis -z MG-RAST_pipe -c 10 -o Analysis_1w -cleanup
+~/EHFI/plot_pco_with_stats_all.3-4-13.pl -f 4.HMP_8.norm.percent_default.included.txt -g HMP_groups.txt -s lt -p 100 -t dataset_rand -m bray-curtis -z MG-RAST_pipe -c 10 -o Analysis_1w -cleanup
