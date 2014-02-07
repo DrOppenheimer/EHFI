@@ -256,8 +256,8 @@ compile_p-values-summary_files -d|--dir_path <dir path> -i|--input_pattern <inpu
      -b|--debug
 
 DESCRIPTION:
-This script will produce a single output file from multiple *.P_VALUES_SUMMARY files
-produced from plot_pco_with_stats.MASTER, or any of the individual scripts that it 
+This script will produce summary outputs from multiple *.P_VALUES_SUMMARY files
+produced from AMETHST.pl, or any of the individual scripts that it 
 drives:
 
      plot_pco_with_stats,
