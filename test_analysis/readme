@@ -1,5 +1,5 @@
 # If the AMETHST repo was cloned into your home, you can run the test analysis as follows
-# First, make sure AMETHST is in your path, then 
+# First, make sure AMETHST is in your path ( export PATH=$PATH:~/AMETHST/ ), then 
 
 >cd ~/AMETHST/test_analysis
 
