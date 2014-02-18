@@ -6,7 +6,7 @@ use warnings;
 use Getopt::Long;
 use Cwd;
 
-my $start_time_stamp = `date +%m-%d-%y_%H_%M_%S`;
+my $start_time_stamp = `date +%m-%d-%y:%H:%M:%S`;
 chomp $start_time_stamp;
 
 my ($target_dir, $help, $verbose, $debug);
