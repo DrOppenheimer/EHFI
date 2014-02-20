@@ -39,6 +39,7 @@ while (my $line = <FILE>){
 
   chomp $line;
   
+  # skip lines that start with # or are blank
   unless ( ($line =~ m/^#/) || ($line =~ m/^\s*$/) ){
 
     print LOG "Start Command_".$job_counter."( ".$log_prefix." ) at ".`date +%m-%d-%y_%H:%M:%S`.$line."\n";
@@ -66,10 +67,11 @@ while (my $line = <FILE>){
     
     print LOG "\n".$line."\n\n";
     
-    $line =~ s/#//;
-    $line =~ s/\s+//g;
-
-    $log_prefix = $line;
+    # check lines that start with # to see if they start with #job, in which case, following text in line is used for logging
+    if( $line =~ s/#job// ){
+      $line =~ s/\s+//g;
+      $log_prefix = $line;
+    }
 
  }
   
@@ -110,7 +112,32 @@ Format is
 It will generate a master log that tells you when each job started and completed.
 It also creates a log for each job that records all of the error output text.
 Note that the plot... scripts also generate their own logs.
-   
+
+The file with the commands must be formatted as follows
+
+#job "unique name or job for job" 
+command line 1 for job
+command line 2 for job   
+command line 3 for job
+
+#job "unique name or job for job" 
+command line 1 for job
+command line 2 for job   
+command line 3 for job
+
+EXAMPLE:
+#job Analysis_1
+~/AMETHST/plot_pco_with_stats_all.3-4-13.pl -f 1.MG-RAST.MG-RAST_default.removed.raw -g AMETHST.groups -p 10 -t dataset_rand -m bray-curtis -z MG-RAST_pipe -c 10 -o Analysis_1w -cleanup
+~/AMETHST/plot_pco_with_stats_all.3-4-13.pl -f 1.MG-RAST.MG-RAST_default.removed.raw  -g AMETHST.groups -p 10 -t rowwise_rand -m bray-curtis -z MG-RAST_pipe -c 10 -o Analysis_1b -cleanup
+~/AMETHST/combine_summary_stats.pl  -m pattern  -w Analysis_9w  -b Analysis_9b  -o Analysis_1.P_VALUE_SUMMARY
+
+
+#job Analysis_2
+~/AMETHST/plot_pco_with_stats_all.3-4-13.pl -f 9.Qiime.Qiime_default.removed.raw -g AMETHST.groups -p 10 -t dataset_rand -m unifrac -z qiime_pipe  -q qiime_table  -a ~/AMETHST/qiime_trees/97_otus.tree -c 10 -o Analysis_2w -cleanup
+~/AMETHST/plot_pco_with_stats_all.3-4-13.pl -f 9.Qiime.Qiime_default.removed.raw  -g AMETHST.groups -p 10 -t rowwise_rand -m unifrac -z qiime_pipe  -q qiime_table  -a ~/AMETHST/qiime_trees/97_otus.tree -c 10 -o Analysis_2b -cleanup
+~/AMETHST/combine_summary_stats.pl  -m pattern  -w Analysis_2w  -b Analysis_2b  -o Analysis_2.P_VALUE_SUMMARY
+
+
 USAGE:
 
     -f|--command_file (string)  no default
