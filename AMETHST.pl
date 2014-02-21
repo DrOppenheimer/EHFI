@@ -83,7 +83,9 @@ while (my $line = <FILE>){
 # tar the entire directory if the -z option is used
 if ( $zip_prefix ){
   my $output_name = $log_prefix.".RESULTS.tar.gz";
-  system("tar -zcvf ./")
+  # can make this list more selective in the future - for now, just gets everything in the directory
+  system("ls > file_list")
+  system("tar -zcf $output_name -T file_list")
 }
 
 
