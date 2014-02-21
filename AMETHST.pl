@@ -19,11 +19,10 @@ if ( (@ARGV > 0) && ($ARGV[0] =~ /-h/) ) { &usage(); }
 unless ( @ARGV > 0 || $command_file ) { &usage(); }
 
 if ( ! GetOptions (
-		   "f|command_file=s" => \$command_file
-		   "z|zip_prefix!"    => \$zip_prefix
-		   "h|help!"          => \$help
+		   "f|command_file=s" => \$command_file,
+		   "z|zip_prefix!"    => \$zip_prefix,
+		   "h|help!"          => \$help,
 		   "d|debug!"         => \$debug
-
 		  )
    ) { &usage(); }
 
