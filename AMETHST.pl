@@ -12,7 +12,7 @@ use Getopt::Long;
 use Cwd;
 
 my $start_time_stamp =`date +%m-%d-%y_%H:%M:%S`;  # create the time stamp month-day-year_hour:min:sec:nanosec
-my ($command_file, $debug, $help);
+my ($command_file, $zip_prefix, $debug, $help);
 
 if ( (@ARGV > 0) && ($ARGV[0] =~ /-h/) ) { &usage(); }
 
@@ -20,6 +20,10 @@ unless ( @ARGV > 0 || $command_file ) { &usage(); }
 
 if ( ! GetOptions (
 		   "f|command_file=s" => \$command_file
+		   "z|zip_prefix!"    => \$zip_prefix
+		   "h|help!"          => \$help
+		   "d|debug!"         => \$debug
+
 		  )
    ) { &usage(); }
 
@@ -76,6 +80,14 @@ while (my $line = <FILE>){
  }
   
 }
+
+# tar the entire directory if the -z option is used
+if ( $zip_prefix ){
+  my $output_name = $log_prefix."resulsts.tar.gz";
+  system("tar -zcvf $output_name $current_dir")
+}
+
+
 print LOG "\n"."ALL DONE at ".`date +%m-%d-%y_%H:%M:%S`."\n";
 
 
@@ -94,7 +106,12 @@ time stamp:           $start_time_stamp
 script:               $0
 
 USAGE:
-plot_pco_with_stats.MASTER...  --command_file COMMAND_FILE
+     AMETHST.py -f commands_file [options]
+
+    -f|--command_file (string)    no default
+    -z|--zip_prefix   (bool)      create a *.tar.gz that contains all data (input and output)
+    -h|--help         (bool)      display help/usage
+    -d|--debug        (bool)      run in debug mode
 
 DESCRIPTION:
 This a master script that allows you to queue jobs for the following three scripts:
@@ -104,12 +121,11 @@ This a master script that allows you to queue jobs for the following three scrip
      plot_OTU_pco_with_stats, or
      plot_pco_with_stats_all
 
-The only argument is the name of the file that has the commands to run these scripts.
-Command file has to have each job in a single line.
-Format is 
-"--option value --option value ... --flag"
+There are two main arguments.  One (required) specifies the file with he list of commands to 
+perform.  The second is optional; the user can specify the prefix for a zip file to be cerated
+that will contain all inputs and outputs
 
-It will generate a master log that tells you when each job started and completed.
+The script generates a master log that tells you when each job started and completed.
 It also creates a log for each job that records all of the error output text.
 Note that the plot... scripts also generate their own logs.
 
@@ -131,21 +147,10 @@ EXAMPLE:
 ~/AMETHST/plot_pco_with_stats_all.3-4-13.pl -f 1.MG-RAST.MG-RAST_default.removed.raw  -g AMETHST.groups -p 10 -t rowwise_rand -m bray-curtis -z MG-RAST_pipe -c 10 -o Analysis_1b -cleanup
 ~/AMETHST/combine_summary_stats.pl  -m pattern  -w Analysis_9w  -b Analysis_9b  -o Analysis_1.P_VALUE_SUMMARY
 
-
 #job Analysis_2
 ~/AMETHST/plot_pco_with_stats_all.3-4-13.pl -f 9.Qiime.Qiime_default.removed.raw -g AMETHST.groups -p 10 -t dataset_rand -m unifrac -z qiime_pipe  -q qiime_table  -a ~/AMETHST/qiime_trees/97_otus.tree -c 10 -o Analysis_2w -cleanup
 ~/AMETHST/plot_pco_with_stats_all.3-4-13.pl -f 9.Qiime.Qiime_default.removed.raw  -g AMETHST.groups -p 10 -t rowwise_rand -m unifrac -z qiime_pipe  -q qiime_table  -a ~/AMETHST/qiime_trees/97_otus.tree -c 10 -o Analysis_2b -cleanup
 ~/AMETHST/combine_summary_stats.pl  -m pattern  -w Analysis_2w  -b Analysis_2b  -o Analysis_2.P_VALUE_SUMMARY
-
-
-USAGE:
-
-    -f|--command_file (string)  no default
-                                  
-An array of typical options (indicating defaults) for each of the drive scripts is
-provided below.  Note that each takes nearly, but not exactly, the same arguments.
-The QIIME one has the most unique arguments.
-
 
 
 );

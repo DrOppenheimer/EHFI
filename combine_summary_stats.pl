@@ -9,7 +9,7 @@ use Statistics::Descriptive;
 
 
 
-my($mode, $ouput_file, $within_pattern, $between_pattern, $within_file, $between_file, $help, $verbose, $debug);
+my($mode, $ouput_file, $within_pattern, $between_pattern, $within_file, $between_file, $pcoa_pattern, $pcoa_file, $help, $verbose, $debug);
 
 my $current_dir = getcwd()."/";
 $output_file = "Within_Between.P_VALUE_SUMMARY";
@@ -31,6 +31,7 @@ if ( ! GetOptions (
 		   "o|output_file=s"      => \$output_file,
 		   "w|within_pattern=s"   => \$within_pattern,
 		   "b|between_pattern=s"  => \$between_pattern,
+		   "p|pcoa_pattern=s"     => \$pcoa_pattern,
 		   "h|help!"              => \$help, 
 		   "v|verbose!"           => \$verbose,
 		   "d|debug!"             => \$debug
@@ -53,12 +54,17 @@ if($mode eq "pattern"){
   my $between_search = $current_dir.qx(ls $between_pattern*/*SUMMARY);
   chomp $between_search;
   $between_file = $between_search;
+
+  my $pcoa_search = $current_dir.qx(ls $within_pattern*/*.PCoA);
+  chomp $pcoa_search;
+  $pcoa_file = $pcoa_search; 
   
   #if($debug){print STDERR "within_file:"."\n"."###".$within_file."###\n";}
   #if($debug){print STDERR "between_file:"."\n"."###".$between_file."###\n";}
 }else{
   $within_file = $within_pattern;
   $between_file = $between_pattern;
+  $pcoa_file = $pcoa_pattern;
 }
 
 
@@ -256,6 +262,7 @@ print OUTPUT_FILE (
 		   "#################################################################################"."\n"
 		  );
 
+system("cp $pcoa_file ./")
 
 ##################################################
 ##################################################
