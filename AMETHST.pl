@@ -84,8 +84,8 @@ while (my $line = <FILE>){
 if ( $zip_prefix ){
   my $output_name = $log_prefix.".RESULTS.tar.gz";
   # can make this list more selective in the future - for now, just gets everything in the directory
-  system("ls > file_list")
-  system("tar -zcf $output_name -T file_list")
+  system("ls > file_list");
+  system("tar -zcf $output_name -T file_list");
 }
 
 
