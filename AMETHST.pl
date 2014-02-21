@@ -82,7 +82,7 @@ while (my $line = <FILE>){
 
 # tar the entire directory if the -z option is used
 if ( $zip_prefix ){
-  my $output_name = $log_prefix."resulsts.tar.gz";
+  my $output_name = $log_prefix.".RESULTS.tar.gz";
   system("tar -zcvf $output_name $current_dir")
 }
 
