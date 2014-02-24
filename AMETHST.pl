@@ -10,6 +10,7 @@
 use warnings;
 use Getopt::Long;
 use Cwd;
+use File::Basname;
 
 my $start_time_stamp =`date +%m-%d-%y_%H:%M:%S`;  # create the time stamp month-day-year_hour:min:sec:nanosec
 my ($command_file, $zip_prefix, $debug, $help);
@@ -26,6 +27,7 @@ if ( ! GetOptions (
 		  )
    ) { &usage(); }
 
+my $command_file = basename($command_file);
 my $current_dir = getcwd()."/";
 my $path_file = $current_dir.$command_file;
 my $log_file = $current_dir.$command_file.".MASTER.log";
