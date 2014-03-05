@@ -72,14 +72,12 @@ while (my $line = <FILE>){
     
   }else{
     
-    print LOG "\n".$line."\n\n";
-    
     # check lines that start with # to see if they start with #job, in which case, following text in line is used for logging
     if( $line =~ s/#job// ){
       $line =~ s/\s+//g;
       $log_prefix = $line;
     
-      print LOG "START Job: name(".$log_prefix.") number(".$job_counter.") at".`date +%m-%d-%y_%H:%M:%S`."\n";
+      print LOG "START Job: name(".$log_prefix.") number(".$job_counter.") at".`date +%m-%d-%y_%H:%M:%S`;
       
       my $cmd1 = $script_dir."plot_pco_with_stats_all.pl ".<FILE>;
       chomp $cmd1;
@@ -91,12 +89,12 @@ while (my $line = <FILE>){
       system($cmd2);
       print LOG $cmd2."\n"."DONE"."\n";
 
-      my $sum_cmd = $script_dir."combine_summary_stats.pl ".<FILE>;
+      my $sum_cmd = $script_dir."combine_summary_stats.pl ".<FILE>. " -o $log_prefix.P_VALUE_SUMMARY";
       chomp $sum_cmd;
       system($sum_cmd);
       print LOG $sum_cmd."\n"."DONE"."\n";
 
-      print LOG "FINISH Job: name(".$log_prefix.") number(".$job_counter.") at".`date +%m-%d-%y_%H:%M:%S`."\n";
+      print LOG "FINISH Job: name(".$log_prefix.") number(".$job_counter.") at ".`date +%m-%d-%y_%H:%M:%S`;
 
       $job_counter++;
 
