@@ -53,6 +53,7 @@ unless ( @ARGV > 0 || $data_file ) { &usage(); }
 
 if ( ! GetOptions (
 		   "f|data_file=s"     => \$data_file,
+		   #"j|job_name=s"      => \$job_name,
 		   "g|groups_list=s"   => \$groups_list,
 		   "s|sig_if=s"        => \$sig_if,
 		   "z|dist_pipe=s"     => \$dist_pipe,

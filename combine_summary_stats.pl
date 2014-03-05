@@ -10,10 +10,10 @@ use Statistics::Descriptive;
 
 
 
-my($mode, $ouput_file, $within_pattern, $between_pattern, $within_file, $between_file, $pcoa_pattern, $pcoa_file, $help, $verbose, $debug);
+my($mode, $ouput_file, $within_pattern, $between_pattern, $within_file, $between_file, $pcoa_pattern, $pcoa_file, $help, $verbose, $debug, $job_name);
 
 my $current_dir = getcwd()."/";
-$output_file = "Within_Between.P_VALUE_SUMMARY";
+$output_file = $job_name.".P_VALUE_SUMMARY";
 $mode = "exact";
 
 if($debug){print STDOUT "made it here"."\n";}
@@ -29,6 +29,7 @@ unless ( @ARGV > 0 || $within_pattern || $between_pattern  ) { &usage(); }
 
 if ( ! GetOptions (
 		   "m|file_search_mode=s" => \$mode,
+		   "j|job_name=s"         => \$job_name,
 		   "o|output_file=s"      => \$output_file,
 		   "w|within_pattern=s"   => \$within_pattern,
 		   "b|between_pattern=s"  => \$between_pattern,
@@ -263,7 +264,7 @@ print OUTPUT_FILE (
 		   "#################################################################################"."\n"
 		  );
 
-system("cp $pcoa_file ./");
+system("cp $pcoa_file ./$job_name.PCoA");
 
 ##################################################
 ##################################################
