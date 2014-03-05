@@ -28,7 +28,7 @@ if ( ! GetOptions (
 		  )
    ) { &usage(); }
 
-my $command_file = basename($command_file);
+$command_file = basename($command_file);
 my $current_dir = getcwd()."/";
 my $script_dir = "$FindBin::Bin/";
 my $path_file = $current_dir.$command_file;
