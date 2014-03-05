@@ -82,13 +82,13 @@ while (my $line = <FILE>){
       
       my $cmd1 = $script_dir."plot_pco_with_stats_all.pl ".<FILE>;
       chomp $cmd1;
-      $cmd1 = $cmd1." -j $log_prefix";
+      #$cmd1 = $cmd1." -j $log_prefix";
       system($cmd1);
       print LOG $cmd1."\n"."DONE"."\n";
 
       my $cmd2 = $script_dir."plot_pco_with_stats_all.pl ".<FILE>;
       chomp $cmd2;
-      $cmd2 = $cmd2." -j $log_prefix";
+      #$cmd2 = $cmd2." -j $log_prefix";
       system($cmd2);
       print LOG $cmd2."\n"."DONE"."\n";
 
