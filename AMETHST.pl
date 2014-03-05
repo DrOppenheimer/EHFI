@@ -10,7 +10,7 @@
 use warnings;
 use Getopt::Long;
 use Cwd;
-use File::Basname;
+use File::Basename;
 use FindBin;
 
 my $start_time_stamp =`date +%m-%d-%y_%H:%M:%S`;  # create the time stamp month-day-year_hour:min:sec:nanosec
