@@ -92,7 +92,7 @@ $create_perm_pcoas = 1;
 if ($output_dir eq "NA"){
   $output_dir = $current_dir.$job_name.".RESULTS/";
 }else{
-  $output_dir = $current_dir.$job_name.$output_dir.".RESULTS/";
+  $output_dir = $current_dir.$job_name.".".$output_dir.".RESULTS/";
 }
 
 # create names for subdirectories of the output directory

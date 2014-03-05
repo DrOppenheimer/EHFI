@@ -10,11 +10,12 @@ use Statistics::Descriptive;
 
 
 
-my($mode, $ouput_file, $within_pattern, $between_pattern, $within_file, $between_file, $pcoa_pattern, $pcoa_file, $help, $verbose, $debug, $job_name);
+my($within_pattern, $between_pattern, $within_file, $between_file, $pcoa_pattern, $pcoa_file, $help, $verbose, $debug);
 
 my $current_dir = getcwd()."/";
-$output_file = $job_name.".P_VALUE_SUMMARY";
-$mode = "exact";
+my $mode = "exact";
+my $job_name = "job";
+
 
 if($debug){print STDOUT "made it here"."\n";}
 
@@ -45,6 +46,8 @@ if ( ! GetOptions (
 ###################### MAIN ######################
 ##################################################
 ##################################################
+
+my $output_file = $job_name.".P_VALUE_SUMMARY";
 
 if($debug){print STDOUT "mode: ".$mode."\n\n";}
 
