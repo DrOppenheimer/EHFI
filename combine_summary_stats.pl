@@ -10,7 +10,7 @@ use Statistics::Descriptive;
 
 
 
-my($within_pattern, $between_pattern, $within_file, $between_file, $pcoa_pattern, $pcoa_file, $help, $verbose, $debug);
+my($within_pattern, $between_pattern, $within_file, $between_file, $output_file, $pcoa_pattern, $pcoa_file, $help, $verbose, $debug);
 
 my $current_dir = getcwd()."/";
 my $mode = "exact";
