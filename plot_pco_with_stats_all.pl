@@ -18,6 +18,7 @@ my $start = time;
 my($data_file, $cleanup, $help, $verbose, $debug, $output_PCoA_dir, $output_DIST_dir, $output_avg_DISTs_dir);
 
 my $output_dir = "NA";
+my $job_name = "job";
 my $current_dir = getcwd()."/";
 my $perm_dir = "default";
 #if($debug) { print STDOUT "current_dir: "."\t".$current_dir."\n";}
@@ -53,7 +54,7 @@ unless ( @ARGV > 0 || $data_file ) { &usage(); }
 
 if ( ! GetOptions (
 		   "f|data_file=s"     => \$data_file,
-		   #"j|job_name=s"      => \$job_name,
+		   "j|job_name=s"      => \$job_name,
 		   "g|groups_list=s"   => \$groups_list,
 		   "s|sig_if=s"        => \$sig_if,
 		   "z|dist_pipe=s"     => \$dist_pipe,
@@ -83,10 +84,15 @@ if ( ! GetOptions (
 $create_perm_pcoas = 1;
 
 # create name for the output directory
+# if ($output_dir eq "NA"){
+#   $output_dir = $current_dir."plot_pco_with_stats.".$data_file.".".$dist_pipe.".".$dist_method.".".$perm_type.".RESULTS/";
+# }else{
+#   $output_dir = $current_dir.$output_dir.".plot_pco_with_stats.".$data_file.".".$dist_pipe.".".$dist_method.".".$perm_type.".RESULTS/";
+# }
 if ($output_dir eq "NA"){
-  $output_dir = $current_dir."plot_pco_with_stats.".$data_file.".".$dist_pipe.".".$dist_method.".".$perm_type.".RESULTS/";
+  $output_dir = $current_dir.$job_name.".RESULTS/";
 }else{
-  $output_dir = $current_dir.$output_dir.".plot_pco_with_stats.".$data_file.".".$dist_pipe.".".$dist_method.".".$perm_type.".RESULTS/";
+  $output_dir = $current_dir.$job_name.$output_dir.".RESULTS/";
 }
 
 # create names for subdirectories of the output directory
