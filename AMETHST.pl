@@ -81,15 +81,18 @@ while (my $line = <FILE>){
     
       print LOG "START Job: name(".$log_prefix.") number(".$job_counter.") at".`date +%m-%d-%y_%H:%M:%S`."\n";
       
-      my $cmd1 = $script_dir."plot_pco_with_stats_all.pl ".chomp<FILE>;
+      my $cmd1 = $script_dir."plot_pco_with_stats_all.pl ".<FILE>;
+      chomp $cmd1;
       system($cmd1);
       print LOG $cmd1."\n"."DONE"."\n";
 
-      my $cmd2 = $script_dir."plot_pco_with_stats_all.pl ".chomp<FILE>;
+      my $cmd2 = $script_dir."plot_pco_with_stats_all.pl ".<FILE>;
+      chomp $cmd2;
       system($cmd2);
       print LOG $cmd2."\n"."DONE"."\n";
 
-      my $sum_cmd = $script_dir."combine_summary_stats.p ".chomp<FILE>;
+      my $sum_cmd = $script_dir."combine_summary_stats.p ".<FILE>;
+      chomp $sum_cmd;
       system($sum_cmd);
       print LOG $sum_cmd."\n"."DONE"."\n";
 
