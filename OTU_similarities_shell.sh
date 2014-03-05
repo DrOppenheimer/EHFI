@@ -32,7 +32,7 @@ time_stamp=`date +%m-%d-%y_%H:%M:%S:%N`;  # create the time stamp month-day-year
 
 echo "# shell generated script to run OTU_similarities.kpk_edit.7-30-12.r" >> do_OTU.$time_stamp.r
 echo "# time stamp; $time_stamp" >> do_OTU.$time_stamp.r
-echo "source(\"$DIR/OTU_similarities.kpk_edit.8-6-12.r\")" >> do_OTU.$time_stamp.r       
+echo "source(\"$DIR/OTU_similarities.r\")" >> do_OTU.$time_stamp.r       
 echo "OTU_dists(file_in = \"$1\", input_dir = \"$2\", output_PCoA_dir = \"$3\", print_dist = $4, output_DIST_dir = \"$5\" , dist_method = \"$6\", headers = $7)" >> do_OTU.$time_stamp.r
 
 R --vanilla --slave < do_OTU.$time_stamp.r

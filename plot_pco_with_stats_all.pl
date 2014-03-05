@@ -9,7 +9,8 @@
 use warnings;
 use Getopt::Long;
 use Cwd;
-use Cwd 'abs_path';
+#use Cwd 'abs_path';
+use FindBin;
 use File::Basename;
 
 my $start = time;
@@ -40,7 +41,10 @@ my $num_perm = 10;
 my $num_cpus = 1;
 my $time_stamp =`date +%m-%d-%y_%H:%M:%S`;  # create the time stamp month-day-year_hour:min:sec:nanosec
 chomp $time_stamp;
-my $DIR=dirname(abs_path($0));  # directory of the current script, used to find other scripts + datafiles
+
+#my $DIR=dirname(abs_path($0));  # directory of the current script, used to find other scripts + datafiles
+my $DIR="$FindBin::Bin/";
+
 
 # check input args and display usage if not suitable
 if ( (@ARGV > 0) && ($ARGV[0] =~ /-h/) ) { &usage(); }

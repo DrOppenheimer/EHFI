@@ -4,7 +4,7 @@ plot_dists<- function(
                      debug = TRUE
                      ){
 
-  # you need to run AVG_DIST.2.r.3-6-13.pl on data before this
+  # you need to run AVG_DIST.2.r.pl on data before this
   
   distance_matrix <- data.matrix(read.table(file_in, row.names=1, header=FALSE, check.names=FALSE, sep="\t", comment.char="", quote=""))
   

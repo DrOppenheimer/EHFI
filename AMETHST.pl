@@ -11,6 +11,7 @@ use warnings;
 use Getopt::Long;
 use Cwd;
 use File::Basname;
+use FindBin;
 
 my $start_time_stamp =`date +%m-%d-%y_%H:%M:%S`;  # create the time stamp month-day-year_hour:min:sec:nanosec
 my ($command_file, $zip_prefix, $debug, $help);
@@ -29,6 +30,7 @@ if ( ! GetOptions (
 
 my $command_file = basename($command_file);
 my $current_dir = getcwd()."/";
+my $script_dir = "$FindBin::Bin/";
 my $path_file = $current_dir.$command_file;
 my $log_file = $current_dir.$command_file.".MASTER.log";
 my $log_prefix = "my_log";
@@ -47,26 +49,26 @@ while (my $line = <FILE>){
   # skip lines that start with # or are blank
   unless ( ($line =~ m/^#/) || ($line =~ m/^\s*$/) ){
 
-    print LOG "Start Command_".$job_counter."( ".$log_prefix." ) at ".`date +%m-%d-%y_%H:%M:%S`.$line."\n";
-    my $job_log = $current_dir.$command_file.".".$log_prefix.".command_".$job_counter.".error_log";
+    # print LOG "Start Command_".$job_counter."( ".$log_prefix." ) at ".`date +%m-%d-%y_%H:%M:%S`.$line."\n";
+    # my $job_log = $current_dir.$command_file.".".$log_prefix.".command_".$job_counter.".error_log";
     
-    if($debug){
-      print("MADE IT HERE (0)"."\n");
-      $line = $line." 2>$job_log";
-      print("\n"."LINE:"."\n".$line."\n\n");
-    }
+    # if($debug){
+    #   print("MADE IT HERE (0)"."\n");
+    #   $line = $line." 2>$job_log";
+    #   print("\n"."LINE:"."\n".$line."\n\n");
+    # }
 
-    $line = $line." 2>$job_log";
+    # $line = $line." 2>$job_log";
 
-    my @command_args;
-    push (@command_args, "2>$job_log");
-    if($debug){print("MADE IT HERE (1)"."\n");}
-    #system($line, @command_args);
-    system($line);
-    if($debug){print("MADE IT HERE (2)"."\n");}
-    print LOG "Finish Command_".$job_counter." at ".`date +%m-%d-%y_%H:%M:%S`."\n";
-    if($debug){print("MADE IT HERE (3)"."\n");}
-    $job_counter++;
+    # my @command_args;
+    # push (@command_args, "2>$job_log");
+    # if($debug){print("MADE IT HERE (1)"."\n");}
+    # #system($line, @command_args);
+    # system($line);
+    # if($debug){print("MADE IT HERE (2)"."\n");}
+    # print LOG "Finish Command_".$job_counter." at ".`date +%m-%d-%y_%H:%M:%S`."\n";
+    # if($debug){print("MADE IT HERE (3)"."\n");}
+    # $job_counter++;
     
   }else{
     
@@ -76,6 +78,25 @@ while (my $line = <FILE>){
     if( $line =~ s/#job// ){
       $line =~ s/\s+//g;
       $log_prefix = $line;
+    
+      print LOG "START Job: name(".$log_prefix.") number(".$job_counter.") at".`date +%m-%d-%y_%H:%M:%S`."\n";
+      
+      my $cmd1 = $script_dir."plot_pco_with_stats_all.pl ".chomp<FILE>;
+      system($cmd1);
+      print LOG $cmd1."\n"."DONE"."\n";
+
+      my $cmd2 = $script_dir."plot_pco_with_stats_all.pl ".chomp<FILE>;
+      system($cmd2);
+      print LOG $cmd2."\n"."DONE"."\n";
+
+      my $sum_cmd = $script_dir."combine_summary_stats.p ".chomp<FILE>;
+      system($sum_cmd);
+      print LOG $sum_cmd."\n"."DONE"."\n";
+
+      print LOG "FINISH Job: name(".$log_prefix.") number(".$job_counter.") at".`date +%m-%d-%y_%H:%M:%S`."\n";
+
+      $job_counter++;
+
     }
 
  }
@@ -145,16 +166,16 @@ command line 1 for job
 command line 2 for job   
 command line 3 for job
 
-EXAMPLE:
+EXAMPLES:
 #job Analysis_1
-~/AMETHST/plot_pco_with_stats_all.3-4-13.pl -f 1.MG-RAST.MG-RAST_default.removed.raw -g AMETHST.groups -p 10 -t dataset_rand -m bray-curtis -z MG-RAST_pipe -c 10 -o Analysis_1w -cleanup
-~/AMETHST/plot_pco_with_stats_all.3-4-13.pl -f 1.MG-RAST.MG-RAST_default.removed.raw  -g AMETHST.groups -p 10 -t rowwise_rand -m bray-curtis -z MG-RAST_pipe -c 10 -o Analysis_1b -cleanup
-~/AMETHST/combine_summary_stats.pl  -m pattern  -w Analysis_9w  -b Analysis_9b  -o Analysis_1.P_VALUE_SUMMARY
+-f 1.MG-RAST.MG-RAST_default.removed.raw -g AMETHST.groups -p 10 -t dataset_rand -m bray-curtis -z MG-RAST_pipe -c 10 -o Analysis_1w -cleanup
+-f 1.MG-RAST.MG-RAST_default.removed.raw  -g AMETHST.groups -p 10 -t rowwise_rand -m bray-curtis -z MG-RAST_pipe -c 10 -o Analysis_1b -cleanup
+-m pattern  -w Analysis_9w  -b Analysis_9b  -o Analysis_1.P_VALUE_SUMMARY
 
 #job Analysis_2
-~/AMETHST/plot_pco_with_stats_all.3-4-13.pl -f 9.Qiime.Qiime_default.removed.raw -g AMETHST.groups -p 10 -t dataset_rand -m unifrac -z qiime_pipe  -q qiime_table  -a ~/AMETHST/qiime_trees/97_otus.tree -c 10 -o Analysis_2w -cleanup
-~/AMETHST/plot_pco_with_stats_all.3-4-13.pl -f 9.Qiime.Qiime_default.removed.raw  -g AMETHST.groups -p 10 -t rowwise_rand -m unifrac -z qiime_pipe  -q qiime_table  -a ~/AMETHST/qiime_trees/97_otus.tree -c 10 -o Analysis_2b -cleanup
-~/AMETHST/combine_summary_stats.pl  -m pattern  -w Analysis_2w  -b Analysis_2b  -o Analysis_2.P_VALUE_SUMMARY
+-f 9.Qiime.Qiime_default.removed.raw -g AMETHST.groups -p 10 -t dataset_rand -m unifrac -z qiime_pipe  -q qiime_table  -a ~/AMETHST/qiime_trees/97_otus.tree -c 10 -o Analysis_2w -cleanup
+-f 9.Qiime.Qiime_default.removed.raw  -g AMETHST.groups -p 10 -t rowwise_rand -m unifrac -z qiime_pipe  -q qiime_table  -a ~/AMETHST/qiime_trees/97_otus.tree -c 10 -o Analysis_2b -cleanup
+-m pattern  -w Analysis_2w  -b Analysis_2b  -o Analysis_2.P_VALUE_SUMMARY
 
 
 );
