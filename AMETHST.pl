@@ -91,7 +91,7 @@ while (my $line = <FILE>){
       system($cmd2);
       print LOG $cmd2."\n"."DONE"."\n";
 
-      my $sum_cmd = $script_dir."combine_summary_stats.p ".<FILE>;
+      my $sum_cmd = $script_dir."combine_summary_stats.pl ".<FILE>;
       chomp $sum_cmd;
       system($sum_cmd);
       print LOG $sum_cmd."\n"."DONE"."\n";
