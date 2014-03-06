@@ -36,7 +36,7 @@ my $path_file = $current_dir.$command_file;
 my $log_prefix = "my_log";
 
 my $job_counter = 1;
-my $log_file = $current_dir.$command_file.`date +%m-%d-%y_%H:%M:%S`.".log";
+my $log_file = $current_dir.$command_file.".".$start_time_stamp.".log";
 
 open(LOG, ">", $log_file) or die "cant open LOG $log_file"."\n";
 print LOG "Start: ".$start_time_stamp."\n\n";
@@ -85,7 +85,7 @@ while (my $line = <FILE>){
       
       my $cmd1 = $script_dir."plot_pco_with_stats_all.pl ".<FILE>;
       chomp $cmd1;
-      #$cmd1 = $cmd1." -j $log_prefix";
+      $cmd1 = $cmd1." -j $log_prefix";
       system($cmd1);
       print LOG $cmd1."\n"."DONE"."\n";
 
