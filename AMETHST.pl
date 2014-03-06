@@ -14,6 +14,7 @@ use File::Basename;
 use FindBin;
 
 my $start_time_stamp =`date +%m-%d-%y_%H:%M:%S`;  # create the time stamp month-day-year_hour:min:sec:nanosec
+chomp $start_time_stamp;
 my ($command_file, $zip_prefix, $debug, $help);
 
 if ( (@ARGV > 0) && ($ARGV[0] =~ /-h/) ) { &usage(); }
