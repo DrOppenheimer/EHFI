@@ -52,15 +52,15 @@ my $output_file = $job_name.".P_VALUE_SUMMARY";
 if($debug){print STDOUT "mode: ".$mode."\n\n";}
 
 if($mode eq "pattern"){
-  my $within_search = $current_dir.qx(ls *$within_pattern*/*SUMMARY);
+  my $within_search = $current_dir.qx(ls ./$job_name.$within_pattern/*SUMMARY);
   chomp $within_search;
   $within_file = $within_search;
   
-  my $between_search = $current_dir.qx(ls *$between_pattern*/*SUMMARY);
+  my $between_search = $current_dir.qx(ls ./$job_name.$between_pattern/*SUMMARY);
   chomp $between_search;
   $between_file = $between_search;
 
-  my $pcoa_search = $current_dir.qx(ls *$within_pattern*/*.PCoA);
+  my $pcoa_search = $current_dir.qx(ls ./$job_name.$within_pattern/*.PCoA);
   chomp $pcoa_search;
   $pcoa_file = $pcoa_search; 
   
