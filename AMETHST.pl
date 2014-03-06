@@ -32,13 +32,16 @@ $command_file = basename($command_file);
 my $current_dir = getcwd()."/";
 my $script_dir = "$FindBin::Bin/";
 my $path_file = $current_dir.$command_file;
-my $log_file = $current_dir.$command_file.".MASTER.log";
+#my $log_file = $current_dir.$command_file.".MASTER.log";
 my $log_prefix = "my_log";
+
+my $job_counter = 1;
+my $log_file = $current_dir.$command_file.`date +%m-%d-%y_%H:%M:%S`.".log";
 
 open(LOG, ">", $log_file) or die "cant open LOG $log_file"."\n";
 print LOG "Start: ".$start_time_stamp."\n\n";
 
-my $job_counter = 1;
+
 
 open(FILE, "<", $path_file) or die "can't open FILE $path_file"."\n"; 
 
@@ -82,7 +85,7 @@ while (my $line = <FILE>){
       
       my $cmd1 = $script_dir."plot_pco_with_stats_all.pl ".<FILE>;
       chomp $cmd1;
-      $cmd1 = $cmd1." -j $log_prefix";
+      #$cmd1 = $cmd1." -j $log_prefix";
       system($cmd1);
       print LOG $cmd1."\n"."DONE"."\n";
 
