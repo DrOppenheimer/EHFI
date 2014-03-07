@@ -112,6 +112,7 @@ while (my $line = <FILE>){
   
 }
 
+### THIS NEEDS TO BE MOVED UP INTO THE PAIR ANALYSIS LOOP -- or added to workflow after all ...
 # tar the entire directory if the -z option is used
 if ( $zip_prefix ){
   my $output_name = $log_prefix.".RESULTS.tar.gz";

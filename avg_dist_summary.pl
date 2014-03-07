@@ -34,7 +34,7 @@ if ( ! GetOptions (
 		  )
    ) { &usage(); }
 
-open(OUTPUT, ">", $output_file);
+open(OUTPUT, ">", $output_file) or die "could not open OUTPUT $output_file";
 print OUTPUT (
 	      "##### avg_dist_summary output #####"."\n".
 	      "##### time stamp:         ".$time_stamp."\n".
@@ -85,7 +85,7 @@ while (my $og_line = <OG_FILE>){
 
 }
 
-close(OG_FILE);
+close(OG_FILE) or die "could not close OG_FILE $og_avg_dist_file";
 
 
 
@@ -127,7 +127,7 @@ foreach my $perm (@avg_dist_list){
       
     }
   }
-  close(AVG_DIST_FILE);
+  close(AVG_DIST_FILE) or die "could not close AVG_DIST_FILE $avg_dists_dir.$perm";
 }
 
 
@@ -199,7 +199,7 @@ sub list_dir {
   
   my @dir_files_list = grep /$list_pattern/, readdir DIR; 
   print DIR_LIST join("\n", @dir_files_list); print DIR_LIST "\n";
-  closedir DIR;
+  closedir DIR or die "could not close DIR $dir_name";
   
 }
 

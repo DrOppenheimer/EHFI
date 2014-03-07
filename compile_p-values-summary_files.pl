@@ -9,7 +9,7 @@ use Cwd;
 my $start_time_stamp = `date +%m-%d-%y_%H:%M:%S`;
 chomp $start_time_stamp;
 
-my ($target_dir, $help, $verbose, $debug);
+my ($target_dir, $unzip, $help, $verbose, $debug);
 my $input_pattern = ".P_VALUE_SUMMARY\$";
 my $output_pattern = "compiled.P_VALUES_SUMMARIES.".$start_time_stamp;
 my $current_dir = getcwd()."/";
@@ -26,6 +26,7 @@ if ( (@ARGV > 0) && ($ARGV[0] =~ /-h/) ) { &usage(); }
 
 if ( ! GetOptions (
 		   "d|target_dir=s"     => \$target_dir,
+		   "u|unzip!"           => \$unzip,
 		   "i|input_pattern=s"  => \$input_pattern,
 		   "o|output_pattern=s" => \$output_pattern,
 		   "g|go!"              => \$go,
@@ -39,6 +40,12 @@ if ( ! GetOptions (
 unless ($target_dir) {$target_dir = $current_dir;} # use current directory if no other is supplied
 unless ($output_pattern) {$output_pattern = "my_compiled.P_VALUES_SUMMARY.".$start_time_stamp;}
 #if($debug){print STDOUT "\n\n\noutput_pattern: ".$output_pattern."\n\n\n"}
+
+if ( $unzip ){
+  system("ls *.tar.gz > tar_list.txt");  
+  system("for i in `cat tar_list.txt`; do tar -zxf $i; done");
+}
+
 
 
 # create output files
