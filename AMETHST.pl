@@ -87,19 +87,19 @@ while (my $line = <FILE>){
       my $cmd1 = $script_dir."plot_pco_with_stats_all.pl ".<FILE>;
       chomp $cmd1;
       $cmd1 = $cmd1." -j $log_prefix";
-      system($cmd1);
+      system($cmd1) or die "died running command: $cmd1";
       print LOG $cmd1."\n"."DONE"."\n";
 
       my $cmd2 = $script_dir."plot_pco_with_stats_all.pl ".<FILE>;
       chomp $cmd2;
       $cmd2 = $cmd2." -j $log_prefix";
-      system($cmd2);
+      system($cmd2) or die "died running command: $cmd2";
       print LOG $cmd2."\n"."DONE"."\n";
 
       my $sum_cmd = $script_dir."combine_summary_stats.pl ".<FILE>;
       chomp $sum_cmd;
       $sum_cmd = $sum_cmd." -j $log_prefix -o $log_prefix.P_VALUE_SUMMARY";
-      system($sum_cmd);
+      system($sum_cmd) or die "died running command: $sum_cmd";
       print LOG $sum_cmd."\n"."DONE"."\n";
 
       print LOG "FINISH Job: name(".$log_prefix.") number(".$job_counter.") at ".`date +%m-%d-%y_%H:%M:%S`;
@@ -117,9 +117,9 @@ while (my $line = <FILE>){
 if ( $zip_prefix ){
   my $output_name = $log_prefix.".RESULTS.tar.gz";
   # can make this list more selective in the future - for now, just gets everything in the directory
-  system("ls > file_list.txt");  
-  system("sed '/file_list.txt/d' file_list.txt > edited_list.txt");
-  system("tar -zcf $output_name -T edited_list.txt");
+  system("ls > file_list.txt") or die "died writing file_list.txt";  
+  system("sed '/file_list.txt/d' file_list.txt > edited_list.txt") or die "died on sed of file_list.txt";
+  system("tar -zcf $output_name -T edited_list.txt") or die "died on tar of files in file_list.txt";
 }
 
 

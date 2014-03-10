@@ -47,8 +47,8 @@ while (my $line = <INPUT_FILE>){
   print OUTPUT_FILE $line; #replace them with \n
 }
 
-close(INPUT_FILE);
-close(OUTPUT_FILE);
+close(INPUT_FILE) or die "can't close INPUT_FILE INPUT_FILE";
+close(OUTPUT_FILE) or die "can't close OUTPUT_FILE $output_file";
 
 # there are three types of line returns
 # LF  "\n"   - Unix

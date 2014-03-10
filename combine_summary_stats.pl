@@ -267,7 +267,7 @@ print OUTPUT_FILE (
 		   "#################################################################################"."\n"
 		  );
 
-system("cp $pcoa_file ./$job_name.PCoA");
+system("cp $pcoa_file ./$job_name.PCoA") or die "died copying $pcoa_file to ./$job_name.PCoA";
 
 ##################################################
 ##################################################

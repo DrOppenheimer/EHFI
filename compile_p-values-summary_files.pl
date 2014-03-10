@@ -42,18 +42,18 @@ unless ($output_pattern) {$output_pattern = "my_compiled.P_VALUES_SUMMARY.".$sta
 #if($debug){print STDOUT "\n\n\noutput_pattern: ".$output_pattern."\n\n\n"}
 
 if ( $unzip ){
-  system("ls *.tar.gz > tar_list.txt");  
-  system("for i in `cat tar_list.txt`; do tar -zxf $i; done");
+  system("ls *.tar.gz > tar_list.txt") or die "died listing *.tar.gz";  
+  system("for i in `cat tar_list.txt`; do tar -zxf $i; done") or die "died unzipping *.tar.gz listed in tar_list.txt";
 }
 
 
 
 # create output files
-open(OUTPUT_RAW_DISTS, ">",       $target_dir.$output_pattern.".raw_avg_dist");
-open(OUTPUT_RAW_DISTS_STDEV, ">", $target_dir.$output_pattern.".raw_avg_dist_stdev");
-open(OUTPUT_SCALED_DISTS, ">",    $target_dir.$output_pattern.".scaled_avg_dist");
-open(OUTPUT_P_VALUES, ">",        $target_dir.$output_pattern.".p_values");
-open(OUTPUT_NUM_PERM, ">",        $target_dir.$output_pattern.".num_perm");
+open(OUTPUT_RAW_DISTS, ">",       $target_dir.$output_pattern.".raw_avg_dist") or die "can't open OUTPUT_RAW_DISTS";
+open(OUTPUT_RAW_DISTS_STDEV, ">", $target_dir.$output_pattern.".raw_avg_dist_stdev") or die "can't open OUTPUT_RAW_DISTS_STDEV";
+open(OUTPUT_SCALED_DISTS, ">",    $target_dir.$output_pattern.".scaled_avg_dist") or die "can't open OUTPUT_SCALED_DISTS";
+open(OUTPUT_P_VALUES, ">",        $target_dir.$output_pattern.".p_values") or die "can't open OUTPUT_P_VALUES";
+open(OUTPUT_NUM_PERM, ">",        $target_dir.$output_pattern.".num_perm") or die "can't open OUTPUT_NUM_PERM";
 
 # Start the header strings
 my $raw_dists_header = "RAW_DISTS"."\n"."input_file";
@@ -76,7 +76,7 @@ foreach my $file (@file_list){ # process each file
   my $dist_ps_out = $file;
   my $num_perms_out = $file;
   
-  open(FILE, "<", $target_dir.$file); 
+  open(FILE, "<", $target_dir.$file) or die "can't open FILE $target_dir.$file"; 
   while (my $line = <FILE>){
     
     unless ($line =~ m/^#/){ # skip comment lines
@@ -202,7 +202,7 @@ sub list_dir {
   opendir(DIR, $dir_name) or die "\n\n"."can't open DIR $dir_name"."\n\n";
   
   my @dir_files_list = grep /$list_pattern/, readdir DIR; 
-  closedir DIR;
+  closedir DIR or die "can't close DIR";
   
   my @filtered_dir_files_list;
   while (my $dir_object = shift(@dir_files_list)) {

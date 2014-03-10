@@ -95,8 +95,7 @@ render_pcoa <<- function(
     line_count<- 1
     groups.list <- vector(mode="character")
     while ( length(my_line <- readLines(con_grp,n = 1, warn = FALSE)) > 0) {
-
-      
+  
       new_line <- my_line
       split_line <- unlist(strsplit(my_line, split=","))
       #names(my_list) <- rep(2, length (my_list))
@@ -113,24 +112,45 @@ render_pcoa <<- function(
     color_matrix <- matrix(groups.list, ncol=1)
     rownames(color_matrix) <- names(groups.list)
 
-    poop <<- color_matrix
+    #poop <<- color_matrix
     
-    color_matrix <- color_matrix[order(rownames(color_matrix)),]
+    color_matrix <- color_matrix[order(rownames(color_matrix)),,drop=FALSE]
+
+    poop <<- color_matrix
 
     # create the color matrix from the metadata
     pcoa_colors <- create_colors(color_matrix, color_mode="auto")
            
     # this bit is a repeat of the code in the sub below - clean up later
-    column_factors <- as.factor(color_matrix[,1])
-    column_levels <- levels(as.factor(color_matrix[,1]))
-    num_levels <- length(column_levels)
-    color_levels <- col.wheel(num_levels)
+    column_factors <<- as.factor(color_matrix[,1])
+    column_levels <<- levels(as.factor(color_matrix[,1]))
+    num_levels <<- length(column_levels)
+    color_levels <<- col.wheel(num_levels)
+    plot_colors <<- pcoa_colors
 
-    # plot the legend
-    plot.new()
-    legend( x="center", legend=column_levels, pch=15, col=color_levels, cex=legend_cex)
+    if ( identical(image_out, "default") ){
+      image_out = paste(PCoA_in, ".pcoa.png", sep="", collapse="")
+    }else if ( use_all_metadata_columns==FALSE ) {
+      image_out = paste(image_out, ".png", sep="", collapse="")
+    }
+      
+    create_plot(
+                PCoA_in,
+                ncol.color_matrix,
+                eigen_values, eigen_vectors, components,
+                column_levels, num_levels, color_levels, plot_colors, plot_pch,
+                image_out,figure_main,
+                image_width_in, image_height_in, image_res_dpi,
+                width_legend, width_figure,
+                legend_cex, figure_cex, label_points
+                )
+    
+    
+    ## # plot the legend
+    ## plot.new()
+    ## legend( x="center", legend=column_levels, pch=15, col=color_levels, cex=legend_cex)
 
-    plot_colors <- color_matrix
+    ## plot_colors <- color_matrix
   }
 
 
