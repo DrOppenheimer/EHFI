@@ -15,6 +15,7 @@ my($within_pattern, $between_pattern, $within_file, $between_file, $output_file,
 my $current_dir = getcwd()."/";
 my $mode = "exact";
 my $job_name = "job";
+my $groups_file = "groups_file.txt"
 
 
 if($debug){print STDOUT "made it here"."\n";}
@@ -31,6 +32,7 @@ unless ( @ARGV > 0 || $within_pattern || $between_pattern  ) { &usage(); }
 if ( ! GetOptions (
 		   "m|file_search_mode=s" => \$mode,
 		   "j|job_name=s"         => \$job_name,
+		   "g|groups_file=s"      => \$groups_file,
 		   "o|output_file=s"      => \$output_file,
 		   "w|within_pattern=s"   => \$within_pattern,
 		   "b|between_pattern=s"  => \$between_pattern,
@@ -267,7 +269,15 @@ print OUTPUT_FILE (
 		   "#################################################################################"."\n"
 		  );
 
+# copy and rename the PCoA flat file, then produce a png for it
 system("cp $pcoa_file ./$job_name.PCoA") or die "died copying $pcoa_file to ./$job_name.PCoA";
+my $render_pcoa_string = "$DIR/render_calculated_pcoa_shell.sh $job_name.PCoA $groups_file 11 8.5 300 0.2 0.8 0.5 0.7";
+# order of args in the strin is 
+#      pcoa_file ($job_name.PCoA) groups_file ($groups_file) png_width(11) png_height(8.5) png_dpi(300)
+#      legend_width_scale(0.2) pcoa_width_scale(0.8) legend_cex(0.5) figure_cex(0.7)
+system($render_pcoa_string) or die "died running"."\n".$render_pcoa_string."\n";
+
+
 
 ##################################################
 ##################################################
