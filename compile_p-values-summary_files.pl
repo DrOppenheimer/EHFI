@@ -258,6 +258,8 @@ compile_p-values-summary_files -d|--dir_path <dir path> -i|--input_pattern <inpu
 
      -g|--go              run with all default values
 
+     -u|--unzip           flag to unzip any *.tar.gz before proceeding
+
      -h|--help
      -v|--verbose
      -b|--debug
