@@ -23,9 +23,6 @@ then
     exit 1
 fi
 
-
-figure main
-
 time_stamp=`date +%m-%d-%y_%H:%M:%S:%N`;  # create the time stamp month-day-year_hour:min:sec:nanosec
 process_stamp=$$; # added 4-5-12 to take care of possible non-unique outputs that over-write each other
 
