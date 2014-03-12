@@ -105,8 +105,8 @@ $perm_dir =             $output_dir."permutations/";
 my $output_p_value_summary = $output_dir.$data_file.".".$dist_method.".".$perm_type.".P_VALUES_SUMMARY";
 
 # create directories for the output files
-unless (-d $output_dir) { mkdir $output_dir; or die "can't mkdir $output_dir"} #### <---------- THIS IS WHAT HAS TO BE FIXED
-unless (-d $perm_dir) { mkdir $perm_dir; or die "can't mkdir $perm_dir" }
+unless (-d $output_dir) { mkdir $output_dir or die "can't mkdir $output_dir";  } #### <---------- THIS IS WHAT HAS TO BE FIXED
+unless (-d $perm_dir) { mkdir $perm_dir or die "can't mkdir $perm_dir"; }
 unless (-d $output_PCoA_dir) { mkdir $output_PCoA_dir or die "can't mkdir $output_PCoA_dir"; }
 unless (-d $output_DIST_dir) { mkdir $output_DIST_dir or die "can't mkdir $output_DIST_dir"; }
 unless (-d $output_avg_DISTs_dir) { mkdir $output_avg_DISTs_dir or die "can't mkdir $output_avg_DISTs_dir";}
