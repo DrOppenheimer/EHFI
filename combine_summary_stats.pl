@@ -10,13 +10,11 @@ use Statistics::Descriptive;
 
 
 
-my($within_pattern, $between_pattern, $within_file, $between_file, $output_file, $pcoa_pattern, $pcoa_file, $help, $verbose, $debug);
+my($within_pattern, $between_pattern, $groups_file, $within_file, $between_file, $output_file, $pcoa_pattern, $pcoa_file, $help, $verbose, $debug);
 
 my $current_dir = getcwd()."/";
 my $mode = "exact";
 my $job_name = "job";
-my $groups_file = "groups_file.txt";
-
 
 if($debug){print STDOUT "made it here"."\n";}
 
@@ -26,8 +24,6 @@ my $DIR="$FindBin::Bin/";
 
 # check input args and display usage if not suitable
 if ( (@ARGV > 0) && ($ARGV[0] =~ /-h/) ) { &usage(); }
-
-unless ( @ARGV > 0 || $within_pattern || $between_pattern  ) { &usage(); }
 
 if ( ! GetOptions (
 		   "m|file_search_mode=s" => \$mode,
@@ -43,12 +39,13 @@ if ( ! GetOptions (
 		  )
    ) { &usage(); }
 
+unless ( @ARGV > 0 || $within_pattern || $between_pattern || $groups_file  ) { &usage(); }
+
 ##################################################
 ##################################################
 ###################### MAIN ######################
 ##################################################
 ##################################################
-
 unless($output_file){$output_file = $job_name.".P_VALUE_SUMMARY"};
 
 if($debug){print STDOUT "mode: ".$mode."\n\n";}
