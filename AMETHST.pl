@@ -87,21 +87,23 @@ while (my $line = <FILE>){
       my $cmd1 = $script_dir."plot_pco_with_stats_all.pl ".<FILE>;
       chomp $cmd1;
       $cmd1 = $cmd1." -j $log_prefix";
+      print LOG $cmd1."\n"."...";
       system($cmd1)==0 or die "died running command: $cmd1";
-      print LOG $cmd1."\n"."DONE"."\n";
+      print LOG "DONE"."\n";
 
       my $cmd2 = $script_dir."plot_pco_with_stats_all.pl ".<FILE>;
       chomp $cmd2;
       $cmd2 = $cmd2." -j $log_prefix";
+      print LOG $cmd2."\n"."...";
       system($cmd2)==0 or die "died running command: $cmd2";
-      print LOG $cmd2."\n"."DONE"."\n";
+      print LOG "DONE"."\n";
 
       my $sum_cmd = $script_dir."combine_summary_stats.pl ".<FILE>;
       chomp $sum_cmd;
       $sum_cmd = $sum_cmd." -l $log_file -j $log_prefix -o $log_prefix.P_VALUE_SUMMARY";
-      print LOG "\n\n".$sum_cmd."\n\n";
+      print LOG $sum_cmd."\n"."...";
       system($sum_cmd)==0 or die "died running command: $sum_cmd";
-      print LOG $sum_cmd."\n"."DONE"."\n";
+      print LOG "DONE"."\n";
 
       print LOG "FINISH Job: name(".$log_prefix.") number(".$job_counter.") at ".`date +%m-%d-%y_%H:%M:%S`;
 
