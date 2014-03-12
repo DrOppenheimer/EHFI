@@ -41,7 +41,7 @@ while (my $line = <FILE_IN>){
   
 }
 
-system(`sort -u $output_file > $output_file.u_sorted`);
+system(`sort -u $output_file > $output_file.u_sorted`)==0 or die "died running sort";
 
 sub usage {
   my ($err) = @_;
