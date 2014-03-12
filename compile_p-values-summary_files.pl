@@ -43,7 +43,7 @@ unless ($output_pattern) {$output_pattern = "my_compiled.P_VALUES_SUMMARY.".$sta
 
 if ( $unzip ){
   system("ls *.tar.gz > tar_list.txt")==0 or die "died listing *.tar.gz";  
-  system("for i in `cat tar_list.txt`; do tar -zxf $i; done")==0 or die "died unzipping *.tar.gz listed in tar_list.txt";
+  system('for i in *tar_list.txt; do tar -zxf $i; done')==0 or die "died unzipping *.tar.gz listed in tar_list.txt";
 }
 
 
