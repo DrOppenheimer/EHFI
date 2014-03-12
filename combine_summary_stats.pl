@@ -10,7 +10,7 @@ use Statistics::Descriptive;
 
 
 
-my($within_pattern, $between_pattern, $groups_file, $within_file, $between_file, $output_file, $pcoa_pattern, $pcoa_file, $help, $verbose, $debug);
+my($within_pattern, $between_pattern, $groups_file, $within_file, $between_file, $output_file, $pcoa_pattern, $pcoa_file, $help, $verbose, $debug, $log);
 
 my $current_dir = getcwd()."/";
 my $mode = "exact";
@@ -33,6 +33,7 @@ if ( ! GetOptions (
 		   "w|within_pattern=s"   => \$within_pattern,
 		   "b|between_pattern=s"  => \$between_pattern,
 		   "p|pcoa_pattern=s"     => \$pcoa_pattern,
+		   "l|log=s"              => \$log,
 		   "h|help!"              => \$help, 
 		   "v|verbose!"           => \$verbose,
 		   "d|debug!"             => \$debug
@@ -267,8 +268,10 @@ print OUTPUT_FILE (
 		  );
 
 # copy and rename the PCoA flat file, then produce a png for it
+open(LOG, ">>", $log_file) or die "can't open LOG $log_file";
 system("cp $pcoa_file ./$job_name.PCoA")==0 or die "died copying $pcoa_file to ./$job_name.PCoA";
 my $render_pcoa_string = "$DIR/render_calculated_pcoa_shell.sh $job_name.PCoA $groups_file 11 8.5 300 0.2 0.8 0.5 0.7";
+print LOG "render PCoA:"."\n".$render_pcoa_string."\n";
 # order of args in the strin is 
 #      pcoa_file ($job_name.PCoA) groups_file ($groups_file) png_width(11) png_height(8.5) png_dpi(300)
 #      legend_width_scale(0.2) pcoa_width_scale(0.8) legend_cex(0.5) figure_cex(0.7)
