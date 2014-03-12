@@ -99,6 +99,7 @@ while (my $line = <FILE>){
       my $sum_cmd = $script_dir."combine_summary_stats.pl ".<FILE>;
       chomp $sum_cmd;
       $sum_cmd = $sum_cmd." -l $log_file -j $log_prefix -o $log_prefix.P_VALUE_SUMMARY";
+      print LOG "\n\n".$sum_cmd."\n\n"
       system($sum_cmd)==0 or die "died running command: $sum_cmd";
       print LOG $sum_cmd."\n"."DONE"."\n";
 
