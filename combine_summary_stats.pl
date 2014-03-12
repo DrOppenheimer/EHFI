@@ -10,7 +10,7 @@ use Statistics::Descriptive;
 
 
 
-my($within_pattern, $between_pattern, $groups_file, $within_file, $between_file, $output_file, $pcoa_pattern, $pcoa_file, $help, $verbose, $debug, $log);
+my($within_pattern, $between_pattern, $groups_file, $within_file, $between_file, $output_file, $pcoa_pattern, $pcoa_file, $help, $verbose, $debug, $log_file);
 
 my $current_dir = getcwd()."/";
 my $mode = "exact";
@@ -33,7 +33,7 @@ if ( ! GetOptions (
 		   "w|within_pattern=s"   => \$within_pattern,
 		   "b|between_pattern=s"  => \$between_pattern,
 		   "p|pcoa_pattern=s"     => \$pcoa_pattern,
-		   "l|log=s"              => \$log,
+		   "l|log_file=s"         => \$log_file,
 		   "h|help!"              => \$help, 
 		   "v|verbose!"           => \$verbose,
 		   "d|debug!"             => \$debug
