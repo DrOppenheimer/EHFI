@@ -15,7 +15,7 @@ my($within_pattern, $between_pattern, $within_file, $between_file, $output_file,
 my $current_dir = getcwd()."/";
 my $mode = "exact";
 my $job_name = "job";
-my $groups_file = "groups_file.txt"
+my $groups_file = "groups_file.txt";
 
 
 if($debug){print STDOUT "made it here"."\n";}
@@ -49,7 +49,7 @@ if ( ! GetOptions (
 ##################################################
 ##################################################
 
-$output_file = $job_name.".P_VALUE_SUMMARY";
+unless($output_file){$output_file = $job_name.".P_VALUE_SUMMARY"};
 
 if($debug){print STDOUT "mode: ".$mode."\n\n";}
 

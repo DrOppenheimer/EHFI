@@ -674,7 +674,7 @@ sub process_permuted_qiime_data { # starts with biom format
   # run the R script to generate the permuted R_table(s)
   my $generate_permutations_string = "R --vanilla --slave < $R_rand_script";
   print $log_file "\n"."executing:"."\n".$generate_permutations_string."\n";
-  system($generate_permutations_string) or die "died running command"."\n".$generate_permutations_string)."\n";
+  system($generate_permutations_string) or die "died running command"."\n".$generate_permutations_string."\n";
   print $log_file "DONE at:"."\t".`date +%m-%d-%y_%H:%M:%S`."\n\n";
 
   # Delete the R script that created the permutations
