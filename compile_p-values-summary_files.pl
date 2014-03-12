@@ -39,14 +39,13 @@ if ( ! GetOptions (
 
 unless ($target_dir) {$target_dir = $current_dir;} # use current directory if no other is supplied
 #unless ($output_pattern) {$output_pattern = "my_compiled.P_VALUES_SUMMARY.".$start_time_stamp;}
-unless ($output_pattern) {$output_pattern = "my_compiled.P_VALUES_SUMMARY.";}
+unless ($output_pattern) {$output_pattern = "my_compiled.P_VALUES_SUMMARY";}
 #if($debug){print STDOUT "\n\n\noutput_pattern: ".$output_pattern."\n\n\n"}
 
 if ( $unzip ){
   #system("ls *.tar.gz > tar_list.txt")==0 or die "died listing *.tar.gz";  
   system('for i in *tar.gz; do tar -zxf $i; done')==0 or die "died unzipping *.tar.gz listed in tar_list.txt";
 }
-
 
 
 # create output files
