@@ -11,7 +11,7 @@ chomp $start_time_stamp;
 
 my ($target_dir, $unzip, $help, $verbose, $debug);
 my $input_pattern = ".P_VALUE_SUMMARY\$";
-my $output_pattern = "compiled.P_VALUES_SUMMARIES.".$start_time_stamp;
+my $output_pattern;
 my $current_dir = getcwd()."/";
 my($group_name, $raw_dist, $group_dist_stdev, $scaled_dist, $dist_p, $num_perm, $group_members);
 #my $raw_dists_out ="";
@@ -38,14 +38,14 @@ if ( ! GetOptions (
 
 
 unless ($target_dir) {$target_dir = $current_dir;} # use current directory if no other is supplied
-unless ($output_pattern) {$output_pattern = "my_compiled.P_VALUES_SUMMARY.".$start_time_stamp;}
+#unless ($output_pattern) {$output_pattern = "my_compiled.P_VALUES_SUMMARY.".$start_time_stamp;}
+unless ($output_pattern) {$output_pattern = "my_compiled.P_VALUES_SUMMARY";}
 #if($debug){print STDOUT "\n\n\noutput_pattern: ".$output_pattern."\n\n\n"}
 
 if ( $unzip ){
-  system("ls *.tar.gz > tar_list.txt")==0 or die "died listing *.tar.gz";  
-  system("for i in `cat tar_list.txt`; do tar -zxf $i; done")==0 or die "died unzipping *.tar.gz listed in tar_list.txt";
+  #system("ls *.tar.gz > tar_list.txt")==0 or die "died listing *.tar.gz";  
+  system('for i in *tar.gz; do tar -zxf $i; done')==0 or die "died unzipping *.tar.gz listed in tar_list.txt";
 }
-
 
 
 # create output files
