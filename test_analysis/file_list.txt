@@ -1,0 +1,17 @@
+16.Qiime.100p.included.norm.qiime_table
+AMETHST.groups
+edited_list.txt
+file_list.txt
+readme
+test_analysis_1.PCoA
+test_analysis_1.P_VALUE_SUMMARY
+test_analysis_1.RESULTS.tar.gz
+test_analysis_1.test_a.RESULTS
+test_analysis_1.test_b.RESULTS
+test_commands
+test_commands.03-07-14_19:55:20.log
+test_commands.03-07-14_19:57:35.log
+test_commands.03-07-14_20:08:40.log
+test_commands.03-07-14_20:08:59.log
+test_commands.03-07-14_20:09:28.log
+test_commands.03-07-14_20:10:28.log
