@@ -17,7 +17,7 @@ my $start = time;
 
 my($data_file, $cleanup, $help, $verbose, $debug, $output_PCoA_dir, $output_DIST_dir, $output_avg_DISTs_dir);
 
-my $output_dir = "NA";
+my $output_prefix = "NA";
 my $job_name = "job";
 my $current_dir = getcwd()."/";
 my $perm_dir = "default";
@@ -60,7 +60,7 @@ if ( ! GetOptions (
 		   "z|dist_pipe=s"     => \$dist_pipe,
 		   "q|qiime_format=s"  => \$qiime_format,
 		   "i|input_dir=s"     => \$input_dir,
-		   "o|output_dir=s"    => \$output_dir,
+		   "o|output_prefix=s"    => \$output_prefix,
 		   "output_PCoA_dir=s" => \$output_PCoA_dir,
 		   "print_dist=i"      => \$print_dist,
 		   "output_DIST_dir"   => \$output_DIST_dir,
@@ -84,45 +84,46 @@ if ( ! GetOptions (
 $create_perm_pcoas = 1;
 
 # create name for the output directory
-# if ($output_dir eq "NA"){
-#   $output_dir = $current_dir."plot_pco_with_stats.".$data_file.".".$dist_pipe.".".$dist_method.".".$perm_type.".RESULTS/";
+# if ($output_prefix eq "NA"){
+#   $output_prefix = $current_dir."plot_pco_with_stats.".$data_file.".".$dist_pipe.".".$dist_method.".".$perm_type.".RESULTS/";
 # }else{
-#   $output_dir = $current_dir.$output_dir.".plot_pco_with_stats.".$data_file.".".$dist_pipe.".".$dist_method.".".$perm_type.".RESULTS/";
+#   $output_prefix = $current_dir.$output_prefix.".plot_pco_with_stats.".$data_file.".".$dist_pipe.".".$dist_method.".".$perm_type.".RESULTS/";
 # }
-if ($output_dir eq "NA"){
-  $output_dir = $current_dir.$job_name.".RESULTS/";
+if ($output_prefix eq "NA"){
+  $output_prefix = $current_dir.$job_name.".RESULTS/";
 }else{
-  $output_dir = $current_dir.$job_name.".".$output_dir.".RESULTS/";
+  $output_prefix = $current_dir.$job_name.".".$output_prefix.".RESULTS/";
 }
 
 # create names for subdirectories of the output directory
-$output_PCoA_dir =      $output_dir."PCoAs/";
-$output_DIST_dir =      $output_dir."DISTs/";
-$output_avg_DISTs_dir = $output_dir."AVG_DISTs/";
-$perm_dir =             $output_dir."permutations/";
+$output_PCoA_dir =      $output_prefix."PCoAs/";
+$output_DIST_dir =      $output_prefix."DISTs/";
+$output_avg_DISTs_dir = $output_prefix."AVG_DISTs/";
+$perm_dir =             $output_prefix."permutations/";
 
 # name P value summary output file
-my $output_p_value_summary = $output_dir.$data_file.".".$dist_method.".".$perm_type.".P_VALUES_SUMMARY";
+my $output_p_value_summary = $output_prefix.$data_file.".".$dist_method.".".$perm_type.".P_VALUES_SUMMARY";
 
 # create directories for the output files
-unless (-d $output_dir) { mkdir $output_dir or die "can't mkdir $output_dir";  } #### <---------- THIS IS WHAT HAS TO BE FIXED
+unless (-d $output_prefix) { mkdir $output_prefix or die "can't mkdir $output_prefix";  } #### <---------- THIS IS WHAT HAS TO BE FIXED
 unless (-d $perm_dir) { mkdir $perm_dir or die "can't mkdir $perm_dir"; }
 unless (-d $output_PCoA_dir) { mkdir $output_PCoA_dir or die "can't mkdir $output_PCoA_dir"; }
 unless (-d $output_DIST_dir) { mkdir $output_DIST_dir or die "can't mkdir $output_DIST_dir"; }
 unless (-d $output_avg_DISTs_dir) { mkdir $output_avg_DISTs_dir or die "can't mkdir $output_avg_DISTs_dir";}
 
 # create a log file and print all of the input parameters to it
-my $log_file_name = $output_dir."/".$data_file.".".$dist_method.".".$perm_type.".log";
+my $log_file_name = $output_prefix."/".$data_file.".".$dist_method.".".$perm_type.".log";
 open($log_file, ">", $log_file_name) or die "cannot open $log_file $log_file_name";
 print $log_file "start:"."\t".$time_stamp."\n";
 print $log_file "\n"."PARAMETERS USED:"."\n";
 if ($data_file)       {print $log_file "     data_file:      "."\t".$data_file."\n";}
+if ($job_name)        {print $job_name "     job_name:       "."\t".$job_name."\n";}
 if ($groups_list)     {print $log_file "     groups_list:    "."\t".$groups_list."\n";}
 if ($sig_if)          {print $log_file "     sig_if:         "."\t".$sig_if."\n";}
 if ($dist_pipe)       {print $log_file "     dist_pipe:      "."\t".$dist_pipe."\n";}
 if ($qiime_format)    {print $log_file "     qiime_format:   "."\t".$qiime_format."\n";}
 if ($input_dir)       {print $log_file "     input_dir:      "."\t".$input_dir."\n";}
-if ($output_dir)      {print $log_file "     output_dir:     "."\t".$output_dir."\n";}
+if ($output_prefix)   {print $log_file "     output_prefix:     "."\t".$output_prefix."\n";}
 if ($output_PCoA_dir) {print $log_file "     output_PCoA_dir:"."\t".$output_PCoA_dir."\n";}
 if ($print_dist)      {print $log_file "     print_dist:     "."\t".$print_dist."\n";}
 if ($output_DIST_dir) {print $log_file "     output_DIST_dir:"."\t".$output_DIST_dir."\n";}
@@ -216,11 +217,11 @@ if ( $dist_method =~ m/frac/ ){
 
 # process original (non permuted) data using qiime to calculate all distances/ dissimilarities
 if ( $dist_pipe eq "qiime_pipe" ){
-  process_original_qiime_data($dist_pipe, $data_file, $qiime_format, $dist_method, $tree, $input_dir, $output_dir, $log_file, $DIR)
+  process_original_qiime_data($dist_pipe, $data_file, $qiime_format, $dist_method, $tree, $input_dir, $output_prefix, $log_file, $DIR)
 }elsif ( $dist_pipe eq "OTU_pipe" ){
-    process_original_OTU_data($dist_pipe, $data_file, $dist_method, $input_dir, $output_dir, $log_file, $DIR)
+    process_original_OTU_data($dist_pipe, $data_file, $dist_method, $input_dir, $output_prefix, $log_file, $DIR)
 }elsif ( $dist_pipe eq "MG-RAST_pipe" ){
-        process_original_data($dist_pipe, $data_file, $dist_method, $input_dir, $output_dir, $log_file, $DIR)
+        process_original_data($dist_pipe, $data_file, $dist_method, $input_dir, $output_prefix, $log_file, $DIR)
 }else{
   print STDOUT "\n\n"."The selected dist_pipe (".$dist_pipe.") is not recognized - please check and try again"."\n";
   print $log_file "\n\n"."The selected dist_pipe (".$dist_pipe.") is not recognized - please check and try again"."\n";
@@ -231,11 +232,11 @@ if ( $dist_pipe eq "qiime_pipe" ){
 
 # generate and process permuted data
 if ( $dist_pipe eq "qiime_pipe" ){
-  process_permuted_qiime_data($dist_pipe, $data_file, $output_dir, $perm_list, $num_cpus, $num_perm, $perm_dir, $output_PCoA_dir, $create_perm_pcoas, $output_DIST_dir, $output_avg_DISTs_dir, $dist_method, $tree, $qiime_format, $headers, $log_file, $DIR)
+  process_permuted_qiime_data($dist_pipe, $data_file, $output_prefix, $perm_list, $num_cpus, $num_perm, $perm_dir, $output_PCoA_dir, $create_perm_pcoas, $output_DIST_dir, $output_avg_DISTs_dir, $dist_method, $tree, $qiime_format, $headers, $log_file, $DIR)
 }elsif ( $dist_pipe eq "OTU_pipe" ){
-  process_permuted_OTU_data($dist_pipe, $data_file, $output_dir, $perm_list, $num_cpus, $num_perm, $perm_dir, $output_PCoA_dir, $create_perm_pcoas, $output_DIST_dir, $output_avg_DISTs_dir, $dist_method, $headers, $log_file, $DIR)
+  process_permuted_OTU_data($dist_pipe, $data_file, $output_prefix, $perm_list, $num_cpus, $num_perm, $perm_dir, $output_PCoA_dir, $create_perm_pcoas, $output_DIST_dir, $output_avg_DISTs_dir, $dist_method, $headers, $log_file, $DIR)
 }elsif ( $dist_pipe eq "MG-RAST_pipe" ) {
-  process_permuted_data($dist_pipe, $data_file, $output_dir, $perm_list, $num_cpus, $num_perm, $perm_dir, $output_PCoA_dir, $create_perm_pcoas, $output_DIST_dir, $output_avg_DISTs_dir, $dist_method, $tree, $headers, $log_file, $DIR)
+  process_permuted_data($dist_pipe, $data_file, $output_prefix, $perm_list, $num_cpus, $num_perm, $perm_dir, $output_PCoA_dir, $create_perm_pcoas, $output_DIST_dir, $output_avg_DISTs_dir, $dist_method, $tree, $headers, $log_file, $DIR)
 }else{
   print STDOUT "\n\n"."The selected dist_pipe (".$dist_pipe.") is not recognized - please check and try again"."\n";
   print $log_file "\n\n"."The selected dist_pipe (".$dist_pipe.") is not recognized - please check and try again"."\n";
@@ -272,7 +273,7 @@ print $log_file "ELAPSED TIME: "."(".$min.")"."minutes "."(".$sec.")"."seconds".
 
 # removed permutation files     
 sub cleanup_sub { 
-  my $cleanup_string = "rm $output_dir*list*; rm -R $output_PCoA_dir; rm -R $output_DIST_dir; rm -R $output_avg_DISTs_dir; rm -R $perm_dir"; 
+  my $cleanup_string = "rm $output_prefix*list*; rm -R $output_PCoA_dir; rm -R $output_DIST_dir; rm -R $output_avg_DISTs_dir; rm -R $perm_dir"; 
   print $log_file "\n"."executing:"."\n".$cleanup_string."\n";
   system($cleanup_string)==0 or die "died on cleanup";
   print $log_file "DONE at:"."\t".`date +%m-%d-%y_%H:%M:%S`."\n";
@@ -296,11 +297,17 @@ Please do not use quotes or special characters (e.g. \ ) for any specified param
    
 USAGE:
     -f|--data_file        (string)  !!! NO DEFAULT !!!
+
+    -j|--job_name         (string)  default= $job_name
+                                    job name (taken from commands list if run by AMETHST.pl) - specifies a pattern
+                                    that is added as a prefix to the output directory
                                     original data file (in R compatible tab delimited format)
+
     -g|--groups_list      (string)  default = $groups_list
                                     file that contains groups list
                                     group per line, each sample in a group (line) is comma separated
                                     sample names should be same as in the data_file header
+
     -s|--sig_if           (string)  default = $sig_if        
                                     lt or gt - determines if permutation distances less or greater than 
                                     original are deemed significant
@@ -311,13 +318,17 @@ USAGE:
                                     We expect the opposite behvaior for between group distances; \"gt\" is 
                                     appropriate for determination of significance between groups.
                                     Permutations would be expected to exhibit between group distances
-                                    smaller than those observed in the original.
+                                    smaller than those observed in the original data.
+
     -i|--input_dir        (string)  default = $current_dir
                                     path that containts the data file
-    -o|--output_prefix    (string)  default = $output_dir
-                                    prefix added to the output directory name
+
+    -o|--output_prefix    (string)  default = $output_prefix
+                                    prefix appended to the output directory name.
+
     -p|--num_perm         (integer) default = $num_perm 
                                     number of permutations to perform
+
     -t|--perm_type        (string)  default = $perm_type 
                                     The type of permutation to be performed
                                          --> choose from the following three methods <--
@@ -326,6 +337,7 @@ USAGE:
                                               complete_rand - randomize every individual count across dataset
                                               rowwise_rand  - randomize fields in taxon/row 
                                               sampleid_rand - randomize sample/column labels only
+
     -m|--dist_method      (string)  default = $dist_method
                                     --> can slect from the following distances/dissimilarities <-- 
                                      (*)   bray-curtis | maximum  | canberra    | binary   | minkowski  | 
@@ -338,6 +350,7 @@ USAGE:
                                         **  OTU_pipe supports only the OTU and weighted_OTU (w_OTU) metrics
                                         *** all qiime metrics supported by qiime_pipe 
                                         (on a machine with qiime installed, see them with \"beta_diversity.py -s\")
+
     -z|--dist_pipe        (string)  default = $dist_pipe
                                     analysis pipe to use - in many (but not all) cases, the dist_method
                                     determines the dist_pipe (e.g. unifrac distance requires the qiime_pipe)
@@ -345,18 +358,22 @@ USAGE:
                                               MG-RAST_pipe - distances calculated with R (ecodist and base) 
                                               qiime_pipe   - distances calculated with qiime
                                               OTU_pipe     - distances calculated with custom R scripts
+
     -q|qiime_format       (string)  default = $qiime_format 
                                     input qiime format (only used if dist_pipe = qiime_pipe)
                                          --> choose from the following 2 formats <--    
                                               biom        - biom file format (see http://www.biom-format.org)
                                               qiime_table - original qiime table format (tab delimited table)
-    -a|tree               (string)  !!! NO DEFAULT !!!
+
+    -a|tree               (string)  !!! NO DEFAULT !!! (optional parameter)
                                     path/file for *.tre file
                                     examples: /home/ubuntu/software/gg_otus-4feb2011-release/trees/gg_97_otus_4feb2011.tre
                                               /home/qiime/qiime_software/gg_otus-12_10-release/trees/97_otus.tree
-                                    a *.tre file - only used with phylogenitically aware metric like unifrac|weighted_unifrac
+                                    a *.tre file - only used with phylogenitically aware metrics like unifrac|weighted_unifrac
+
     -x|--perm_dir         (string)  default = $perm_dir
                                     directory to store permutations
+
     -c|--num_cpus         (integer) default = $num_cpus
                                     number of cpus to use (xargs)
     -----------------------------------------------------------------------------------------------
@@ -437,16 +454,16 @@ sub correct_line_terminators {
 # Process the original (non permuted) data, MG-RAST annotations
 sub process_original_data {
 
-  my ($dist_pipe, $data_file, $dist_method, $input_dir, $output_dir, $log_file, $DIR) = @_;
+  my ($dist_pipe, $data_file, $dist_method, $input_dir, $output_prefix, $log_file, $DIR) = @_;
 
   # process the original data_file to produce PCoA and DIST files
-  my $original_data_dists_string = "$DIR/plot_pco_shell.sh $data_file $input_dir $output_dir 1 $output_dir $dist_method $headers";   		  
+  my $original_data_dists_string = "$DIR/plot_pco_shell.sh $data_file $input_dir $output_prefix 1 $output_prefix $dist_method $headers";   		  
   print $log_file "\n"."executing:"."\n".$original_data_dists_string."\n";
   system($original_data_dists_string)==0 or die "died running command"."\n".$original_data_dists_string."\n";
   print $log_file "DONE at:"."\t".`date +%m-%d-%y_%H:%M:%S`."\n\n";
   
   # Process original data_file.DIST to produce original_file.DIST.AVG_DIST
-  my $original_data_avg_dists_string = "$DIR/avg_distances.sh $data_file.$dist_method.DIST $output_dir $groups_list $data_file.$dist_method.DIST $output_dir";
+  my $original_data_avg_dists_string = "$DIR/avg_distances.sh $data_file.$dist_method.DIST $output_prefix $groups_list $data_file.$dist_method.DIST $output_prefix";
   print $log_file "\n"."executing:"."\n".$original_data_avg_dists_string."\n";
   system($original_data_avg_dists_string)==0 or die "died running command"."\n".$original_data_avg_dists_string."\n";
   print $log_file "DONE at:"."\t".`date +%m-%d-%y_%H:%M:%S`."\n\n";
@@ -457,7 +474,7 @@ sub process_original_data {
 # Process the original (non permuted) data, Qiime annotations
 sub process_original_qiime_data {
 
-  my ($dist_pipe, $data_file, $qiime_format, $dist_method, $tree, $input_dir, $output_dir, $log_file, $DIR) = @_;
+  my ($dist_pipe, $data_file, $qiime_format, $dist_method, $tree, $input_dir, $output_prefix, $log_file, $DIR) = @_;
    
   # create name for biom formatted file
   my $biom_file = $data_file.".biom";
@@ -469,16 +486,16 @@ sub process_original_qiime_data {
     print $log_file "dist_pipe is (".$dist_pipe.") and qiime_format is (".$qiime_format.")"."\n".
       "if this is not correct - processing will fail unexpected results"."\n".
       "converting $qiime_format to biom format for compatibility qiime beta_diversity.py"."\n"; 
-    my $qiime_table_2_biom_string = "convert_biom.py -i $input_dir$data_file -o $output_dir$biom_file --biom_table_type=\"otu table\""; 
+    my $qiime_table_2_biom_string = "convert_biom.py -i $input_dir$data_file -o $output_prefix$biom_file --biom_table_type=\"otu table\""; 
     print $log_file "\n"."executing:"."\n".$qiime_table_2_biom_string."\n";
     system($qiime_table_2_biom_string)==0 or die "died running command"."\n".$qiime_table_2_biom_string."\n";
     #system($qiime_table_2_biom_string); #or die "died running command"."\n".$qiime_table_2_biom_string."\n";
     print $log_file "\n"."Creating R_table from qiime_table";
-    my $qiime_table_2_R_table_string = "$DIR/qiime_2_R.pl -i $input_dir$data_file -c 3 -o $output_dir$data_file";
+    my $qiime_table_2_R_table_string = "$DIR/qiime_2_R.pl -i $input_dir$data_file -c 3 -o $output_prefix$data_file";
     print $log_file "\n"."executing:"."\n".$qiime_table_2_R_table_string."\n";
     system($qiime_table_2_R_table_string)==0 or die "died running command"."\n".$qiime_table_2_R_table_string."\n";
     print $log_file "\n"."Copying qiime_table from qiime_table";
-    my $copy_qiime_table_string = "cp $input_dir$data_file $output_dir$qiime_table";
+    my $copy_qiime_table_string = "cp $input_dir$data_file $output_prefix$qiime_table";
     print $log_file "\n"."executing:"."\n".$copy_qiime_table_string."\n";
     system($copy_qiime_table_string)==0 or die "died running command"."\n".$copy_qiime_table_string."\n";
     print $log_file "DONE at:"."\t".`date +%m-%d-%y_%H:%M:%S`."\n\n"; 
@@ -488,16 +505,16 @@ sub process_original_qiime_data {
       "OK"."\n".
 	"if this is not correct - processing will fail unexpected results"."\n";
     print $log_file "If your biom data are in another format (biom or r_table, indiciate with the qiime_format option )";
-    my $copy_biom_string = "cp $input_dir$data_file $output_dir$biom_file";
+    my $copy_biom_string = "cp $input_dir$data_file $output_prefix$biom_file";
     print $log_file "\n"."executing:"."\n".$copy_biom_string."\n";
     system($copy_biom_string)==0 or die "died running command"."\n".."\n";
     print $log_file "\n"."Creating qiime_table from biom file";
-    my $biom_2_qiime_table_string = "convert_biom.py -b -i $output_dir$biom_file -o $output_dir$qiime_table --header_key taxonomy";
+    my $biom_2_qiime_table_string = "convert_biom.py -b -i $output_prefix$biom_file -o $output_prefix$qiime_table --header_key taxonomy";
     print $log_file "\n"."executing:"."\n".$biom_2_qiime_table_string."\n";
     system($biom_2_qiime_table_string)==0 or die "died running command"."\n".$biom_2_qiime_table_string."\n";
     #system($biom_2_qiime_table_string); # or die "died running command"."\n".$biom_2_qiime_table_string."\n";
     print $log_file  "\n"."Creating R_table from qiime_table";
-    my $qiime_table_2_R_table_string = "$DIR/qiime_2_R.pl -i $input_dir$data_file -c 3 -o $output_dir$data_file";
+    my $qiime_table_2_R_table_string = "$DIR/qiime_2_R.pl -i $input_dir$data_file -c 3 -o $output_prefix$data_file";
     print $log_file "\n"."executing:"."\n".$qiime_table_2_R_table_string."\n";
     system($qiime_table_2_R_table_string)==0 or die "died running command"."\n".$qiime_table_2_R_table_string."\n";
     print $log_file "DONE at:"."\t".`date +%m-%d-%y_%H:%M:%S`."\n\n";
@@ -513,14 +530,14 @@ sub process_original_qiime_data {
   # calculate unifrac or weighted-unifrac distance
   if ( $dist_method =~ m/frac/) { 
     
-    my $calculate_frac_distance_string = "beta_diversity.py -i $output_dir$biom_file -o $output_dir -m $dist_method -t $tree"."\n\n";
+    my $calculate_frac_distance_string = "beta_diversity.py -i $output_prefix$biom_file -o $output_prefix -m $dist_method -t $tree"."\n\n";
     print $log_file "\n"."executing:"."\n".$calculate_frac_distance_string."\n";
     system($calculate_frac_distance_string)==0 or die "died running command"."\n".$calculate_frac_distance_string."\n";
     print $log_file "DONE at:"."\t".`date +%m-%d-%y_%H:%M:%S`."\n\n";
   
   }else{ # calculate non "frac" distances
 
-    my $calculate_non_frac_distance_string = "beta_diversity.py -i $output_dir$biom_file -o $output_dir -m $dist_method";
+    my $calculate_non_frac_distance_string = "beta_diversity.py -i $output_prefix$biom_file -o $output_prefix -m $dist_method";
     print $log_file "\n"."executing:"."\n".$calculate_non_frac_distance_string."\n";
     system($calculate_non_frac_distance_string)==0 or die "died running command"."\n".$calculate_non_frac_distance_string."\n";
     print $log_file "DONE at:"."\t".`date +%m-%d-%y_%H:%M:%S`."\n\n"; 
@@ -528,23 +545,23 @@ sub process_original_qiime_data {
   }
   
   # rename the output dist file
-  my $qimme_dist_filename = $output_dir.$dist_method."_".$data_file.".txt";
+  my $qimme_dist_filename = $output_prefix.$dist_method."_".$data_file.".txt";
   my $dist_filename = $data_file.".".$dist_method.".DIST";
-  my $rename_dist_string = "mv $qimme_dist_filename $output_dir$dist_filename";
+  my $rename_dist_string = "mv $qimme_dist_filename $output_prefix$dist_filename";
   print $log_file "\n"."executing:"."\n".$rename_dist_string."\n";
   system($rename_dist_string)==0 or die "died running command"."\n".$rename_dist_string."\n";
   print $log_file "DONE at:"."\t".`date +%m-%d-%y_%H:%M:%S`."\n\n";
 
   # generate PCoA
   my $pcoa_file = $data_file.".".$dist_method.".PCoA";
-  my $perform_pcoa_string = "$DIR/plot_qiime_pco_shell.sh $output_dir$dist_filename $output_dir$pcoa_file";
+  my $perform_pcoa_string = "$DIR/plot_qiime_pco_shell.sh $output_prefix$dist_filename $output_prefix$pcoa_file";
   print $log_file "\n"."executing:"."\n".$perform_pcoa_string."\n";
   system($perform_pcoa_string)==0 or die "died running command"."\n".$perform_pcoa_string."\n";
   print $log_file "DONE at:"."\t".`date +%m-%d-%y_%H:%M:%S`."\n\n"; 
 
   # create average_dist file
   my $avg_dist_filename = $data_file.".".$dist_method.".DIST";
-  my $create_avg_dist_string = "$DIR/avg_distances.sh $dist_filename $output_dir $groups_list $avg_dist_filename $output_dir";
+  my $create_avg_dist_string = "$DIR/avg_distances.sh $dist_filename $output_prefix $groups_list $avg_dist_filename $output_prefix";
   print $log_file "\n"."executing:"."\n".$create_avg_dist_string."\n";
   system($create_avg_dist_string)==0 or die "died running command"."\n".$create_avg_dist_string."\n";
   print $log_file "Produce *.AVG_DIST file from the original data *.DIST file"."\n"."DONE at:"."\t".`date +%m-%d-%y_%H:%M:%S`."\n";
@@ -554,12 +571,12 @@ sub process_original_qiime_data {
 # Process the original (non permuted) data, with OTU distances
 sub process_original_OTU_data {
 
-  my ($dist_pipe, $data_file, $dist_method, $input_dir, $output_dir, $log_file, $DIR) = @_;
+  my ($dist_pipe, $data_file, $dist_method, $input_dir, $output_prefix, $log_file, $DIR) = @_;
 
   if ($debug){ print STDERR "HELLO.OTU.1"."\n"; }
   # process the original data_file to produce PCoA and DIST files
   print $log_file "process original data file (".$data_file.") > *.PCoA & *.DIST ... "."\n";
-  my $process_original_OTU_string = "$DIR/OTU_similarities_shell.7-31-12.sh $data_file $input_dir $output_dir 1 $output_dir $dist_method $headers";
+  my $process_original_OTU_string = "$DIR/OTU_similarities_shell.7-31-12.sh $data_file $input_dir $output_prefix 1 $output_prefix $dist_method $headers";
   print $log_file "\n"."executing:"."\n".$process_original_OTU_string."\n";
   system($process_original_OTU_string)==0 or die "died running command"."\n".$process_original_OTU_string."\n";
   print $log_file "DONE at:"."\t".`date +%m-%d-%y_%H:%M:%S`."\n";
@@ -567,7 +584,7 @@ sub process_original_OTU_data {
   if ($debug){ print STDERR "HELLO.OTU.2"."\n"; }
   # process original data_file.DIST to produce original_file.DIST.AVG_DIST
   print $log_file "process original data *.DIST file (".$data_file.".".$dist_method.".DIST) > *.AVG_DIST ... "."\n";
-  my $process_OTU_avg_distances_string = "$DIR/avg_distances.sh $data_file.$dist_method.DIST $output_dir $groups_list $data_file.$dist_method.DIST $output_dir";
+  my $process_OTU_avg_distances_string = "$DIR/avg_distances.sh $data_file.$dist_method.DIST $output_prefix $groups_list $data_file.$dist_method.DIST $output_prefix";
   print $log_file "\n"."executing:"."\n".$process_OTU_avg_distances_string."\n";
   system($process_OTU_avg_distances_string)==0 or die "died running command"."\n".$process_OTU_avg_distances_string."\n";
   print $log_file "DONE at:"."\t".`date +%m-%d-%y_%H:%M:%S`."\n";
@@ -578,7 +595,7 @@ sub process_original_OTU_data {
 
 sub process_permuted_data {
 
-  my($dist_pipe, $data_file, $output_dir, $perm_list, $num_cpus, $num_perm, $perm_dir, $output_PCoA_dir, $create_perm_pcoas, $output_DIST_dir, $output_avg_DISTs_dir, $dist_method, $tree, $headers, $log_file, $DIR) = @_;
+  my($dist_pipe, $data_file, $output_prefix, $perm_list, $num_cpus, $num_perm, $perm_dir, $output_PCoA_dir, $create_perm_pcoas, $output_DIST_dir, $output_avg_DISTs_dir, $dist_method, $tree, $headers, $log_file, $DIR) = @_;
 
   # use R script sample_matrix.r to generate permutations of the original data
   print $log_file "generate (".$num_perm.") permutations ... "."\n";
@@ -607,13 +624,13 @@ sub process_permuted_data {
   print $log_file "DONE at:"."\t".`date +%m-%d-%y_%H:%M:%S`."\n\n";
   
   # create list of the permutation files
-  print $log_file "creating list of permutated data files:"."\n".$output_dir.$perm_list."\n";
-  &list_dir($perm_dir, "permutation",  $output_dir.$perm_list);
+  print $log_file "creating list of permutated data files:"."\n".$output_prefix.$perm_list."\n";
+  &list_dir($perm_dir, "permutation",  $output_prefix.$perm_list);
   print $log_file "DONE at:"."\t".`date +%m-%d-%y_%H:%M:%S`."\n\n";
 
   # perform PCoA on all of the permutations - outputs placed in directories created for the PCoA and DIST files
   #if ($create_perm_pcoas){
-  my $pcoa_permutations_script_string =  "cat $output_dir$perm_list | xargs -n1 -P$num_cpus -I{} $DIR/plot_pco_shell.sh {} $perm_dir $output_PCoA_dir 1 $output_DIST_dir $dist_method $headers";
+  my $pcoa_permutations_script_string =  "cat $output_prefix$perm_list | xargs -n1 -P$num_cpus -I{} $DIR/plot_pco_shell.sh {} $perm_dir $output_PCoA_dir 1 $output_DIST_dir $dist_method $headers";
   print $log_file "\n"."executing:"."\n".$pcoa_permutations_script_string."\n";
   system( $pcoa_permutations_script_string )==0 or die "died running command"."\n".$pcoa_permutations_script_string."\n";
   print $log_file "DONE at:"."\t".`date +%m-%d-%y_%H:%M:%S`."\n\n";
@@ -622,25 +639,25 @@ sub process_permuted_data {
   #}
 
   # Create list of all permutation *.DIST files
-  print $log_file "creating list of *.DIST files produced from permutated data ... "."\n".$output_dir.$dist_list."\n"; 
-  &list_dir($output_DIST_dir, ".DIST",  $output_dir.$dist_list);
+  print $log_file "creating list of *.DIST files produced from permutated data ... "."\n".$output_prefix.$dist_list."\n"; 
+  &list_dir($output_DIST_dir, ".DIST",  $output_prefix.$dist_list);
   print $log_file "DONE at:"."\t".`date +%m-%d-%y_%H:%M:%S`."\n\n";
 
   # Create *.DIST.AVG_DIST from *.DIST
-  my $avg_dist_string = "cat $output_dir$dist_list | xargs -n1 -P$num_cpus -I{} $DIR/avg_distances.sh {} $output_DIST_dir $groups_list {} $output_avg_DISTs_dir";
+  my $avg_dist_string = "cat $output_prefix$dist_list | xargs -n1 -P$num_cpus -I{} $DIR/avg_distances.sh {} $output_DIST_dir $groups_list {} $output_avg_DISTs_dir";
   print $log_file "\n"."executing:"."\n".$avg_dist_string."\n";
   system ( $avg_dist_string )==0 or die "died running command"."\n".$avg_dist_string."\n";
   print $log_file "DONE at:"."\t".`date +%m-%d-%y_%H:%M:%S`."\n\n";
  
   # Create a list of all the *.AVG_DIST files
-  print $log_file "creating list of *.AVG_DIST files:"."\n".$output_dir.$avg_dists_list."\n"; 
-  &list_dir($output_avg_DISTs_dir, "AVG_DIST", $output_dir.$avg_dists_list);
+  print $log_file "creating list of *.AVG_DIST files:"."\n".$output_prefix.$avg_dists_list."\n"; 
+  &list_dir($output_avg_DISTs_dir, "AVG_DIST", $output_prefix.$avg_dists_list);
   print $log_file "DONE at:"."\t".`date +%m-%d-%y_%H:%M:%S`."\n\n";
 
   # Run the final script to calculate P values by comparing the original to all permutaion derived distances matrixes
-  my $output_p_value_summary = $output_dir.$data_file.".".$dist_method.".P_VALUES_SUMMARY";
-  my $og_avg_dist_filename = $output_dir.$data_file.".".$dist_method."."."DIST.AVG_DIST";
-  my $produce_ps_string = "$DIR/avg_dist_summary.pl -og_avg_dist_file $og_avg_dist_filename -sig_if $sig_if -avg_dists_dir $output_avg_DISTs_dir -avg_dists_list $output_dir$avg_dists_list -output_file $output_p_value_summary";
+  my $output_p_value_summary = $output_prefix.$data_file.".".$dist_method.".P_VALUES_SUMMARY";
+  my $og_avg_dist_filename = $output_prefix.$data_file.".".$dist_method."."."DIST.AVG_DIST";
+  my $produce_ps_string = "$DIR/avg_dist_summary.pl -og_avg_dist_file $og_avg_dist_filename -sig_if $sig_if -avg_dists_dir $output_avg_DISTs_dir -avg_dists_list $output_prefix$avg_dists_list -output_file $output_p_value_summary";
   print $log_file "\n"."executing:"."\n".$produce_ps_string."\n";
   system( $produce_ps_string )==0 or die "died running command"."\n".$produce_ps_string."\n";
   print $log_file "DONE at:"."\t".`date +%m-%d-%y_%H:%M:%S`."\n\n";
@@ -651,10 +668,10 @@ sub process_permuted_data {
 
 sub process_permuted_qiime_data { # starts with biom format
 
-  my($dist_pipe, $data_file, $output_dir, $perm_list, $num_cpus, $num_perm, $perm_dir, $output_PCoA_dir, $create_perm_pcoas, $output_DIST_dir, $output_avg_DISTs_dir, $dist_method, $tree, $qiime_format, $headers, $log_file, $DIR) = @_;
+  my($dist_pipe, $data_file, $output_prefix, $perm_list, $num_cpus, $num_perm, $perm_dir, $output_PCoA_dir, $create_perm_pcoas, $output_DIST_dir, $output_avg_DISTs_dir, $dist_method, $tree, $qiime_format, $headers, $log_file, $DIR) = @_;
 
   # Create a version of the QIIME table in R friendly format
-  my $qiime_table_2_R_table_string = "$DIR/qiime_2_R.pl -i $input_dir$data_file -o $output_dir$data_file -c 3";
+  my $qiime_table_2_R_table_string = "$DIR/qiime_2_R.pl -i $input_dir$data_file -o $output_prefix$data_file -c 3";
   print $log_file "\n"."executing:"."\n".$qiime_table_2_R_table_string."\n";
   system( $qiime_table_2_R_table_string )==0 or die "died running command"."\n".$qiime_table_2_R_table_string."\n";
   print $log_file "DONE at:"."\t".`date +%m-%d-%y_%H:%M:%S`."\n\n";
@@ -666,7 +683,7 @@ sub process_permuted_qiime_data { # starts with biom format
   my $R_permutation_script_string = (
 				     "# script generated by plot_qiime_pco_with_stats.pl to run sample_matrix.r"."\n".
 				     "source(\"$DIR/sample_matrix.r\")"."\n".
-				     "sample_matrix(file_name = \"$data_file.qiime_ID_and_tax_string.R_table\", file_dir = \"$output_dir\", num_perm = $num_perm, perm_type = \"$perm_type\", write_files = 1, perm_dir = \"$perm_dir\", verbose = 0, debug = 1)"
+				     "sample_matrix(file_name = \"$data_file.qiime_ID_and_tax_string.R_table\", file_dir = \"$output_prefix\", num_perm = $num_perm, perm_type = \"$perm_type\", write_files = 1, perm_dir = \"$perm_dir\", verbose = 0, debug = 1)"
 				    );
   my $R_rand_script = "$data_file.R_sample_script.".$time_stamp.".r";
   print $log_file "\n".$R_rand_script." contains this:"."\n".$R_permutation_script_string."\n\n"; 
@@ -687,7 +704,7 @@ sub process_permuted_qiime_data { # starts with biom format
 
   # create list of the permuated R_tables
   my $R_table_perm_list = $perm_list.".R_table";
-  my @R_permutation_list = &list_dir($perm_dir, "R_table",  $output_dir.$R_table_perm_list);
+  my @R_permutation_list = &list_dir($perm_dir, "R_table",  $output_prefix.$R_table_perm_list);
   
   # generate qiime formatted versions of the permuted data tables # could use xargs here too ?
   foreach my $R_permutation (@R_permutation_list){
@@ -706,7 +723,7 @@ sub process_permuted_qiime_data { # starts with biom format
   # generate biom format file for each qiime_formattted permutation table # could use xargs here too ?
   # generate list of the qiime_table files
   my $qiime_table_perm_list = $perm_list.".qiime_table";
-  my @Qiime_permutation_list = &list_dir($perm_dir, "Qiime_table\$",  $output_dir.$qiime_table_perm_list);
+  my @Qiime_permutation_list = &list_dir($perm_dir, "Qiime_table\$",  $output_prefix.$qiime_table_perm_list);
   # create biom file for each qiime_table file
   foreach my $Qiime_permutation (@Qiime_permutation_list){
     if ( $debug ){ print "HELLO - QIIME_PERM: ".$Qiime_permutation."\n"; }
@@ -726,17 +743,17 @@ sub process_permuted_qiime_data { # starts with biom format
   # produce *.DIST files for each permutation - using qiime beta_diversity.py
   # generate list of the biom files
   my $biom_file_list = $perm_list.".biom";
-  if ($debug){print STDOUT "Hello"; print $log_file "\n\n"."Hello"."\n\n"."biom_list_file: ".$output_dir.$biom_file_list."\n\n"; }
-  my @biom_permutation_list = &list_dir($perm_dir, ".biom\$",  $output_dir.$biom_file_list);  
+  if ($debug){print STDOUT "Hello"; print $log_file "\n\n"."Hello"."\n\n"."biom_list_file: ".$output_prefix.$biom_file_list."\n\n"; }
+  my @biom_permutation_list = &list_dir($perm_dir, ".biom\$",  $output_prefix.$biom_file_list);  
   if ($debug){print STDERR "HELLO.1"."\n";}
   # generate Qiime based distances
   if ( $dist_method =~ m/frac/ ) { # add the tree argument to beta_diversity.py for unifrac (phylogenetically aware) analyses
-    my $calc_frac_dists_string = "cat $output_dir$biom_file_list | xargs  -n1 -P $num_cpus -I{} beta_diversity.py -i '$perm_dir'{} -o $output_DIST_dir -m $dist_method -t $tree";
+    my $calc_frac_dists_string = "cat $output_prefix$biom_file_list | xargs  -n1 -P $num_cpus -I{} beta_diversity.py -i '$perm_dir'{} -o $output_DIST_dir -m $dist_method -t $tree";
     print $log_file "\n"."executing:"."\n".$calc_frac_dists_string."\n";
     system( $calc_frac_dists_string )==0 or die "died running command"."\n".$calc_frac_dists_string."\n";
     "DONE at:"."\t".`date +%m-%d-%y_%H:%M:%S`."\n\n";
   }else{
-    my $calc_non_frac_dists_string = "cat $output_dir$biom_file_list | xargs  -n1 -P $num_cpus -I{} beta_diversity.py -i '$perm_dir'{} -o $output_DIST_dir -m $dist_method";
+    my $calc_non_frac_dists_string = "cat $output_prefix$biom_file_list | xargs  -n1 -P $num_cpus -I{} beta_diversity.py -i '$perm_dir'{} -o $output_DIST_dir -m $dist_method";
     print $log_file "\n"."executing:"."\n".$calc_non_frac_dists_string."\n";
     system( $calc_non_frac_dists_string )==0 or die "died running command"."\n".$calc_non_frac_dists_string."\n";
     print $log_file "DONE at:"."\t".`date +%m-%d-%y_%H:%M:%S`."\n\n";
@@ -787,8 +804,8 @@ sub process_permuted_qiime_data { # starts with biom format
   if ($debug){print STDERR "HELLO.3"."\n";}
 
   # create list of the permutation files (they are biom format at this point)
-  print $log_file "creating list of permutated data files:"."\n".$output_dir.$perm_list."\n";
-  &list_dir($perm_dir, "permutation",  $output_dir.$perm_list);
+  print $log_file "creating list of permutated data files:"."\n".$output_prefix.$perm_list."\n";
+  &list_dir($perm_dir, "permutation",  $output_prefix.$perm_list);
   print $log_file "DONE at:"."\t".`date +%m-%d-%y_%H:%M:%S`."\n\n";
 
   if ($debug){print STDERR "HELLO.4"."\n";}
@@ -810,15 +827,15 @@ sub process_permuted_qiime_data { # starts with biom format
 
   # Create a list of all the *.AVG_DIST files
   print $log_file "creating list of *.AVG_DIST files ... "."\n"; 
-  &list_dir($output_avg_DISTs_dir, "AVG_DIST", $output_dir.$avg_dists_list);
+  &list_dir($output_avg_DISTs_dir, "AVG_DIST", $output_prefix.$avg_dists_list);
   print $log_file "DONE at:"."\t".`date +%m-%d-%y_%H:%M:%S`."\n";
 
   if ($debug){print STDERR "HELLO.6"."\n";}
 
   # Run the final script to calculate P values by comparing the original to all permutaion derived distances matrixes
-  my $output_p_value_summary = $output_dir.$data_file.".".$dist_method.".P_VALUES_SUMMARY";
-  my $og_avg_dist_filename = $output_dir.$data_file.".".$dist_method."."."DIST.AVG_DIST";
-  my $produce_ps_string = "$DIR/avg_dist_summary.pl -og_avg_dist_file $og_avg_dist_filename -sig_if $sig_if -avg_dists_dir $output_avg_DISTs_dir -avg_dists_list $output_dir$avg_dists_list -output_file $output_p_value_summary";
+  my $output_p_value_summary = $output_prefix.$data_file.".".$dist_method.".P_VALUES_SUMMARY";
+  my $og_avg_dist_filename = $output_prefix.$data_file.".".$dist_method."."."DIST.AVG_DIST";
+  my $produce_ps_string = "$DIR/avg_dist_summary.pl -og_avg_dist_file $og_avg_dist_filename -sig_if $sig_if -avg_dists_dir $output_avg_DISTs_dir -avg_dists_list $output_prefix$avg_dists_list -output_file $output_p_value_summary";
   print $log_file "\n"."executing:"."\n".$produce_ps_string."\n";
   system( $produce_ps_string )==0 or die "died running command"."\n".$produce_ps_string."\n";
   print $log_file "DONE at:"."\t".`date +%m-%d-%y_%H:%M:%S`."\n";
@@ -831,7 +848,7 @@ sub process_permuted_qiime_data { # starts with biom format
 
 sub process_permuted_OTU_data {
 
-  my($dist_pipe, $data_file, $output_dir, $perm_list, $num_cpus, $num_perm, $perm_dir, $output_PCoA_dir, $create_perm_pcoas, $output_DIST_dir, $output_avg_DISTs_dir, $dist_method, $headers, $log_file, $DIR) = @_;
+  my($dist_pipe, $data_file, $output_prefix, $perm_list, $num_cpus, $num_perm, $perm_dir, $output_PCoA_dir, $create_perm_pcoas, $output_DIST_dir, $output_avg_DISTs_dir, $dist_method, $headers, $log_file, $DIR) = @_;
   
   print $log_file "generate (".$num_perm.") permutations ... "."\n";
 
@@ -858,13 +875,13 @@ sub process_permuted_OTU_data {
   print $log_file "DONE at:"."\t".`date +%m-%d-%y_%H:%M:%S`."\n\n";
   
   # create list of the permutation files
-  print $log_file "creating list of permutated data files:"."\n".$output_dir.$perm_list."\n";
-  &list_dir($perm_dir, "permutation",  $output_dir.$perm_list);
+  print $log_file "creating list of permutated data files:"."\n".$output_prefix.$perm_list."\n";
+  &list_dir($perm_dir, "permutation",  $output_prefix.$perm_list);
   print $log_file "DONE at:"."\t".`date +%m-%d-%y_%H:%M:%S`."\n\n";
  
   # perform PCoA on all of the permutations - outputs placed in directories created for the PCoA and DIST files
   #if($create_perm_pcoas){
-  my $pcoa_permutations_script_string = "cat $output_dir$perm_list | xargs -n1 -P$num_cpus -I{} $DIR/OTU_similarities_shell.7-31-12.sh {} $perm_dir $output_PCoA_dir 1 $output_DIST_dir $dist_method $headers";
+  my $pcoa_permutations_script_string = "cat $output_prefix$perm_list | xargs -n1 -P$num_cpus -I{} $DIR/OTU_similarities_shell.7-31-12.sh {} $perm_dir $output_PCoA_dir 1 $output_DIST_dir $dist_method $headers";
   print $log_file "\n"."executing:"."\n".$pcoa_permutations_script_string;
   system( $pcoa_permutations_script_string )==0 or die "died running command"."\n".$pcoa_permutations_script_string."\n";
   print $log_file "DONE at:"."\t".`date +%m-%d-%y_%H:%M:%S`."\n";
@@ -873,25 +890,25 @@ sub process_permuted_OTU_data {
   #}
 
   # Create list of all permutation *.DIST files
-  print $log_file "creating list of *.DIST files produced from permutated data ... "."\n".$output_dir.$dist_list."\n";
-  &list_dir($output_DIST_dir, ".DIST", $output_dir.$dist_list);
+  print $log_file "creating list of *.DIST files produced from permutated data ... "."\n".$output_prefix.$dist_list."\n";
+  &list_dir($output_DIST_dir, ".DIST", $output_prefix.$dist_list);
   print $log_file "DONE at:"."\t".`date +%m-%d-%y_%H:%M:%S`."\n";
 
   # Create *.DIST.AVG_DIST from *.DIST
-  my $avg_dist_string = "cat $output_dir$dist_list | xargs -n1 -P$num_cpus -I{} $DIR/avg_distances.sh {} $output_DIST_dir $groups_list {} $output_avg_DISTs_dir";
+  my $avg_dist_string = "cat $output_prefix$dist_list | xargs -n1 -P$num_cpus -I{} $DIR/avg_distances.sh {} $output_DIST_dir $groups_list {} $output_avg_DISTs_dir";
   print $log_file "\n"."executing:"."\n".$avg_dist_string."\n";
   system ( $avg_dist_string )==0 or die "died running command"."\n".$avg_dist_string."\n";
   print $log_file "DONE at:"."\t".`date +%m-%d-%y_%H:%M:%S`."\n\n";
 
   # Create a list of all the *.AVG_DIST files
-  print $log_file "creating list of *.AVG_DIST files:"."\n".$output_dir.$avg_dists_list."\n"; 
-  &list_dir($output_avg_DISTs_dir, "AVG_DIST", $output_dir.$avg_dists_list);
+  print $log_file "creating list of *.AVG_DIST files:"."\n".$output_prefix.$avg_dists_list."\n"; 
+  &list_dir($output_avg_DISTs_dir, "AVG_DIST", $output_prefix.$avg_dists_list);
   print $log_file "DONE at:"."\t".`date +%m-%d-%y_%H:%M:%S`."\n";
 
   # Run the final script to calculate P values by comparing the original to all permutaion derived distances matrixes
-  my $output_p_value_summary = $output_dir.$data_file.".".$dist_method.".P_VALUES_SUMMARY";
-  my $og_avg_dist_filename = $output_dir.$data_file.".".$dist_method."."."DIST.AVG_DIST";
-  my $produce_ps_string = "$DIR/avg_dist_summary.pl -og_avg_dist_file $og_avg_dist_filename -sig_if $sig_if -avg_dists_dir $output_avg_DISTs_dir -avg_dists_list $output_dir$avg_dists_list -output_file $output_p_value_summary";
+  my $output_p_value_summary = $output_prefix.$data_file.".".$dist_method.".P_VALUES_SUMMARY";
+  my $og_avg_dist_filename = $output_prefix.$data_file.".".$dist_method."."."DIST.AVG_DIST";
+  my $produce_ps_string = "$DIR/avg_dist_summary.pl -og_avg_dist_file $og_avg_dist_filename -sig_if $sig_if -avg_dists_dir $output_avg_DISTs_dir -avg_dists_list $output_prefix$avg_dists_list -output_file $output_p_value_summary";
   print $log_file "\n"."executing:"."\n".$produce_ps_string."\n";
   system( $produce_ps_string )==0 or die "died running command"."\n".$produce_ps_string."\n";
   print $log_file "DONE at:"."\t".`date +%m-%d-%y_%H:%M:%S`."\n\n";

@@ -10,7 +10,7 @@ use Statistics::Descriptive;
 
 
 
-my($within_pattern, $between_pattern, $groups_file, $within_file, $between_file, $output_file, $pcoa_pattern, $pcoa_file, $help, $verbose, $debug, $log_file);
+my($within_pattern, $between_pattern, $groups_list, $within_file, $between_file, $output_file, $pcoa_pattern, $pcoa_file, $help, $verbose, $debug, $log_file);
 
 my $current_dir = getcwd()."/";
 my $mode = "exact";
@@ -28,7 +28,7 @@ if ( (@ARGV > 0) && ($ARGV[0] =~ /-h/) ) { &usage(); }
 if ( ! GetOptions (
 		   "m|file_search_mode=s" => \$mode,
 		   "j|job_name=s"         => \$job_name,
-		   "g|groups_file=s"      => \$groups_file,
+		   "g|groups_list=s"      => \$groups_list,
 		   "o|output_file=s"      => \$output_file,
 		   "w|within_pattern=s"   => \$within_pattern,
 		   "b|between_pattern=s"  => \$between_pattern,
@@ -40,7 +40,7 @@ if ( ! GetOptions (
 		  )
    ) { &usage(); }
 
-unless ( @ARGV > 0 || $within_pattern || $between_pattern || $groups_file  ) { &usage(); }
+unless ( @ARGV > 0 || $within_pattern || $between_pattern  ) { &usage(); }
 
 ##################################################
 ##################################################
@@ -270,13 +270,16 @@ print OUTPUT_FILE (
 # copy and rename the PCoA flat file, then produce a png for it
 open(LOG, ">>", $log_file) or die "can't open LOG $log_file";
 system("cp $pcoa_file ./$job_name.PCoA")==0 or die "died copying $pcoa_file to ./$job_name.PCoA";
-my $render_pcoa_string = "$DIR/render_calculated_pcoa_shell.sh $job_name.PCoA $groups_file 11 8.5 300 0.2 0.8 0.5 0.7";
-print LOG "render PCoA:"."\n".$render_pcoa_string."\n";
-# order of args in the strin is 
-#      pcoa_file ($job_name.PCoA) groups_file ($groups_file) png_width(11) png_height(8.5) png_dpi(300)
-#      legend_width_scale(0.2) pcoa_width_scale(0.8) legend_cex(0.5) figure_cex(0.7)
-system($render_pcoa_string)==0 or die "died running"."\n".$render_pcoa_string."\n";
 
+# produce an image of teh PCoA if a groups file is specififed (groups used to color it)
+if( $groups_list ){
+  my $render_pcoa_string = "$DIR/render_calculated_pcoa_shell.sh $job_name.PCoA $groups_list 11 8.5 300 0.2 0.8 0.5 0.7";
+  print LOG "render PCoA:"."\n".$render_pcoa_string."\n";
+  # order of args in the strin is 
+  #      pcoa_file ($job_name.PCoA) groups_list ($groups_list) png_width(11) png_height(8.5) png_dpi(300)
+  #      legend_width_scale(0.2) pcoa_width_scale(0.8) legend_cex(0.5) figure_cex(0.7)
+  system($render_pcoa_string)==0 or die "died running"."\n".$render_pcoa_string."\n";
+}
 
 
 ##################################################
@@ -298,22 +301,29 @@ DESCRIPTION:
 Script to combine within group *.P_VALUE_SUMMARY of one analysis with
 between group *.P_VALUE_SUMMARY of another
    
-USAGE: combine_summary_stats.pl [-m file_search_mode][-w within_file] [-b between_file] [-o output_file] -h -v -d
+USAGE: combine_summary_stats.pl [-m file_search_mode][-w within_file] [-b between_file] [-o output_file] [-j job_name] -h -v -d
  
-    -m|file_search_mode   (string) default = $mode
-                                   file search mode, can be "exact" to match exact file patch or 
-                                   "prefix" to search using file prefix for path and file
+    -m|--file_search_mode (string)  default = $mode
+                                    file search mode, can be "exact" to match exact file patch or 
+                                    "prefix" to search using file prefix for path and file
           
-    -w|within_pattern     (string) NO DEFAULT
-                                   if search mode is exact, path and name of *.P_VALUE_SUMMARY from which within group stats will be pulled
-                                   if search is "prefix", uses pattern to find path and file of *.P_VALUE_SUMMARY 
+    -w|--within_pattern   (string)  NO DEFAULT
+                                    if search mode is exact, path and name of *.P_VALUE_SUMMARY from which within group stats will be pulled
+                                    if search is "prefix", uses pattern to find path and file of *.P_VALUE_SUMMARY 
 
-    -b|between_pattern    (string) NO DEFAULT
-                                   if search mode is exact, path and name of *.P_VALUE_SUMMARY from which within group stats will be pulled
-                                   if search is "prefix", uses pattern to find path and file of *.P_VALUE_SUMMARY
+    -b|--between_pattern  (string)  NO DEFAULT
+                                    if search mode is exact, path and name of *.P_VALUE_SUMMARY from which within group stats will be pulled
+                                    if search is "prefix", uses pattern to find path and file of *.P_VALUE_SUMMARY
 
-    -o|output_file        (string)  default = $output_file
-                                    name for the output file          
+    -g|--groups_list      (string)  NO DEFAULT
+                                    File that contains AMETHST formatted groupings -- is used to color the PCoA images
+
+    -o|--output_file      (string)  default = $output_file
+                                    name for the output file (taken from commands file if run by AMETHST.pl)          
+
+    -j|--job_name         (string)  default = $job_name 
+                                    job name (taken from commands list if run with AMETHST.pl) - specifies a pattern
+                                    that is added as a prefix to the output
  _______________________________________________________________________________________
 
     -h|help                       (flag)       see the help/usage
