@@ -117,7 +117,7 @@ open($log_file, ">", $log_file_name) or die "cannot open $log_file $log_file_nam
 print $log_file "start:"."\t".$time_stamp."\n";
 print $log_file "\n"."PARAMETERS USED:"."\n";
 if ($data_file)       {print $log_file "     data_file:      "."\t".$data_file."\n";}
-if ($job_name)        {print $job_name "     job_name:       "."\t".$job_name."\n";}
+if ($job_name)        {print $log_file "     job_name:       "."\t".$job_name."\n";}
 if ($groups_list)     {print $log_file "     groups_list:    "."\t".$groups_list."\n";}
 if ($sig_if)          {print $log_file "     sig_if:         "."\t".$sig_if."\n";}
 if ($dist_pipe)       {print $log_file "     dist_pipe:      "."\t".$dist_pipe."\n";}
