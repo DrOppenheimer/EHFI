@@ -15,7 +15,7 @@ my($within_pattern, $between_pattern, $groups_list, $within_file, $between_file,
 my $current_dir = getcwd()."/";
 my $mode = "exact";
 my $job_name = "job";
-my $log_file = "combine_summary_stats.log"
+my $log_file = "combine_summary_stats.log";
 
 if($debug){print STDOUT "made it here"."\n";}
 
