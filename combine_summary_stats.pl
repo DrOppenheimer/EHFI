@@ -10,11 +10,12 @@ use Statistics::Descriptive;
 
 
 
-my($within_pattern, $between_pattern, $groups_list, $within_file, $between_file, $output_file, $pcoa_pattern, $pcoa_file, $help, $verbose, $debug, $log_file);
+my($within_pattern, $between_pattern, $groups_list, $within_file, $between_file, $output_file, $pcoa_pattern, $pcoa_file, $help, $verbose, $debug);
 
 my $current_dir = getcwd()."/";
 my $mode = "exact";
 my $job_name = "job";
+my $log_file = "combine_summary_stats.log"
 
 if($debug){print STDOUT "made it here"."\n";}
 
@@ -306,6 +307,9 @@ USAGE: combine_summary_stats.pl [-m file_search_mode][-w within_file] [-b betwee
     -m|--file_search_mode (string)  default = $mode
                                     file search mode, can be "exact" to match exact file patch or 
                                     "prefix" to search using file prefix for path and file
+
+    -l|--log_file         (string)  default = $log_file
+                                    name of the log file
           
     -w|--within_pattern   (string)  NO DEFAULT
                                     if search mode is exact, path and name of *.P_VALUE_SUMMARY from which within group stats will be pulled
