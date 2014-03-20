@@ -183,16 +183,15 @@ command line 2 for job
 command line 3 for job
 
 EXAMPLES:
-#job Analysis_1
--f 1.MG-RAST.MG-RAST_default.removed.raw -g AMETHST.groups -p 10 -t dataset_rand -m bray-curtis -z MG-RAST_pipe -c 10 -o Analysis_1w -cleanup
--f 1.MG-RAST.MG-RAST_default.removed.raw  -g AMETHST.groups -p 10 -t rowwise_rand -m bray-curtis -z MG-RAST_pipe -c 10 -o Analysis_1b -cleanup
--m pattern  -w Analysis_9w  -b Analysis_9b  -o Analysis_1.P_VALUE_SUMMARY
+#job test_analysis_1
+plot_pco_with_stats_all.pl --data_file 16.Qiime.100p.included.norm.qiime_table --groups_list AMETHST.stat.groups --sig_if lt --num_perm 10 --perm_type dataset_rand --dist_method euclidean --dist_pipe qiime_pipe --qiime_format qiime_table --num_cpus 10 --output_prefix within --cleanup
+plot_pco_with_stats_all.pl --data_file 16.Qiime.100p.included.norm.qiime_table --groups_list AMETHST.stat.groups --sig_if gt --num_perm 10 --perm_type rowwise_rand --dist_method euclidean --dist_pipe qiime_pipe --qiime_format qiime_table --num_cpus 10 --output_prefix between --cleanup
+combine_summary_stats.pl --file_search_mode pattern --within_pattern within --between_pattern between --groups_list AMETHST.PCoA.groups
 
-#job Analysis_2
--f 9.Qiime.Qiime_default.removed.raw -g AMETHST.groups -p 10 -t dataset_rand -m unifrac -z qiime_pipe  -q qiime_table  -a ~/AMETHST/qiime_trees/97_otus.tree -c 10 -o Analysis_2w -cleanup
--f 9.Qiime.Qiime_default.removed.raw  -g AMETHST.groups -p 10 -t rowwise_rand -m unifrac -z qiime_pipe  -q qiime_table  -a ~/AMETHST/qiime_trees/97_otus.tree -c 10 -o Analysis_2b -cleanup
--m pattern  -w Analysis_2w  -b Analysis_2b  -o Analysis_2.P_VALUE_SUMMARY
-
+#job test_analysis_2
+plot_pco_with_stats_all.pl --data_file 16.Qiime.100p.included.norm.qiime_table --groups_list AMETHST.stat.groups --sig_if lt --num_perm 10 --perm_type dataset_rand --dist_method bray_curtis --dist_pipe qiime_pipe --qiime_format qiime_table --num_cpus 10 --output_prefix within --cleanup
+plot_pco_with_stats_all.pl --data_file 16.Qiime.100p.included.norm.qiime_table --groups_list AMETHST.stat.groups --sig_if gt --num_perm 10 --perm_type rowwise_rand --dist_method bray_curtis --dist_pipe qiime_pipe --qiime_format qiime_table --num_cpus 10 --output_prefix between --cleanup
+combine_summary_stats.pl --file_search_mode pattern --within_pattern within --between_pattern between --groups_list AMETHST.PCoA.groups
 
 );
   exit 1;

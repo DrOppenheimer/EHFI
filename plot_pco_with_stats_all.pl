@@ -396,6 +396,7 @@ sub running {
   my $running_text = qq(
 RUNNING
 ------------------------------------------
+job:                  $job_name
 script:               $0
 time stamp:           $time_stamp
 ------------------------------------------
