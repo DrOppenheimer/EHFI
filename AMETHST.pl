@@ -82,7 +82,7 @@ while (my $line = <FILE>){
       $line =~ s/\s+//g;
       $log_prefix = $line;
     
-      print LOG "START Job: name(".$log_prefix.") number(".$job_counter.") at".`date +%m-%d-%y_%H:%M:%S`;
+      print LOG "START Job: name(".$log_prefix.") number(".$job_counter.") at".`date +%m-%d-%y_%H:%M:%S`."\n";
       
       #my $cmd1 = $script_dir."plot_pco_with_stats_all.pl ".<FILE>;
       my $cmd1 = $script_dir.<FILE>;
@@ -108,7 +108,7 @@ while (my $line = <FILE>){
       system($sum_cmd)==0 or die "died running command:"."\n".$sum_cmd."\n";
       print LOG "DONE"."\n\n";
 
-      print LOG "FINISH Job: name(".$log_prefix.") number(".$job_counter.") at ".`date +%m-%d-%y_%H:%M:%S`;
+      print LOG "FINISH Job: name(".$log_prefix.") number(".$job_counter.") at ".`date +%m-%d-%y_%H:%M:%S`."\n";
 
       $job_counter++;
 
