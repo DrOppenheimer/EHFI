@@ -577,7 +577,7 @@ sub process_original_OTU_data {
   if ($debug){ print STDERR "HELLO.OTU.1"."\n"; }
   # process the original data_file to produce PCoA and DIST files
   print $log_file "process original data file (".$data_file.") > *.PCoA & *.DIST ... "."\n";
-  my $process_original_OTU_string = "$DIR/OTU_similarities_shell.7-31-12.sh $data_file $input_dir $output_prefix 1 $output_prefix $dist_method $headers";
+  my $process_original_OTU_string = "$DIR/OTU_similarities_shell.sh $data_file $input_dir $output_prefix 1 $output_prefix $dist_method $headers";
   print $log_file "\n"."executing:"."\n".$process_original_OTU_string."\n";
   system($process_original_OTU_string)==0 or die "died running command"."\n".$process_original_OTU_string."\n";
   print $log_file "DONE at:"."\t".`date +%m-%d-%y_%H:%M:%S`."\n";
