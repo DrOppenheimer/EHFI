@@ -31,8 +31,8 @@ echo "MGRAST_plot_pco(file_in = \"$1\", input_dir = \"$2\", output_PCoA_dir = \"
 
 R --vanilla --slave < plot_pco_script.$time_stamp.r
 
-#if [ -e plot_pco_script.$time_stamp.r ]
-#then
-    # rm plot_pco_script.$time_stamp.r
+if [ -e plot_pco_script.$time_stamp.r ]
+then
+    rm -f plot_pco_script.$time_stamp.r
     #echo "Done with "plot_pco_script.$time_stamp.r
-#fi
+fi
