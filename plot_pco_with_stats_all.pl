@@ -273,7 +273,7 @@ print $log_file "ELAPSED TIME: "."(".$min.")"."minutes "."(".$sec.")"."seconds".
 
 # removed permutation files     
 sub cleanup_sub { 
-  my $cleanup_string = "rm $output_prefix*list*; rm -R $output_PCoA_dir; rm -R $output_DIST_dir; rm -R $output_avg_DISTs_dir; rm -R $perm_dir"; 
+  my $cleanup_string = "rm -f $output_prefix*list*; rm -f -R $output_PCoA_dir; rm -f -R $output_DIST_dir; rm -f -R $output_avg_DISTs_dir; rm -f -R $perm_dir"; 
   print $log_file "\n"."executing:"."\n".$cleanup_string."\n";
   system($cleanup_string)==0 or die "died on cleanup";
   print $log_file "DONE at:"."\t".`date +%m-%d-%y_%H:%M:%S`."\n";
@@ -619,7 +619,7 @@ sub process_permuted_data {
   print $log_file "DONE at:"."\t".`date +%m-%d-%y_%H:%M:%S`."\n\n";
 
   # Delete the R script
-  my $delete_permutation_script_string = "rm $R_rand_script";
+  my $delete_permutation_script_string = "rm -f $R_rand_script";
   print $log_file "\n"."executing:"."\n".$delete_permutation_script_string."\n";
   system($delete_permutation_script_string)==0 or die "died running command"."\n".$delete_permutation_script_string."\n";
   print $log_file "DONE at:"."\t".`date +%m-%d-%y_%H:%M:%S`."\n\n";
@@ -698,7 +698,7 @@ sub process_permuted_qiime_data { # starts with biom format
   print $log_file "DONE at:"."\t".`date +%m-%d-%y_%H:%M:%S`."\n\n";
 
   # Delete the R script that created the permutations
-  my $delete_permutation_script_string = "rm $R_rand_script";
+  my $delete_permutation_script_string = "rm -f $R_rand_script";
   print $log_file "\n"."executing:"."\n".$delete_permutation_script_string."\n";
   system($delete_permutation_script_string)==0 or die "died running command"."\n".$delete_permutation_script_string."\n";
   print $log_file "DONE at:"."\t".`date +%m-%d-%y_%H:%M:%S`."\n\n";
@@ -870,7 +870,7 @@ sub process_permuted_OTU_data {
   print $log_file "DONE at:"."\t".`date +%m-%d-%y_%H:%M:%S`."\n\n";
 
   # Delete the R script
-  my $delete_permutation_script_string = "rm $R_rand_script";
+  my $delete_permutation_script_string = "rm -f $R_rand_script";
   print $log_file "\n"."executing:"."\n".$delete_permutation_script_string."\n";
   system($delete_permutation_script_string)==0 or die "died running command"."\n".$delete_permutation_script_string."\n";
   print $log_file "DONE at:"."\t".`date +%m-%d-%y_%H:%M:%S`."\n\n";
