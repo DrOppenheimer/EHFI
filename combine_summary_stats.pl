@@ -287,7 +287,7 @@ if( $groups_list ){
   # now copy image back to results before zipping
   my $copy_rendered_pcoa_string = "cp $job_name.PCoA.pcoa.png $results_dir/$job_name.PCoA.pcoa.png"; 
   print LOG "copy PCoA image back to results:"."\n".$copy_rendered_pcoa_string."\n";
-  system($copy_rendered_pcoa_string) or die "died running"."\n".$copy_rendered_pcoa_string."\n";
+  system($copy_rendered_pcoa_string)==0 or die "died running"."\n".$copy_rendered_pcoa_string."\n";
 
 }
 
