@@ -65,7 +65,7 @@ if($mode eq "pattern"){
   chomp $pcoa_search;
   $pcoa_file = $pcoa_search; 
   
-  my $dir_search = $current_dir.qx(ls -d ./$job_name.$within_pattern.RESULTS/);
+  my $dir_search = $current_dir.qx(ls -d $job_name.$within_pattern.RESULTS);
   chomp $dir_search;
   $results_dir = $dir_search;
 
