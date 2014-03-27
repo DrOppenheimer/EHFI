@@ -167,6 +167,8 @@ foreach my $file (@file_list){ # process each file
   my $move_p_summaries_string = "mv *.P_VALUE_SUMMARY $pcoa_p_summary_dir";
   system($move_p_summaries_string)==0 or die "died running"."\n".$move_p_summaries_string."\n";
 
+  print STDOUT "\n"."MADE IT HERE"."\n";
+
 }
     
 
