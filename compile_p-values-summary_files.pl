@@ -76,7 +76,7 @@ foreach my $file (@file_list){ # process each file
   my $dist_ps_out = $file;
   my $num_perms_out = $file;
   
-  open(FILE, "<", $target_dir.$file) or die "can't open FILE $target_dir.$file"; 
+  open(FILE, "<", $target_dir.$file) or die "can't open FILE $target_dir$file"; 
   while (my $line = <FILE>){
     
     unless ($line =~ m/^#/){ # skip comment lines
