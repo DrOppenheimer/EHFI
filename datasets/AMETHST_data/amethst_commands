@@ -19,18 +19,18 @@ plot_pco_with_stats_all.pl --data_file 3.MG-RAST.MG-RAST_default.included.raw --
 combine_summary_stats.pl --file_search_mode pattern --within_pattern Analysis_4w --between_pattern Analysis_4b --groups_list AMETHST.PCoA.groups
                      
 #job Analysis_5
-plot_pco_with_stats_all.pl --data_file 11.Qiime.Qiime_default.included.raw --sig_if lt --groups_list AMETHST.stat.groups --num_perm 1000 --perm_type dataset_rand --dist_method unifrac --dist_pipe qiime_pipe --qiime_format qiime_table --tree ~/AMETHST/qiime_trees/97_otus.tree --num_cpus 10 --output_prefix Analysis_5w --cleanup
-plot_pco_with_stats_all.pl --data_file 11.Qiime.Qiime_default.included.raw --sig_if gt --groups_list AMETHST.stat.groups --num_perm 1000 --perm_type rowwise_rand --dist_method unifrac --dist_pipe qiime_pipe --qiime_format qiime_table --tree ~/AMETHST/qiime_trees/97_otus.tree --num_cpus 10 --output_prefix Analysis_5b --cleanup
+plot_pco_with_stats_all.pl --data_file 11.Qiime.Qiime_default.included.raw --sig_if lt --groups_list AMETHST.stat.groups --num_perm 1000 --perm_type dataset_rand --dist_method unifrac --dist_pipe qiime_pipe --qiime_format qiime_table --tree 97_otus.tree --num_cpus 10 --output_prefix Analysis_5w --cleanup
+plot_pco_with_stats_all.pl --data_file 11.Qiime.Qiime_default.included.raw --sig_if gt --groups_list AMETHST.stat.groups --num_perm 1000 --perm_type rowwise_rand --dist_method unifrac --dist_pipe qiime_pipe --qiime_format qiime_table --tree 97_otus.tree --num_cpus 10 --output_prefix Analysis_5b --cleanup
 combine_summary_stats.pl --file_search_mode pattern --within_pattern Analysis_5w --between_pattern Analysis_5b --groups_list AMETHST.PCoA.groups
                      
 #job Analysis_6
-plot_pco_with_stats_all.pl --data_file 12.Qiime.Qiime_default.included.norm --sig_if lt --groups_list AMETHST.stat.groups --num_perm 1000 --perm_type dataset_rand --dist_method weighted_unifrac --dist_pipe qiime_pipe --qiime_format qiime_table --tree ~/AMETHST/qiime_trees/97_otus.tree --num_cpus 10 --output_prefix Analysis_6w --cleanup
-plot_pco_with_stats_all.pl --data_file 12.Qiime.Qiime_default.included.norm --sig_if gt --groups_list AMETHST.stat.groups --num_perm 1000 --perm_type rowwise_rand --dist_method weighted_unifrac --dist_pipe qiime_pipe --qiime_format qiime_table --tree ~/AMETHST/qiime_trees/97_otus.tree --num_cpus 10 --output_prefix Analysis_6b --cleanup
+plot_pco_with_stats_all.pl --data_file 12.Qiime.Qiime_default.included.norm --sig_if lt --groups_list AMETHST.stat.groups --num_perm 1000 --perm_type dataset_rand --dist_method weighted_unifrac --dist_pipe qiime_pipe --qiime_format qiime_table --tree 97_otus.tree --num_cpus 10 --output_prefix Analysis_6w --cleanup
+plot_pco_with_stats_all.pl --data_file 12.Qiime.Qiime_default.included.norm --sig_if gt --groups_list AMETHST.stat.groups --num_perm 1000 --perm_type rowwise_rand --dist_method weighted_unifrac --dist_pipe qiime_pipe --qiime_format qiime_table --tree 97_otus.tree --num_cpus 10 --output_prefix Analysis_6b --cleanup
 combine_summary_stats.pl --file_search_mode pattern --within_pattern Analysis_6w --between_pattern Analysis_6b --groups_list AMETHST.PCoA.groups
                      
 #job Analysis_7
-plot_pco_with_stats_all.pl --data_file 11.Qiime.Qiime_default.included.raw --sig_if lt --groups_list AMETHST.stat.groups --num_perm 1000 --perm_type dataset_rand --dist_method weighted_unifrac --dist_pipe qiime_pipe --qiime_format qiime_table --tree ~/AMETHST/qiime_trees/97_otus.tree --num_cpus 10 --output_prefix Analysis_7w --cleanup
-plot_pco_with_stats_all.pl --data_file 11.Qiime.Qiime_default.included.raw --sig_if gt --groups_list AMETHST.stat.groups --num_perm 1000 --perm_type rowwise_rand --dist_method weighted_unifrac --dist_pipe qiime_pipe --qiime_format qiime_table --tree ~/AMETHST/qiime_trees/97_otus.tree --num_cpus 10 --output_prefix Analysis_7b --cleanup
+plot_pco_with_stats_all.pl --data_file 11.Qiime.Qiime_default.included.raw --sig_if lt --groups_list AMETHST.stat.groups --num_perm 1000 --perm_type dataset_rand --dist_method weighted_unifrac --dist_pipe qiime_pipe --qiime_format qiime_table --tree 97_otus.tree --num_cpus 10 --output_prefix Analysis_7w --cleanup
+plot_pco_with_stats_all.pl --data_file 11.Qiime.Qiime_default.included.raw --sig_if gt --groups_list AMETHST.stat.groups --num_perm 1000 --perm_type rowwise_rand --dist_method weighted_unifrac --dist_pipe qiime_pipe --qiime_format qiime_table --tree 97_otus.tree --num_cpus 10 --output_prefix Analysis_7b --cleanup
 combine_summary_stats.pl --file_search_mode pattern --within_pattern Analysis_7w --between_pattern Analysis_7b --groups_list AMETHST.PCoA.groups
                      
 #job Analysis_8
@@ -54,18 +54,18 @@ plot_pco_with_stats_all.pl --data_file 1.MG-RAST.MG-RAST_default.removed.raw --s
 combine_summary_stats.pl --file_search_mode pattern --within_pattern Analysis_11w --between_pattern Analysis_11b --groups_list AMETHST.PCoA.groups
                      
 #job Analysis_12
-plot_pco_with_stats_all.pl --data_file 9.Qiime.Qiime_default.removed.raw --sig_if lt --groups_list AMETHST.stat.groups --num_perm 1000 --perm_type dataset_rand --dist_method unifrac --dist_pipe qiime_pipe --qiime_format qiime_table --tree ~/AMETHST/qiime_trees/97_otus.tree --num_cpus 10 --output_prefix Analysis_12w --cleanup
-plot_pco_with_stats_all.pl --data_file 9.Qiime.Qiime_default.removed.raw --sig_if gt --groups_list AMETHST.stat.groups --num_perm 1000 --perm_type rowwise_rand --dist_method unifrac --dist_pipe qiime_pipe --qiime_format qiime_table --tree ~/AMETHST/qiime_trees/97_otus.tree --num_cpus 10 --output_prefix Analysis_12b --cleanup
+plot_pco_with_stats_all.pl --data_file 9.Qiime.Qiime_default.removed.raw --sig_if lt --groups_list AMETHST.stat.groups --num_perm 1000 --perm_type dataset_rand --dist_method unifrac --dist_pipe qiime_pipe --qiime_format qiime_table --tree 97_otus.tree --num_cpus 10 --output_prefix Analysis_12w --cleanup
+plot_pco_with_stats_all.pl --data_file 9.Qiime.Qiime_default.removed.raw --sig_if gt --groups_list AMETHST.stat.groups --num_perm 1000 --perm_type rowwise_rand --dist_method unifrac --dist_pipe qiime_pipe --qiime_format qiime_table --tree 97_otus.tree --num_cpus 10 --output_prefix Analysis_12b --cleanup
 combine_summary_stats.pl --file_search_mode pattern --within_pattern Analysis_12w --between_pattern Analysis_12b --groups_list AMETHST.PCoA.groups
                      
 #job Analysis_13
-plot_pco_with_stats_all.pl --data_file 10.Qiime.Qiime_default.removed.norm --sig_if lt --groups_list AMETHST.stat.groups --num_perm 1000 --perm_type dataset_rand --dist_method weighted_unifrac --dist_pipe qiime_pipe --qiime_format qiime_table --tree ~/AMETHST/qiime_trees/97_otus.tree --num_cpus 10 --output_prefix Analysis_13w --cleanup
-plot_pco_with_stats_all.pl --data_file 10.Qiime.Qiime_default.removed.norm --sig_if gt --groups_list AMETHST.stat.groups --num_perm 1000 --perm_type rowwise_rand --dist_method weighted_unifrac --dist_pipe qiime_pipe --qiime_format qiime_table --tree ~/AMETHST/qiime_trees/97_otus.tree --num_cpus 10 --output_prefix Analysis_13b --cleanup
+plot_pco_with_stats_all.pl --data_file 10.Qiime.Qiime_default.removed.norm --sig_if lt --groups_list AMETHST.stat.groups --num_perm 1000 --perm_type dataset_rand --dist_method weighted_unifrac --dist_pipe qiime_pipe --qiime_format qiime_table --tree 97_otus.tree --num_cpus 10 --output_prefix Analysis_13w --cleanup
+plot_pco_with_stats_all.pl --data_file 10.Qiime.Qiime_default.removed.norm --sig_if gt --groups_list AMETHST.stat.groups --num_perm 1000 --perm_type rowwise_rand --dist_method weighted_unifrac --dist_pipe qiime_pipe --qiime_format qiime_table --tree 97_otus.tree --num_cpus 10 --output_prefix Analysis_13b --cleanup
 combine_summary_stats.pl --file_search_mode pattern --within_pattern Analysis_13w --between_pattern Analysis_13b --groups_list AMETHST.PCoA.groups
                      
 #job Analysis_14
-plot_pco_with_stats_all.pl --data_file 9.Qiime.Qiime_default.removed.raw --sig_if lt --groups_list AMETHST.stat.groups --num_perm 1000 --perm_type dataset_rand --dist_method weighted_unifrac --dist_pipe qiime_pipe --qiime_format qiime_table --tree ~/AMETHST/qiime_trees/97_otus.tree --num_cpus 10 --output_prefix Analysis_14w --cleanup
-plot_pco_with_stats_all.pl --data_file 9.Qiime.Qiime_default.removed.raw --sig_if gt --groups_list AMETHST.stat.groups --num_perm 1000 --perm_type rowwise_rand --dist_method weighted_unifrac --dist_pipe qiime_pipe --qiime_format qiime_table --tree ~/AMETHST/qiime_trees/97_otus.tree --num_cpus 10 --output_prefix Analysis_14b --cleanup
+plot_pco_with_stats_all.pl --data_file 9.Qiime.Qiime_default.removed.raw --sig_if lt --groups_list AMETHST.stat.groups --num_perm 1000 --perm_type dataset_rand --dist_method weighted_unifrac --dist_pipe qiime_pipe --qiime_format qiime_table --tree 97_otus.tree --num_cpus 10 --output_prefix Analysis_14w --cleanup
+plot_pco_with_stats_all.pl --data_file 9.Qiime.Qiime_default.removed.raw --sig_if gt --groups_list AMETHST.stat.groups --num_perm 1000 --perm_type rowwise_rand --dist_method weighted_unifrac --dist_pipe qiime_pipe --qiime_format qiime_table --tree 97_otus.tree --num_cpus 10 --output_prefix Analysis_14b --cleanup
 combine_summary_stats.pl --file_search_mode pattern --within_pattern Analysis_14w --between_pattern Analysis_14b --groups_list AMETHST.PCoA.groups
                      
 #job Analysis_15
@@ -89,18 +89,18 @@ plot_pco_with_stats_all.pl --data_file 7.MG-RAST.100p.included.raw --sig_if gt -
 combine_summary_stats.pl --file_search_mode pattern --within_pattern Analysis_18w --between_pattern Analysis_18b --groups_list AMETHST.PCoA.groups
                      
 #job Analysis_19
-plot_pco_with_stats_all.pl --data_file 15.Qiime.100p.included.raw --sig_if lt --groups_list AMETHST.stat.groups --num_perm 1000 --perm_type dataset_rand --dist_method unifrac --dist_pipe qiime_pipe --qiime_format qiime_table --tree ~/AMETHST/qiime_trees/16S_all_gg_2011_1.tree --num_cpus 10 --output_prefix Analysis_19w --cleanup
-plot_pco_with_stats_all.pl --data_file 15.Qiime.100p.included.raw --sig_if gt --groups_list AMETHST.stat.groups --num_perm 1000 --perm_type rowwise_rand --dist_method unifrac --dist_pipe qiime_pipe --qiime_format qiime_table --tree ~/AMETHST/qiime_trees/16S_all_gg_2011_1.tree --num_cpus 10 --output_prefix Analysis_19b --cleanup
+plot_pco_with_stats_all.pl --data_file 15.Qiime.100p.included.raw --sig_if lt --groups_list AMETHST.stat.groups --num_perm 1000 --perm_type dataset_rand --dist_method unifrac --dist_pipe qiime_pipe --qiime_format qiime_table --tree 16S_all_gg_2011_1.tree --num_cpus 10 --output_prefix Analysis_19w --cleanup
+plot_pco_with_stats_all.pl --data_file 15.Qiime.100p.included.raw --sig_if gt --groups_list AMETHST.stat.groups --num_perm 1000 --perm_type rowwise_rand --dist_method unifrac --dist_pipe qiime_pipe --qiime_format qiime_table --tree 16S_all_gg_2011_1.tree --num_cpus 10 --output_prefix Analysis_19b --cleanup
 combine_summary_stats.pl --file_search_mode pattern --within_pattern Analysis_19w --between_pattern Analysis_19b --groups_list AMETHST.PCoA.groups
 
 #job Analysis_20
-plot_pco_with_stats_all.pl --data_file 16.Qiime.100p.included.norm --sig_if lt --groups_list AMETHST.stat.groups --num_perm 1000 --perm_type dataset_rand --dist_method weighted_unifrac --dist_pipe qiime_pipe --qiime_format qiime_table --tree ~/AMETHST/qiime_trees/16S_all_gg_2011_1.tree --num_cpus 10 --output_prefix Analysis_20w --cleanup
-plot_pco_with_stats_all.pl --data_file 16.Qiime.100p.included.norm --sig_if gt --groups_list AMETHST.stat.groups --num_perm 1000 --perm_type rowwise_rand --dist_method weighted_unifrac --dist_pipe qiime_pipe --qiime_format qiime_table --tree ~/AMETHST/qiime_trees/16S_all_gg_2011_1.tree --num_cpus 10 --output_prefix Analysis_20b --cleanup
+plot_pco_with_stats_all.pl --data_file 16.Qiime.100p.included.norm --sig_if lt --groups_list AMETHST.stat.groups --num_perm 1000 --perm_type dataset_rand --dist_method weighted_unifrac --dist_pipe qiime_pipe --qiime_format qiime_table --tree 16S_all_gg_2011_1.tree --num_cpus 10 --output_prefix Analysis_20w --cleanup
+plot_pco_with_stats_all.pl --data_file 16.Qiime.100p.included.norm --sig_if gt --groups_list AMETHST.stat.groups --num_perm 1000 --perm_type rowwise_rand --dist_method weighted_unifrac --dist_pipe qiime_pipe --qiime_format qiime_table --tree 16S_all_gg_2011_1.tree --num_cpus 10 --output_prefix Analysis_20b --cleanup
 combine_summary_stats.pl --file_search_mode pattern --within_pattern Analysis_20w --between_pattern Analysis_20b --groups_list AMETHST.PCoA.groups
 
 #job Analysis_21
-plot_pco_with_stats_all.pl --data_file 15.Qiime.100p.included.raw --sig_if lt --groups_list AMETHST.stat.groups --num_perm 1000 --perm_type dataset_rand --dist_method weighted_unifrac --dist_pipe qiime_pipe --qiime_format qiime_table --tree ~/AMETHST/qiime_trees/16S_all_gg_2011_1.tree --num_cpus 10 --output_prefix Analysis_21w --cleanup
-plot_pco_with_stats_all.pl --data_file 15.Qiime.100p.included.raw --sig_if gt --groups_list AMETHST.stat.groups --num_perm 1000 --perm_type rowwise_rand --dist_method weighted_unifrac --dist_pipe qiime_pipe --qiime_format qiime_table --tree ~/AMETHST/qiime_trees/16S_all_gg_2011_1.tree --num_cpus 10 --output_prefix Analysis_21b --cleanup
+plot_pco_with_stats_all.pl --data_file 15.Qiime.100p.included.raw --sig_if lt --groups_list AMETHST.stat.groups --num_perm 1000 --perm_type dataset_rand --dist_method weighted_unifrac --dist_pipe qiime_pipe --qiime_format qiime_table --tree 16S_all_gg_2011_1.tree --num_cpus 10 --output_prefix Analysis_21w --cleanup
+plot_pco_with_stats_all.pl --data_file 15.Qiime.100p.included.raw --sig_if gt --groups_list AMETHST.stat.groups --num_perm 1000 --perm_type rowwise_rand --dist_method weighted_unifrac --dist_pipe qiime_pipe --qiime_format qiime_table --tree 16S_all_gg_2011_1.tree --num_cpus 10 --output_prefix Analysis_21b --cleanup
 combine_summary_stats.pl --file_search_mode pattern --within_pattern Analysis_21w --between_pattern Analysis_21b --groups_list AMETHST.PCoA.groups
                      
 #job Analysis_22
@@ -124,18 +124,18 @@ plot_pco_with_stats_all.pl --data_file 5.MG-RAST.100p.removed.raw --sig_if gt --
 combine_summary_stats.pl --file_search_mode pattern --within_pattern Analysis_25w --between_pattern Analysis_25b --groups_list AMETHST.PCoA.groups
                      
 #job Analysis_26
-plot_pco_with_stats_all.pl --data_file 13.Qiime.100p.removed.raw --sig_if lt --groups_list AMETHST.stat.groups --num_perm 1000 --perm_type dataset_rand --dist_method unifrac --dist_pipe qiime_pipe --qiime_format qiime_table --tree ~/AMETHST/qiime_trees/16S_all_gg_2011_1.tree --num_cpus 10 --output_prefix Analysis_26w --cleanup
-plot_pco_with_stats_all.pl --data_file 13.Qiime.100p.removed.raw --sig_if gt --groups_list AMETHST.stat.groups --num_perm 1000 --perm_type rowwise_rand --dist_method unifrac --dist_pipe qiime_pipe --qiime_format qiime_table --tree ~/AMETHST/qiime_trees/16S_all_gg_2011_1.tree --num_cpus 10 --output_prefix Analysis_26b --cleanup
+plot_pco_with_stats_all.pl --data_file 13.Qiime.100p.removed.raw --sig_if lt --groups_list AMETHST.stat.groups --num_perm 1000 --perm_type dataset_rand --dist_method unifrac --dist_pipe qiime_pipe --qiime_format qiime_table --tree 16S_all_gg_2011_1.tree --num_cpus 10 --output_prefix Analysis_26w --cleanup
+plot_pco_with_stats_all.pl --data_file 13.Qiime.100p.removed.raw --sig_if gt --groups_list AMETHST.stat.groups --num_perm 1000 --perm_type rowwise_rand --dist_method unifrac --dist_pipe qiime_pipe --qiime_format qiime_table --tree 16S_all_gg_2011_1.tree --num_cpus 10 --output_prefix Analysis_26b --cleanup
 combine_summary_stats.pl --file_search_mode pattern --within_pattern Analysis_26w --between_pattern Analysis_26b --groups_list AMETHST.PCoA.groups
 
 #job Analysis_27
-plot_pco_with_stats_all.pl --data_file 14.Qiime.100p.removed.norm --sig_if lt --groups_list AMETHST.stat.groups --num_perm 1000 --perm_type dataset_rand --dist_method weighted_unifrac --dist_pipe qiime_pipe --qiime_format qiime_table --tree ~/AMETHST/qiime_trees/16S_all_gg_2011_1.tree --num_cpus 10 --output_prefix Analysis_27w --cleanup
-plot_pco_with_stats_all.pl --data_file 14.Qiime.100p.removed.norm --sig_if gt --groups_list AMETHST.stat.groups --num_perm 1000 --perm_type rowwise_rand --dist_method weighted_unifrac --dist_pipe qiime_pipe --qiime_format qiime_table --tree ~/AMETHST/qiime_trees/16S_all_gg_2011_1.tree --num_cpus 10 --output_prefix Analysis_27b --cleanup
+plot_pco_with_stats_all.pl --data_file 14.Qiime.100p.removed.norm --sig_if lt --groups_list AMETHST.stat.groups --num_perm 1000 --perm_type dataset_rand --dist_method weighted_unifrac --dist_pipe qiime_pipe --qiime_format qiime_table --tree 16S_all_gg_2011_1.tree --num_cpus 10 --output_prefix Analysis_27w --cleanup
+plot_pco_with_stats_all.pl --data_file 14.Qiime.100p.removed.norm --sig_if gt --groups_list AMETHST.stat.groups --num_perm 1000 --perm_type rowwise_rand --dist_method weighted_unifrac --dist_pipe qiime_pipe --qiime_format qiime_table --tree 16S_all_gg_2011_1.tree --num_cpus 10 --output_prefix Analysis_27b --cleanup
 combine_summary_stats.pl --file_search_mode pattern --within_pattern Analysis_27w --between_pattern Analysis_27b --groups_list AMETHST.PCoA.groups
 
 #job Analysis_28
-plot_pco_with_stats_all.pl --data_file 13.Qiime.100p.removed.raw --sig_if lt --groups_list AMETHST.stat.groups --num_perm 1000 --perm_type dataset_rand --dist_method weighted_unifrac --dist_pipe qiime_pipe --qiime_format qiime_table --tree ~/AMETHST/qiime_trees/16S_all_gg_2011_1.tree --num_cpus 10 --output_prefix Analysis_28w --cleanup
-plot_pco_with_stats_all.pl --data_file 13.Qiime.100p.removed.raw --sig_if gt --groups_list AMETHST.stat.groups --num_perm 1000 --perm_type rowwise_rand --dist_method weighted_unifrac --dist_pipe qiime_pipe --qiime_format qiime_table --tree ~/AMETHST/qiime_trees/16S_all_gg_2011_1.tree --num_cpus 10 --output_prefix Analysis_28b --cleanup
+plot_pco_with_stats_all.pl --data_file 13.Qiime.100p.removed.raw --sig_if lt --groups_list AMETHST.stat.groups --num_perm 1000 --perm_type dataset_rand --dist_method weighted_unifrac --dist_pipe qiime_pipe --qiime_format qiime_table --tree 16S_all_gg_2011_1.tree --num_cpus 10 --output_prefix Analysis_28w --cleanup
+plot_pco_with_stats_all.pl --data_file 13.Qiime.100p.removed.raw --sig_if gt --groups_list AMETHST.stat.groups --num_perm 1000 --perm_type rowwise_rand --dist_method weighted_unifrac --dist_pipe qiime_pipe --qiime_format qiime_table --tree 16S_all_gg_2011_1.tree --num_cpus 10 --output_prefix Analysis_28b --cleanup
 combine_summary_stats.pl --file_search_mode pattern --within_pattern Analysis_28w --between_pattern Analysis_28b --groups_list AMETHST.PCoA.groups
                      
 #job Analysis_29
@@ -189,81 +189,81 @@ plot_pco_with_stats_all.pl --data_file 3.MG-RAST.MG-RAST_default.included.raw --
 combine_summary_stats.pl --file_search_mode pattern --within_pattern Analysis_38w --between_pattern Analysis_38b --groups_list AMETHST.PCoA.groups
                      
 #job Analysis_39
-plot_pco_with_stats_all.pl --data_file 15.Qiime.100p.included.raw --sig_if lt --groups_list AMETHST.stat.groups --num_perm 1000 --perm_type dataset_rand --dist_method euclidean --dist_pipe qiime_pipe --qiime_format qiime_table --tree ~/AMETHST/qiime_trees/16S_all_gg_2011_1.tree --num_cpus 10 --output_prefix Analysis_39w --cleanup
-plot_pco_with_stats_all.pl --data_file 15.Qiime.100p.included.raw --sig_if gt --groups_list AMETHST.stat.groups --num_perm 1000 --perm_type rowwise_rand --dist_method euclidean --dist_pipe qiime_pipe --qiime_format qiime_table --tree ~/AMETHST/qiime_trees/16S_all_gg_2011_1.tree --num_cpus 10 --output_prefix Analysis_39b --cleanup
+plot_pco_with_stats_all.pl --data_file 15.Qiime.100p.included.raw --sig_if lt --groups_list AMETHST.stat.groups --num_perm 1000 --perm_type dataset_rand --dist_method euclidean --dist_pipe qiime_pipe --qiime_format qiime_table --tree 16S_all_gg_2011_1.tree --num_cpus 10 --output_prefix Analysis_39w --cleanup
+plot_pco_with_stats_all.pl --data_file 15.Qiime.100p.included.raw --sig_if gt --groups_list AMETHST.stat.groups --num_perm 1000 --perm_type rowwise_rand --dist_method euclidean --dist_pipe qiime_pipe --qiime_format qiime_table --tree 16S_all_gg_2011_1.tree --num_cpus 10 --output_prefix Analysis_39b --cleanup
 combine_summary_stats.pl --file_search_mode pattern --within_pattern Analysis_39w --between_pattern Analysis_39b --groups_list AMETHST.PCoA.groups
 
 #job Analysis_40
-plot_pco_with_stats_all.pl --data_file 16.Qiime.100p.included.norm --sig_if lt --groups_list AMETHST.stat.groups --num_perm 1000 --perm_type dataset_rand --dist_method euclidean --dist_pipe qiime_pipe --qiime_format qiime_table --tree ~/AMETHST/qiime_trees/16S_all_gg_2011_1.tree --num_cpus 10 --output_prefix Analysis_40w --cleanup
-plot_pco_with_stats_all.pl --data_file 16.Qiime.100p.included.norm --sig_if gt --groups_list AMETHST.stat.groups --num_perm 1000 --perm_type rowwise_rand --dist_method euclidean --dist_pipe qiime_pipe --qiime_format qiime_table --tree ~/AMETHST/qiime_trees/16S_all_gg_2011_1.tree --num_cpus 10 --output_prefix Analysis_40b --cleanup
+plot_pco_with_stats_all.pl --data_file 16.Qiime.100p.included.norm --sig_if lt --groups_list AMETHST.stat.groups --num_perm 1000 --perm_type dataset_rand --dist_method euclidean --dist_pipe qiime_pipe --qiime_format qiime_table --tree 16S_all_gg_2011_1.tree --num_cpus 10 --output_prefix Analysis_40w --cleanup
+plot_pco_with_stats_all.pl --data_file 16.Qiime.100p.included.norm --sig_if gt --groups_list AMETHST.stat.groups --num_perm 1000 --perm_type rowwise_rand --dist_method euclidean --dist_pipe qiime_pipe --qiime_format qiime_table --tree 16S_all_gg_2011_1.tree --num_cpus 10 --output_prefix Analysis_40b --cleanup
 combine_summary_stats.pl --file_search_mode pattern --within_pattern Analysis_40w --between_pattern Analysis_40b --groups_list AMETHST.PCoA.groups
 
 #job Analysis_41
-plot_pco_with_stats_all.pl --data_file 13.Qiime.100p.removed.raw --sig_if lt --groups_list AMETHST.stat.groups --num_perm 1000 --perm_type dataset_rand --dist_method euclidean --dist_pipe qiime_pipe --qiime_format qiime_table --tree ~/AMETHST/qiime_trees/16S_all_gg_2011_1.tree --num_cpus 10 --output_prefix Analysis_41w --cleanup
-plot_pco_with_stats_all.pl --data_file 13.Qiime.100p.removed.raw --sig_if gt --groups_list AMETHST.stat.groups --num_perm 1000 --perm_type rowwise_rand --dist_method euclidean --dist_pipe qiime_pipe --qiime_format qiime_table --tree ~/AMETHST/qiime_trees/16S_all_gg_2011_1.tree --num_cpus 10 --output_prefix Analysis_41b --cleanup
+plot_pco_with_stats_all.pl --data_file 13.Qiime.100p.removed.raw --sig_if lt --groups_list AMETHST.stat.groups --num_perm 1000 --perm_type dataset_rand --dist_method euclidean --dist_pipe qiime_pipe --qiime_format qiime_table --tree 16S_all_gg_2011_1.tree --num_cpus 10 --output_prefix Analysis_41w --cleanup
+plot_pco_with_stats_all.pl --data_file 13.Qiime.100p.removed.raw --sig_if gt --groups_list AMETHST.stat.groups --num_perm 1000 --perm_type rowwise_rand --dist_method euclidean --dist_pipe qiime_pipe --qiime_format qiime_table --tree 16S_all_gg_2011_1.tree --num_cpus 10 --output_prefix Analysis_41b --cleanup
 combine_summary_stats.pl --file_search_mode pattern --within_pattern Analysis_41w --between_pattern Analysis_41b --groups_list AMETHST.PCoA.groups
 
 #job Analysis_42
-plot_pco_with_stats_all.pl --data_file 14.Qiime.100p.removed.norm --sig_if lt --groups_list AMETHST.stat.groups --num_perm 1000 --perm_type dataset_rand --dist_method euclidean --dist_pipe qiime_pipe --qiime_format qiime_table --tree ~/AMETHST/qiime_trees/16S_all_gg_2011_1.tree --num_cpus 10 --output_prefix Analysis_42w --cleanup
-plot_pco_with_stats_all.pl --data_file 14.Qiime.100p.removed.norm --sig_if gt --groups_list AMETHST.stat.groups --num_perm 1000 --perm_type rowwise_rand --dist_method euclidean --dist_pipe qiime_pipe --qiime_format qiime_table --tree ~/AMETHST/qiime_trees/16S_all_gg_2011_1.tree --num_cpus 10 --output_prefix Analysis_42b --cleanup
+plot_pco_with_stats_all.pl --data_file 14.Qiime.100p.removed.norm --sig_if lt --groups_list AMETHST.stat.groups --num_perm 1000 --perm_type dataset_rand --dist_method euclidean --dist_pipe qiime_pipe --qiime_format qiime_table --tree 16S_all_gg_2011_1.tree --num_cpus 10 --output_prefix Analysis_42w --cleanup
+plot_pco_with_stats_all.pl --data_file 14.Qiime.100p.removed.norm --sig_if gt --groups_list AMETHST.stat.groups --num_perm 1000 --perm_type rowwise_rand --dist_method euclidean --dist_pipe qiime_pipe --qiime_format qiime_table --tree 16S_all_gg_2011_1.tree --num_cpus 10 --output_prefix Analysis_42b --cleanup
 combine_summary_stats.pl --file_search_mode pattern --within_pattern Analysis_42w --between_pattern Analysis_42b --groups_list AMETHST.PCoA.groups
 
 #job Analysis_43
-plot_pco_with_stats_all.pl --data_file 15.Qiime.100p.included.raw --sig_if lt --groups_list AMETHST.stat.groups --num_perm 1000 --perm_type dataset_rand --dist_method bray_curtis --dist_pipe qiime_pipe --qiime_format qiime_table --tree ~/AMETHST/qiime_trees/16S_all_gg_2011_1.tree --num_cpus 10 --output_prefix Analysis_43w --cleanup
-plot_pco_with_stats_all.pl --data_file 15.Qiime.100p.included.raw --sig_if gt --groups_list AMETHST.stat.groups --num_perm 1000 --perm_type rowwise_rand --dist_method bray_curtis --dist_pipe qiime_pipe --qiime_format qiime_table --tree ~/AMETHST/qiime_trees/16S_all_gg_2011_1.tree --num_cpus 10 --output_prefix Analysis_43b --cleanup
+plot_pco_with_stats_all.pl --data_file 15.Qiime.100p.included.raw --sig_if lt --groups_list AMETHST.stat.groups --num_perm 1000 --perm_type dataset_rand --dist_method bray_curtis --dist_pipe qiime_pipe --qiime_format qiime_table --tree 16S_all_gg_2011_1.tree --num_cpus 10 --output_prefix Analysis_43w --cleanup
+plot_pco_with_stats_all.pl --data_file 15.Qiime.100p.included.raw --sig_if gt --groups_list AMETHST.stat.groups --num_perm 1000 --perm_type rowwise_rand --dist_method bray_curtis --dist_pipe qiime_pipe --qiime_format qiime_table --tree 16S_all_gg_2011_1.tree --num_cpus 10 --output_prefix Analysis_43b --cleanup
 combine_summary_stats.pl --file_search_mode pattern --within_pattern Analysis_43w --between_pattern Analysis_43b --groups_list AMETHST.PCoA.groups
 
 #job Analysis_44
-plot_pco_with_stats_all.pl --data_file 16.Qiime.100p.included.norm --sig_if lt --groups_list AMETHST.stat.groups --num_perm 1000 --perm_type dataset_rand --dist_method bray_curtis --dist_pipe qiime_pipe --qiime_format qiime_table --tree ~/AMETHST/qiime_trees/16S_all_gg_2011_1.tree --num_cpus 10 --output_prefix Analysis_44w --cleanup
-plot_pco_with_stats_all.pl --data_file 16.Qiime.100p.included.norm --sig_if gt --groups_list AMETHST.stat.groups --num_perm 1000 --perm_type rowwise_rand --dist_method bray_curtis --dist_pipe qiime_pipe --qiime_format qiime_table --tree ~/AMETHST/qiime_trees/16S_all_gg_2011_1.tree --num_cpus 10 --output_prefix Analysis_44b --cleanup
+plot_pco_with_stats_all.pl --data_file 16.Qiime.100p.included.norm --sig_if lt --groups_list AMETHST.stat.groups --num_perm 1000 --perm_type dataset_rand --dist_method bray_curtis --dist_pipe qiime_pipe --qiime_format qiime_table --tree 16S_all_gg_2011_1.tree --num_cpus 10 --output_prefix Analysis_44w --cleanup
+plot_pco_with_stats_all.pl --data_file 16.Qiime.100p.included.norm --sig_if gt --groups_list AMETHST.stat.groups --num_perm 1000 --perm_type rowwise_rand --dist_method bray_curtis --dist_pipe qiime_pipe --qiime_format qiime_table --tree 16S_all_gg_2011_1.tree --num_cpus 10 --output_prefix Analysis_44b --cleanup
 combine_summary_stats.pl --file_search_mode pattern --within_pattern Analysis_44w --between_pattern Analysis_44b --groups_list AMETHST.PCoA.groups
 
 #job Analysis_45
-plot_pco_with_stats_all.pl --data_file 13.Qiime.100p.removed.raw --sig_if lt --groups_list AMETHST.stat.groups --num_perm 1000 --perm_type dataset_rand --dist_method bray_curtis --dist_pipe qiime_pipe --qiime_format qiime_table --tree ~/AMETHST/qiime_trees/16S_all_gg_2011_1.tree --num_cpus 10 --output_prefix Analysis_45w --cleanup
-plot_pco_with_stats_all.pl --data_file 13.Qiime.100p.removed.raw --sig_if gt --groups_list AMETHST.stat.groups --num_perm 1000 --perm_type rowwise_rand --dist_method bray_curtis --dist_pipe qiime_pipe --qiime_format qiime_table --tree ~/AMETHST/qiime_trees/16S_all_gg_2011_1.tree --num_cpus 10 --output_prefix Analysis_45b --cleanup
+plot_pco_with_stats_all.pl --data_file 13.Qiime.100p.removed.raw --sig_if lt --groups_list AMETHST.stat.groups --num_perm 1000 --perm_type dataset_rand --dist_method bray_curtis --dist_pipe qiime_pipe --qiime_format qiime_table --tree 16S_all_gg_2011_1.tree --num_cpus 10 --output_prefix Analysis_45w --cleanup
+plot_pco_with_stats_all.pl --data_file 13.Qiime.100p.removed.raw --sig_if gt --groups_list AMETHST.stat.groups --num_perm 1000 --perm_type rowwise_rand --dist_method bray_curtis --dist_pipe qiime_pipe --qiime_format qiime_table --tree 16S_all_gg_2011_1.tree --num_cpus 10 --output_prefix Analysis_45b --cleanup
 combine_summary_stats.pl --file_search_mode pattern --within_pattern Analysis_45w --between_pattern Analysis_45b --groups_list AMETHST.PCoA.groups
 
 #job Analysis_46
-plot_pco_with_stats_all.pl --data_file 14.Qiime.100p.removed.norm --sig_if lt --groups_list AMETHST.stat.groups --num_perm 1000 --perm_type dataset_rand --dist_method bray_curtis --dist_pipe qiime_pipe --qiime_format qiime_table --tree ~/AMETHST/qiime_trees/16S_all_gg_2011_1.tree --num_cpus 10 --output_prefix Analysis_46w --cleanup
-plot_pco_with_stats_all.pl --data_file 14.Qiime.100p.removed.norm --sig_if gt --groups_list AMETHST.stat.groups --num_perm 1000 --perm_type rowwise_rand --dist_method bray_curtis --dist_pipe qiime_pipe --qiime_format qiime_table --tree ~/AMETHST/qiime_trees/16S_all_gg_2011_1.tree --num_cpus 10 --output_prefix Analysis_46b --cleanup
+plot_pco_with_stats_all.pl --data_file 14.Qiime.100p.removed.norm --sig_if lt --groups_list AMETHST.stat.groups --num_perm 1000 --perm_type dataset_rand --dist_method bray_curtis --dist_pipe qiime_pipe --qiime_format qiime_table --tree 16S_all_gg_2011_1.tree --num_cpus 10 --output_prefix Analysis_46w --cleanup
+plot_pco_with_stats_all.pl --data_file 14.Qiime.100p.removed.norm --sig_if gt --groups_list AMETHST.stat.groups --num_perm 1000 --perm_type rowwise_rand --dist_method bray_curtis --dist_pipe qiime_pipe --qiime_format qiime_table --tree 16S_all_gg_2011_1.tree --num_cpus 10 --output_prefix Analysis_46b --cleanup
 combine_summary_stats.pl --file_search_mode pattern --within_pattern Analysis_46w --between_pattern Analysis_46b --groups_list AMETHST.PCoA.groups
                      
 #job Analysis_47
-plot_pco_with_stats_all.pl --data_file 11.Qiime.Qiime_default.included.raw --sig_if lt --groups_list AMETHST.stat.groups --num_perm 1000 --perm_type dataset_rand --dist_method bray_curtis --dist_pipe qiime_pipe --qiime_format qiime_table --tree ~/AMETHST/qiime_trees/97_otus.tree --num_cpus 10 --output_prefix Analysis_47w --cleanup
-plot_pco_with_stats_all.pl --data_file 11.Qiime.Qiime_default.included.raw --sig_if gt --groups_list AMETHST.stat.groups --num_perm 1000 --perm_type rowwise_rand --dist_method bray_curtis --dist_pipe qiime_pipe --qiime_format qiime_table --tree ~/AMETHST/qiime_trees/97_otus.tree --num_cpus 10 --output_prefix Analysis_47b --cleanup
+plot_pco_with_stats_all.pl --data_file 11.Qiime.Qiime_default.included.raw --sig_if lt --groups_list AMETHST.stat.groups --num_perm 1000 --perm_type dataset_rand --dist_method bray_curtis --dist_pipe qiime_pipe --qiime_format qiime_table --tree 97_otus.tree --num_cpus 10 --output_prefix Analysis_47w --cleanup
+plot_pco_with_stats_all.pl --data_file 11.Qiime.Qiime_default.included.raw --sig_if gt --groups_list AMETHST.stat.groups --num_perm 1000 --perm_type rowwise_rand --dist_method bray_curtis --dist_pipe qiime_pipe --qiime_format qiime_table --tree 97_otus.tree --num_cpus 10 --output_prefix Analysis_47b --cleanup
 combine_summary_stats.pl --file_search_mode pattern --within_pattern Analysis_47w --between_pattern Analysis_47b --groups_list AMETHST.PCoA.groups
                      
 #job Analysis_48
-plot_pco_with_stats_all.pl --data_file 11.Qiime.Qiime_default.included.raw --sig_if lt --groups_list AMETHST.stat.groups --num_perm 1000 --perm_type dataset_rand --dist_method euclidean --dist_pipe qiime_pipe --qiime_format qiime_table --tree ~/AMETHST/qiime_trees/97_otus.tree --num_cpus 10 --output_prefix Analysis_48w --cleanup
-plot_pco_with_stats_all.pl --data_file 11.Qiime.Qiime_default.included.raw --sig_if gt --groups_list AMETHST.stat.groups --num_perm 1000 --perm_type rowwise_rand --dist_method euclidean --dist_pipe qiime_pipe --qiime_format qiime_table --tree ~/AMETHST/qiime_trees/97_otus.tree --num_cpus 10 --output_prefix Analysis_48b --cleanup
+plot_pco_with_stats_all.pl --data_file 11.Qiime.Qiime_default.included.raw --sig_if lt --groups_list AMETHST.stat.groups --num_perm 1000 --perm_type dataset_rand --dist_method euclidean --dist_pipe qiime_pipe --qiime_format qiime_table --tree 97_otus.tree --num_cpus 10 --output_prefix Analysis_48w --cleanup
+plot_pco_with_stats_all.pl --data_file 11.Qiime.Qiime_default.included.raw --sig_if gt --groups_list AMETHST.stat.groups --num_perm 1000 --perm_type rowwise_rand --dist_method euclidean --dist_pipe qiime_pipe --qiime_format qiime_table --tree 97_otus.tree --num_cpus 10 --output_prefix Analysis_48b --cleanup
 combine_summary_stats.pl --file_search_mode pattern --within_pattern Analysis_48w --between_pattern Analysis_48b --groups_list AMETHST.PCoA.groups
                      
 #job Analysis_49
-plot_pco_with_stats_all.pl --data_file 9.Qiime.Qiime_default.removed.raw --sig_if lt --groups_list AMETHST.stat.groups --num_perm 1000 --perm_type dataset_rand --dist_method bray_curtis --dist_pipe qiime_pipe --qiime_format qiime_table --tree ~/AMETHST/qiime_trees/97_otus.tree --num_cpus 10 --output_prefix Analysis_49w --cleanup
-plot_pco_with_stats_all.pl --data_file 9.Qiime.Qiime_default.removed.raw --sig_if gt --groups_list AMETHST.stat.groups --num_perm 1000 --perm_type rowwise_rand --dist_method bray_curtis --dist_pipe qiime_pipe --qiime_format qiime_table --tree ~/AMETHST/qiime_trees/97_otus.tree --num_cpus 10 --output_prefix Analysis_49b --cleanup
+plot_pco_with_stats_all.pl --data_file 9.Qiime.Qiime_default.removed.raw --sig_if lt --groups_list AMETHST.stat.groups --num_perm 1000 --perm_type dataset_rand --dist_method bray_curtis --dist_pipe qiime_pipe --qiime_format qiime_table --tree 97_otus.tree --num_cpus 10 --output_prefix Analysis_49w --cleanup
+plot_pco_with_stats_all.pl --data_file 9.Qiime.Qiime_default.removed.raw --sig_if gt --groups_list AMETHST.stat.groups --num_perm 1000 --perm_type rowwise_rand --dist_method bray_curtis --dist_pipe qiime_pipe --qiime_format qiime_table --tree 97_otus.tree --num_cpus 10 --output_prefix Analysis_49b --cleanup
 combine_summary_stats.pl --file_search_mode pattern --within_pattern Analysis_49w --between_pattern Analysis_49b --groups_list AMETHST.PCoA.groups
                      
 #job Analysis_50
-plot_pco_with_stats_all.pl --data_file 9.Qiime.Qiime_default.removed.raw --sig_if lt --groups_list AMETHST.stat.groups --num_perm 1000 --perm_type dataset_rand --dist_method euclidean --dist_pipe qiime_pipe --qiime_format qiime_table --tree ~/AMETHST/qiime_trees/97_otus.tree --num_cpus 10 --output_prefix Analysis_50w --cleanup
-plot_pco_with_stats_all.pl --data_file 9.Qiime.Qiime_default.removed.raw --sig_if gt --groups_list AMETHST.stat.groups --num_perm 1000 --perm_type rowwise_rand --dist_method euclidean --dist_pipe qiime_pipe --qiime_format qiime_table --tree ~/AMETHST/qiime_trees/97_otus.tree --num_cpus 10 --output_prefix Analysis_50b --cleanup
+plot_pco_with_stats_all.pl --data_file 9.Qiime.Qiime_default.removed.raw --sig_if lt --groups_list AMETHST.stat.groups --num_perm 1000 --perm_type dataset_rand --dist_method euclidean --dist_pipe qiime_pipe --qiime_format qiime_table --tree 97_otus.tree --num_cpus 10 --output_prefix Analysis_50w --cleanup
+plot_pco_with_stats_all.pl --data_file 9.Qiime.Qiime_default.removed.raw --sig_if gt --groups_list AMETHST.stat.groups --num_perm 1000 --perm_type rowwise_rand --dist_method euclidean --dist_pipe qiime_pipe --qiime_format qiime_table --tree 97_otus.tree --num_cpus 10 --output_prefix Analysis_50b --cleanup
 combine_summary_stats.pl --file_search_mode pattern --within_pattern Analysis_50w --between_pattern Analysis_50b --groups_list AMETHST.PCoA.groups
                      
 #job Analysis_51
-plot_pco_with_stats_all.pl --data_file 12.Qiime.Qiime_default.included.norm --sig_if lt --groups_list AMETHST.stat.groups --num_perm 1000 --perm_type dataset_rand --dist_method bray_curtis --dist_pipe qiime_pipe --qiime_format qiime_table --tree ~/AMETHST/qiime_trees/97_otus.tree --num_cpus 10 --output_prefix Analysis_51w --cleanup
-plot_pco_with_stats_all.pl --data_file 12.Qiime.Qiime_default.included.norm --sig_if gt --groups_list AMETHST.stat.groups --num_perm 1000 --perm_type rowwise_rand --dist_method bray_curtis --dist_pipe qiime_pipe --qiime_format qiime_table --tree ~/AMETHST/qiime_trees/97_otus.tree --num_cpus 10 --output_prefix Analysis_51b --cleanup
+plot_pco_with_stats_all.pl --data_file 12.Qiime.Qiime_default.included.norm --sig_if lt --groups_list AMETHST.stat.groups --num_perm 1000 --perm_type dataset_rand --dist_method bray_curtis --dist_pipe qiime_pipe --qiime_format qiime_table --tree 97_otus.tree --num_cpus 10 --output_prefix Analysis_51w --cleanup
+plot_pco_with_stats_all.pl --data_file 12.Qiime.Qiime_default.included.norm --sig_if gt --groups_list AMETHST.stat.groups --num_perm 1000 --perm_type rowwise_rand --dist_method bray_curtis --dist_pipe qiime_pipe --qiime_format qiime_table --tree 97_otus.tree --num_cpus 10 --output_prefix Analysis_51b --cleanup
 combine_summary_stats.pl --file_search_mode pattern --within_pattern Analysis_51w --between_pattern Analysis_51b --groups_list AMETHST.PCoA.groups
                      
 #job Analysis_52
-plot_pco_with_stats_all.pl --data_file 12.Qiime.Qiime_default.included.norm --sig_if lt --groups_list AMETHST.stat.groups --num_perm 1000 --perm_type dataset_rand --dist_method euclidean --dist_pipe qiime_pipe --qiime_format qiime_table --tree ~/AMETHST/qiime_trees/97_otus.tree --num_cpus 10 --output_prefix Analysis_52w --cleanup
-plot_pco_with_stats_all.pl --data_file 12.Qiime.Qiime_default.included.norm --sig_if gt --groups_list AMETHST.stat.groups --num_perm 1000 --perm_type rowwise_rand --dist_method euclidean --dist_pipe qiime_pipe --qiime_format qiime_table --tree ~/AMETHST/qiime_trees/97_otus.tree --num_cpus 10 --output_prefix Analysis_52b --cleanup
+plot_pco_with_stats_all.pl --data_file 12.Qiime.Qiime_default.included.norm --sig_if lt --groups_list AMETHST.stat.groups --num_perm 1000 --perm_type dataset_rand --dist_method euclidean --dist_pipe qiime_pipe --qiime_format qiime_table --tree 97_otus.tree --num_cpus 10 --output_prefix Analysis_52w --cleanup
+plot_pco_with_stats_all.pl --data_file 12.Qiime.Qiime_default.included.norm --sig_if gt --groups_list AMETHST.stat.groups --num_perm 1000 --perm_type rowwise_rand --dist_method euclidean --dist_pipe qiime_pipe --qiime_format qiime_table --tree 97_otus.tree --num_cpus 10 --output_prefix Analysis_52b --cleanup
 combine_summary_stats.pl --file_search_mode pattern --within_pattern Analysis_52w --between_pattern Analysis_52b --groups_list AMETHST.PCoA.groups
                      
 #job Analysis_53
-plot_pco_with_stats_all.pl --data_file 10.Qiime.Qiime_default.removed.norm --sig_if lt --groups_list AMETHST.stat.groups --num_perm 1000 --perm_type dataset_rand --dist_method bray_curtis --dist_pipe qiime_pipe --qiime_format qiime_table --tree ~/AMETHST/qiime_trees/97_otus.tree --num_cpus 10 --output_prefix Analysis_53w --cleanup
-plot_pco_with_stats_all.pl --data_file 10.Qiime.Qiime_default.removed.norm --sig_if gt --groups_list AMETHST.stat.groups --num_perm 1000 --perm_type rowwise_rand --dist_method bray_curtis --dist_pipe qiime_pipe --qiime_format qiime_table --tree ~/AMETHST/qiime_trees/97_otus.tree --num_cpus 10 --output_prefix Analysis_53b --cleanup
+plot_pco_with_stats_all.pl --data_file 10.Qiime.Qiime_default.removed.norm --sig_if lt --groups_list AMETHST.stat.groups --num_perm 1000 --perm_type dataset_rand --dist_method bray_curtis --dist_pipe qiime_pipe --qiime_format qiime_table --tree 97_otus.tree --num_cpus 10 --output_prefix Analysis_53w --cleanup
+plot_pco_with_stats_all.pl --data_file 10.Qiime.Qiime_default.removed.norm --sig_if gt --groups_list AMETHST.stat.groups --num_perm 1000 --perm_type rowwise_rand --dist_method bray_curtis --dist_pipe qiime_pipe --qiime_format qiime_table --tree 97_otus.tree --num_cpus 10 --output_prefix Analysis_53b --cleanup
 combine_summary_stats.pl --file_search_mode pattern --within_pattern Analysis_53w --between_pattern Analysis_53b --groups_list AMETHST.PCoA.groups
                      
 #job Analysis_54
-plot_pco_with_stats_all.pl --data_file 10.Qiime.Qiime_default.removed.norm --sig_if lt --groups_list AMETHST.stat.groups --num_perm 1000 --perm_type dataset_rand --dist_method euclidean --dist_pipe qiime_pipe --qiime_format qiime_table --tree ~/AMETHST/qiime_trees/97_otus.tree --num_cpus 10 --output_prefix Analysis_54w --cleanup
-plot_pco_with_stats_all.pl --data_file 10.Qiime.Qiime_default.removed.norm --sig_if gt --groups_list AMETHST.stat.groups --num_perm 1000 --perm_type rowwise_rand --dist_method euclidean --dist_pipe qiime_pipe --qiime_format qiime_table --tree ~/AMETHST/qiime_trees/97_otus.tree --num_cpus 10 --output_prefix Analysis_54b --cleanup
+plot_pco_with_stats_all.pl --data_file 10.Qiime.Qiime_default.removed.norm --sig_if lt --groups_list AMETHST.stat.groups --num_perm 1000 --perm_type dataset_rand --dist_method euclidean --dist_pipe qiime_pipe --qiime_format qiime_table --tree 97_otus.tree --num_cpus 10 --output_prefix Analysis_54w --cleanup
+plot_pco_with_stats_all.pl --data_file 10.Qiime.Qiime_default.removed.norm --sig_if gt --groups_list AMETHST.stat.groups --num_perm 1000 --perm_type rowwise_rand --dist_method euclidean --dist_pipe qiime_pipe --qiime_format qiime_table --tree 97_otus.tree --num_cpus 10 --output_prefix Analysis_54b --cleanup
 combine_summary_stats.pl --file_search_mode pattern --within_pattern Analysis_54w --between_pattern Analysis_54b --groups_list AMETHST.PCoA.groups
