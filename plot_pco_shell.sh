@@ -35,7 +35,7 @@ my_r=`which R`
 installed_packages=`echo 'installed.packages()' | R --slave`
 echo "my_r: $my_r" >> R_check.log
 echo "installed_r_packages: " >> R_check.log
-echo "installed_packages" >> R_check.log
+echo "$installed_packages" >> R_check.log
 echo "" >> R_check.log
 
 R --vanilla --slave < plot_pco_script.$time_stamp.r
