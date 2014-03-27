@@ -70,7 +70,7 @@ render_pcoa <<- function(
   
 {
   
-  require(matR)
+  require(matR)||( install.packages("matR", repo="http://mcs.anl.gov/~braithwaite/R", type="source"); library(matR) )
 
 
 
