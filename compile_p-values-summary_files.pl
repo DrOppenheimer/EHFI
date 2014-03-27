@@ -76,7 +76,6 @@ foreach my $file (@file_list){ # process each file
   my $dist_ps_out = $file;
   my $num_perms_out = $file;
   
-  print STDOUT "\n"."MADE IT HERE (1)"."\n";
   open(FILE, "<", $target_dir.$file) or die "can't open FILE $target_dir$file"; 
   while (my $line = <FILE>){
     
@@ -174,7 +173,6 @@ foreach my $file (@file_list){ # process each file
   my $move_p_summaries_string = "mv *.P_VALUE_SUMMARY $pcoa_p_summary_dir";
   system($move_p_summaries_string)==0 or die "died running"."\n".$move_p_summaries_string."\n";
 
-  print STDOUT "\n"."MADE IT HERE (2)"."\n";
   
 
 # if ($file_counter == 0){ # print headers
