@@ -61,7 +61,7 @@ my $group_dists_stdev_header = "RAW_DISTS_STDEV"."\n"."input_file";
 my $scaled_dists_header = "SCALED_DISTS"."\n"."input_file";
 my $dist_ps_header = "p's"."\n"."input_file";
 my $num_perms_header = "NUM_PERMS"."\n"."input_file";
-      
+
 # read input file names into array
 @file_list = &list_dir($target_dir, $input_pattern);  
 
@@ -75,7 +75,7 @@ foreach my $file (@file_list){ # process each file
   my $scaled_dists_out = $file;
   my $dist_ps_out = $file;
   my $num_perms_out = $file;
- 
+  
   print STDOUT "\n"."MADE IT HERE (1)"."\n";
   open(FILE, "<", $target_dir.$file) or die "can't open FILE $target_dir$file"; 
   while (my $line = <FILE>){
@@ -102,7 +102,7 @@ foreach my $file (@file_list){ # process each file
       $scaled_dists_out = $scaled_dists_out."\t".$scaled_dist;
       $dist_ps_out = $dist_ps_out."\t".$dist_p;
       $num_perms_out = $num_perms_out."\t".$num_perm;
- 
+      
       #if($debug){print STDOUT "\nraw_dists: ".$raw_dists_out;}
       
       # complete the header strings when reading through the first file
@@ -113,7 +113,7 @@ foreach my $file (@file_list){ # process each file
 	$scaled_dists_header = $scaled_dists_header."\t".$group_name." :: ".$group_members;
 	$dist_ps_header = $dist_ps_header."\t".$group_name." :: ".$group_members;
 	$num_perms_header = $num_perms_header."\t".$group_name." :: ".$group_members;
-
+	
       }
 
       #if($debug){print STDOUT "\n".$raw_dists_header; }
@@ -123,14 +123,14 @@ foreach my $file (@file_list){ # process each file
 
   }
  
- if ($file_counter == 0){ # print the headers
+  if ($file_counter == 0){ # print the headers
     print OUTPUT_RAW_DISTS $raw_dists_header."\n";
     print OUTPUT_RAW_DISTS_STDEV $group_dists_stdev_header."\n";
     print OUTPUT_SCALED_DISTS $scaled_dists_header."\n";
     print OUTPUT_P_VALUES $dist_ps_header."\n";
     print OUTPUT_NUM_PERM $num_perms_header."\n";
   }
-
+  
   #print the data
   print OUTPUT_RAW_DISTS $raw_dists_out."\n";
   print OUTPUT_RAW_DISTS_STDEV $raw_dists_stdevs_out."\n";
@@ -138,8 +138,14 @@ foreach my $file (@file_list){ # process each file
   print OUTPUT_P_VALUES $dist_ps_out."\n";
   print OUTPUT_NUM_PERM $num_perms_out."\n";
   $file_counter++;
+  
 
-  # create folders for summary output and move files to them
+}
+  
+
+
+
+# create folders for summary output and move files to them
   my $summary_dir = $current_dir."AMETHST_Summary";
   unless ( -d $summary_dir ) {
     mkdir $summary_dir;
@@ -169,9 +175,7 @@ foreach my $file (@file_list){ # process each file
   system($move_p_summaries_string)==0 or die "died running"."\n".$move_p_summaries_string."\n";
 
   print STDOUT "\n"."MADE IT HERE (2)"."\n";
-
-}
-    
+  
 
 # if ($file_counter == 0){ # print headers
       
