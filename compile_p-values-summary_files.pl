@@ -157,8 +157,8 @@ foreach my $file (@file_list){ # process each file
   unless ( -d $pcoa_image_dir ){
     mkdir $pcoa_image_dir;
   }
-  my $move_pcoa_flat_string = "mv *.pcoa.png $pcoa_image_dir";
-  system$move_pcoa_flat_string)==0 or die "died running"."\n".$move_pcoa_flat_string."\n";
+  my $move_pcoa_image_string = "mv *.pcoa.png $pcoa_image_dir";
+  system($move_pcoa_image_string)==0 or die "died running"."\n".$move_pcoa_image_string."\n";
 
   my $pcoa_p_summary_dir = $summary_dir."/P_value_summaries";
   unless ( -d $pcoa_p_summary_dir ){
