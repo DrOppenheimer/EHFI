@@ -144,81 +144,34 @@ foreach my $file (@file_list){ # process each file
 
 
 
-# create folders for summary output and move files to them
-  my $summary_dir = $current_dir."AMETHST_Summary";
-  unless ( -d $summary_dir ) {
-    mkdir $summary_dir;
-  } 
-  my $move_pcoas_string = "mv *.P_VALUES_SUMMARY.* $summary_dir";
-  system($move_pcoas_string)==0 or die "died running"."\n".$move_pcoas_string."\n";
+# # create folders for summary output and move files to them
+#   my $summary_dir = $current_dir."AMETHST_Summary";
+#   unless ( -d $summary_dir ) {
+#     mkdir $summary_dir;
+#   } 
+#   my $move_pcoas_string = "mv *.P_VALUES_SUMMARY.* $summary_dir";
+#   system($move_pcoas_string)==0 or die "died running"."\n".$move_pcoas_string."\n";
 
-  my $pcoa_flat_dir = $summary_dir."/PCoA_flat_files";
-  unless ( -d $pcoa_flat_dir ){
-    mkdir $pcoa_flat_dir;
-  }
-  my $move_pcoa_flat_string = "mv *.PCoA $pcoa_flat_dir";
-  system($move_pcoa_flat_string)==0 or die "died running"."\n".$move_pcoa_flat_string."\n";
+#   my $pcoa_flat_dir = $summary_dir."/PCoA_flat_files";
+#   unless ( -d $pcoa_flat_dir ){
+#     mkdir $pcoa_flat_dir;
+#   }
+#   my $move_pcoa_flat_string = "mv *.PCoA $pcoa_flat_dir";
+#   system($move_pcoa_flat_string)==0 or die "died running"."\n".$move_pcoa_flat_string."\n";
 
-  my $pcoa_image_dir = $summary_dir."/PCoA_images";
-  unless ( -d $pcoa_image_dir ){
-    mkdir $pcoa_image_dir;
-  }
-  my $move_pcoa_image_string = "mv *.pcoa.png $pcoa_image_dir";
-  system($move_pcoa_image_string)==0 or die "died running"."\n".$move_pcoa_image_string."\n";
+#   my $pcoa_image_dir = $summary_dir."/PCoA_images";
+#   unless ( -d $pcoa_image_dir ){
+#     mkdir $pcoa_image_dir;
+#   }
+#   my $move_pcoa_image_string = "mv *.pcoa.png $pcoa_image_dir";
+#   system($move_pcoa_image_string)==0 or die "died running"."\n".$move_pcoa_image_string."\n";
 
-  my $pcoa_p_summary_dir = $summary_dir."/P_value_summaries";
-  unless ( -d $pcoa_p_summary_dir ){
-    mkdir $pcoa_p_summary_dir;
-  }
-  my $move_p_summaries_string = "mv *.P_VALUE_SUMMARY $pcoa_p_summary_dir";
-  system($move_p_summaries_string)==0 or die "died running"."\n".$move_p_summaries_string."\n";
-
-  
-
-# if ($file_counter == 0){ # print headers
-      
-#       $raw_dists_header = 
-
-
-      
-# 		$file_counte++
-
-# 	      }
-
-
-#    OUTPUT_RAW_DISTS, ">",       $target_dir.$output_pattern.".raw_avg_dist");
-# OUTPUT_RAW_DISTS_STDEV, ">", $target_dir.$output_pattern.".raw_avg_dist_stdev");
-# OUTPUT_SCALED_DISTS, ">",    $target_dir.$output_pattern.".scaled_avg_dist");
-# OUTPUT_P_VALUES, ">",        $target_dir.$output_pattern.".p_values");
-# OUTPUT_NUM_PERM, 
-
-
-
-
-#     # check to make sure line is parsed properly
-#     if($debug){print STDOUT qq (
-# file:          $file
-# group_name:    $group_name
-# raw_dist:      $raw_dist
-# stdev:         $group_dist_stdev
-# scaled_dist:   $scaled_dist
-# p:             $dist_p
-# num_perm:      $num_perm
-# group members: $group_members
-# 			    );
-# 	     }
-
-
-
-
-#while (my $line = <DATA_FILE>){          
-#  $line =~ s/\r\n|\n\r|\n|\r/\n/g;  #get rid of the line ends that are there
-#  print TEMP_FILE $line; #replace them with \n
-#}
-
-
-
-#open(BIOM_FILE_LIST, "<", $biom_file_list)
+#   my $pcoa_p_summary_dir = $summary_dir."/P_value_summaries";
+#   unless ( -d $pcoa_p_summary_dir ){
+#     mkdir $pcoa_p_summary_dir;
+#   }
+#   my $move_p_summaries_string = "mv *.P_VALUE_SUMMARY $pcoa_p_summary_dir";
+#   system($move_p_summaries_string)==0 or die "died running"."\n".$move_p_summaries_string."\n";
 
 
 
