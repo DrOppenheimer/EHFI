@@ -114,20 +114,21 @@ render_pcoa <<- function(
 
     #poop <<- color_matrix
     
-    color_matrix <- color_matrix[order(rownames(color_matrix)),,drop=FALSE]
+    color_matrix <<- color_matrix[order(rownames(color_matrix)),,drop=FALSE]
 
-    poop <<- color_matrix
+    #poop <<- color_matrix
 
     # create the color matrix from the metadata
-    pcoa_colors <- create_colors(color_matrix, color_mode="auto")
+    pcoa_colors <<- create_colors(color_matrix, color_mode="auto")
            
     # this bit is a repeat of the code in the sub below - clean up later
     column_factors <<- as.factor(color_matrix[,1])
     column_levels <<- levels(as.factor(color_matrix[,1]))
     num_levels <<- length(column_levels)
     color_levels <<- col.wheel(num_levels)
-    plot_colors <<- pcoa_colors
-
+    plot_colors <<- pcoa_colors[,1]
+    ncol.color_matrix <<- ncol(color_matrix)
+    
     if ( identical(image_out, "default") ){
       image_out = paste(PCoA_in, ".pcoa.png", sep="", collapse="")
     }else if ( use_all_metadata_columns==FALSE ) {
@@ -396,7 +397,7 @@ render_pcoa <<- function(
       par$lty.hplot <- "dotted"
       par$axis <- TRUE
       par$box <- FALSE
-      #par <- resolveMerge (list (...), par)
+      # par <- resolveMerge (list (...), par)
       reqPack ("scatterplot3d")
       xys <- xcall (scatterplot3d, x = i, y = j, z = k, with = par,
                     without = c ("cex", "labels")) $ xyz.convert (i, j, k)
