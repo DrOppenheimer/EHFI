@@ -138,6 +138,35 @@ foreach my $file (@file_list){ # process each file
   print OUTPUT_NUM_PERM $num_perms_out."\n";
   $file_counter++;
 
+  # create folders for summary output and move files to them
+  my $summary_dir = $current_dir."AMETHST_Summary";
+  unless ( -d $summary_dir ) {
+    mkdir $summary_dir;
+  } 
+  my $move_pcoas_string = "mv *.P_VALUES_SUMMARY.* $summary_dir";
+  system($move_pcoas_string)==0 or die "died running"."\n".$move_pcoas_string."\n";
+
+  my $pcoa_flat_dir = $summary_dir."/PCoA_flat_files";
+  unless ( -d $pcoa_flat_dir ){
+    mkdir $pcoa_flat_dir;
+  }
+  my $move_pcoa_flat_string = "mv *.PCoA $pcoa_flat_dir";
+  system($move_pcoa_flat_string)==0 or die "died running"."\n".$move_pcoa_flat_string."\n";
+
+  my $pcoa_image_dir = $summary_dir."/PCoA_images";
+  unless ( -d $pcoa_image_dir ){
+    mkdir $pcoa_image_dir;
+  }
+  my $move_pcoa_flat_string = "mv *.pcoa.png $pcoa_image_dir";
+  system$move_pcoa_flat_string)==0 or die "died running"."\n".$move_pcoa_flat_string."\n";
+
+  my $pcoa_p_summary_dir = $summary_dir."/P_value_summaries";
+  unless ( -d $pcoa_p_summary_dir ){
+    mkdir $pcoa_p_summary_dir;
+  }
+  my $move_p_summaries_string = "mv *.P_VALUE_SUMMARY $pcoa_p_summary_dir";
+  system($move_p_summaries_string)==0 or die "died running"."\n".$move_p_summaries_string."\n";
+
 }
     
 
