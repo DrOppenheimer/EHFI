@@ -29,6 +29,15 @@ echo "# time stamp; $time_stamp" >> plot_pco_script.$time_stamp.r
 echo "source(\"$DIR/plot_pco.r\")" >> plot_pco_script.$time_stamp.r
 echo "MGRAST_plot_pco(file_in = \"$1\", input_dir = \"$2\", output_PCoA_dir = \"$3\", print_dist = $4, output_DIST_dir = \"$5\" , dist_method = \"$6\", headers = $7)" >> plot_pco_script.$time_stamp.r
 
+# check R version and installed pacakges
+echo "$0" >> R_check.log
+my_r=`which R`
+installed_packages=`echo 'installed.packages()' | R --slave`
+echo "my_r: $my_r" >> R_check.log
+echo "installed_r_packages: " >> R_check.log
+echo "installed_packages" >> R_check.log
+echo "" >> R_check.log
+
 R --vanilla --slave < plot_pco_script.$time_stamp.r
 
 if [ -e plot_pco_script.$time_stamp.r ]

@@ -32,6 +32,15 @@ echo "# time stamp: $time_stamp" >> my_script.$time_stamp.$process_stamp.r
 echo "source(\"$DIR/render_calculated_pcoa.r\")" >> my_script.$time_stamp.$process_stamp.r
 echo "render_pcoa( PCoA_in = \"$1\", amethst_groups = \"$2\", image_width_in = $3, image_height_in = $4, image_res_dpi = $5, width_legend = $6, width_figure = $7, legend_cex = $8, figure_cex = $9 )" >> my_script.$time_stamp.$process_stamp.r
 
+# check R version and installed pacakges
+echo "$0" >> R_check.log
+my_r=`which R`
+installed_packages=`echo 'installed.packages()' | R --slave`
+echo "my_r: $my_r" >> R_check.log
+echo "installed_r_packages: " >> R_check.log
+echo "installed_packages" >> R_check.log
+echo "" >> R_check.log
+
 # run R script
 R --vanilla --slave < my_script.$time_stamp.$process_stamp.r
 
