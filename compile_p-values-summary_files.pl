@@ -13,7 +13,7 @@ my ($target_dir, $unzip, $help, $verbose, $debug);
 my $input_pattern = ".P_VALUE_SUMMARY\$";
 my $output_pattern;
 my $current_dir = getcwd()."/";
-my($group_name, $raw_dist, $group_dist_stdev, $scaled_dist, $dist_p, $num_perm, $group_members);
+my($group_name, $raw_dist, $group_dist_stdev, $scaled_dist, $dist_p, $num_perm, $group_members, $sort_output);
 #my $raw_dists_out ="";
 
 #if($debug) { print STDOUT "current_dir: "."\t".$current_dir."\n";}
@@ -30,6 +30,7 @@ if ( ! GetOptions (
 		   "i|input_pattern=s"  => \$input_pattern,
 		   "o|output_pattern=s" => \$output_pattern,
 		   "g|go!"              => \$go,
+                   "s|sort_output"      => \$sort_output,
 		   "h|help!"            => \$help, 
 		   "v|verbose!"         => \$verbose,
 		   "b|debug!"           => \$debug
@@ -143,36 +144,36 @@ foreach my $file (@file_list){ # process each file
   
 
 
+if ( $sort_output ){
+# create folders for summary output and move files to them
+  my $summary_dir = $current_dir."AMETHST_Summary";
+  unless ( -d $summary_dir ) {
+    mkdir $summary_dir;
+  } 
+  my $move_pcoas_string = "mv *.P_VALUES_SUMMARY.* $summary_dir";
+  system($move_pcoas_string)==0 or die "died running"."\n".$move_pcoas_string."\n";
 
-# # create folders for summary output and move files to them
-#   my $summary_dir = $current_dir."AMETHST_Summary";
-#   unless ( -d $summary_dir ) {
-#     mkdir $summary_dir;
-#   } 
-#   my $move_pcoas_string = "mv *.P_VALUES_SUMMARY.* $summary_dir";
-#   system($move_pcoas_string)==0 or die "died running"."\n".$move_pcoas_string."\n";
+  my $pcoa_flat_dir = $summary_dir."/PCoA_flat_files";
+  unless ( -d $pcoa_flat_dir ){
+    mkdir $pcoa_flat_dir;
+  }
+  my $move_pcoa_flat_string = "mv *.PCoA $pcoa_flat_dir";
+  system($move_pcoa_flat_string)==0 or die "died running"."\n".$move_pcoa_flat_string."\n";
 
-#   my $pcoa_flat_dir = $summary_dir."/PCoA_flat_files";
-#   unless ( -d $pcoa_flat_dir ){
-#     mkdir $pcoa_flat_dir;
-#   }
-#   my $move_pcoa_flat_string = "mv *.PCoA $pcoa_flat_dir";
-#   system($move_pcoa_flat_string)==0 or die "died running"."\n".$move_pcoa_flat_string."\n";
+  my $pcoa_image_dir = $summary_dir."/PCoA_images";
+  unless ( -d $pcoa_image_dir ){
+    mkdir $pcoa_image_dir;
+  }
+  my $move_pcoa_image_string = "mv *.pcoa.png $pcoa_image_dir";
+  system($move_pcoa_image_string)==0 or die "died running"."\n".$move_pcoa_image_string."\n";
 
-#   my $pcoa_image_dir = $summary_dir."/PCoA_images";
-#   unless ( -d $pcoa_image_dir ){
-#     mkdir $pcoa_image_dir;
-#   }
-#   my $move_pcoa_image_string = "mv *.pcoa.png $pcoa_image_dir";
-#   system($move_pcoa_image_string)==0 or die "died running"."\n".$move_pcoa_image_string."\n";
-
-#   my $pcoa_p_summary_dir = $summary_dir."/P_value_summaries";
-#   unless ( -d $pcoa_p_summary_dir ){
-#     mkdir $pcoa_p_summary_dir;
-#   }
-#   my $move_p_summaries_string = "mv *.P_VALUE_SUMMARY $pcoa_p_summary_dir";
-#   system($move_p_summaries_string)==0 or die "died running"."\n".$move_p_summaries_string."\n";
-
+  my $pcoa_p_summary_dir = $summary_dir."/P_value_summaries";
+  unless ( -d $pcoa_p_summary_dir ){
+    mkdir $pcoa_p_summary_dir;
+  }
+  my $move_p_summaries_string = "mv *.P_VALUE_SUMMARY $pcoa_p_summary_dir";
+  system($move_p_summaries_string)==0 or die "died running"."\n".$move_p_summaries_string."\n";
+}
 
 
 
@@ -244,6 +245,8 @@ compile_p-values-summary_files -d|--dir_path <dir path> -i|--input_pattern <inpu
                           prefix for the output files
 
      -g|--go              run with all default values
+
+     -s|--sort_output     sort output - PCoA image, PCoA flat files, individual Pvalue summaries are all placed in their own folders
 
      -u|--unzip           flag to unzip any *.tar.gz before proceeding
 
