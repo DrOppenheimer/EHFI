@@ -257,12 +257,14 @@ render_pcoa <<- function(
     }else{
       split_line <- noquote(strsplit(my_line, split="\t"))
       if ( identical(data_type, "eigen_values")==TRUE ){
-        dimnames(eigen_values)[[1]][value_index] <- noquote(split_line[[1]][1])
+       #dimnames(eigen_values)[[1]][value_index] <- noquote(split_line[[1]][1])
+        dimnames(eigen_values)[[1]][value_index] <- gsub("\"", "", noquote(split_line[[1]][1]))
         eigen_values[value_index,1] <- noquote(split_line[[1]][2])       
         value_index <- value_index + 1
       }
       if ( identical(data_type, "eigen_vectors")==TRUE ){
-        dimnames(eigen_vectors)[[1]][vector_index] <- noquote(split_line[[1]][1])
+        #dimnames(eigen_vectors)[[1]][vector_index] <- noquote(split_line[[1]][1])
+        dimnames(eigen_vectors)[[1]][vector_index] <- gsub("\"", "", noquote(split_line[[1]][1]))
         for (i in 2:(num_values+1)){
           eigen_vectors[vector_index, (i-1)] <- as.numeric(noquote(split_line[[1]][i]))
         }
