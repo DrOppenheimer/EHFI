@@ -71,7 +71,7 @@ render_pcoa <<- function(
 {
   
   #require(matR)||( install.packages("matR", repo="http://mcs.anl.gov/~braithwaite/R", type="source") )
-  suppressWarnings(library(matR))
+  suppressMessages(library(matR))
 
 
 
