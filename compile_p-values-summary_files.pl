@@ -177,7 +177,7 @@ if ( $sort_output ){
   my $move_p_summaries_string = "mv *.P_VALUE_SUMMARY $pcoa_p_summary_dir";
   system($move_p_summaries_string)==0 or die "died running"."\n".$move_p_summaries_string."\n";
 
-  my $individual_results_dir = $summary_dir."/individual_results";
+  my $individual_results_dir = $summary_dir."/individual_results/";
   unless ( -d $individual_results_dir ){
     mkdir $individual_results_dir;
   }
