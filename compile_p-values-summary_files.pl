@@ -14,7 +14,7 @@ my $input_pattern = ".P_VALUE_SUMMARY\$";
 my $output_pattern;
 my $current_dir = getcwd()."/";
 my $output_zip = "AMETHST_Summary.tar.gz";
-my($group_name, $raw_dist, $group_dist_stdev, $scaled_dist, $dist_p, $num_perm, $group_members, $sort_output, $output_zip);
+my($group_name, $raw_dist, $group_dist_stdev, $scaled_dist, $dist_p, $num_perm, $group_members, $sort_output);
 #my $raw_dists_out ="";
 
 #if($debug) { print STDOUT "current_dir: "."\t".$current_dir."\n";}
