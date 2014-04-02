@@ -149,7 +149,7 @@ foreach my $file (@file_list){ # process each file
 
 if ( $sort_output ){
 # create folders for summary output and move files to them
-  my $summary_dir_base = "AMETHST_Summary"
+  my $summary_dir_base = "AMETHST_Summary";
   my $summary_dir = $current_dir.$summary_dir_base;
   unless ( -d $summary_dir ) {
     mkdir $summary_dir;
