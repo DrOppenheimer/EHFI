@@ -173,6 +173,10 @@ if ( $sort_output ){
   }
   my $move_p_summaries_string = "mv *.P_VALUE_SUMMARY $pcoa_p_summary_dir";
   system($move_p_summaries_string)==0 or die "died running"."\n".$move_p_summaries_string."\n";
+
+  my $tar_summary_dir_string = "tar -zcf AMETHST_Summary.tar.gz $summary_dir";
+  system($tar_summary_dir_string)==0 or die "died running"."\n".$tar_summary_dir_string."\n";
+    
 }
 
 
