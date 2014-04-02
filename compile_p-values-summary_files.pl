@@ -177,14 +177,25 @@ if ( $sort_output ){
   my $move_p_summaries_string = "mv *.P_VALUE_SUMMARY $pcoa_p_summary_dir";
   system($move_p_summaries_string)==0 or die "died running"."\n".$move_p_summaries_string."\n";
 
-  # If non default, make sure $output_zip has the correct extension - removes doule .. if it introduces them
-  unless( $output_zip eq "AMETHST_Summary.tar.gz" ){
-    unless( $output_zip =~ m/\.tar\.gz$/ ){ 
-      $output_zip = $output_zip.".tar.gz";
-      $output_zip =~ s/\.\./\./;
-      # perl -e 'my $test="test..x.y"; if($test =~ s/\.\./\./){print STDOUT "\n$test\n";}'
-    }
+  my $individual_results_dir = $summary_dir."/individual_results";
+  unless ( -d $individual_results_dir ){
+    mkdir $individual_results_dir;
   }
+
+  # this one's a little more complicate - copies the individual result folders to the summary dir
+  my $list_individual_results_string = "ls -d *.RESULTS> individual_results_list"
+  system($list_individual_results_string)==0 or die "died running"."\n".$list_individual_results_string."\n";
+  my $copy_individual_results_string = "for i in `cat individual_results_list`; do mv $i $individual_results_dir; done";
+  system($copy_individual_results_string)==0 or die "died running"."\n".$copy_individual_results_string."\n";
+
+  # # If non default, make sure $output_zip has the correct extension - removes double .. if it introduces them
+  # unless( $output_zip eq "AMETHST_Summary.tar.gz" ){
+  #   unless( $output_zip =~ m/\.tar\.gz$/ ){ 
+  #     $output_zip = $output_zip.".tar.gz";
+  #     $output_zip =~ s/\.\./\./;
+  #     # perl -e 'my $test="test..x.y"; if($test =~ s/\.\./\./){print STDOUT "\n$test\n";}'
+  #   }
+  # }
 
   my $tar_summary_dir_string = "tar -zcf $output_zip $summary_dir";
   system($tar_summary_dir_string)==0 or die "died running"."\n".$tar_summary_dir_string."\n";

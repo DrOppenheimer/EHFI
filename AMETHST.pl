@@ -76,7 +76,6 @@ while (my $line = <FILE>){
     
   }else{
     
-    # check lines that start with # to see if they start with #job, in which case, following text in line is used for logging
     if( $line =~ s/^#job// ){
       chomp $line;
       $line =~ s/\s+//g;
@@ -147,7 +146,7 @@ time stamp:           $start_time_stamp
 script:               $0
 
 USAGE:
-     AMETHST.py -f commands_file [options]
+     AMETHST.pl -f commands_file [options]
 
     -f|--command_file (string)    no default
     -z|--zip_prefix   (bool)      create a *.tar.gz that contains all data (input and output)
