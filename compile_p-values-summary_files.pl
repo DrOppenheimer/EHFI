@@ -13,7 +13,8 @@ my ($target_dir, $unzip, $help, $verbose, $debug);
 my $input_pattern = ".P_VALUE_SUMMARY\$";
 my $output_pattern;
 my $current_dir = getcwd()."/";
-my($group_name, $raw_dist, $group_dist_stdev, $scaled_dist, $dist_p, $num_perm, $group_members, $sort_output);
+my $output_zip = "AMETHST_Summary.tar.gz";
+my($group_name, $raw_dist, $group_dist_stdev, $scaled_dist, $dist_p, $num_perm, $group_members, $sort_output, $output_zip);
 #my $raw_dists_out ="";
 
 #if($debug) { print STDOUT "current_dir: "."\t".$current_dir."\n";}
@@ -31,6 +32,7 @@ if ( ! GetOptions (
 		   "o|output_pattern=s" => \$output_pattern,
 		   "g|go!"              => \$go,
                    "s|sort_output"      => \$sort_output,
+		   "z|output_zip=s"     => \$output_zip,
 		   "h|help!"            => \$help, 
 		   "v|verbose!"         => \$verbose,
 		   "b|debug!"           => \$debug
@@ -42,6 +44,7 @@ unless ($target_dir) {$target_dir = $current_dir;} # use current directory if no
 #unless ($output_pattern) {$output_pattern = "my_compiled.P_VALUES_SUMMARY.".$start_time_stamp;}
 unless ($output_pattern) {$output_pattern = "my_compiled.P_VALUES_SUMMARY";}
 #if($debug){print STDOUT "\n\n\noutput_pattern: ".$output_pattern."\n\n\n"}
+
 
 if ( $unzip ){
   #system("ls *.tar.gz > tar_list.txt")==0 or die "died listing *.tar.gz";  
@@ -174,7 +177,16 @@ if ( $sort_output ){
   my $move_p_summaries_string = "mv *.P_VALUE_SUMMARY $pcoa_p_summary_dir";
   system($move_p_summaries_string)==0 or die "died running"."\n".$move_p_summaries_string."\n";
 
-  my $tar_summary_dir_string = "tar -zcf AMETHST_Summary.tar.gz $summary_dir";
+  # If non default, make sure $output_zip has the correct extension - removes doule .. if it introduces them
+  unless( $output_zip eq "AMETHST_Summary.tar.gz" ){
+    unless( $output_zip =~ m/\.tar\.gz$/ ){ 
+      $output_zip = $output_zip.".tar.gz";
+      $output_zip =~ s/\.\./\./;
+      # perl -e 'my $test="test..x.y"; if($test =~ s/\.\./\./){print STDOUT "\n$test\n";}'
+    }
+  }
+
+  my $tar_summary_dir_string = "tar -zcf $output_zip $summary_dir";
   system($tar_summary_dir_string)==0 or die "died running"."\n".$tar_summary_dir_string."\n";
     
 }
@@ -251,6 +263,8 @@ compile_p-values-summary_files -d|--dir_path <dir path> -i|--input_pattern <inpu
      -g|--go              run with all default values
 
      -s|--sort_output     sort output - PCoA image, PCoA flat files, individual Pvalue summaries are all placed in their own folders
+     -z|--output_zip      default=$output_zip
+                          name for the zip output; only used if -s|--sort_output is used
 
      -u|--unzip           flag to unzip any *.tar.gz before proceeding
 
