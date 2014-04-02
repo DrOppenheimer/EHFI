@@ -183,7 +183,7 @@ if ( $sort_output ){
   }
 
   # this one's a little more complicate - copies the individual result folders to the summary dir
-  my $list_individual_results_string = "ls -d *.RESULTS> individual_results_list"
+  my $list_individual_results_string = "ls -d *.RESULTS> individual_results_list";
   system($list_individual_results_string)==0 or die "died running"."\n".$list_individual_results_string."\n";
   my $copy_individual_results_string = "for i in `cat individual_results_list`; do mv $i $individual_results_dir; done";
   system($copy_individual_results_string)==0 or die "died running"."\n".$copy_individual_results_string."\n";
