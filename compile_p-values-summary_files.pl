@@ -61,6 +61,25 @@ open(OUTPUT_RAW_DISTS_STDEV, ">", $target_dir.$output_pattern.".raw_avg_dist_std
 open(OUTPUT_SCALED_DISTS, ">",    $target_dir.$output_pattern.".scaled_avg_dist") or die "can't open OUTPUT_SCALED_DISTS";
 open(OUTPUT_P_VALUES, ">",        $target_dir.$output_pattern.".p_values") or die "can't open OUTPUT_P_VALUES";
 open(OUTPUT_NUM_PERM, ">",        $target_dir.$output_pattern.".num_perm") or die "can't open OUTPUT_NUM_PERM";
+open(LOG, ">",                    $target_dir.$output_pattern.".log") or die "can't open LOG";
+
+
+  print LOG ($err ? "ERROR: @_" : '').qq(
+time stamp:           $start_time_stamp
+script:               $0
+############### ARGS ###############
+d|target_dir       $target_dir
+u|unzip            $unzip
+i|input_pattern    $input_pattern
+o|output_pattern   $output_pattern
+g|go               $go
+s|sort_output      $sort_output
+z|output_zip       $output_zip
+h|help             $help
+v|verbose          $verbose
+b|debug            $debug
+####################################
+);
 
 # Start the header strings
 my $raw_dists_header = "RAW_DISTS"."\n"."input_file";
