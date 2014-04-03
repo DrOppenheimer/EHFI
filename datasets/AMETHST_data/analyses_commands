@@ -1,3 +1,5 @@
+#output_zip=AMETHST_analyses.tar.gz
+
 #job Analysis_1
 plot_pco_with_stats_all.pl --data_file 4.MG-RAST.MG-RAST_default.included.norm --groups_list AMETHST.stat.groups --num_perm 1000 --perm_type dataset_rand --dist_method bray-curtis --dist_pipe MG-RAST_pipe --num_cpus 10 Analysis_1w --cleanup
 plot_pco_with_stats_all.pl --data_file 4.MG-RAST.MG-RAST_default.included.norm --groups_list AMETHST.stat.groups --num_perm 1000 --perm_type rowwise_rand --dist_method bray-curtis --dist_pipe MG-RAST_pipe --num_cpus 10 Analysis_1b --cleanup
