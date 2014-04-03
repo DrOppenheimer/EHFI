@@ -69,15 +69,11 @@ time stamp:           $start_time_stamp
 script:               $0
 ############### ARGS ###############
 d|target_dir       $target_dir
-u|unzip            $unzip
 i|input_pattern    $input_pattern
 o|output_pattern   $output_pattern
 g|go               $go
 s|sort_output      $sort_output
 z|output_zip       $output_zip
-h|help             $help
-v|verbose          $verbose
-b|debug            $debug
 ####################################
 );
 
