@@ -149,7 +149,11 @@ foreach my $file (@file_list){ # process each file
 
 if ( $sort_output ){
 # create folders for summary output and move files to them
-  my $summary_dir_base = "AMETHST_Summary";
+  
+  # name of the output directory is name of archive with all extensions stripped, and prefixed with "AMETHST_Summary."
+  my $summary_dir_base = "AMETHST_Summary.".($output_zip =~ s/\.[^\n]*//); 
+  #$test2 =~ s/\.[^\n]*//
+
   my $summary_dir = $current_dir.$summary_dir_base;
   unless ( -d $summary_dir ) {
     mkdir $summary_dir;
@@ -197,7 +201,7 @@ if ( $sort_output ){
   #     # perl -e 'my $test="test..x.y"; if($test =~ s/\.\./\./){print STDOUT "\n$test\n";}'
   #   }
   # }
-
+  
   my $tar_summary_dir_string = "tar -zcf $output_zip $summary_dir_base";
   system($tar_summary_dir_string)==0 or die "died running"."\n".$tar_summary_dir_string."\n";
     
