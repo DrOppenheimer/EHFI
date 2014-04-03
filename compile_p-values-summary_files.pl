@@ -32,7 +32,7 @@ if ( ! GetOptions (
 		   "i|input_pattern=s"  => \$input_pattern,
 		   "o|output_pattern=s" => \$output_pattern,
 		   "g|go!"              => \$go,
-                   "s|sort_output=!"    => \$sort_output,
+                   "s|sort_output!"    => \$sort_output,
 		   "z|output_zip=s"     => \$output_zip,
 		   "h|help!"            => \$help, 
 		   "v|verbose!"         => \$verbose,
