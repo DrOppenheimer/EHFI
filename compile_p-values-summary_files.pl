@@ -4,6 +4,7 @@
 #use strict;
 use warnings;
 use Getopt::Long;
+use File::Basename;
 use Cwd;
 
 my $start_time_stamp = `date +%m-%d-%y_%H:%M:%S`;
@@ -26,19 +27,21 @@ if ( (@ARGV > 0) && ($ARGV[0] =~ /-h/) ) { &usage(); }
 #unless ( @ARGV > 0 || $data_file ) { &usage(); }
 
 if ( ! GetOptions (
-		   "d|target_dir=s"     => \$target_dir,
-		   "u|unzip!"           => \$unzip,
-		   "i|input_pattern=s"  => \$input_pattern,
-		   "o|output_pattern=s" => \$output_pattern,
-		   "g|go!"              => \$go,
-                   "s|sort_output"      => \$sort_output,
-		   "z|output_zip=s"     => \$output_zip,
-		   "h|help!"            => \$help, 
-		   "v|verbose!"         => \$verbose,
-		   "b|debug!"           => \$debug
+		   "-d|--target_dir=s"     => \$target_dir,
+		   "-u|--unzip!"           => \$unzip,
+		   "-i|--input_pattern=s"  => \$input_pattern,
+		   "-o|--output_pattern=s" => \$output_pattern,
+		   "-g|--go!"              => \$go,
+                   "-s|--sort_output"      => \$sort_output,
+		   "-z|--output_zip=s"     => \$output_zip,
+		   "-h|--help!"            => \$help, 
+		   "-v|--verbose!"         => \$verbose,
+		   "-b|--debug!"           => \$debug
 		  )
    ) { &usage(); }
 
+
+unless( $output_zip =~ m/\.tar\.gz$/ ){ die "\n"."-z|--output_zip must be of format *.tar.gz"."\n"; }
 
 unless ($target_dir) {$target_dir = $current_dir;} # use current directory if no other is supplied
 #unless ($output_pattern) {$output_pattern = "my_compiled.P_VALUES_SUMMARY.".$start_time_stamp;}
@@ -151,9 +154,9 @@ if ( $sort_output ){
 # create folders for summary output and move files to them
   
   # name of the output directory is name of archive with all extensions stripped, and prefixed with "AMETHST_Summary."
-  my $summary_dir_base = "AMETHST_Summary.".($output_zip =~ s/\.[^\n]*//); 
-  #$test2 =~ s/\.[^\n]*//
-
+  my $summary_dir_base = basename($output_zip, ".tar.gz");
+  #my $summary_dir_base = "AMETHST_Summary.".($output_zip =~ s/\.[^\n]*//); 
+  
   my $summary_dir = $current_dir.$summary_dir_base;
   unless ( -d $summary_dir ) {
     mkdir $summary_dir;
