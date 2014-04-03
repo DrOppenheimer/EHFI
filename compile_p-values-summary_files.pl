@@ -41,7 +41,7 @@ if ( ! GetOptions (
    ) { &usage(); }
 
 
-unless( $output_zip =~ m/\.tar\.gz$/ ){ die "\n"."-z|--output_zip must be of format *.tar.gz"."\n"; }
+unless( $output_zip =~ m/\.tar\.gz$/ ){ die "\n\n"."-z|--output_zip must be of format *.tar.gz"."\n\n"; }
 
 unless ($target_dir) {$target_dir = $current_dir;} # use current directory if no other is supplied
 #unless ($output_pattern) {$output_pattern = "my_compiled.P_VALUES_SUMMARY.".$start_time_stamp;}
