@@ -32,7 +32,7 @@ if ( ! GetOptions (
 		   "i|input_pattern=s"  => \$input_pattern,
 		   "o|output_pattern=s" => \$output_pattern,
 		   "g|go!"              => \$go,
-                   "s|sort_output"      => \$sort_output,
+                   "s|sort_output=!"    => \$sort_output,
 		   "z|output_zip=s"     => \$output_zip,
 		   "h|help!"            => \$help, 
 		   "v|verbose!"         => \$verbose,
@@ -63,8 +63,8 @@ open(OUTPUT_P_VALUES, ">",        $target_dir.$output_pattern.".p_values") or di
 open(OUTPUT_NUM_PERM, ">",        $target_dir.$output_pattern.".num_perm") or die "can't open OUTPUT_NUM_PERM";
 open(LOG, ">",                    $target_dir.$output_pattern.".log") or die "can't open LOG";
 
-
-  print LOG qq(
+# print selected args to the log
+print LOG qq(
 time stamp:           $start_time_stamp
 script:               $0
 ############### ARGS ###############
@@ -72,10 +72,20 @@ d|target_dir       $target_dir
 i|input_pattern    $input_pattern
 o|output_pattern   $output_pattern
 g|go               $go
-s|sort_output      $sort_output
 z|output_zip       $output_zip
-####################################
+############## FLAGS ###############
 );
+if( defined($unzip) )      { print LOG "u|unzip            $unzip\n"; }      else{ print LOG "u|unzip            0\n"; }
+if( defined($go) )         { print LOG "g|go               $go\n"; }         else{ print LOG "g|go               0\n"; }
+if( defined($sort_output) ){ print LOG "s|sort_output      $sort_output\n"; }else{ print LOG "s|sort_output      0\n"; }
+if( defined($help) )       { print LOG "h|help             $help\n"; }       else{ print LOG "h|help             0\n"; }
+if( defined($verbose) )    { print LOG "v|erbose           $verbose\n"; }    else{ print LOG "v|verbose          0\n"; }
+if( defined($debug) )      { print LOG "d|debug            $debug\n"; }      else{ print LOG "d|debug            0\n"; }
+print LOG "####################################";
+
+
+####################################
+
 
 # Start the header strings
 my $raw_dists_header = "RAW_DISTS"."\n"."input_file";
