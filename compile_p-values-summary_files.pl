@@ -64,7 +64,7 @@ open(OUTPUT_NUM_PERM, ">",        $target_dir.$output_pattern.".num_perm") or di
 open(LOG, ">",                    $target_dir.$output_pattern.".log") or die "can't open LOG";
 
 
-  print LOG ($err ? "ERROR: @_" : '').qq(
+  print LOG qq(
 time stamp:           $start_time_stamp
 script:               $0
 ############### ARGS ###############
