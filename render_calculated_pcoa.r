@@ -104,6 +104,9 @@ render_pcoa <<- function(
       split_line.list <- rep(line_count, length(split_line))
       names(split_line.list) <- split_line
       groups.list <- c(groups.list, split_line.list)
+
+      if( debug==TRUE ){ poop<<-groups.list }
+      
       line_count <- line_count + 1
     }
     close(con_grp)
@@ -111,17 +114,21 @@ render_pcoa <<- function(
     if ( length(groups.list) != length(unique(names(groups.list))) ){ stop("One or more groups have redundant entries - this is not allowed for coloring the PCoA") }
 
     color_matrix <- matrix(groups.list, ncol=1)
+
     rownames(color_matrix) <- names(groups.list)
 
-    #poop <<- color_matrix
-    
+    if( debug==TRUE ){ poop2 <<- color_matrix }
+                                        
     color_matrix <<- color_matrix[order(rownames(color_matrix)),,drop=FALSE]
-
-    #poop <<- color_matrix
+    
+    if( debug==TRUE ){ poop3 <<- color_matrix }
 
     # create the color matrix from the metadata
     pcoa_colors <<- create_colors(color_matrix, color_mode="auto")
-           
+    pcoa_colors <<- pcoa_colors[ order(rownames(pcoa_colors)),,drop=FALSE]
+    
+    if( debug==TRUE ){ poop4 <<- pcoa_colors }
+    
     # this bit is a repeat of the code in the sub below - clean up later
     column_factors <<- as.factor(color_matrix[,1])
     column_levels <<- levels(as.factor(color_matrix[,1]))
@@ -171,6 +178,7 @@ render_pcoa <<- function(
       column_levels <<- levels(as.factor(color_matrix[,i]))
       num_levels <<- length(column_levels)
       color_levels <<- col.wheel(num_levels)
+      pcoa_colors <<- pcoa_colors[ order(rownames(pcoa_colors)), ]
       plot_colors <<- pcoa_colors[,i]
       # generate a plot for each column in the metadata - or the list of colors
       create_plot(
@@ -279,8 +287,9 @@ render_pcoa <<- function(
   class(eigen_values) <- "numeric"
   class(eigen_vectors) <- "numeric"
   # write imported data to global objects
-  eigen_values <<- eigen_values
+  eigen_values <<- eigen_values  
   eigen_vectors <<- eigen_vectors
+  eigen_vectors <<-  eigen_vectors[order(rownames(eigen_vectors)),]
   }
   ######################
   ######################
