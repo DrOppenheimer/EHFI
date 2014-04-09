@@ -33,6 +33,7 @@
 # specify that the second column is used:
 #   plot_mg_pcoa(table_in="test_data.txt", color_table="test_colors.txt", auto_colors=TRUE, color_column=2)
 
+
 # create a plot where every input argument is explicitly addressed:
 #   plot_mg_pcoa(table_in="test_data.txt", image_out = "wacky_pcoa", plot_pcs = c(1,3,5), label_points=NA, color_table="test_colors.txt", auto_colors=TRUE, color_column=3, pch_table="test_pch.txt", pch_column=3, image_width_in=10, image_height_in=10, image_res_dpi=250)
  
@@ -104,9 +105,7 @@ render_pcoa <<- function(
       split_line.list <- rep(line_count, length(split_line))
       names(split_line.list) <- split_line
       groups.list <- c(groups.list, split_line.list)
-
-      if( debug==TRUE ){ poop<<-groups.list }
-      
+   
       line_count <- line_count + 1
     }
     close(con_grp)
@@ -116,18 +115,12 @@ render_pcoa <<- function(
     color_matrix <- matrix(groups.list, ncol=1)
 
     rownames(color_matrix) <- names(groups.list)
-
-    if( debug==TRUE ){ poop2 <<- color_matrix }
-                                        
+                                     
     color_matrix <<- color_matrix[order(rownames(color_matrix)),,drop=FALSE]
     
-    if( debug==TRUE ){ poop3 <<- color_matrix }
-
     # create the color matrix from the metadata
     pcoa_colors <<- create_colors(color_matrix, color_mode="auto")
     pcoa_colors <<- pcoa_colors[ order(rownames(pcoa_colors)),,drop=FALSE]
-    
-    if( debug==TRUE ){ poop4 <<- pcoa_colors }
     
     # this bit is a repeat of the code in the sub below - clean up later
     column_factors <<- as.factor(color_matrix[,1])
@@ -194,14 +187,11 @@ render_pcoa <<- function(
 
     }
 
-  }else if ( use_all_metadata_columns==TRUE ){
+  }else if ( use_all_metadata_columns==FALSE ){
 
     # create a name for the (single) output file
-    if ( identical(image_out, "default") ){
-      image_out = paste(PCoA_in, ".pcoa.png", sep="", collapse="")
-    }else if ( use_all_metadata_columns==FALSE ) {
-      image_out = paste(image_out, ".png", sep="", collapse="")
-
+    image_out = paste(PCoA_in, ".pcoa.png", sep="", collapse="")
+    
     # generate a single plot using the specified column from the metadata - or the list of colors
     create_plot(
                 PCoA_in,
@@ -214,13 +204,13 @@ render_pcoa <<- function(
                 legend_cex, figure_cex, label_points
                 )
     
-    }else{
-      stop(paste("invalid value for use_all_metadata_columns(", use_all_metadata_columns,") was specified, please try again", sep="", collapse=""))
-    }
-
+  }else{
+    stop(paste("invalid value for use_all_metadata_columns(", use_all_metadata_columns,") was specified, please try again", sep="", collapse=""))
   }
+  
+}
 
-} 
+ 
   ######################
   ###### END MAIN ######
   ######################
@@ -394,7 +384,7 @@ render_pcoa <<- function(
     #par$col <- col
       par$col <- plot_colors
       par$pch <- plot_pch
-      par <- resolveMerge (list (...), par)
+      #par <- resolveMerge (list (...), par)
       xcall (plot, x = i, y = j, with = par, without = "labels")
       xcall (points, x = i, y = j, with = par, without = "labels")
       grid ()
@@ -409,7 +399,7 @@ render_pcoa <<- function(
       par$lty.hplot <- "dotted"
       par$axis <- TRUE
       par$box <- FALSE
-      # par <- resolveMerge (list (...), par)
+      #par <- resolveMerge (list (...), par)
       reqPack ("scatterplot3d")
       xys <- xcall (scatterplot3d, x = i, y = j, z = k, with = par,
                     without = c ("cex", "labels")) $ xyz.convert (i, j, k)
@@ -420,18 +410,14 @@ render_pcoa <<- function(
     #})
     graphics.off()
   }
-  ######################
-  ###### END SUBS ######
-  ######################
 
+## ### this is for resolving import / export / graphical parameters
+## resolveMerge <- function (first, second)
+## append (first, second) [ !duplicated (c (names (first), names(second))) ]
 
-
-
- 
-
-
-
-
+## ### further specialized list-combining function for use in "render" methods
+## resolveParList <- function (call, object, defaults)
+## resolveMerge (call, resolveMerge (object, resolveMerge (defaults, msession$par())))
 
 
 
