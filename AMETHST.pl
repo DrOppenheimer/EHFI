@@ -17,9 +17,9 @@ my $start_time_stamp =`date +%m-%d-%y_%H:%M:%S`;  # create the time stamp month-
 chomp $start_time_stamp;
 my ($command_file, $zip_prefix, $debug, $help);
 
-if ( (@ARGV > 0) && ($ARGV[0] =~ /-h/) ) { &usage(); }
+if ( (@ARGV > 0) && ($ARGV[0] =~ /-h/) ) { &usage(); exit 0; }
 
-unless ( @ARGV > 0 || $command_file ) { &usage(); }
+unless ( @ARGV > 0 || $command_file ) { &usage(); exit 1;}
 
 if ( ! GetOptions (
 		   "f|command_file=s" => \$command_file,
@@ -27,7 +27,7 @@ if ( ! GetOptions (
 		   "h|help!"          => \$help,
 		   "d|debug!"         => \$debug
 		  )
-   ) { &usage(); }
+   ) { &usage(); exit 1; }
 
 $command_file = basename($command_file);
 my $current_dir = getcwd()."/";
@@ -193,5 +193,5 @@ plot_pco_with_stats_all.pl --data_file 16.Qiime.100p.included.norm.qiime_table -
 combine_summary_stats.pl --file_search_mode pattern --within_pattern within --between_pattern between --groups_list AMETHST.PCoA.groups
 
 );
-  exit 1;
+  # exit 1;
 }
