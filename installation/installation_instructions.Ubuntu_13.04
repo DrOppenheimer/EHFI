@@ -1,0 +1,47 @@
+# on 13.04 VM
+
+### CHANGE TEMP DIRECTORY TO SOMEPLACE WITH MORE SPACE 
+# first remove the existing temp directory
+sudo rm -rf /tmp
+# create a directory that has more space
+sudo mkdir /mnt/my_temp_dir
+# then create symbolic link to a directory (that exisits)  
+sudo ln -s /mnt/my_temp_dir /tmp
+# open permissions
+sudo chmod -R 777 /mnt/
+
+### install qiime_deploy and other dependencies
+cd ~
+sudo apt-get update
+sudo apt-get upgrade 
+sudo apt-get --force-yes -y install python-dev libncurses5-dev libssl-dev libzmq-dev libgsl0-dev openjdk-6-jdk libxml2 libxslt1.1 libxslt1-dev ant git subversion build-essential zlib1g-dev libpng12-dev libfreetype6-dev mpich2 libreadline-dev gfortran unzip libmysqlclient18 libmysqlclient-dev ghc sqlite3 libsqlite3-dev libc6-i386 libbz2-dev libx11-dev libcairo2-dev libcurl4-openssl-dev libglu1-mesa-dev freeglut3-dev mesa-common-dev xorg openbox
+
+### Clone AMETHST repo (contains custom Qiime configuration)
+cd ~
+sudo git clone https://github.com/MG-RAST/AMETHST.git
+
+# install perl packages
+sudo cpan App::cpanminus
+sudo cpanm Statistics::Descriptive
+
+### INSTALL QIIME # also see https://github.com/qiime/qiime-deploy 4-23-14
+# Uncomment the universe and multiverse repositories from /etc/apt/sources.list
+# clone the deploy and configuration repos
+cd ~
+git clone git://github.com/qiime/qiime-deploy.git
+#git clone git://github.com/qiime/qiime-deploy-conf.git
+# see deploy options
+python ~/qiime-deploy/qiime-deploy.py -h
+# Try installation with my edits — adds R packages, removes a bunch of stuff I think I don’t need
+cd ~
+sudo python ./qiime-deploy/qiime-deploy.py ./qiime_software/ -f ./AMETHST/qiime_configuration/qiime.amethst.config --force-remove-failed-dirs
+
+# Install additional R packages (except matR)
+sudo bash
+R
+install.packages(c("scatterplot3d", "rgl", "matlab", "ecodist", "gplots", "devtools"))
+# Install matR
+library(devtools)
+install_github("MG-RAST/matR")
+dependencies()
+q()
