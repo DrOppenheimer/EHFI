@@ -487,7 +487,8 @@ sub process_original_qiime_data {
     print $log_file "dist_pipe is (".$dist_pipe.") and qiime_format is (".$qiime_format.")"."\n".
       "if this is not correct - processing will fail unexpected results"."\n".
       "converting $qiime_format to biom format for compatibility qiime beta_diversity.py"."\n"; 
-    my $qiime_table_2_biom_string = "convert_biom.py -i $input_dir$data_file -o $output_prefix$biom_file --biom_table_type=\"otu table\""; 
+    #my $qiime_table_2_biom_string = "convert_biom.py -i $input_dir$data_file -o $output_prefix$biom_file --biom_table_type=\"otu table\"";
+    my $qiime_table_2_biom_string = "biom convert -i $input_dir$data_file -o $output_prefix$biom_file --table_type=\"otu table\"";
     print $log_file "\n"."executing:"."\n".$qiime_table_2_biom_string."\n";
     system($qiime_table_2_biom_string)==0 or die "died running command"."\n".$qiime_table_2_biom_string."\n";
     #system($qiime_table_2_biom_string); #or die "died running command"."\n".$qiime_table_2_biom_string."\n";
@@ -510,7 +511,8 @@ sub process_original_qiime_data {
     print $log_file "\n"."executing:"."\n".$copy_biom_string."\n";
     system($copy_biom_string)==0 or die "died running command"."\n".."\n";
     print $log_file "\n"."Creating qiime_table from biom file";
-    my $biom_2_qiime_table_string = "convert_biom.py -b -i $output_prefix$biom_file -o $output_prefix$qiime_table --header_key taxonomy";
+    #my $biom_2_qiime_table_string = "convert_biom.py -b -i $output_prefix$biom_file -o $output_prefix$qiime_table --header_key taxonomy";
+    my $biom_2_qiime_table_string = "biom convert -b -i $output_prefix$biom_file -o $output_prefix$qiime_table --header_key taxonomy";
     print $log_file "\n"."executing:"."\n".$biom_2_qiime_table_string."\n";
     system($biom_2_qiime_table_string)==0 or die "died running command"."\n".$biom_2_qiime_table_string."\n";
     #system($biom_2_qiime_table_string); # or die "died running command"."\n".$biom_2_qiime_table_string."\n";
@@ -729,7 +731,8 @@ sub process_permuted_qiime_data { # starts with biom format
   foreach my $Qiime_permutation (@Qiime_permutation_list){
     if ( $debug ){ print "HELLO - QIIME_PERM: ".$Qiime_permutation."\n"; }
     my $biom_permutation = $Qiime_permutation.".biom";
-    my $qiime_table_2_biom_string = "convert_biom.py -i $perm_dir$Qiime_permutation -o $perm_dir$biom_permutation --biom_table_type=\"otu table\"";  
+    #my $qiime_table_2_biom_string = "convert_biom.py -i $perm_dir$Qiime_permutation -o $perm_dir$biom_permutation --biom_table_type=\"otu table\"";
+    my $qiime_table_2_biom_string = "biom convert -i $perm_dir$Qiime_permutation -o $perm_dir$biom_permutation --table_type=\"otu table\"";
     print $log_file "\n"."executing:"."\n".$qiime_table_2_biom_string."\n";
     system($qiime_table_2_biom_string)==0 or die "died running command"."\n".$qiime_table_2_biom_string."\n";
     #system($qiime_table_2_biom_string); # or die "died running command"."\n".$qiime_table_2_biom_string."\n";
