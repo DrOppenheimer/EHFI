@@ -278,7 +278,7 @@ system("cp $pcoa_file ./$job_name.PCoA")==0 or die "died copying $pcoa_file to .
 
 # produce an image of teh PCoA if a groups file is specififed (groups used to color it)
 if( $groups_list ){
-  my $render_pcoa_string = "$DIR/render_calculated_pcoa_shell.sh $job_name.PCoA $groups_list 11 8.5 300 0.2 0.8 0.5 0.7";
+  my $render_pcoa_string = "$DIR/render_calculated_pcoa_shell.sh $job_name.PCoA $groups_list 22 17 300 0.2 0.8 2 2";
   print LOG "render PCoA:"."\n".$render_pcoa_string."\n";
   # order of args in the string is 
   #      pcoa_file ($job_name.PCoA) groups_list ($groups_list) png_width(11) png_height(8.5) png_dpi(300)
