@@ -110,8 +110,8 @@ render_pcoa.v3 <- function(
   #####################################################################################
   if ( identical( is.na(amethst_groups), FALSE ) ){ # create names for the output files
     if ( identical(image_out, "default") ){
-      image_out = paste( PCoA_in,".AMETHST_GROUPS.PCoA.png", sep="", collapse="" )
-      figure_main = paste( PCoA_in, ".AMETHST_GROUPS.PCoA", sep="", collapse="" )
+      image_out = paste( PCoA_in,".", amethst_groups, ".png", sep="", collapse="" )
+      figure_main = paste( PCoA_in, ".", amethst_groups, sep="", collapse="" )
     }else{
       image_out = paste(image_out, ".png", sep="", collapse="")
       figure_main = paste( image_out,".PCoA", sep="", collapse="")
