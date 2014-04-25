@@ -4,7 +4,7 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )" # get the path for the s
 if [ $# -ne 9 ]                                                                                     # usage and exit if 5 args are not supplied
 then
     echo
-    echo "USAGE: >render_calculated_pcoa_shell.sh <pcoa_in> <pcoa_path> <groups_in> <groups_path> <png_width> <png_height> <png_dpi> <relative_width_legend> <relative_width_pcoa> <png_legend_cex> <png_figure_cex>"
+    echo "USAGE: >render_calculated_pcoa_shell.sh <pcoa_in> <groups_in> <png_width> <png_height> <png_dpi> <relative_width_legend> <relative_width_pcoa> <png_legend_cex> <png_figure_cex>"
     echo   
     echo "     <pcoa_in>                : (string) name of the input PCoA flat file"
     #echo "     <pcoa_path>              : (string)  path of the PCoA file"
