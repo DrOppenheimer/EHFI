@@ -10,13 +10,29 @@ sudo ln -s /mnt/my_temp_dir /tmp
 # open permissions
 sudo chmod -R 777 /mnt/
 
-### install qiime_deploy and other dependencies
+### install qiime_deploy and R dependencies
 cd ~
 sudo apt-get update
 sudo apt-get upgrade 
-sudo apt-get --force-yes -y install python-dev libncurses5-dev libssl-dev libzmq-dev libgsl0-dev openjdk-6-jdk libxml2 libxslt1.1 libxslt1-dev ant git subversion build-essential zlib1g-dev libpng12-dev libfreetype6-dev mpich2 libreadline-dev gfortran unzip libmysqlclient18 libmysqlclient-dev ghc sqlite3 libsqlite3-dev libc6-i386 libbz2-dev libx11-dev libcairo2-dev libcurl4-openssl-dev libglu1-mesa-dev freeglut3-dev mesa-common-dev xorg openbox
+sudo apt-get --force-yes -y install python-dev libncurses5-dev libssl-dev libzmq-dev libgsl0-dev openjdk-6-jdk libxml2 libxslt1.1 libxslt1-dev ant git subversion build-essential zlib1g-dev libpng12-dev libfreetype6-dev mpich2 libreadline-dev gfortran unzip libmysqlclient18 libmysqlclient-dev ghc sqlite3 libsqlite3-dev libc6-i386 libbz2-dev libx11-dev libcairo2-dev libcurl4-openssl-dev libglu1-mesa-dev freeglut3-dev mesa-common-dev xorg openbox emacs r-cran-rgl xorg-dev
+
+# INSTALLING R > 2.15 on Ubuntu 13.04
+# add this line to 
+deb http://cran.rstudio.com/bin/linux/ubuntu precise/ # There is no raring specific distribution
+# this file
+/etc/apt/sources.list
+# then run
+sudo apt-get update
+# you can use this to see the versions that are available
+apt-cache showpkg r-base
+# something like this to install a specific version
+sudo apt-get install -f r-base=3.0.2-1precise0  # RETURNS AND ERROR
+# or this to install the most recent (3.1.0 as of 4-23-14)
+sudo apt-get install r-base # THIS SEEMS TO WORK
+
 
 ### Clone AMETHST repo (contains custom Qiime configuration)
+# can probably remove more, but 
 cd ~
 sudo git clone https://github.com/MG-RAST/AMETHST.git
 
@@ -35,12 +51,24 @@ python ~/qiime-deploy/qiime-deploy.py -h
 # Try installation with my edits — adds R packages, removes a bunch of stuff I think I don’t need
 cd ~
 sudo python ./qiime-deploy/qiime-deploy.py ./qiime_software/ -f ./AMETHST/qiime_configuration/qiime.amethst.config --force-remove-failed-dirs
+#### NEED TO REMOVE R FROM QIIME INSTALLATION
 
-# Install additional R packages (except matR)
-sudo bash
-R
-install.packages(c("scatterplot3d", "rgl", "matlab", "ecodist", "gplots", "devtools"))
-# Install matR
+# INSTALLING R > 2.15 on Ubuntu 13.04
+# add this line to 
+deb http://cran.rstudio.com/bin/linux/ubuntu raring/
+# this file
+/etc/apt/sources.list
+# then run
+sudo apt-get update
+# you can use this to see the versions that are available
+apt-cache showpkg r-base
+# something like this to install a specific version
+sudo apt-get install -f r-base=3.0.2-1raring0  # CHECK THIS !!! YOU WERE USING PRECISE BY MISTAKE
+# or this to install the most recent (3.1.0 as of 4-23-14)
+sudo apt-get install r-base
+
+# Install R packages, including matR
+install.packages(c("KernSmooth", "codetools", "httr", "scatterplot3d", "rgl", "matlab", "ecodist", "gplots", "devtools"))
 library(devtools)
 install_github("MG-RAST/matR")
 dependencies()
