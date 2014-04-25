@@ -9,6 +9,9 @@
 # We use a custom partial installation of Qiime sufficient for
 # running AMETHST analysis on qiime results
 
+# This procedure will allow you to install AMETHST locally
+# It is the same procedure used to produce the AMETHST compute
+# nodes used for the AMETHST service
 
 
 ### CHANGE TEMP DIRECTORY TO SOMEPLACE WITH MORE SPACE 
