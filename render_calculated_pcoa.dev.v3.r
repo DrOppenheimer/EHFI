@@ -45,8 +45,8 @@ render_pcoa.v3 <- function(
   
 {
   
-  require(matR)
-  require(scatterplot3d)
+  suppressMessages(require(matR))
+  suppressMessages(require(scatterplot3d))
   
   argument_test <- is.na(c(metadata_table,amethst_groups,color_list)) # check that incompatible options were not selected
   if ( 3 - length(subset(argument_test, argument_test==TRUE) ) > 1){
