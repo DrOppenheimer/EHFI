@@ -1,4 +1,15 @@
+# From Kevin::amethst_compute_node_setup.4-23-14.txt
+
 # on 13.04 VM
+
+# Instructions for installing AMETHST on an ubuntu VM
+# This procedure was used on 13.04
+
+# NOTE: This DOES NOT include a complete installation of QIIME
+# We use a custom partial installation of Qiime sufficient for
+# running AMETHST analysis on qiime results
+
+
 
 ### CHANGE TEMP DIRECTORY TO SOMEPLACE WITH MORE SPACE 
 # first remove the existing temp directory
@@ -51,7 +62,9 @@ python ~/qiime-deploy/qiime-deploy.py -h
 # Try installation with my edits — adds R packages, removes a bunch of stuff I think I don’t need
 cd ~
 sudo python ./qiime-deploy/qiime-deploy.py ./qiime_software/ -f ./AMETHST/qiime_configuration/qiime.amethst.config --force-remove-failed-dirs
-#### NEED TO REMOVE R FROM QIIME INSTALLATION
+# NOTE that this installation of Qiime uses a heavily edited version of the configuration file found here:
+# https://github.com/qiime/qiime-deploy-conf/blob/master/qiime-1.8.0/qiime.conf
+# Notable differences — leave many of the components uninstalled, is not used to install R, we do that below
 
 # INSTALLING R > 2.15 on Ubuntu 13.04
 # add this line to 
@@ -73,3 +86,12 @@ library(devtools)
 install_github("MG-RAST/matR")
 dependencies()
 q()
+
+# Remove R from path in 
+/home/ubuntu/qiime_software/activate.sh
+
+# MAKE SURE THAT PATH IS TO CORRECT R
+# make sure that /usr/bin is in path
+# source ~/.profile and /home/ubuntu/qiime_software/activate.sh
+# the former should have your /usr/bin in the path
+# the latter has all of the qiime path information
