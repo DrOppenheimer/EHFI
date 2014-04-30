@@ -51,6 +51,7 @@ while (my $line = <QIIME_ACTIVATION>){
 local $ENV{PATH} = "$ENV{PATH}:$r_path:$amethst_path";
 
 if ($debug){ print STDOUT "PATH:\n".$ENV{PATH}."\n"; }
+print STDOUT "PATH:\n".$ENV{PATH}."\n";
 
 if ( (@ARGV > 0) && ($ARGV[0] =~ /-h/) ) { &usage(); exit 0; }
 
