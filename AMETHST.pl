@@ -29,12 +29,12 @@ unless (-e $qiime_activate_script) {
  } 
 
 unless (-d $r_path ){
-print STDOUT "The specified path for R:\n$r_path\ndoes not exist.\nPlease specify a valid R path"
+print STDOUT "The specified path for R:\n$r_path\ndoes not exist.\nPlease specify a valid R path";
 exit 1;
 }
 
 unless (-d $amethst_path ){
-print STDOUT "The specified path for AMETHST:\n$amethst_path\ndoes not exist.\nPlease specify a valid AMETHST path"
+print STDOUT "The specified path for AMETHST:\n$amethst_path\ndoes not exist.\nPlease specify a valid AMETHST path";
 exit 1;
 }
 
@@ -42,7 +42,7 @@ exit 1;
 # get path information from the qiime activations script
 open(QIIME_ACTIVATION, "<", $qiime_activate_script) or die "can't open QIIME_ACTIVATION $qiime_activate_script"."\n"; 
 while (my $line = <QIIME_ACTIVATION>){
-  if ($line =~ s/^export PATH=//;){
+  if ($line =~ s/^export PATH=//){
     $line =~ s/PATH//;
       local $ENV{PATH} = "$ENV{PATH}:$line";
   }  
