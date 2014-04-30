@@ -208,43 +208,7 @@ USAGE:
                                             run in debug mode
 
 DESCRIPTION:
-This a master script that allows you to queue jobs for the following three scripts:
-
-     plot_pco_with_stats,
-     plot_qiime_pco_with_stats,
-     plot_OTU_pco_with_stats, or
-     plot_pco_with_stats_all
-
-There are two main arguments.  One (required) specifies the file with he list of commands to 
-perform.  The second is optional; the user can specify the prefix for a zip file to be cerated
-that will contain all inputs and outputs
-
-The script generates a master log that tells you when each job started and completed.
-It also creates a log for each job that records all of the error output text.
-Note that the plot... scripts also generate their own logs.
-
-The file with the commands must be formatted as follows
-
-#job "unique name or job for job" 
-command line 1 for job
-command line 2 for job   
-command line 3 for job
-
-#job "unique name or job for job" 
-command line 1 for job
-command line 2 for job   
-command line 3 for job
-
-EXAMPLES:
-#job test_analysis_1
-plot_pco_with_stats_all.pl --data_file 16.Qiime.100p.included.norm.qiime_table --groups_list AMETHST.stat.groups --sig_if lt --num_perm 10 --perm_type dataset_rand --dist_method euclidean --dist_pipe qiime_pipe --qiime_format qiime_table --num_cpus 10 --output_prefix within --cleanup
-plot_pco_with_stats_all.pl --data_file 16.Qiime.100p.included.norm.qiime_table --groups_list AMETHST.stat.groups --sig_if gt --num_perm 10 --perm_type rowwise_rand --dist_method euclidean --dist_pipe qiime_pipe --qiime_format qiime_table --num_cpus 10 --output_prefix between --cleanup
-combine_summary_stats.pl --file_search_mode pattern --within_pattern within --between_pattern between --groups_list AMETHST.PCoA.groups
-
-#job test_analysis_2
-plot_pco_with_stats_all.pl --data_file 16.Qiime.100p.included.norm.qiime_table --groups_list AMETHST.stat.groups --sig_if lt --num_perm 10 --perm_type dataset_rand --dist_method bray_curtis --dist_pipe qiime_pipe --qiime_format qiime_table --num_cpus 10 --output_prefix within --cleanup
-plot_pco_with_stats_all.pl --data_file 16.Qiime.100p.included.norm.qiime_table --groups_list AMETHST.stat.groups --sig_if gt --num_perm 10 --perm_type rowwise_rand --dist_method bray_curtis --dist_pipe qiime_pipe --qiime_format qiime_table --num_cpus 10 --output_prefix between --cleanup
-combine_summary_stats.pl --file_search_mode pattern --within_pattern within --between_pattern between --groups_list AMETHST.PCoA.groups
+Driver script for AMETHST analysis
 
 );
   # exit 1;
