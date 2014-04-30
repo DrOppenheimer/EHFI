@@ -17,53 +17,15 @@ my $start_time_stamp =`date +%m-%d-%y_%H:%M:%S`;  # create the time stamp month-
 chomp $start_time_stamp;
 my ($command_file, $zip_prefix, $debug, $help);
 
-
-my $qiime_activate_script = "/home/ubuntu/qiime_software/activate.sh";
-my $r_path = "/usr/bin";
-my $amethst_path = "/home/ubuntu/AMETHST";
-
-# Check to make sure that the hard coded files and paths above actually exist
-unless (-e $qiime_activate_script) {
- print STDOUT "The specified qiime activate script:\n$qiime_activate_script\ndoes not exist.\nPlease specify a qiime activations script that exists\n";
- exit 1;
- } 
-
-unless (-d $r_path ){
-print STDOUT "The specified path for R:\n$r_path\ndoes not exist.\nPlease specify a valid R path"
-exit 1;
-}
-
-unless (-d $amethst_path ){
-print STDOUT "The specified path for AMETHST:\n$amethst_path\ndoes not exist.\nPlease specify a valid AMETHST path"
-exit 1;
-}
-
-
-# get path information from the qiime activations script
-open(QIIME_ACTIVATION, "<", $qiime_activate_script) or die "can't open QIIME_ACTIVATION $qiime_activate_script"."\n"; 
-while (my $line = <QIIME_ACTIVATION>){
-  if ($line =~ s/^export PATH=//;){
-    $line =~ s/PATH//;
-      local $ENV{PATH} = "$ENV{PATH}:$line";
-  }  
-}
-# add the R and AMETHST path information
-local $ENV{PATH} = "$ENV{PATH}:$r_path:$amethst_path";
-
-if ($debug){ print STDOUT "PATH:\n".$ENV{PATH}."\n"; }
-
 if ( (@ARGV > 0) && ($ARGV[0] =~ /-h/) ) { &usage(); exit 0; }
 
 unless ( @ARGV > 0 || $command_file ) { &usage(); exit 1;}
 
 if ( ! GetOptions (
-		   "f|command_file=s"          => \$command_file,
-		   "q|qiime_activate_script=s" => \$qiime_activate_script,
-		   "r|r_path=s"                => \$r_path,
-		   "a|amethst_path=s"          => \$amethst_path,          
-		   "z|zip_prefix!"             => \$zip_prefix,
-		   "h|help!"                   => \$help,
-		   "d|debug!"                  => \$debug
+		   "f|command_file=s" => \$command_file,
+		   "z|zip_prefix!"    => \$zip_prefix,
+		   "h|help!"          => \$help,
+		   "d|debug!"         => \$debug
 		  )
    ) { &usage(); exit 1; }
 
@@ -186,26 +148,10 @@ script:               $0
 USAGE:
      AMETHST.pl -f commands_file [options]
 
-    -f|--command_file           (string)    no default,
-                                            name of the file with commands
-
-    -q|--qiime_activate_script  (string)    default: $qiime_activate_script
-                                            indicates absolute path and filename for qiime activate script
-    
-    -r|--r_path                 (string)    default: $r_path
-                                            indicates the absolute path for r (should not be qiime installed r)
-
-    -a|--amethst_path           (string)    default: $amethst_path
-                                            indicates the absolute path for AMETHST (i.e. the git repo directory)
-
-    -z|--zip_prefix             (bool)      default is off, 
-                                            create a *.tar.gz that contains all data (input and output)    
-
-    -h|--help                   (bool)      default is off,
-                                            display help/usage
-
-    -d|--debug                  (bool)      default is off,
-                                            run in debug mode
+    -f|--command_file (string)    no default
+    -z|--zip_prefix   (bool)      create a *.tar.gz that contains all data (input and output)
+    -h|--help         (bool)      display help/usage
+    -d|--debug        (bool)      run in debug mode
 
 DESCRIPTION:
 This a master script that allows you to queue jobs for the following three scripts:
