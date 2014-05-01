@@ -80,6 +80,15 @@ open(LOG, ">", $log_file) or die "cant open LOG $log_file"."\n";
 print LOG "Start: ".$start_time_stamp."\n\n";
 
 
+# try to detect the number of CPUS
+my $num_cpus=`nproc`;
+unless($num_cpus){
+  print LOG "\n"."Can't detect number of CPUS with nproc, using a single cpu"."\n";
+  $num_cpus=1;
+}else{
+  print LOG "\n"."Detected ".$num_cpus." CPUS, using all but one of them"."\n";
+  $num_cpus=$num_cpus-1;
+}
 
 open(FILE, "<", $path_file) or die "can't open FILE $path_file"."\n"; 
 
@@ -123,7 +132,7 @@ while (my $line = <FILE>){
       #my $cmd1 = $script_dir."plot_pco_with_stats_all.pl ".<FILE>;
       my $cmd1 = $script_dir.<FILE>;
       chomp $cmd1;
-      $cmd1 = $cmd1." --job_name $log_prefix";
+      $cmd1 = $cmd1." --job_name $log_prefix --num_cpus $num_cpus";
       print LOG $cmd1."\n"."...";
       system($cmd1)==0 or die "died running command:"."\n".$cmd1."\n";
       print LOG "DONE"."\n\n";
@@ -131,7 +140,7 @@ while (my $line = <FILE>){
       #my $cmd2 = $script_dir."plot_pco_with_stats_all.pl ".<FILE>;
       my $cmd2 = $script_dir.<FILE>;
       chomp $cmd2;
-      $cmd2 = $cmd2." --job_name $log_prefix";
+      $cmd2 = $cmd2." --job_name $log_prefix --num_cpus $num_cpus";
       print LOG $cmd2."\n"."...";
       system($cmd2)==0 or die "died running command:"."\n".$cmd2."\n";
       print LOG "DONE"."\n\n";
@@ -183,7 +192,7 @@ time stamp:           $start_time_stamp
 script:               $0
 
 USAGE:
-     AMETHST.pl -f commands_file [options]
+     AMETHST.pl -f command_file [options]
 
     -f|--command_file           (string)    no default,
                                             name of the file with commands

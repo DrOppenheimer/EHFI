@@ -1,9 +1,8 @@
-# From Kevin::amethst_compute_node_setup.4-23-14.txt
-
-# on 13.04 VM
+# Adapted from Kevin::amethst_compute_node_setup.4-23-14.txt
 
 # Instructions for installing AMETHST on an ubuntu VM
-# This procedure was used on 13.04
+# This procedure was used on 13.04, but should work on 
+# other Ubuntu versions with only minor revisions
 
 # NOTE: This DOES NOT include a complete installation of QIIME
 # We use a custom partial installation of Qiime sufficient for
@@ -13,8 +12,10 @@
 # It is the same procedure used to produce the AMETHST compute
 # nodes used for the AMETHST service
 
+# Many, but not all, of the steps in this procedure are sequential
+# so please follow them in the indicated order
 
-### CHANGE TEMP DIRECTORY TO SOMEPLACE WITH MORE SPACE 
+####### CHANGE TEMP DIRECTORY TO SOMEPLACE WITH MORE SPACE #######
 # first remove the existing temp directory
 sudo rm -rf /tmp
 # create a directory that has more space
@@ -23,16 +24,18 @@ sudo mkdir /mnt/my_temp_dir
 sudo ln -s /mnt/my_temp_dir /tmp
 # open permissions
 sudo chmod -R 777 /mnt/
+#######################################################################################
 
-### install qiime_deploy and R dependencies
+####### INSTALL qiime_deploy AND R DEPENDENCIES #######
 cd ~
 sudo apt-get update
 sudo apt-get upgrade 
 sudo apt-get --force-yes -y install python-dev libncurses5-dev libssl-dev libzmq-dev libgsl0-dev openjdk-6-jdk libxml2 libxslt1.1 libxslt1-dev ant git subversion build-essential zlib1g-dev libpng12-dev libfreetype6-dev mpich2 libreadline-dev gfortran unzip libmysqlclient18 libmysqlclient-dev ghc sqlite3 libsqlite3-dev libc6-i386 libbz2-dev libx11-dev libcairo2-dev libcurl4-openssl-dev libglu1-mesa-dev freeglut3-dev mesa-common-dev xorg openbox emacs r-cran-rgl xorg-dev
+#######################################################################################
 
-# INSTALLING R > 2.15 on Ubuntu 13.04
+####### INSTALL R > 2.15 on Ubuntu 13.04 #######
 # add this line to 
-deb http://cran.rstudio.com/bin/linux/ubuntu precise/ # There is no raring specific distribution
+deb http://cran.rstudio.com/bin/linux/ubuntu precise/ # Note: There is no raring specific distribution, precise is LTS
 # this file
 /etc/apt/sources.list
 # then run
@@ -40,36 +43,38 @@ sudo apt-get update
 # you can use this to see the versions that are available
 apt-cache showpkg r-base
 # something like this to install a specific version
-sudo apt-get install -f r-base=3.0.2-1precise0  # RETURNS AND ERROR
+# sudo apt-get install -f r-base=3.0.2-1precise0 # this gave an error; recommend the procedure below instead, 
 # or this to install the most recent (3.1.0 as of 4-23-14)
 sudo apt-get install r-base # THIS SEEMS TO WORK
+#######################################################################################
 
-
-### Clone AMETHST repo (contains custom Qiime configuration)
+####### CLONE AMETHST RESPOSITORY (contains custom Qiime configuration) #######
 # can probably remove more, but 
 cd ~
 sudo git clone https://github.com/MG-RAST/AMETHST.git
 
-# install perl packages
+####### INSTALL PERL PACKAGE USED FOR SOME STAT CALCULATIONS #######
 sudo cpan App::cpanminus
 sudo cpanm Statistics::Descriptive
+#######################################################################################
 
-### INSTALL QIIME # also see https://github.com/qiime/qiime-deploy 4-23-14
+####### INSTALL QIIME # also see https://github.com/qiime/qiime-deploy 4-23-14 #######
 # Uncomment the universe and multiverse repositories from /etc/apt/sources.list
 # clone the deploy and configuration repos
 cd ~
 git clone git://github.com/qiime/qiime-deploy.git
-#git clone git://github.com/qiime/qiime-deploy-conf.git
+# git clone git://github.com/qiime/qiime-deploy-conf.git # WE USE A CUSTOMIZED CONFIG FILE FROM THE AMETHST REPO
 # see deploy options
-python ~/qiime-deploy/qiime-deploy.py -h
-# Try installation with my edits — adds R packages, removes a bunch of stuff I think I don’t need
+# python ~/qiime-deploy/qiime-deploy.py -h
+# MINIMAL INSTALL OF QIIME - THE "BIOM CONVERT" AND BETA_DIVERSITY.PY FUNCTIONS ARE THE ONLY PARTS OF QIIME THAT ARE REQUIRED
 cd ~
 sudo python ./qiime-deploy/qiime-deploy.py ./qiime_software/ -f ./AMETHST/qiime_configuration/qiime.amethst.config --force-remove-failed-dirs
 # NOTE that this installation of Qiime uses a heavily edited version of the configuration file found here:
 # https://github.com/qiime/qiime-deploy-conf/blob/master/qiime-1.8.0/qiime.conf
 # Notable differences — leave many of the components uninstalled, is not used to install R, we do that below
+#######################################################################################
 
-# INSTALLING R > 2.15 on Ubuntu 13.04
+####### INSTALLING R > 2.15 on Ubuntu 13.04 #######
 # add this line to 
 deb http://cran.rstudio.com/bin/linux/ubuntu raring/
 # this file
@@ -82,15 +87,16 @@ apt-cache showpkg r-base
 sudo apt-get install -f r-base=3.0.2-1raring0  # CHECK THIS !!! YOU WERE USING PRECISE BY MISTAKE
 # or this to install the most recent (3.1.0 as of 4-23-14)
 sudo apt-get install r-base
-
+# THE PATH TO THIS R WILL BE /usr/bin
 # Install R packages, including matR
 install.packages(c("KernSmooth", "codetools", "httr", "scatterplot3d", "rgl", "matlab", "ecodist", "gplots", "devtools"))
 library(devtools)
 install_github("MG-RAST/matR")
 dependencies()
 q()
+#######################################################################################
 
-# Remove R from path in 
+####### REMOVE ANY REFERENE TO R IN THE PATH VARIABLE FOUND IN QIIME'S activate.sh SCRIPT #######
 /home/ubuntu/qiime_software/activate.sh
 
 # MAKE SURE THAT PATH IS TO CORRECT R
@@ -98,3 +104,4 @@ q()
 # source ~/.profile and /home/ubuntu/qiime_software/activate.sh
 # the former should have your /usr/bin in the path
 # the latter has all of the qiime path information
+#######################################################################################
