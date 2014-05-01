@@ -87,7 +87,8 @@ unless($num_cpus){
   $num_cpus=1;
 }else{
   print LOG "Detected ".$num_cpus." CPUS, using all but one of them"."\n\n";
-  chomp $num_cpus;
+  #chomp $num_cpus;
+  $num_cpus =~ s/\A\s+//s;
   $num_cpus=$num_cpus-1;
 }
 
