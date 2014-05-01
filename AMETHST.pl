@@ -99,27 +99,6 @@ while (my $line = <FILE>){
   
   # skip lines that start with # or are blank
   unless ( ($line =~ m/^#/) || ($line =~ m/^\s*$/) ){
-
-    # print LOG "Start Command_".$job_counter."( ".$log_prefix." ) at ".`date +%m-%d-%y_%H:%M:%S`.$line."\n";
-    # my $job_log = $current_dir.$command_file.".".$log_prefix.".command_".$job_counter.".error_log";
-    
-    # if($debug){
-    #   print("MADE IT HERE (0)"."\n");
-    #   $line = $line." 2>$job_log";
-    #   print("\n"."LINE:"."\n".$line."\n\n");
-    # }
-
-    # $line = $line." 2>$job_log";
-
-    # my @command_args;
-    # push (@command_args, "2>$job_log");
-    # if($debug){print("MADE IT HERE (1)"."\n");}
-    # #system($line, @command_args);
-    # system($line);
-    # if($debug){print("MADE IT HERE (2)"."\n");}
-    # print LOG "Finish Command_".$job_counter." at ".`date +%m-%d-%y_%H:%M:%S`."\n";
-    # if($debug){print("MADE IT HERE (3)"."\n");}
-    # $job_counter++;
     
   }else{
     
@@ -176,8 +155,7 @@ if ( $zip_prefix ){
 
 
 print LOG "\n"."ALL DONE at ".`date +%m-%d-%y_%H:%M:%S`."\n";
-
-
+close(LOG);
 
 
 
