@@ -279,7 +279,7 @@ system("cp $pcoa_file ./$job_name.PCoA")==0 or die "died copying $pcoa_file to .
 # produce an image of teh PCoA if a groups file is specififed (groups used to color it)
 if( $groups_list ){
   my $render_pcoa_string = "$DIR/render_calculated_pcoa_shell.sh $job_name.PCoA $groups_list 22 17 300 0.2 0.8 2 2";
-  print LOG "\n"."render PCoA:"."\n".$render_pcoa_string."\n";
+  print LOG "render PCoA:"."\n".$render_pcoa_string."\n"; # This is not properly printed in the log -- prints single time corrupted at the bottom of the log -- but the system execution of it works fine???
   # order of args in the string is 
   #      pcoa_file ($job_name.PCoA) groups_list ($groups_list) png_width(11) png_height(8.5) png_dpi(300)
   #      legend_width_scale(0.2) pcoa_width_scale(0.8) legend_cex(0.5) figure_cex(0.7)
@@ -290,7 +290,7 @@ if( $groups_list ){
   system($copy_rendered_pcoa_string)==0 or die "died running"."\n".$copy_rendered_pcoa_string."\n";
 
 }
-
+close(LOG);
 
 ##################################################
 ##################################################
