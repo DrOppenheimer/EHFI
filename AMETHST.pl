@@ -77,16 +77,17 @@ my $job_counter = 1;
 my $log_file = $current_dir.$command_file.".".$start_time_stamp.".log";
 
 open(LOG, ">", $log_file) or die "cant open LOG $log_file"."\n";
-print LOG "Start: ".$start_time_stamp."\n\n";
+print LOG "Start: ".$start_time_stamp."\n";
 
 
 # try to detect the number of CPUS
 my $num_cpus=`nproc`;
 unless($num_cpus){
-  print LOG "\n"."Can't detect number of CPUS with nproc, using a single cpu"."\n";
+  print LOG "Can't detect number of CPUS with nproc, using a single cpu"."\n\n";
   $num_cpus=1;
 }else{
-  print LOG "\n"."Detected ".$num_cpus." CPUS, using all but one of them"."\n";
+  print LOG "Detected ".$num_cpus." CPUS, using all but one of them"."\n\n";
+  chomp $num_cpus;
   $num_cpus=$num_cpus-1;
 }
 
