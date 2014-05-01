@@ -86,9 +86,9 @@ unless($num_cpus){
   print LOG "Can't detect number of CPUS with nproc, using a single cpu"."\n\n";
   $num_cpus=1;
 }else{
-  print LOG "Detected ".$num_cpus." CPUS, using all but one of them"."\n\n";
-  #chomp $num_cpus;
+  #chomp $num_cpus
   $num_cpus =~ s/\R//g;
+  print LOG "Detected ".$num_cpus." CPUS, using all but one of them"."\n\n";
   $num_cpus=$num_cpus-1;
 }
 
