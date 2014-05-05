@@ -49,6 +49,11 @@ if ( ! GetOptions (
 if ( $summary_name eq $all_name){
   print STDOUT "-m|--summary_name: ".$summary_name."\n"."and -n|--all_name: ".$all_name." must be unique, please try again";
   exit 1;
+}else{
+  # make sure potential output names are appended with correct extensions
+  unless( $summary_name =~ m/\.tar\.gz$/ ){ $summary_name=$summary_name.".tar.gz"; }
+  unless( $all_name =~ m/\.tar\.gz$/ ){ $all_name=$all_name.".tar.gz"; }
+
 }
 
 # Check to make sure that the hard coded files and paths above actually exist
@@ -172,7 +177,7 @@ if ( $compile_summary ){
 
 # Option to place all data - input and output into a single *.tar.gz
 if ( $zip_all ){
-  my $all_name = $all_name.".tar.gz";
+  my $all_name = $all_name;
   # can make this list more selective in the future - for now, just gets everything in the directory
   system("ls > file_list.txt")==0 or die "died writing file_list.txt";  
   system("sed '/file_list.txt/d' file_list.txt > edited_list.txt")==0 or die "died on sed of file_list.txt";
