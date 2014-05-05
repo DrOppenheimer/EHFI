@@ -62,7 +62,12 @@ while (my $line = <QIIME_ACTIVATION>){
   }  
 }
 
-print STDOUT "\n\nTHIS IS MY ENV\n\n".system("printenv"."\n\n");
+print STDOUT "\n\nTHIS IS MY ENV\n\n";
+while ( my ($key, $value) = each(%$ENV) ) {
+        print STDOUT "$key => $value\n";
+    }
+
+
 
 
 
