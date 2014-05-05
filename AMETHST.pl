@@ -15,12 +15,42 @@ use FindBin;
 
 my $start_time_stamp =`date +%m-%d-%y_%H:%M:%S`;  # create the time stamp month-day-year_hour:min:sec:nanosec
 chomp $start_time_stamp;
-my ($command_file, $compile_summary, $debug, $help);
-my $zip_prefix = "AMETHST_Summary";
+my ($command_file, $compile_summary, $compile_all, $debug, $help);
 
+# Set option defaults
+my $summary_name = "AMETHST.Summary";
+my $all_name = "AMETHST.All_data";
 my $qiime_activate_script = "/home/ubuntu/qiime_software/activate.sh";
 my $r_path = "/usr/bin";
 my $amethst_path = "/home/ubuntu/AMETHST";
+
+if ( (@ARGV > 0) && ($ARGV[0] =~ /-h/) ) { &usage(); exit 0; }
+
+unless ( @ARGV > 0 || $command_file ) { &usage(); exit 1;}
+
+if ( ! GetOptions (
+		   "f|command_file=s"          => \$command_file,
+		   "q|qiime_activate_script=s" => \$qiime_activate_script,
+		   "r|r_path=s"                => \$r_path,
+		   "a|amethst_path=s"          => \$amethst_path,          
+		   
+		   "c|compile_summary!"        => \$compile_summary,  
+		   "m|summary_name=s"          => \$summary_name,
+		   
+		   "a|compile_all!"            => \$compile_all,
+		   "n|all_name=s"              => \$all_name,
+
+		   "z|zip_prefix=s"            => \$zip_prefix,
+		   "h|help!"                   => \$help,
+		   "d|debug!"                  => \$debug
+		  )
+   ) { &usage(); exit 1; }
+
+# Check to make sure that summary and all file names are unique
+if ( $summary_name eq $all_name){
+  print STDOUT "-m|--summary_name: ".$summary_name."\n"."and -n|--all_name: ".$all_name." must be unique, please try again";
+  exit 1;
+}
 
 # Check to make sure that the hard coded files and paths above actually exist
 unless (-e $qiime_activate_script) {
@@ -54,36 +84,6 @@ while (my $line = <QIIME_ACTIVATION>){
 
 # Add the R and AMETHST path information to beginning of path
 $ENV{PATH} = "$r_path:$amethst_path:$ENV{PATH}";
-
-# DEBUG ENV
-# print STDOUT "\n\nTHIS IS MY ENV\n\n";
-# print STDOUT $ENV{PATH};
-## deref printing below does not work - why?
-## while ( my ($key, $value) = each(%$ENV) ) {
-##        print STDOUT "$key => $value\n";
-##    }
-
-
-
-
-
-system("source($qiime_activate_script)") or die "\ncan't source $qiime_activate_script\n";
-
-if ( (@ARGV > 0) && ($ARGV[0] =~ /-h/) ) { &usage(); exit 0; }
-
-unless ( @ARGV > 0 || $command_file ) { &usage(); exit 1;}
-
-if ( ! GetOptions (
-		   "f|command_file=s"          => \$command_file,
-		   "q|qiime_activate_script=s" => \$qiime_activate_script,
-		   "r|r_path=s"                => \$r_path,
-		   "a|amethst_path=s"          => \$amethst_path,          
-		   "c|compile_summary!"        => \$compile_summary,
-		   "z|zip_prefix=s"            => \$zip_prefix,
-		   "h|help!"                   => \$help,
-		   "d|debug!"                  => \$debug
-		  )
-   ) { &usage(); exit 1; }
 
 $command_file = basename($command_file);
 my $current_dir = getcwd()."/";
@@ -164,9 +164,16 @@ while (my $line = <FILE>){
 }
 
 
-### Option to place all data - input and output into a single *.tar.gz
+
+# Option to run compile_p-values-summary_files.pl - results are placed in an archive
 if ( $compile_summary ){
-  my $output_name = $zip_prefix.".tar.gz";
+  system("compile_p-values-summary_files.pl --output_zip='.$summary_name'");
+}
+
+
+# Option to place all data - input and output into a single *.tar.gz
+if ( $compile_all ){
+  my $all_name = $all_name.".tar.gz";
   # can make this list more selective in the future - for now, just gets everything in the directory
   system("ls > file_list.txt")==0 or die "died writing file_list.txt";  
   system("sed '/file_list.txt/d' file_list.txt > edited_list.txt")==0 or die "died on sed of file_list.txt";
@@ -205,14 +212,21 @@ USAGE:
     -a|--amethst_path           (string)    default: $amethst_path
                                             indicates the absolute path for AMETHST (i.e. the git repo directory)
 
-    -c|--compile_summary        (bool)      default is off
+    -c|--compile_summary        (bool)      default is off (use with -m|--summary_name)
+                                            runs the compile_p-values-summary_files.pl script to create a summary of all analyses
                                             used with the -z|--zip_prefix option to create a *.tar.gz of all data (input and output) 
 
-    -z|--zip_prefix             (string)    default: $zip_prefix
-                                            prefix for *.tar.gz that contains all data (input and output) 
-                                            ONLY USED IF -c|--compile_summary IS CALLED
-                                            USE DEFAULT FOR AWE AMETHST
+    -m|--summary_name           (string)    default: $summary_name
+					    requires -c|--compile_summary
+                                            name for the archive created by -c|--compile_summmary, appended with .tar.gz
 
+    -z|--compile_all            (bool)      default is off (use with -n|all_name)
+                                            create a tar.gz that contains all inputs and outputs
+
+    -n|--all_name               (string)    default: $all_name
+                                            requires -z|compile_all
+                                            name for the archive created by -c|--commpile_summary, appended with .tar.gz						
+						
     -h|--help                   (bool)      default is off,
                                             display help/usage
 
