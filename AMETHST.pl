@@ -99,13 +99,23 @@ print LOG "Start: ".$start_time_stamp."\n";
 ########### Run if -c option (AWE summary) is invoked ###########
 if ($awe_compile_summary){
   my $compile_summary_string = "compile_p-values-summary_files.pl --sort_output --output_zip=$summary_name";
-  print LOG "\n\n"."Running compile_p-values-summary_files.pl:"."\n".$compile_summary_string."\n"; 
+  # print LOG "\n\n"."Running compile_p-values-summary_files.pl:"."\n".$compile_summary_string."\n"; 
   system($compile_summary_string)==0 or die "dies running:"."\n".$compile_summary_string."\n" ;
 #################################################################  
 }else{
 
   ######### PERFORM AMETHST ANALYSIS ###########
 
+  # define some variables from the commands file
+  $command_file = basename($command_file);
+  my $current_dir = getcwd()."/";
+  my $script_dir = "$FindBin::RealBin/";
+  my $path_file = $current_dir.$command_file;
+  #my $log_file = $current_dir.$command_file.".MASTER.log";
+  my $log_prefix = "my_log";  
+  my $job_counter = 1;
+  my $log_file = $current_dir.$command_file.".".$start_time_stamp.".log";
+  
   # try to detect the number of CPUS
   my $num_cpus=`nproc`;
   unless($num_cpus){
@@ -117,36 +127,18 @@ if ($awe_compile_summary){
     print LOG "Detected ".$num_cpus." CPUS, using all but one of them"."\n\n";
     $num_cpus=$num_cpus-1;
   }
-  
 
-  # define some variables from the commands file
-  $command_file = basename($command_file);
-  my $current_dir = getcwd()."/";
-  my $script_dir = "$FindBin::RealBin/";
-  my $path_file = $current_dir.$command_file;
-  #my $log_file = $current_dir.$command_file.".MASTER.log";
-  my $log_prefix = "my_log";
-  
-  my $job_counter = 1;
-  my $log_file = $current_dir.$command_file.".".$start_time_stamp.".log";
-  
   # process through the commands file
   open(FILE, "<", $path_file) or die "can't open FILE $path_file"."\n"; 
-  
-  while (my $line = <FILE>){
-    
+  while (my $line = <FILE>){    
     chomp $line;
-    
     # skip lines that start with # or are blank
     unless ( ($line =~ m/^#/) || ($line =~ m/^\s*$/) ){
-      
     }else{
-      
       if( $line =~ s/^#job// ){
 	chomp $line;
 	$line =~ s/\s+//g;
 	$log_prefix = $line;
-	
 	print LOG "START Job: name(".$log_prefix.") number(".$job_counter.") at".`date +%m-%d-%y_%H:%M:%S`."\n";
 	
 	#my $cmd1 = $script_dir."plot_pco_with_stats_all.pl ".<FILE>;
@@ -183,16 +175,13 @@ if ($awe_compile_summary){
     
   }
 
-
-
   # Option to run compile_p-values-summary_files.pl - results are placed in an archive
   if ( $compile_summary ){
     my $compile_summary_string = "compile_p-values-summary_files.pl --sort_output --output_zip=$summary_name";
     print LOG "\n\n"."Running compile_p-values-summary_files.pl:"."\n".$compile_summary_string."\n"; 
     system($compile_summary_string)==0 or die "dies running:"."\n".$compile_summary_string."\n" ;
   }
-  
-  
+    
   # Option to place all data - input and output into a single *.tar.gz
   if ( $zip_all ){
     print LOG "\n"."Creating archive of all input and output data: ".$all_name."\n";
@@ -202,7 +191,6 @@ if ($awe_compile_summary){
     system("sed '/file_list.txt/d' file_list.txt > edited_list.txt")==0 or die "died on sed of file_list.txt";
     system("tar -zcf $all_name -T edited_list.txt")==0 or die "died on tar of files in file_list.txt";
   }
-  
   
   print LOG "\n"."ALL DONE at ".`date +%m-%d-%y_%H:%M:%S`."\n";
   close(LOG);
