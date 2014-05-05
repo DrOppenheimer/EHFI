@@ -40,7 +40,7 @@ exit 1;
 
 # add the R and AMETHST path information
 ##local $ENV{PATH} = "$ENV{PATH}:$r_path:$amethst_path";
-$ENV{'PATH'} = "$ENV{'PATH'}:$r_path:$amethst_path";
+$ENV{PATH} = "$ENV{PATH}:$r_path:$amethst_path";
 #if ($debug){ print STDOUT "PATH:\n".$ENV{PATH}."\n"; }
 
 
@@ -54,7 +54,7 @@ while (my $line = <QIIME_ACTIVATION>){
     my $var_name=$line_array[0];
     my $var_value=$line_array[1];
     print STDOUT "\n"."var:"."\t".$var_name."\n"."var_value:"."\t".$var_value."\n\n";
-    $ENV{'$var_name'} = "$ENV{'$var_value'}:$line";
+    $ENV{$var_name} = "$ENV{$var_value}:$line";
     
     #$line =~ s/PATH//;
     ##local $ENV{PATH} = "$ENV{PATH}:$line";
