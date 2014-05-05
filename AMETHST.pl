@@ -26,7 +26,7 @@ my $amethst_path = "/home/ubuntu/AMETHST";
 
 if ( (@ARGV > 0) && ($ARGV[0] =~ /-h/) ) { &usage(); exit 0; }
 
-unless ( @ARGV > 0 || $command_file ) { &usage(); exit 1;}
+unless ( @ARGV > 0 || $command_file || $awe_compile_all) { &usage(); exit 1;}
 
 if ( ! GetOptions (
 		   "f|command_file=s"          => \$command_file,
@@ -34,7 +34,9 @@ if ( ! GetOptions (
 		   "r|r_path=s"                => \$r_path,
 		   "a|amethst_path=s"          => \$amethst_path,          
 		   
-		   "c|compile_summary!"        => \$compile_summary,  
+		   "c|awe_compile_summary!"    => \$awe_compile_summary,
+
+		   "k|compile_summary!"        => \$compile_summary,  
 		   "m|summary_name=s"          => \$summary_name,
 		   
 		   "z|zip_all!"                => \$zip_all,
@@ -115,83 +117,93 @@ unless($num_cpus){
   $num_cpus=$num_cpus-1;
 }
 
-open(FILE, "<", $path_file) or die "can't open FILE $path_file"."\n"; 
 
-while (my $line = <FILE>){
-
-  chomp $line;
-  
-  # skip lines that start with # or are blank
-  unless ( ($line =~ m/^#/) || ($line =~ m/^\s*$/) ){
-    
-  }else{
-    
-    if( $line =~ s/^#job// ){
-      chomp $line;
-      $line =~ s/\s+//g;
-      $log_prefix = $line;
-    
-      print LOG "START Job: name(".$log_prefix.") number(".$job_counter.") at".`date +%m-%d-%y_%H:%M:%S`."\n";
-      
-      #my $cmd1 = $script_dir."plot_pco_with_stats_all.pl ".<FILE>;
-      my $cmd1 = $script_dir.<FILE>;
-      chomp $cmd1;
-      $cmd1 = $cmd1." --job_name $log_prefix --num_cpus $num_cpus";
-      print LOG $cmd1."\n"."...";
-      system($cmd1)==0 or die "died running command:"."\n".$cmd1."\n";
-      print LOG "DONE"."\n\n";
-
-      #my $cmd2 = $script_dir."plot_pco_with_stats_all.pl ".<FILE>;
-      my $cmd2 = $script_dir.<FILE>;
-      chomp $cmd2;
-      $cmd2 = $cmd2." --job_name $log_prefix --num_cpus $num_cpus";
-      print LOG $cmd2."\n"."...";
-      system($cmd2)==0 or die "died running command:"."\n".$cmd2."\n";
-      print LOG "DONE"."\n\n";
-
-      #my $sum_cmd = $script_dir."combine_summary_stats.pl ".<FILE>;
-      my $sum_cmd = $script_dir.<FILE>;
-      chomp $sum_cmd;
-      $sum_cmd = $sum_cmd." --log_file $log_file --job_name $log_prefix --output_file $log_prefix.P_VALUE_SUMMARY";
-      print LOG $sum_cmd."\n"."...";
-      system($sum_cmd)==0 or die "died running command:"."\n".$sum_cmd."\n";
-      print LOG "DONE"."\n\n";
-
-      print LOG "FINISH Job: name(".$log_prefix.") number(".$job_counter.") at ".`date +%m-%d-%y_%H:%M:%S`."\n";
-
-      $job_counter++;
-
-    }
-
- }
-  
-}
-
-
-
-# Option to run compile_p-values-summary_files.pl - results are placed in an archive
-if ( $compile_summary ){
+#### Run if -c option (AWE summary) is invoked
+if ($awe_compile_summary){
   my $compile_summary_string = "compile_p-values-summary_files.pl --sort_output --output_zip=$summary_name";
   print LOG "\n\n"."Running compile_p-values-summary_files.pl:"."\n".$compile_summary_string."\n"; 
   system($compile_summary_string)==0 or die "dies running:"."\n".$compile_summary_string."\n" ;
+}else{
+###############################
+
+
+  open(FILE, "<", $path_file) or die "can't open FILE $path_file"."\n"; 
+  
+  while (my $line = <FILE>){
+    
+    chomp $line;
+    
+    # skip lines that start with # or are blank
+    unless ( ($line =~ m/^#/) || ($line =~ m/^\s*$/) ){
+      
+    }else{
+      
+      if( $line =~ s/^#job// ){
+	chomp $line;
+	$line =~ s/\s+//g;
+	$log_prefix = $line;
+	
+	print LOG "START Job: name(".$log_prefix.") number(".$job_counter.") at".`date +%m-%d-%y_%H:%M:%S`."\n";
+	
+	#my $cmd1 = $script_dir."plot_pco_with_stats_all.pl ".<FILE>;
+	my $cmd1 = $script_dir.<FILE>;
+	chomp $cmd1;
+	$cmd1 = $cmd1." --job_name $log_prefix --num_cpus $num_cpus";
+	print LOG $cmd1."\n"."...";
+	system($cmd1)==0 or die "died running command:"."\n".$cmd1."\n";
+	print LOG "DONE"."\n\n";
+	
+	#my $cmd2 = $script_dir."plot_pco_with_stats_all.pl ".<FILE>;
+	my $cmd2 = $script_dir.<FILE>;
+	chomp $cmd2;
+	$cmd2 = $cmd2." --job_name $log_prefix --num_cpus $num_cpus";
+	print LOG $cmd2."\n"."...";
+	system($cmd2)==0 or die "died running command:"."\n".$cmd2."\n";
+	print LOG "DONE"."\n\n";
+	
+	#my $sum_cmd = $script_dir."combine_summary_stats.pl ".<FILE>;
+	my $sum_cmd = $script_dir.<FILE>;
+	chomp $sum_cmd;
+	$sum_cmd = $sum_cmd." --log_file $log_file --job_name $log_prefix --output_file $log_prefix.P_VALUE_SUMMARY";
+	print LOG $sum_cmd."\n"."...";
+	system($sum_cmd)==0 or die "died running command:"."\n".$sum_cmd."\n";
+	print LOG "DONE"."\n\n";
+	
+	print LOG "FINISH Job: name(".$log_prefix.") number(".$job_counter.") at ".`date +%m-%d-%y_%H:%M:%S`."\n";
+	
+	$job_counter++;
+	
+      }
+      
+    }
+    
+  }
+
+
+
+  # Option to run compile_p-values-summary_files.pl - results are placed in an archive
+  if ( $compile_summary ){
+    my $compile_summary_string = "compile_p-values-summary_files.pl --sort_output --output_zip=$summary_name";
+    print LOG "\n\n"."Running compile_p-values-summary_files.pl:"."\n".$compile_summary_string."\n"; 
+    system($compile_summary_string)==0 or die "dies running:"."\n".$compile_summary_string."\n" ;
+  }
+  
+  
+  # Option to place all data - input and output into a single *.tar.gz
+  if ( $zip_all ){
+    print LOG "\n"."Creating archive of all input and output data: ".$all_name."\n";
+    my $all_name = $all_name;
+    # can make this list more selective in the future - for now, just gets everything in the directory
+    system("ls > file_list.txt")==0 or die "died writing file_list.txt";  
+    system("sed '/file_list.txt/d' file_list.txt > edited_list.txt")==0 or die "died on sed of file_list.txt";
+    system("tar -zcf $all_name -T edited_list.txt")==0 or die "died on tar of files in file_list.txt";
+  }
+  
+  
+  print LOG "\n"."ALL DONE at ".`date +%m-%d-%y_%H:%M:%S`."\n";
+  close(LOG);
+  
 }
-
-
-# Option to place all data - input and output into a single *.tar.gz
-if ( $zip_all ){
-  print LOG "\n"."Creating archive of all input and output data: ".$all_name."\n";
-  my $all_name = $all_name;
-  # can make this list more selective in the future - for now, just gets everything in the directory
-  system("ls > file_list.txt")==0 or die "died writing file_list.txt";  
-  system("sed '/file_list.txt/d' file_list.txt > edited_list.txt")==0 or die "died on sed of file_list.txt";
-  system("tar -zcf $all_name -T edited_list.txt")==0 or die "died on tar of files in file_list.txt";
-}
-
-
-print LOG "\n"."ALL DONE at ".`date +%m-%d-%y_%H:%M:%S`."\n";
-close(LOG);
-
-
 
 
 
@@ -205,7 +217,16 @@ time stamp:           $start_time_stamp
 script:               $0
 
 USAGE:
-     AMETHST.pl -f command_file [options]
+     There are two usages - for the perl and AWE versions:
+
+     (1) AMETHST.pl -f command_file [options]
+
+     (2) AMETHST.pl -c --summary_name
+
+
+     (1) Can be used to perform analysis and summarize all in one step (for the perl stand alone version or the AWE service)
+     (2) Can be used to produce a summary for a complete anlaysis (for use with the AWE service)
+
 
     -f|--command_file           (string)    no default,
                                             name of the file with commands
@@ -219,20 +240,29 @@ USAGE:
     -a|--amethst_path           (string)    default: $amethst_path
                                             indicates the absolute path for AMETHST (i.e. the git repo directory)
 
-    -c|--compile_summary        (bool)      default is off (use with -m|--summary_name)
+    -c|--awe_compile_summary    (bool)      default is off
+                                            for use with AWE execution of AMETHST.pl only (not as stand alone with perl)
+                                            used with the -m|--summary_name option to create a *.tar.gz of summary
+
+    -k|--compile_summary        (bool)      default is off (use with -m|--summary_name)
+                                            for use with perl execution of AMETHST.pl only (not the AWE version)
                                             runs the compile_p-values-summary_files.pl script to create a summary of all analyses
-                                            used with the -z|--zip_prefix option to create a *.tar.gz of all data (input and output) 
+                                            for use with perl execution of AMETHST.pl only (not the AWE version)
+                                            used with the -m|--summary_name option to create a *.tar.gz of summary
 
     -m|--summary_name           (string)    default: $summary_name
-					    requires -c|--compile_summary
-                                            name for the archive created by -c|--compile_summmary, appended with .tar.gz
+					    requires -c|--awe_compile_summary or -k|--compile_summary
+                                            name for the archive that contains the summary, appended with .tar.gz
 
     -z|--zip_all                (bool)      default is off (use with -n|all_name)
+                                            for use with perl execution of AMETHST.pl only (not the AWE version)
                                             create a tar.gz that contains all inputs and outputs
-
+                                            
     -n|--all_name               (string)    default: $all_name
-                                            requires -z|zip_all
-                                            name for the archive created by -z|--zip_all, appended with .tar.gz						
+                                            for use with perl execution of AMETHST.pl only (not the AWE version)
+                                            requires -z|--zip_all
+                                            name for the archive created by -z|--zip_all, appended with .tar.gz
+                                            						
 						
     -h|--help                   (bool)      default is off,
                                             display help/usage
@@ -241,7 +271,17 @@ USAGE:
                                             run in debug mode
 
 DESCRIPTION:
-Driver script for AMETHST analysis
+Driver script for AMETHST analysis, for use in stand along perl installations
+or as part of the AWE AMETHST service.
+
+Typical Stand alone perl usage (script is executed just once)
+
+     AMETHST.pl -f test_analysis_commands -k --summary_name MY_SUMMARY
+
+Typical AWE service usage (script -is executed twice)
+
+     AMETHST.pl -f test_analysis_commands
+     AMETHST.pl -c --summary_name MY_SUMMARY
 
 );
   # exit 1;
