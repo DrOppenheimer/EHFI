@@ -44,11 +44,13 @@ open(QIIME_ACTIVATION, "<", $qiime_activate_script) or die "can't open QIIME_ACT
 while (my $line = <QIIME_ACTIVATION>){
   if ($line =~ s/^export PATH=//){
     $line =~ s/PATH//;
-      local $ENV{PATH} = "$ENV{PATH}:$line";
+    ##local $ENV{PATH} = "$ENV{PATH}:$line";
+    local $ENV{PATH} = "$ENV{PATH}:$line";
   }  
 }
 # add the R and AMETHST path information
-local $ENV{PATH} = "$ENV{PATH}:$r_path:$amethst_path";
+##local $ENV{PATH} = "$ENV{PATH}:$r_path:$amethst_path";
+$ENV{PATH} = "$ENV{PATH}:$r_path:$amethst_path";
 #if ($debug){ print STDOUT "PATH:\n".$ENV{PATH}."\n"; }
 
 if ( (@ARGV > 0) && ($ARGV[0] =~ /-h/) ) { &usage(); exit 0; }
