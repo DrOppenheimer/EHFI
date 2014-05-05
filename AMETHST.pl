@@ -68,7 +68,7 @@ if ( ! GetOptions (
 
 $command_file = basename($command_file);
 my $current_dir = getcwd()."/";
-my $script_dir = "$FindBin::Bin/";
+my $script_dir = "$FindBin::RealBin/";
 my $path_file = $current_dir.$command_file;
 #my $log_file = $current_dir.$command_file.".MASTER.log";
 my $log_prefix = "my_log";
