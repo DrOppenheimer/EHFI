@@ -38,10 +38,7 @@ print STDOUT "The specified path for AMETHST:\n$amethst_path\ndoes not exist.\nP
 exit 1;
 }
 
-# add the R and AMETHST path information
-##local $ENV{PATH} = "$ENV{PATH}:$r_path:$amethst_path";
-$ENV{PATH} = "$ENV{PATH}:$r_path:$amethst_path";
-#if ($debug){ print STDOUT "PATH:\n".$ENV{PATH}."\n"; }
+
 
 
 # Add qiime pathing information by sourcing the activate script
@@ -54,7 +51,7 @@ while (my $line = <QIIME_ACTIVATION>){
     my $var_name=$line_array[0];
     my $var_value=$line_array[1];
     print STDOUT "\n"."var:"."\t".$var_name."\n"."var_value:"."\t".$var_value."\n\n";
-    $ENV{$var_name} = "$ENV{$var_value}:$line";
+    $ENV{$var_name} = "$var_value";
     
     #$line =~ s/PATH//;
     ##local $ENV{PATH} = "$ENV{PATH}:$line";
@@ -62,8 +59,15 @@ while (my $line = <QIIME_ACTIVATION>){
   }  
 }
 
+
+# add the R and AMETHST path information to beginning of path
+##local $ENV{PATH} = "$ENV{PATH}:$r_path:$amethst_path";
+$ENV{PATH} = "$r_path:$amethst_path:$ENV{PATH}";
+#if ($debug){ print STDOUT "PATH:\n".$ENV{PATH}."\n"; }
+
+
 print STDOUT "\n\nTHIS IS MY ENV\n\n";
-while ( my ($key, $value) = each($ENV) ) {
+while ( my ($key, $value) = each(%$ENV) ) {
         print STDOUT "$key => $value\n";
     }
 
