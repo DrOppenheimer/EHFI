@@ -228,10 +228,11 @@ if ( $sort_output ){
   #     # perl -e 'my $test="test..x.y"; if($test =~ s/\.\./\./){print STDOUT "\n$test\n";}'
   #   }
   # }
+  if( $output_zip ){
+    my $tar_summary_dir_string = "tar -zcf $output_zip $summary_dir_base";
+    system($tar_summary_dir_string)==0 or die "died running"."\n".$tar_summary_dir_string."\n";
+  }
   
-  my $tar_summary_dir_string = "tar -zcf $output_zip $summary_dir_base";
-  system($tar_summary_dir_string)==0 or die "died running"."\n".$tar_summary_dir_string."\n";
-    
 }
 
 
@@ -304,8 +305,10 @@ compile_p-values-summary_files -d|--dir_path <dir path> -i|--input_pattern <inpu
                           prefix for the output files
 
      -s|--sort_output     sort output - PCoA image, PCoA flat files, individual Pvalue summaries are all placed in their own folders
+
      -z|--output_zip      default=$output_zip
-                          name for the zip output; only used if -s|--sort_output is used
+                          requires -s|--sort_output
+                          name for a zipped archive of the sorted output
 
      -u|--unzip           flag to unzip any *.tar.gz before proceeding
 
