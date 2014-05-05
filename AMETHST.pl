@@ -53,7 +53,7 @@ $ENV{'PATH'} = "$ENV{'PATH'}:$r_path:$amethst_path";
 #     $ENV{'PATH'} = "$ENV{'PATH'}:$line";
 #   }  
 # }
-source($qiime_activate_script) or die "\ncan't source $qiime_activate_script\n";
+system("source($qiime_activate_script)") or die "\ncan't source $qiime_activate_script\n";
 
 if ( (@ARGV > 0) && ($ARGV[0] =~ /-h/) ) { &usage(); exit 0; }
 
