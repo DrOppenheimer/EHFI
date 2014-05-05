@@ -51,8 +51,8 @@ while (my $line = <QIIME_ACTIVATION>){
   if ($line =~ s/^export //){
     $line =~ s/\s\s+/ /g;
     @line_array=split("=",$line);
-    $var_name=$line_array[0];
-    $var_value=$line_array[1];
+    my $var_name=$line_array[0];
+    my $var_value=$line_array[1];
     print STDOUT "\n"."var:"."\t".$var_name."\n"."var_value:"."\n".$var_value."\n";
     $ENV{'$var_name'} = "$ENV{'$var_value'}:$line";
     
