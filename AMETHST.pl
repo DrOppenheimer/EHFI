@@ -38,20 +38,22 @@ print STDOUT "The specified path for AMETHST:\n$amethst_path\ndoes not exist.\nP
 exit 1;
 }
 
-
-# get path information from the qiime activations script
-open(QIIME_ACTIVATION, "<", $qiime_activate_script) or die "can't open QIIME_ACTIVATION $qiime_activate_script"."\n"; 
-while (my $line = <QIIME_ACTIVATION>){
-  if ($line =~ s/^export PATH=//){
-    $line =~ s/PATH//;
-    ##local $ENV{PATH} = "$ENV{PATH}:$line";
-    $ENV{'PATH'} = "$ENV{'PATH'}:$line";
-  }  
-}
 # add the R and AMETHST path information
 ##local $ENV{PATH} = "$ENV{PATH}:$r_path:$amethst_path";
 $ENV{'PATH'} = "$ENV{'PATH'}:$r_path:$amethst_path";
 #if ($debug){ print STDOUT "PATH:\n".$ENV{PATH}."\n"; }
+
+# Add qiime pathing information by sourcing the activate script
+# # tried this to just get the PATH variable from activate script -- did not work
+# open(QIIME_ACTIVATION, "<", $qiime_activate_script) or die "can't open QIIME_ACTIVATION $qiime_activate_script"."\n"; 
+# while (my $line = <QIIME_ACTIVATION>){
+#   if ($line =~ s/^export PATH=//){
+#     $line =~ s/PATH//;
+#     ##local $ENV{PATH} = "$ENV{PATH}:$line";
+#     $ENV{'PATH'} = "$ENV{'PATH'}:$line";
+#   }  
+# }
+source($qiime_activate_script) or die "\ncan't source $qiime_activate_script\n";
 
 if ( (@ARGV > 0) && ($ARGV[0] =~ /-h/) ) { &usage(); exit 0; }
 
