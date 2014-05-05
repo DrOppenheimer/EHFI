@@ -43,16 +43,26 @@ exit 1;
 $ENV{'PATH'} = "$ENV{'PATH'}:$r_path:$amethst_path";
 #if ($debug){ print STDOUT "PATH:\n".$ENV{PATH}."\n"; }
 
+
 # Add qiime pathing information by sourcing the activate script
-# # tried this to just get the PATH variable from activate script -- did not work
-# open(QIIME_ACTIVATION, "<", $qiime_activate_script) or die "can't open QIIME_ACTIVATION $qiime_activate_script"."\n"; 
-# while (my $line = <QIIME_ACTIVATION>){
-#   if ($line =~ s/^export PATH=//){
-#     $line =~ s/PATH//;
-#     ##local $ENV{PATH} = "$ENV{PATH}:$line";
-#     $ENV{'PATH'} = "$ENV{'PATH'}:$line";
-#   }  
-# }
+open(QIIME_ACTIVATION, "<", $qiime_activate_script) or die "can't open QIIME_ACTIVATION $qiime_activate_script"."\n"; 
+while (my $line = <QIIME_ACTIVATION>){
+  #if ($line =~ s/^export PATH=//){
+  if ($line =~ s/^export //){
+    $line =~ s/\s\s+/ /g;
+    @line_array=split("=",$line);
+    $var_name=$line_array[0];
+    $var_value=$line_array[1];
+    print STDOUT "\n"."var:"."\t".$var_name."\n"."var_value:"."\n".$var_value."\n";
+    $ENV{'$var_name'} = "$ENV{'$var_value'}:$line";
+    
+    #$line =~ s/PATH//;
+    ##local $ENV{PATH} = "$ENV{PATH}:$line";
+    #$ENV{'PATH'} = "$ENV{'PATH'}:$line";
+  }  
+}
+
+
 system("source($qiime_activate_script)") or die "\ncan't source $qiime_activate_script\n";
 
 if ( (@ARGV > 0) && ($ARGV[0] =~ /-h/) ) { &usage(); exit 0; }
