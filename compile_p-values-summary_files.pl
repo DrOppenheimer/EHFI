@@ -14,8 +14,8 @@ my ($target_dir, $unzip, $help, $verbose, $debug);
 my $input_pattern = ".P_VALUE_SUMMARY\$";
 my $output_pattern;
 my $current_dir = getcwd()."/";
-#my $output_zip = "AMETHST_Summary.tar.gz";
-my($group_name, $raw_dist, $group_dist_stdev, $scaled_dist, $dist_p, $num_perm, $group_members, $sort_output, $output_zip);
+my $output_zip = "AMETHST_Summary.tar.gz";
+my($group_name, $raw_dist, $group_dist_stdev, $scaled_dist, $dist_p, $num_perm, $group_members, $sort_output);
 #my $raw_dists_out ="";
 
 #if($debug) { print STDOUT "current_dir: "."\t".$current_dir."\n";}
@@ -230,10 +230,8 @@ if ( $sort_output ){
   #     # perl -e 'my $test="test..x.y"; if($test =~ s/\.\./\./){print STDOUT "\n$test\n";}'
   #   }
   # }
-  if( $output_zip ){
-    my $tar_summary_dir_string = "tar -zcf $output_zip $summary_dir_base";
-    system($tar_summary_dir_string)==0 or die "died running"."\n".$tar_summary_dir_string."\n";
-  }
+  my $tar_summary_dir_string = "tar -zcf $output_zip $summary_dir_base";
+  system($tar_summary_dir_string)==0 or die "died running"."\n".$tar_summary_dir_string."\n";
   
 }
 
