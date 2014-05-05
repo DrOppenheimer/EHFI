@@ -15,7 +15,7 @@ use FindBin;
 
 my $start_time_stamp =`date +%m-%d-%y_%H:%M:%S`;  # create the time stamp month-day-year_hour:min:sec:nanosec
 chomp $start_time_stamp;
-my ($command_file, $compile_summary, $compile_all, $debug, $help);
+my ($command_file, $compile_summary, $awe_compile_summary, $compile_all, $debug, $help);
 
 # Set option defaults
 my $summary_name = "AMETHST.Summary";
@@ -26,7 +26,7 @@ my $amethst_path = "/home/ubuntu/AMETHST";
 
 if ( (@ARGV > 0) && ($ARGV[0] =~ /-h/) ) { &usage(); exit 0; }
 
-unless ( @ARGV > 0 || $command_file || $awe_compile_all) { &usage(); exit 1;}
+unless ( @ARGV > 0 || $command_file || $awe_compile_summary) { &usage(); exit 1;}
 
 if ( ! GetOptions (
 		   "f|command_file=s"          => \$command_file,
