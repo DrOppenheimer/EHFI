@@ -91,9 +91,6 @@ while (my $line = <QIIME_ACTIVATION>){
 # Add the R and AMETHST path information to beginning of path
 $ENV{PATH} = "$r_path:$amethst_path:$ENV{PATH}";
 
-# Open the log for printing
-open(LOG, ">", $log_file) or die "cant open LOG $log_file"."\n";
-print LOG "Start: ".$start_time_stamp."\n";
 
 
 ########### Run if -c option (AWE summary) is invoked ###########
@@ -115,7 +112,11 @@ if ($awe_compile_summary){
   my $log_prefix = "my_log";  
   my $job_counter = 1;
   my $log_file = $current_dir.$command_file.".".$start_time_stamp.".log";
-  
+
+  # Open the log for printing
+  open(LOG, ">", $log_file) or die "cant open LOG $log_file"."\n";
+  print LOG "Start: ".$start_time_stamp."\n";
+
   # try to detect the number of CPUS
   my $num_cpus=`nproc`;
   unless($num_cpus){
