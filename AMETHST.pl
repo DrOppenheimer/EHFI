@@ -91,10 +91,28 @@ while (my $line = <QIIME_ACTIVATION>){
 # Add the R and AMETHST path information to beginning of path
 $ENV{PATH} = "$r_path:$amethst_path:$ENV{PATH}";
 
-
+# define some variables from the commands file
+$command_file = basename($command_file);
+my $current_dir = getcwd()."/";
+my $script_dir = "$FindBin::RealBin/";
+my $path_file = $current_dir.$command_file;
+#my $log_file = $current_dir.$command_file.".MASTER.log";
+my $log_prefix = "my_log";  
+my $job_counter = 1;
+my $log_file = $current_dir.$command_file.".".$start_time_stamp.".log";
 
 ########### Run if -c option (AWE summary) is invoked ###########
 if ($awe_compile_summary){
+
+  # unzip tarred data if it's there
+  my @tar_zip_files = glob "$current_dir*.tar.gz";
+  if( scalar(@tar_zip_files) > 0 ){ system('for i in *tar.gz; do tar -zxf $i; done')==0 or die "died unzipping *.tar.gz listed in tar_list.txt"; }  
+  # my @files = glob "$dir/*.txt";
+  # for (0..$#files){
+  #   $files[$_] =~ s/\.txt$//;
+  # }
+
+  # compile the data
   my $compile_summary_string = "compile_p-values-summary_files.pl --sort_output --output_zip=$summary_name";
   # print LOG "\n\n"."Running compile_p-values-summary_files.pl:"."\n".$compile_summary_string."\n"; 
   system($compile_summary_string)==0 or die "dies running:"."\n".$compile_summary_string."\n" ;
@@ -103,15 +121,7 @@ if ($awe_compile_summary){
 
   ######### PERFORM AMETHST ANALYSIS ###########
 
-  # define some variables from the commands file
-  $command_file = basename($command_file);
-  my $current_dir = getcwd()."/";
-  my $script_dir = "$FindBin::RealBin/";
-  my $path_file = $current_dir.$command_file;
-  #my $log_file = $current_dir.$command_file.".MASTER.log";
-  my $log_prefix = "my_log";  
-  my $job_counter = 1;
-  my $log_file = $current_dir.$command_file.".".$start_time_stamp.".log";
+  
 
   # Open the log for printing
   open(LOG, ">", $log_file) or die "cant open LOG $log_file"."\n";
@@ -214,7 +224,7 @@ USAGE:
 
      (1) AMETHST.pl -f command_file [options]
 
-     (2) AMETHST.pl -c --summary_name
+     (2) AMETHST.pl -c --summary_name MY_SUMMARY_FILENAME
 
 
      (1) Can be used to perform analysis and summarize all in one step (for the perl stand alone version or the AWE service)
