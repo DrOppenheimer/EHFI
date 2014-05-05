@@ -21,7 +21,7 @@ my($group_name, $raw_dist, $group_dist_stdev, $scaled_dist, $dist_p, $num_perm, 
 #if($debug) { print STDOUT "current_dir: "."\t".$current_dir."\n";}
 
 # check input args and display usage if not suitable
-unless($go){if ( @ARGV==0 ) { &usage(); }}
+#unless($go){if ( @ARGV==0 ) { &usage(); }}
 if ( (@ARGV > 0) && ($ARGV[0] =~ /-h/) ) { &usage(); }
 
 #unless ( @ARGV > 0 || $data_file ) { &usage(); }
@@ -31,7 +31,7 @@ if ( ! GetOptions (
 		   "u|unzip!"           => \$unzip,
 		   "i|input_pattern=s"  => \$input_pattern,
 		   "o|output_pattern=s" => \$output_pattern,
-		   "g|go!"              => \$go,
+		   #"g|go!"              => \$go,
                    "s|sort_output!"     => \$sort_output,
 		   "z|output_zip=s"     => \$output_zip,
 		   "h|help!"            => \$help, 
@@ -71,12 +71,11 @@ script:               $0
 d|target_dir       $target_dir
 i|input_pattern    $input_pattern
 o|output_pattern   $output_pattern
-g|go               $go
 z|output_zip       $output_zip
 ############## FLAGS ###############
 );
 if( defined($unzip) )      { print LOG "u|unzip            $unzip\n"; }      else{ print LOG "u|unzip            0\n"; }
-if( defined($go) )         { print LOG "g|go               $go\n"; }         else{ print LOG "g|go               0\n"; }
+#if( defined($go) )         { print LOG "g|go               $go\n"; }         else{ print LOG "g|go               0\n"; }
 if( defined($sort_output) ){ print LOG "s|sort_output      $sort_output\n"; }else{ print LOG "s|sort_output      0\n"; }
 if( defined($help) )       { print LOG "h|help             $help\n"; }       else{ print LOG "h|help             0\n"; }
 if( defined($verbose) )    { print LOG "v|erbose           $verbose\n"; }    else{ print LOG "v|verbose          0\n"; }
@@ -304,8 +303,6 @@ compile_p-values-summary_files -d|--dir_path <dir path> -i|--input_pattern <inpu
      -o|--output_prefix   default = $output_pattern
                           prefix for the output files
 
-     -g|--go              run with all default values
-
      -s|--sort_output     sort output - PCoA image, PCoA flat files, individual Pvalue summaries are all placed in their own folders
      -z|--output_zip      default=$output_zip
                           name for the zip output; only used if -s|--sort_output is used
@@ -340,3 +337,5 @@ files. The default path is "./".
 );
   exit 1;
 }
+
+# compile_p-values-summary_files.pl --output_zip='.$summary_name'

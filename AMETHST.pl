@@ -171,7 +171,7 @@ while (my $line = <FILE>){
 
 # Option to run compile_p-values-summary_files.pl - results are placed in an archive
 if ( $compile_summary ){
-  system("compile_p-values-summary_files.pl -g --output_zip='.$summary_name'");
+  system("compile_p-values-summary_files.pl --output_zip='.$summary_name'");
 }
 
 
