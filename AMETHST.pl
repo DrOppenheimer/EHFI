@@ -40,7 +40,6 @@ if ( ! GetOptions (
 		   "a|compile_all!"            => \$compile_all,
 		   "n|all_name=s"              => \$all_name,
 
-		   "z|zip_prefix=s"            => \$zip_prefix,
 		   "h|help!"                   => \$help,
 		   "d|debug!"                  => \$debug
 		  )
@@ -177,7 +176,7 @@ if ( $compile_all ){
   # can make this list more selective in the future - for now, just gets everything in the directory
   system("ls > file_list.txt")==0 or die "died writing file_list.txt";  
   system("sed '/file_list.txt/d' file_list.txt > edited_list.txt")==0 or die "died on sed of file_list.txt";
-  system("tar -zcf $output_name -T edited_list.txt")==0 or die "died on tar of files in file_list.txt";
+  system("tar -zcf $all_name -T edited_list.txt")==0 or die "died on tar of files in file_list.txt";
 }
 
 
