@@ -37,7 +37,7 @@ if ( ! GetOptions (
 		   "c|compile_summary!"        => \$compile_summary,  
 		   "m|summary_name=s"          => \$summary_name,
 		   
-		   "a|compile_all!"            => \$compile_all,
+		   "z|zip_all!"                => \$zip_all,
 		   "n|all_name=s"              => \$all_name,
 
 		   "h|help!"                   => \$help,
@@ -171,7 +171,7 @@ if ( $compile_summary ){
 
 
 # Option to place all data - input and output into a single *.tar.gz
-if ( $compile_all ){
+if ( $zip_all ){
   my $all_name = $all_name.".tar.gz";
   # can make this list more selective in the future - for now, just gets everything in the directory
   system("ls > file_list.txt")==0 or die "died writing file_list.txt";  
@@ -219,12 +219,12 @@ USAGE:
 					    requires -c|--compile_summary
                                             name for the archive created by -c|--compile_summmary, appended with .tar.gz
 
-    -z|--compile_all            (bool)      default is off (use with -n|all_name)
+    -z|--zip_all                (bool)      default is off (use with -n|all_name)
                                             create a tar.gz that contains all inputs and outputs
 
     -n|--all_name               (string)    default: $all_name
-                                            requires -z|compile_all
-                                            name for the archive created by -c|--commpile_summary, appended with .tar.gz						
+                                            requires -z|zip_all
+                                            name for the archive created by -z|--zip_all, appended with .tar.gz						
 						
     -h|--help                   (bool)      default is off,
                                             display help/usage
