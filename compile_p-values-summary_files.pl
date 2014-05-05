@@ -40,8 +40,10 @@ if ( ! GetOptions (
 		  )
    ) { &usage(); }
 
-
+# If the zip option is used - make sure that name has correct extension
+if ( $output_zip ){
 unless( $output_zip =~ m/\.tar\.gz$/ ){ $output_zip=$output_zip.".tar.gz"; }
+}
 
 unless ($target_dir) {$target_dir = $current_dir;} # use current directory if no other is supplied
 #unless ($output_pattern) {$output_pattern = "my_compiled.P_VALUES_SUMMARY.".$start_time_stamp;}
