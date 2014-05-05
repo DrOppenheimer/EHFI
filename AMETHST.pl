@@ -171,12 +171,15 @@ while (my $line = <FILE>){
 
 # Option to run compile_p-values-summary_files.pl - results are placed in an archive
 if ( $compile_summary ){
-  system("compile_p-values-summary_files.pl --output_zip='.$summary_name'");
+  my $compile_summary_string = "compile_p-values-summary_files.pl --output_zip='.$summary_name'";
+  print LOG "\n\n"."Running compile_p-values-summary_files.pl:"."\n".$compile_summary_string."\n"; 
+  system($compile_summary_string);
 }
 
 
 # Option to place all data - input and output into a single *.tar.gz
 if ( $zip_all ){
+  print LOG "\n"."Creating archive of all input and output data: ".$all_name."\n";
   my $all_name = $all_name;
   # can make this list more selective in the future - for now, just gets everything in the directory
   system("ls > file_list.txt")==0 or die "died writing file_list.txt";  
