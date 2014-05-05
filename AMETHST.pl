@@ -67,9 +67,11 @@ $ENV{PATH} = "$r_path:$amethst_path:$ENV{PATH}";
 
 
 print STDOUT "\n\nTHIS IS MY ENV\n\n";
-while ( my ($key, $value) = each($ENV) ) {
-        print STDOUT "$key => $value\n";
-    }
+print STDOUT $ENV{PATH};
+
+#while ( my ($key, $value) = each($ENV) ) {
+#        print STDOUT "$key => $value\n";
+#    }
 
 
 
