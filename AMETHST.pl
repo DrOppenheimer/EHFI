@@ -38,40 +38,30 @@ print STDOUT "The specified path for AMETHST:\n$amethst_path\ndoes not exist.\nP
 exit 1;
 }
 
-
-
-
-# Add qiime pathing information by sourcing the activate script
+# Add qiime pathing information by indirectly sourcing the activate script --
+# i.e. read each "export" line and use it to create an envrionment variable for the perl session
 open(QIIME_ACTIVATION, "<", $qiime_activate_script) or die "can't open QIIME_ACTIVATION $qiime_activate_script"."\n"; 
 while (my $line = <QIIME_ACTIVATION>){
-  #if ($line =~ s/^export PATH=//){
-  if ($line =~ s/^export //){
-    $line =~ s/\s\s+/ /g;
-    my @line_array=split("=",$line);
-    my $var_name=$line_array[0];
-    my $var_value=$line_array[1];
-    print STDOUT "\n"."var:"."\t".$var_name."\n"."var_value:"."\t".$var_value."\n\n";
-    $ENV{$var_name} = "$var_value";
-    
-    #$line =~ s/PATH//;
-    ##local $ENV{PATH} = "$ENV{PATH}:$line";
-    #$ENV{'PATH'} = "$ENV{'PATH'}:$line";
+  if ($line =~ s/^export //){ # identify "export" lines and trim "export " from the line
+    $line =~ s/\s\s+/ /g; # get rid of any whitespace
+    my @line_array=split("=",$line); # split the line
+    my $var_name=$line_array[0]; # first entry is the variable name
+    my $var_value=$line_array[1]; # second entry is the variable value
+    #print STDOUT "\n"."var:"."\t".$var_name."\n"."var_value:"."\t".$var_value."\n\n"; # ENV debugging
+    $ENV{$var_name} = "$var_value"; # load the variables into perls envrionment variable hash   
   }  
 }
 
-
-# add the R and AMETHST path information to beginning of path
-##local $ENV{PATH} = "$ENV{PATH}:$r_path:$amethst_path";
+# Add the R and AMETHST path information to beginning of path
 $ENV{PATH} = "$r_path:$amethst_path:$ENV{PATH}";
-#if ($debug){ print STDOUT "PATH:\n".$ENV{PATH}."\n"; }
 
-
-print STDOUT "\n\nTHIS IS MY ENV\n\n";
-print STDOUT $ENV{PATH};
-
-#while ( my ($key, $value) = each($ENV) ) {
-#        print STDOUT "$key => $value\n";
-#    }
+# DEBUG ENV
+# print STDOUT "\n\nTHIS IS MY ENV\n\n";
+# print STDOUT $ENV{PATH};
+## deref printing below does not work - why?
+## while ( my ($key, $value) = each(%$ENV) ) {
+##        print STDOUT "$key => $value\n";
+##    }
 
 
 
