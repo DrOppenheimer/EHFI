@@ -15,8 +15,8 @@ use FindBin;
 
 my $start_time_stamp =`date +%m-%d-%y_%H:%M:%S`;  # create the time stamp month-day-year_hour:min:sec:nanosec
 chomp $start_time_stamp;
-my ($command_file, $zip_prefix, $debug, $help);
-
+my ($command_file, $compile_summary, $debug, $help);
+my $zip_prefix = "AMETHST_Summary";
 
 my $qiime_activate_script = "/home/ubuntu/qiime_software/activate.sh";
 my $r_path = "/usr/bin";
@@ -78,7 +78,8 @@ if ( ! GetOptions (
 		   "q|qiime_activate_script=s" => \$qiime_activate_script,
 		   "r|r_path=s"                => \$r_path,
 		   "a|amethst_path=s"          => \$amethst_path,          
-		   "z|zip_prefix!"             => \$zip_prefix,
+		   "c|compile_summary!"        => \$compile_summary,
+		   "z|zip_prefix=s"            => \$zip_prefix,
 		   "h|help!"                   => \$help,
 		   "d|debug!"                  => \$debug
 		  )
@@ -162,10 +163,10 @@ while (my $line = <FILE>){
   
 }
 
-### THIS NEEDS TO BE MOVED UP INTO THE PAIR ANALYSIS LOOP -- or added to workflow after all ...
-# tar the entire directory if the -z option is used
-if ( $zip_prefix ){
-  my $output_name = $log_prefix.".RESULTS.tar.gz";
+
+### Option to place all data - input and output into a single *.tar.gz
+if ( $compile_summary ){
+  my $output_name = $zip_prefix.".tar.gz";
   # can make this list more selective in the future - for now, just gets everything in the directory
   system("ls > file_list.txt")==0 or die "died writing file_list.txt";  
   system("sed '/file_list.txt/d' file_list.txt > edited_list.txt")==0 or die "died on sed of file_list.txt";
@@ -204,8 +205,13 @@ USAGE:
     -a|--amethst_path           (string)    default: $amethst_path
                                             indicates the absolute path for AMETHST (i.e. the git repo directory)
 
-    -z|--zip_prefix             (bool)      default is off, 
-                                            create a *.tar.gz that contains all data (input and output)    
+    -c|--compile_summary        (bool)      default is off
+                                            used with the -z|--zip_prefix option to create a *.tar.gz of all data (input and output) 
+
+    -z|--zip_prefix             (string)    default: $zip_prefix
+                                            prefix for *.tar.gz that contains all data (input and output) 
+                                            ONLY USED IF -c|--compile_summary IS CALLED
+                                            USE DEFAULT FOR AWE AMETHST
 
     -h|--help                   (bool)      default is off,
                                             display help/usage
