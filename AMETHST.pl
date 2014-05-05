@@ -62,6 +62,9 @@ while (my $line = <QIIME_ACTIVATION>){
   }  
 }
 
+print STDOUT "\n\nTHIS IS MY ENV\n\n".system("printenv"."\n\n");
+
+
 
 system("source($qiime_activate_script)") or die "\ncan't source $qiime_activate_script\n";
 
