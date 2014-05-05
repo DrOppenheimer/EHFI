@@ -14,8 +14,8 @@ my ($target_dir, $unzip, $help, $verbose, $debug);
 my $input_pattern = ".P_VALUE_SUMMARY\$";
 my $output_pattern;
 my $current_dir = getcwd()."/";
-my $output_zip = "AMETHST_Summary.tar.gz";
-my($group_name, $raw_dist, $group_dist_stdev, $scaled_dist, $dist_p, $num_perm, $group_members, $sort_output);
+#my $output_zip = "AMETHST_Summary.tar.gz";
+my($group_name, $raw_dist, $group_dist_stdev, $scaled_dist, $dist_p, $num_perm, $group_members, $sort_output, $output_zip);
 #my $raw_dists_out ="";
 
 #if($debug) { print STDOUT "current_dir: "."\t".$current_dir."\n";}
@@ -41,7 +41,7 @@ if ( ! GetOptions (
    ) { &usage(); }
 
 
-unless( $output_zip =~ m/\.tar\.gz$/ ){ die "\n\n"."-z|--output_zip must be of format *.tar.gz"."\n\n"; }
+unless( $output_zip =~ m/\.tar\.gz$/ ){ $output_zip=$output_zip.".tar.gz"; }
 
 unless ($target_dir) {$target_dir = $current_dir;} # use current directory if no other is supplied
 #unless ($output_pattern) {$output_pattern = "my_compiled.P_VALUES_SUMMARY.".$start_time_stamp;}
@@ -199,7 +199,7 @@ if ( $sort_output ){
   unless ( -d $pcoa_image_dir ){
     mkdir $pcoa_image_dir;
   }
-  my $move_pcoa_image_string = "mv *.pcoa.png $pcoa_image_dir";
+  my $move_pcoa_image_string = "mv *.png $pcoa_image_dir";
   system($move_pcoa_image_string)==0 or die "died running"."\n".$move_pcoa_image_string."\n";
 
   my $pcoa_p_summary_dir = $summary_dir."/P_value_summaries";

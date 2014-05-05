@@ -173,7 +173,7 @@ while (my $line = <FILE>){
 if ( $compile_summary ){
   my $compile_summary_string = "compile_p-values-summary_files.pl --sort_output --output_zip='.$summary_name'";
   print LOG "\n\n"."Running compile_p-values-summary_files.pl:"."\n".$compile_summary_string."\n"; 
-  system($compile_summary_string);
+  system($compile_summary_string)==0 or die "dies running:"."\n".$compile_summary_string."\n" ;
 }
 
 
