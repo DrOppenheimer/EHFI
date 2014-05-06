@@ -91,7 +91,7 @@ while (my $line = <QIIME_ACTIVATION>){
 # Add the R and AMETHST path information to beginning of path
 $ENV{PATH} = "$r_path:$amethst_path:$ENV{PATH}";
 
-
+my $current_dir = getcwd()."/";
 
 ########### Run if -c option (AWE summary) is invoked ###########
 if ($awe_compile_summary){
@@ -117,7 +117,6 @@ if ($awe_compile_summary){
 
   # define some variables from the commands file
   $command_file = basename($command_file);
-  my $current_dir = getcwd()."/";
   my $script_dir = "$FindBin::RealBin/";
   my $path_file = $current_dir.$command_file;
   #my $log_file = $current_dir.$command_file.".MASTER.log";
