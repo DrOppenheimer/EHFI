@@ -101,31 +101,31 @@ my $log_prefix = "my_log";
 my $job_counter = 1;
 my $log_file = $current_dir.$command_file.".".$start_time_stamp.".log";
 
+# Open the log for printing
+open(LOG, ">", $log_file) or die "cant open LOG $log_file"."\n";
+print LOG "Start: ".$start_time_stamp."\n";
+
 ########### Run if -c option (AWE summary) is invoked ###########
 if ($awe_compile_summary){
 
   # unzip tarred data if it's there
   my @tar_zip_files = glob "$current_dir*.tar.gz";
-  if( scalar(@tar_zip_files) > 0 ){ system('for i in *tar.gz; do tar -zxf $i; done')==0 or die "died unzipping *.tar.gz listed in tar_list.txt"; }  
-  # my @files = glob "$dir/*.txt";
-  # for (0..$#files){
-  #   $files[$_] =~ s/\.txt$//;
-  # }
+  if( scalar(@tar_zip_files) > 0 ){ 
+    system('for i in *tar.gz; do tar -zxf $i; done')==0 or die "died unzipping *.tar.gz listed in tar_list.txt"; 
+  }  
+  ## my @files = glob "$dir/*.txt";
+  ## for (0..$#files){
+  ##   $files[$_] =~ s/\.txt$//;
+  ## }
 
   # compile the data
   my $compile_summary_string = "compile_p-values-summary_files.pl --sort_output --output_zip=$summary_name";
-  # print LOG "\n\n"."Running compile_p-values-summary_files.pl:"."\n".$compile_summary_string."\n"; 
+  print LOG "\n\n"."Running compile_p-values-summary_files.pl:"."\n".$compile_summary_string."\n"; 
   system($compile_summary_string)==0 or die "dies running:"."\n".$compile_summary_string."\n" ;
 #################################################################  
 }else{
 
   ######### PERFORM AMETHST ANALYSIS ###########
-
-  
-
-  # Open the log for printing
-  open(LOG, ">", $log_file) or die "cant open LOG $log_file"."\n";
-  print LOG "Start: ".$start_time_stamp."\n";
 
   # try to detect the number of CPUS
   my $num_cpus=`nproc`;
