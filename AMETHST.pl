@@ -93,7 +93,7 @@ while (my $line = <QIIME_ACTIVATION>){
 # Add the R and AMETHST path information to beginning of path # also add /bin, which is overwritten 7-7-14
 $ENV{PATH} = "$r_path:$amethst_path:$ENV{PATH}";
 # add original path to the end of the modified path
-$ENV{PATH} = "$ENV{PATH}:$original_path"
+$ENV{PATH} = "$ENV{PATH}:$original_path";
 
 my $current_dir = getcwd()."/";
 
