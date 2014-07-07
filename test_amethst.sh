@@ -4,7 +4,7 @@
 
 # get path for AMETHST
 START_DIR=`pwd`
-WHICH_AMETHST=`which amethst.pl`
+WHICH_AMETHST=`which AMETHST.pl`
 AMETHST_PATH=$(dirname ${WHICH_AMETHST})
 TEST_DATA_PATH=$AMETHST_PATH"/datasets/test_analysis_data/"
 
