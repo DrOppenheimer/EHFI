@@ -52,6 +52,7 @@ sudo apt-get install r-base # THIS SEEMS TO WORK
 # can probably remove more, but 
 cd ~
 sudo git clone https://github.com/MG-RAST/AMETHST.git
+#######################################################################################
 
 ####### INSTALL PERL PACKAGE USED FOR SOME STAT CALCULATIONS #######
 sudo cpan App::cpanminus
