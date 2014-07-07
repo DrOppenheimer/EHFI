@@ -18,7 +18,7 @@ echo
 
 cd $TEST_DATA_PATH
 
-echo "running AMETHST test"
+echo "running AMETHST test:"
 echo
 # run the test
 AMETHST.pl -f test_analysis_commands -k -z
