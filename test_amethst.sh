@@ -9,7 +9,7 @@ AMETHST_PATH=$(dirname ${WHICH_AMETHST})
 TEST_DATA_PATH=$AMETHST_PATH"/datasets/test_analysis_data/"
 
 echo
-echo "This is a simple test for AMETHST functionaility - if it complete's without errors, AMETHST is properly installed"
+echo "This is a simple test for AMETHST functionaility - if it completes without errors, AMETHST is properly installed"
 echo
 
 echo "Moving to:"
