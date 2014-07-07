@@ -10,7 +10,8 @@ TEST_DATA_PATH=$AMETHST_PATH"/datasets/test_analysis_data/"
 
 echo "This is a simple test for AMETHST functionaility - if it complete's without errors, AMETHST is properly installed"
 
-echo "Moving to: "$TEST_DATA_PATH
+echo "Moving to:"
+echo $TEST_DATA_PATH
 
 cd $TEST_DATA_PATH
 
@@ -25,7 +26,8 @@ rm -R AMETHST.Summar*
 rm AMETHST.All_data.tar.gz
 rm *list*
 
-echo "moving back to: $START_DIR"
+echo "moving back to:" 
+echo $START_DIR"
 cd $START_DIR
 
 # print simple message
