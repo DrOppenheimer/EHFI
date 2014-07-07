@@ -187,8 +187,8 @@ if ( $sort_output ){
   unless ( -d $summary_dir ) {
     mkdir $summary_dir;
   } 
-  #my $move_pcoas_string = "mv *.P_VALUES_SUMMARY.* $summary_dir";
-  #system($move_pcoas_string)==0 or die "died running"."\n".$move_pcoas_string."\n";
+  my $move_pcoas_string = "mv *.P_VALUES_SUMMARY.* $summary_dir";
+  system($move_pcoas_string)==0 or die "died running"."\n".$move_pcoas_string."\n";
 
   my $pcoa_flat_dir = $summary_dir."/PCoA_flat_files";
   unless ( -d $pcoa_flat_dir ){
