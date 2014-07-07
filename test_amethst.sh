@@ -20,6 +20,9 @@ cd $TEST_DATA_PATH
 
 echo "running AMETHST test:"
 echo "_____________________________________________________________"
+echo "_____________________________________________________________"
+echo "_____________________________________________________________"
+echo "AMETHST STDOUT messages will display below:"
 echo
 # run the test
 AMETHST.pl -f test_analysis_commands -k -z
@@ -32,13 +35,15 @@ rm -R AMETHST.Summar*
 rm AMETHST.All_data.tar.gz
 rm *list*
 
-echo"_____________________________________________________________"
+echo "_____________________________________________________________"
 echo "moving back to:" 
 echo $START_DIR
 echo
 cd $START_DIR
 
 # print simple message
-echo"_____________________________________________________________"
+echo "_____________________________________________________________"
+echo "_____________________________________________________________"
+echo "_____________________________________________________________"
 echo "If no errors were displayed, AMETHST is properly installed"
 echo
