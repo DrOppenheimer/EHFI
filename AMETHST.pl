@@ -86,7 +86,7 @@ while (my $line = <QIIME_ACTIVATION>){
     my $var_name=$line_array[0]; # first entry is the variable name
     my $var_value=$line_array[1]; # second entry is the variable value
     #print STDOUT "\n"."var:"."\t".$var_name."\n"."var_value:"."\t".$var_value."\n\n"; # ENV debugging
-    $ENV{$var_name} = "$var_value"; # load the variables into perls envrionment variable hash   
+    $ENV{$var_name} = "$var_value"; # load the variables into perls environment variable hash   
   }  
 }
 
@@ -94,6 +94,7 @@ while (my $line = <QIIME_ACTIVATION>){
 $ENV{PATH} = "$r_path:$amethst_path:$ENV{PATH}";
 # add original path to the end of the modified path
 $ENV{PATH} = "$ENV{PATH}:$original_path";
+print STDOUT "THIS_IS_MY_PATH"."\n".$ENV{PATH}."\n";
 
 my $current_dir = getcwd()."/";
 
