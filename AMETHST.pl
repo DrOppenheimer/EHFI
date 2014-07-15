@@ -77,10 +77,11 @@ exit 1;
 # Add qiime pathing information by indirectly sourcing the activate script --
 # i.e. read each "export" line and use it to create an envrionment variable for the perl session
 # place old environment in a variable, is added back to end of Qiime based PATH
-my $original_path = $ENV{PATH};
+my $original_path = $ENV{PATH}; chomp $original_path;
 open(QIIME_ACTIVATION, "<", $qiime_activate_script) or die "can't open QIIME_ACTIVATION $qiime_activate_script"."\n"; 
 while (my $line = <QIIME_ACTIVATION>){
   if ($line =~ s/^export //){ # identify "export" lines and trim "export " from the line
+    chomp $line;
     $line =~ s/\s\s+/ /g; # get rid of any whitespace
     my @line_array=split("=",$line); # split the line
     my $var_name=$line_array[0]; # first entry is the variable name
@@ -91,9 +92,9 @@ while (my $line = <QIIME_ACTIVATION>){
 }
 
 # Add the R and AMETHST path information to beginning of path # also add /bin, which is overwritten 7-7-14
-$ENV{PATH} = "$r_path:$amethst_path:$ENV{PATH}";
-# add original path to the end of the modified path
-$ENV{PATH} = "$ENV{PATH}:$original_path";
+$ENV{PATH} = "$amethst_path:$r_path:$ENV{PATH}:$original_path";
+## add original path to the end of the modified path
+## $ENV{PATH} = "$ENV{PATH}:$original_path";
 print STDOUT "THIS_IS_MY_PATH"."\n".$ENV{PATH}."\n";
 
 my $current_dir = getcwd()."/";
