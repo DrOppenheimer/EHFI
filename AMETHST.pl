@@ -20,7 +20,7 @@ my ($command_file, $compile_summary, $awe_compile_summary, $compile_all, $debug,
 # Set option defaults
 my $summary_name = "AMETHST.Summary";
 my $all_name = "AMETHST.All_data";
-my $qiime_activate_script = "/mnt/qiime_software/activate.sh";
+my $qiime_activate_script = "/home/ubuntu/qiime_software/activate.sh";
 my $r_path = "/usr/bin";
 my $amethst_path = "/home/ubuntu/AMETHST";
 
