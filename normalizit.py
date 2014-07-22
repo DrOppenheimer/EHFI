@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 
 import sys, os
-from scipy import stats
 import numpy as np
 from optparse import OptionParser
 
