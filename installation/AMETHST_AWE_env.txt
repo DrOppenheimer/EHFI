@@ -1,2 +1,2 @@
 export AWE_SERVER="http://140.221.84.148:8000"
-export AWE_CLIENT_GROUP="am_compute"
+export AWE_CLIENT_GROUP="AMETHST_compute"
