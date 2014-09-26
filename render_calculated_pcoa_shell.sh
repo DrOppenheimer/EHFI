@@ -1,7 +1,7 @@
 #!/bin/bash
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )" # get the path for the script
 #written 10-24-11
-if [ $# -ne 9 ]                                                                                     # usage and exit if 5 args are not supplied
+if [ $# -ne 7 ]                                                                                     # usage and exit if 5 args are not supplied
 then
     echo
     echo "USAGE: >render_calculated_pcoa_shell.sh <pcoa_in> <groups_in> <png_width> <png_height> <png_dpi> <relative_width_legend> <relative_width_pcoa> <png_legend_cex> <png_figure_cex>"
@@ -15,10 +15,10 @@ then
     echo "     <png_dpi>                : (int)    resolution in dpi for the png"
     echo "     <relative_width_legend>  : (float)  proportion of width used for legend" 
     echo "     <relative_width_pcoa>    : (float)  proportion of width used for pcoa"
-    echo "     <png_legend_cex>         : (float)  cex value (font scaling) for the legend"
-    echo "     <png_figure_cex>         : (float)  cex value (font scaling) for the pcoa"
+    #echo "     <png_legend_cex>         : (float)  cex value (font scaling) for the legend"
+    #echo "     <png_figure_cex>         : (float)  cex value (font scaling) for the pcoa"
     echo ""
-    echo "     All (9) of these arguments are required"
+    echo "     All (7) of these arguments are required"
     echo ""
     exit 1
 fi
