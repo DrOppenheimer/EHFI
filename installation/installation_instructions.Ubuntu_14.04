@@ -1,2 +1,15 @@
-# see
-https://github.com/DrOppenheimer/Kevin_Installers/blob/master/Install_AMETHST_compute_node.sh
+# Installation instructions
+
+AMETHST was developed and tested in Ubuntu LTS 14.04
+There are two installaton scripts contained in this directory.
+Install_local_AMETHST.sh should be used if you want to use
+AMETHST (AMETHST.pl) locally on a single machine/envrionment.
+
+The Install_AMETHST_compute_node.havannah.sh will create machines
+that can run AMETHST locally or as a compute node for the KBase
+AMETHST service
+
+Kevin P. Keegan
+September 26, 2014
+
+ 
