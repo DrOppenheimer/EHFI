@@ -286,7 +286,8 @@ if( $groups_list ){
   #      legend_width_scale(0.2) pcoa_width_scale(0.8) legend_cex(0.5) figure_cex(0.7)
   system($render_pcoa_string)==0 or die "died running"."\n".$render_pcoa_string."\n";
   # now copy image back to results before zipping
-  my $copy_rendered_pcoa_string = "cp $job_name.PCoA.$groups_list.png $results_dir/$job_name.PCoA.$groups_list.png"; 
+  # my $copy_rendered_pcoa_string = "cp $job_name.PCoA.$groups_list.png $results_dir/$job_name.PCoA.$groups_list.png";
+  my $copy_rendered_pcoa_string = "cp $job_name.PCoA.AMETHST_GROUPS.PCoA.png $results_dir/$job_name.PCoA.$groups_list.png";
   print LOG "copy PCoA image back to results:"."\n".$copy_rendered_pcoa_string."\n";
   system($copy_rendered_pcoa_string)==0 or die "died running"."\n".$copy_rendered_pcoa_string."\n";
 
