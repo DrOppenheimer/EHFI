@@ -615,7 +615,7 @@ load_pch <- function(pch_behavior, pch_default, pch_table, pch_column, pch_label
     my_names <- gsub("\"", "", my_names)
     pch_matrix <- data.matrix(matrix(rep(pch_default, num_samples), ncol=1))
     #pch_matrix <- pch_matrix[order(rownames(pch_matrix)),]
-    pch_matrix <- pch_matrix[ sample_names, ]
+    #pch_matrix <- pch_matrix[ order(sample_names), ]
     plot_pch <- pch_matrix[ , 1, drop=FALSE]
     plot_pch_vector <- as.vector(plot_pch)
     pch_labels <- levels(as.factor(plot_pch_vector))
