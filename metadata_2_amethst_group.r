@@ -37,9 +37,9 @@ metadata_2_amethst_group <- function(metadata_table, metadata_column=1, output="
 
   for( k in 1:num_levels ){
     output_lines[k] <- gsub("^,", "", output_lines[k])
-    if(debug==TRUE){print(output_lines[k])}
-    writeLines(output_lines[k], con=output)
   }
+  writeLines( output_lines, con=output)
+                                        #}
 
 }
 
