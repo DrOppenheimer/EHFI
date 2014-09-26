@@ -88,7 +88,8 @@ render_pcoa.v12 <- function(
   if(debug==TRUE){sample_names.test2<<-sample_names}
   eigen_vectors <- eigen_vectors[ order(sample_names), ]
   eigen_values <- eigen_values[ order(sample_names) ]
-  sample_names <- sample_names[ order(sample_names) ]
+  
+  #sample_names <- sample_names[ order(sample_names) ]
   
   if(debug==TRUE){
     eigen_vectors.test<<-eigen_vectors
@@ -220,7 +221,7 @@ render_pcoa.v12 <- function(
       rownames(metadata_column) <- row_names
     }
     #sample_names
-    metadata_column <- metadata_column[ sample_names,,drop=FALSE ] # order the metadata by sample 1d
+    metadata_column <- metadata_column[ order(sample_names),,drop=FALSE ] # order the metadata by sample 1d
     #metadata_column <- metadata_column[ order(rownames(metadata_column)),,drop=FALSE ] # order the metadata by value
     color_column <- create_colors(metadata_column, color_mode = "auto")
 
@@ -309,7 +310,7 @@ render_pcoa.v12 <- function(
                                          )
                               )   
     #metadata_matrix <- metadata_matrix[ order(rownames(metadata_matrix)),,drop=FALSE ]  # make sure that the metadata matrix is sorted (ROWWISE) by id
-    metadata_matrix <- metadata_matrix[ sample_names,,drop=FALSE ]  # make sure that the metadata matrix is sorted (ROWWISE) by id
+    metadata_matrix <- metadata_matrix[ order(sample_names),,drop=FALSE ]  # make sure that the metadata matrix is sorted (ROWWISE) by id
     
     if(debug==TRUE){print("made it here 5")}
     
@@ -348,7 +349,7 @@ render_pcoa.v12 <- function(
         
         if(debug==TRUE){ test2<<-metadata_column }
         
-        metadata_column <- metadata_column[ sample_names,,drop=FALSE ] # order the metadata by value
+        metadata_column <- metadata_column[ order(sample_names),,drop=FALSE ] # order the metadata by value
         #metadata_column <- metadata_column[ order(rownames(metadata_column)),,drop=FALSE ] # order the metadata by value
         if(debug==TRUE){ test3<<-metadata_column }
         
@@ -417,7 +418,7 @@ render_pcoa.v12 <- function(
       if(debug==TRUE){ test2<<-metadata_column }
       
       #metadata_column <- metadata_column[ order(metadata_column),,drop=FALSE ] # order the metadata by value
-      metadata_column <- metadata_column[ sample_names,,drop=FALSE ] # order the metadata by value
+      metadata_column <- metadata_column[ order(sample_names),,drop=FALSE ] # order the metadata by value
       if(debug==TRUE){ test3<<-metadata_column }
       
       color_column <- create_colors(metadata_column, color_mode = "auto") # set parameters for plotting
@@ -1060,13 +1061,14 @@ create_pch <- function(metadata_table, metadata_column, sample_names, debug){ # 
   
   #pch_matrix <- data.matrix(metadata_table)
   if(debug==TRUE){metadata_table.test <<- metadata_table}
-  
-  plot_pch <- metadata_table[ sample_names, metadata_column, drop=FALSE ]
+
+  #plot_pch <- metadata_table[ order(sample_names), metadata_column, drop=FALSE ]
+  plot_pch <- metadata_table[ order(rownames(plot_pch)), metadata_column, drop=FALSE ]
   plot_pch_vector <- as.vector(plot_pch)
 
   if(debug==TRUE){plot_pch_vector.test <<- plot_pch_vector}
   
-  names(plot_pch_vector) <- sample_names
+  names(plot_pch_vector) <- sample_names[ order(sample_names) ]
   pch_labels <- levels(as.factor(plot_pch_vector))
   
   num_labels <- length(pch_labels)
