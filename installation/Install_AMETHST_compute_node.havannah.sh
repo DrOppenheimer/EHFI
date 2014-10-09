@@ -3,13 +3,18 @@
 set -e # checking of all commands 
 set -x # print each command before execution
 
+echo "AMETHST INSTALLER START"
+echo "AMETHST INSTALLER START" > AMETHST_install.log.txt
+echo "________________________________________________________"
+echo "________________________________________________________" >> AMETHST_install.log.txt
+
 # NOTES: 7-22-14
 # I have never gotten this script to run to completion automatically.
 # It always breaks on installations of Qiime, but almost never at the same point.
 # Long term solution is probably to use Wolfgang's docker for Qiime
 # I have used this procedure to create this Magellan snapshot:
-# Name: am_comp.8-18-14
-# ID :  c16cd63e-f5e9-43ad-afa9-bce2f096fe06                                                                                                                         
+# Name: mg_amethst_comp.9-26-14
+# ID :  1b553e16-895e-4094-ae66-eff184d6217f                                                                                                                         
 ####################################################################################
 ### Script to create an AMETHST compute node from 14.04 bare
 ### used this to spawn a 14.04 VM:
@@ -55,8 +60,8 @@ set -x # print each command before execution
 ### Create environment variables for key options
 ####################################################################################
 echo "Creating environment variables"
-sudo bash << EOSHELL_1
-
+echo "AMETHST INSTALLER START" >> AMETHST_install.log.txt
+#sudo bash << EOSHELL_1
 cat >>/home/ubuntu/.profile<<EOF_1
 #export AWE_SERVER="http://kbase.us/services/awe/" # KBase production
 #export AWE_SERVER="http://140.221.67.190:7080" # KBase dev # external ip
@@ -71,17 +76,37 @@ export AWE_DATA="/data/awe/data"
 export AWE_WORK="/data/awe/work"
 export AWE_LOGS="/data/awe/logs"
 EOF_1
-
 source /home/ubuntu/.profile
-EOSHELL_1
+#EOSHELL_1
 echo "DONE creating environment variables"
+echo "DONE creating environment variables" >> AMETHST_install.log.txt
+echo "________________________________________________________"
+echo "________________________________________________________" >> AMETHST_install.log.txt
 ####################################################################################
 
 ####################################################################################
 ### set your KB_AUTH_TOKEN and GROUP TOKEN (by hand - is added to ~/.profile below ) ## DON'T FORGET TO ADD KB_AUTH_TOKEN
+### THIS SECTION REQUIRED FOR USE AS A COMPUTE CLIENT FOR THE KBase SERVICE VERSION OF AMETHST
 ####################################################################################
-KB_AUTH_TOKEN=""
-AWE_CLIENT_GROUP_TOKEN=""
+echo "Checking for KB_AUTH_TOKEN and AWE_CLIENT_GROUP_TOKEN variables"
+echo "Checking for KB_AUTH_TOKEN and AWE_CLIENT_GROUP_TOKEN variables" >> AMETHST_install.log.txt
+if [[ -z "$KB_AUTH_TOKEN" ]]; then
+    echo "KB_AUTH_TOKEN is not defined, it must be to proceed"
+    exit 1
+else
+    echo "KB_AUTH_TOKEN = $KB_AUTH_TOKEN"
+fi
+if [[ -z "$AWE_CLIENT_GROUP_TOKEN" ]]; then
+    echo "AWE_CLIENT_GROUP_TOKEN is not defined, it must be to proceed"
+    exit 1
+else
+    echo "AWE_CLIENT_GROUP_TOKEN = $KB_AUTH_TOKEN"
+fi
+
+echo "Check for KB_AUTH_TOKEN and AWE_CLIENT_GROUP_TOKEN done"
+echo "Check for KB_AUTH_TOKEN and AWE_CLIENT_GROUP_TOKEN done" >> AMETHST_install.log.txt
+echo "________________________________________________________"
+echo "________________________________________________________" >> AMETHST_install.log.txt
 ####################################################################################
 
 ####################################################################################
@@ -111,8 +136,9 @@ AWE_CLIENT_GROUP_TOKEN=""
 ### install dependencies for qiime_deploy and R # requires one manual interaction
 ####################################################################################
 echo "Installing dependencies for qiime_deploy and R"
+echo "Installing dependencies for qiime_deploy and R" >> AMETHST_install.log.txt
 cd /home/ubuntu
-sudo bash << EOSHELL_3
+#sudo bash << EOSHELL_3
 ### for R install later add cran release specific repos to /etc/apt/sources.list
 # echo deb http://cran.rstudio.com/bin/linux/ubuntu precise/ >> /etc/apt/sources.list # 12.04 # Only exist for LTS - check version with lsb_release -a
 echo deb http://cran.rstudio.com/bin/linux/ubuntu trusty/ >> /etc/apt/sources.list  # 14.04 # Only exist for LTS - check version with lsb_release -a
@@ -121,15 +147,27 @@ apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E084DAB9
 ### for qiime install later, uncomment the universe and multiverse repositories from /etc/apt/sources.list
 sed -e '/verse$/s/^#\{1,\}//' /etc/apt/sources.list > /etc/apt/sources.list.edit; mv /etc/apt/sources.list.edit /etc/apt/sources.list
 ### update and upgrade
-how apt-get -y install build-essential
+#how apt-get -y install build-essential
+apt-get -y install build-essential
+
+
+unset UCF_FORCE_CONFFOLD
+export UCF_FORCE_CONFFNEW=YES
+ucf --purge /boot/grub/menu.lst
+
+export DEBIAN_FRONTEND=noninteractive
+
 apt-get -y update   
 apt-get -y upgrade  # try without updade # try with --force-yes
 apt-get clean 
 ### install required packages
-apt-get -y --force-yes upgrade python-dev libncurses5-dev libssl-dev libzmq-dev libgsl0-dev openjdk-6-jdk libxml2 libxslt1.1 libxslt1-dev ant git subversion zlib1g-dev libpng12-dev libfreetype6-dev mpich2 libreadline-dev gfortran unzip libmysqlclient18 libmysqlclient-dev ghc sqlite3 libsqlite3-dev libc6-i386 libbz2-dev libx11-dev libcairo2-dev libcurl4-openssl-dev libglu1-mesa-dev freeglut3-dev mesa-common-dev xorg openbox emacs r-cran-rgl xorg-dev libxml2-dev mongodb-server bzr make gcc mercurial python-qcli
+apt-get --force-yes -o Dpkg::Options::="--force-confnew" --force-yes -fuy upgrade python-dev libncurses5-dev libssl-dev libzmq-dev libgsl0-dev openjdk-6-jdk libxml2 libxslt1.1 libxslt1-dev ant git subversion zlib1g-dev libpng12-dev libfreetype6-dev mpich2 libreadline-dev gfortran unzip libmysqlclient18 libmysqlclient-dev ghc sqlite3 libsqlite3-dev libc6-i386 libbz2-dev libx11-dev libcairo2-dev libcurl4-openssl-dev libglu1-mesa-dev freeglut3-dev mesa-common-dev xorg openbox emacs r-cran-rgl xorg-dev libxml2-dev mongodb-server bzr make gcc mercurial python-qcli
 apt-get clean
-EOSHELL_3
+#EOSHELL_3
 echo "DONE Installing dependencies for qiime_deploy and R"
+echo "DONE Installing dependencies for qiime_deploy and R" >> AMETHST_install.log.txt
+echo "________________________________________________________"
+echo "________________________________________________________" >> AMETHST_install.log.txt
 # sudo dpkg --configure -a # if you run tin trouble
 # /etc/apt/sources.list  redundancy
 ####################################################################################
@@ -138,18 +176,23 @@ echo "DONE Installing dependencies for qiime_deploy and R"
 ### Clone repos for qiime-deploy and AMETHST
 ####################################################################################
 echo "Cloning the qiime-deploy and AMETHST git repos"
+echo "Cloning the qiime-deploy and AMETHST git repos" >> AMETHST_install.log.txt
 cd /home/ubuntu/
 git clone git://github.com/qiime/qiime-deploy.git
 git clone https://github.com/MG-RAST/AMETHST.git
 git clone https://github.com/DrOppenheimer/Kevin_Installers.git
 echo "DONE cloning the qiime-deploy and AMETHST git repos"
+echo "DONE cloning the qiime-deploy and AMETHST git repos" >> AMETHST_install.log.txt
+echo "________________________________________________________"
+echo "________________________________________________________" >> AMETHST_install.log.txt
 ####################################################################################
 
 ####################################################################################
 ### INSTALL cdbtools (Took care of the cdb failure above)
 ####################################################################################
 echo "Installing cdbtools"
-sudo bash << EOSHELL_4
+echo "Installing cdbtools" >> AMETHST_install.log.txt
+#sudo bash << EOSHELL_4
 apt-get install cdbfasta
 # mkdir /home/ubuntu/bin
 # curl -L "http://sourceforge.net/projects/cdbfasta/files/latest/download?source=files" > cdbfasta.tar.gz
@@ -161,8 +204,11 @@ apt-get install cdbfasta
 # popd
 # rm cdbfasta.tar.gz
 # rm -rf /home/ubuntu/cdbfasta
-EOSHELL_4
+#EOSHELL_4
 echo "DONE installing cdbtools"
+echo "DONE installing cdbtools" >> AMETHST_install.log.txt
+echo "________________________________________________________"
+echo "________________________________________________________" >> AMETHST_install.log.txt
 ####################################################################################
 
 ####################################################################################
@@ -173,27 +219,31 @@ echo "DONE installing cdbtools"
 ## This will also install cdbfasta & cdbyank, python and perl
 ## Uncomment the universe and multiverse repositories from /etc/apt/sources.list
 echo "Installing Qiime"
+echo "Installing Qiime" >> AMETHST_install.log.txt
 #sudo bash << EOFSHELL4
 cd /home/ubuntu/
-sudo python ./qiime-deploy/qiime-deploy.py /home/ubuntu/qiime_software -f ./AMETHST/qiime_configuration/qiime.amethst.config --force-remove-failed-dirs --force-remove-previous-repos
+python ./qiime-deploy/qiime-deploy.py /home/ubuntu/qiime_software -f ./AMETHST/qiime_configuration/qiime.amethst.config --force-remove-failed-dirs --force-remove-previous-repos
 apt-get -y clean
 #EOFSHELL4
 echo "DONE Installing Qiime"
+echo "DONE Installing Qiime" >> AMETHST_install.log.txt
+echo "________________________________________________________"
+echo "________________________________________________________" >> AMETHST_install.log.txt
 ####################################################################################
 
 ####################################################################################
 ### INSTALL most current R on Ubuntu 14.04, install multiple non-base packages
 ####################################################################################
 echo "Installing R"
-sudo bash << EOSHELL_5
+echo "Installing R" >> AMETHST_install.log.txt
+#sudo bash << EOSHELL_5
 apt-get -y build-dep r-base # install R dependencies (mostly for image production support)
 apt-get -y install r-base   # install R
 apt-get clean
 # Install R packages, including matR, along with their dependencies
-EOSHELL_5
+#EOSHELL_5
 
-sudo bash << EOSHELL_6
-
+#sudo bash << EOSHELL_6
 cat >install_packages.r<<EOF_3
 ## Simple R script to install packages not included as part of r-base
 # Install these packages for matR and AMETHST
@@ -212,37 +262,48 @@ EOF_3
 
 R --vanilla --slave < install_packages.r
 rm install_packages.r
-EOSHELL_6
+#EOSHELL_6
 
 echo "DONE installing R"
+echo "DONE installing R" >> AMETHST_install.log.txt
+echo "________________________________________________________"
+echo "________________________________________________________" >> AMETHST_install.log.txt
 ####################################################################################
 
 ####################################################################################
 #### install perl packages
 ####################################################################################
 echo "Installing perl packages"
-sudo bash << EOSHELL_7
+echo "Installing perl packages" >> AMETHST_install.log.txt
+#sudo bash << EOSHELL_7
 #curl -L http://cpanmin.us | perl - --sudo App::cpanminus
 curl -L http://cpanmin.us | perl - --sudo Statistics::Descriptive
 #cpan -f App::cpanminus # ? if this is first run of cpan, it will have to configure, can't figure out how to force yes for its questions
 #                       # this may already be installed
 #cpanm Statistics::Descriptive
-EOSHELL_7
+#EOSHELL_7
 echo "DONE installing perl packages"
+echo "DONE installing perl packages" >> AMETHST_install.log.txt
+echo "________________________________________________________"
+echo "________________________________________________________" >> AMETHST_install.log.txt
 ####################################################################################
 
 ####################################################################################
 ### Add AMETHST to Envrionment Path (permanently)
 ####################################################################################
 echo "Adding AMETHST to the PATH"
-sudo bash << EOSHELL_8
-sudo bash 
+echo "Adding AMETHST to the PATH" >> AMETHST_install.log.txt
+#sudo bash << EOSHELL_8
+#sudo bash 
 echo "export \"PATH=$PATH:/home/ubuntu/AMETHST"\" >> /home/ubuntu/.profile
 source /home/ubuntu/.profile
 #exit
-EOSHELL_8
+#EOSHELL_8
 source /home/ubuntu/.profile
 echo "DONE adding AMETHST to the PATH (full PATH is in /home/ubuntu/.profile)"
+echo "DONE adding AMETHST to the PATH (full PATH is in /home/ubuntu/.profile)" >> AMETHST_install.log.txt
+echo "________________________________________________________"
+echo "________________________________________________________" >> AMETHST_install.log.txt
 # PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games" # original /etc/environment path
 ####################################################################################
 
@@ -250,9 +311,13 @@ echo "DONE adding AMETHST to the PATH (full PATH is in /home/ubuntu/.profile)"
 ### Test AMETHST functionality
 ####################################################################################
 echo "TESTING AMETHST FUNCTIONALITY"
+echo "TESTING AMETHST FUNCTIONALITY" >> AMETHST_install.log.txt
 source /home/ubuntu/.profile
 test_amethst.sh
 echo "DONE testing AMETHST functionality"
+echo "DONE testing AMETHST functionality" >> AMETHST_install.log.txt
+echo "________________________________________________________"
+echo "________________________________________________________" >> AMETHST_install.log.txt
 ####################################################################################
 
 ####################################################################################
@@ -264,7 +329,8 @@ echo "DONE testing AMETHST functionality"
 #### DON'T FORGET TO SET A VALUE FOR AWE_CLIENT_GROUP_TOKEN !!!
 
 echo "Installing, configuring, and starting the AWE client"
-sudo bash << EOSHELL_9
+echo "Installing, configuring, and starting the AWE client" >> AMETHST_install.log.txt
+#sudo bash << EOSHELL_9
 cd /home/ubuntu
 curl http://www.mcs.anl.gov/~wtang/files/install_aweclient.sh > install_aweclient.sh
 chmod u=+x install_aweclient.sh
@@ -311,16 +377,20 @@ ln -s ${AWE_LOGS}
 # write the auth token to the profile
 echo "export KB_AUTH_TOKEN=\"${KB_AUTH_TOKEN}\"" >> ~/.profile ## DON'T FORGET TO ADD KB_AUTH_TOKEN to ~/.profile
 
-EOSHELL_9
+#EOSHELL_9
 echo "DONE installing AWE"
+echo "DONE installing AWE" >> AMETHST_install.log.txt
+echo "________________________________________________________"
+echo "________________________________________________________" >> AMETHST_install.log.txt
 ####################################################################################
 
 
 ####################################################################################
 ### Prep /etc/rc.local
 ####################################################################################
-sudo bash << EOSHELL_2
-
+#sudo bash << EOSHELL_2
+echo "editing /etc/rc.local to start amethst on boot/reboot"
+echo "editing /etc/rc.local to start amethst on boot/reboot" >> AMETHST_install.log.txt
 rm /etc/rc.local
 
 cat >/etc/rc.local<<EOF_2
@@ -334,10 +404,19 @@ sudo screen -S awe_client -d -m bash -c "source /home/ubuntu/.profile; echo \$PA
 
 EOF_2
 chmod +x /etc/rc.local
-EOSHELL_2
+#EOSHELL_2
+echo "done editing /etc/rc.local"
+echo "done editing /etc/rc.local" >> AMETHST_install.log.txt
+echo "________________________________________________________"
+echo "________________________________________________________" >> AMETHST_install.log.txt
 ####################################################################################
 
 ####################################################################################
+echo "installation of AMETHST is complete -- the VM will reboot in 10 seconds"
+echo "installation of AMETHST is complete -- the VM will reboot in 10 seconds" >> AMETHST_install.log.txt
+echo "________________________________________________________"
+echo "________________________________________________________" >> AMETHST_install.log.txt
+sleep 10
 sudo reboot
 ####################################################################################
 
