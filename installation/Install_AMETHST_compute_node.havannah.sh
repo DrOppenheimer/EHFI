@@ -60,7 +60,7 @@ echo "________________________________________________________" >> AMETHST_insta
 ### Create environment variables for key options
 ####################################################################################
 echo "Creating environment variables"
-echo "AMETHST INSTALLER START" >> AMETHST_install.log.txt
+echo "Creating environment variables" >> AMETHST_install.log.txt
 #sudo bash << EOSHELL_1
 cat >>/home/ubuntu/.profile<<EOF_1
 #export AWE_SERVER="http://kbase.us/services/awe/" # KBase production
