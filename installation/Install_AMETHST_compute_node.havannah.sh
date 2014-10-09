@@ -73,7 +73,7 @@ export AWE_DATA="/data/awe/data"
 export AWE_WORK="/data/awe/work"
 export AWE_LOGS="/data/awe/logs"
 EOF_1
-source /home/ubuntu/.profile
+. /home/ubuntu/.profile
 #EOSHELL_1
 echo "DONE creating environment variables" >> AMETHST_install.log.txt
 echo "________________________________________________________" >> AMETHST_install.log.txt
