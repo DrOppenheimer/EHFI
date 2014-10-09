@@ -84,20 +84,26 @@ echo "________________________________________________________" >> AMETHST_insta
 ### THIS SECTION REQUIRED FOR USE AS A COMPUTE CLIENT FOR THE KBase SERVICE VERSION OF AMETHST
 ####################################################################################
 echo "Checking for KB_AUTH_TOKEN and AWE_CLIENT_GROUP_TOKEN variables" >> AMETHST_install.log.txt
-if [[ -z "$KB_AUTH_TOKEN" ]]; then
+
+if [[ ! -n "$KB_AUTH_TOKEN" ]]; then
     echo "KB_AUTH_TOKEN is not defined, it must be to proceed"
+    echo "KB_AUTH_TOKEN is not defined, it must be to proceed" >> AMETHST_install.log.txt
     exit 1
 else
     echo "KB_AUTH_TOKEN = $KB_AUTH_TOKEN"
+    echo "KB_AUTH_TOKEN = $KB_AUTH_TOKEN" >> AMETHST_install.log.txt
 fi
-if [[ -z "$AWE_CLIENT_GROUP_TOKEN" ]]; then
+
+if [[ ! -n "$AWE_CLIENT_GROUP_TOKEN" ]]; then
     echo "AWE_CLIENT_GROUP_TOKEN is not defined, it must be to proceed"
+    echo "AWE_CLIENT_GROUP_TOKEN is not defined, it must be to proceed" >> AMETHST_install.log.txt
     exit 1
 else
     echo "AWE_CLIENT_GROUP_TOKEN = $KB_AUTH_TOKEN"
+    echo "AWE_CLIENT_GROUP_TOKEN = $KB_AUTH_TOKEN" >> AMETHST_install.log.txt
 fi
 
-echo "Check for KB_AUTH_TOKEN and AWE_CLIENT_GROUP_TOKEN done" >> AMETHST_install.log.txt
+echo "DONE checking for KB_AUTH_TOKEN and AWE_CLIENT_GROUP_TOKEN" >> AMETHST_install.log.txt
 echo "________________________________________________________" >> AMETHST_install.log.txt
 ####################################################################################
 
@@ -286,7 +292,6 @@ echo "________________________________________________________" >> AMETHST_insta
 echo "TESTING AMETHST FUNCTIONALITY" >> AMETHST_install.log.txt
 source /home/ubuntu/.profile
 test_amethst.sh
-echo "DONE testing AMETHST functionality"
 echo "DONE testing AMETHST functionality" >> AMETHST_install.log.txt
 echo "________________________________________________________" >> AMETHST_install.log.txt
 ####################################################################################
@@ -372,12 +377,12 @@ sudo screen -S awe_client -d -m bash -c "source /home/ubuntu/.profile; echo \$PA
 EOF_2
 chmod +x /etc/rc.local
 #EOSHELL_2
-echo "done editing /etc/rc.local" >> AMETHST_install.log.txt
+echo "DONE editing /etc/rc.local" >> AMETHST_install.log.txt
 echo "________________________________________________________" >> AMETHST_install.log.txt
 ####################################################################################
 
 ####################################################################################
-echo "installation of AMETHST is complete -- the VM will reboot in 10 seconds" >> AMETHST_install.log.txt
+echo "INSTALLATION of AMETHST is COMPLETE -- the VM will reboot in 10 seconds" >> AMETHST_install.log.txt
 echo "________________________________________________________" >> AMETHST_install.log.txt
 sleep 10
 sudo reboot
