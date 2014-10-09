@@ -68,7 +68,7 @@ cat >>/home/ubuntu/.profile<<EOF_1
 #export AWE_SERVER="http://10.1.16.5:7080" # KBase dev # internal ip
 #export AWE_SERVER="http://140.221.67.236:8000" # MG-RAST
 #export http://140.221.67.184:8000 # Wolfgang's server 9-19-14
-export AWE_SERVER="http://:8000" Wolfgang - internal
+export AWE_SERVER="http://:8000" # Wolfgang - internal
 export AWE_CLIENT_GROUP="amethst"
 export HOSTNAME=`hostname` #${HOSTNAME}
 export GOPATH=/home/ubuntu/gopath
