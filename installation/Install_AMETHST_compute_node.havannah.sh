@@ -277,10 +277,10 @@ echo "Adding AMETHST to the PATH" >> AMETHST_install.log.txt
 #sudo bash << EOSHELL_8
 #sudo bash 
 echo "export \"PATH=$PATH:/home/ubuntu/AMETHST"\" >> /home/ubuntu/.profile
-source /home/ubuntu/.profile
+#source /home/ubuntu/.profile
 #exit
 #EOSHELL_8
-source /home/ubuntu/.profile
+. /home/ubuntu/.profile
 echo "DONE adding AMETHST to the PATH (full PATH is in /home/ubuntu/.profile)" >> AMETHST_install.log.txt
 echo "________________________________________________________" >> AMETHST_install.log.txt
 # PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games" # original /etc/environment path
@@ -290,7 +290,8 @@ echo "________________________________________________________" >> AMETHST_insta
 ### Test AMETHST functionality
 ####################################################################################
 echo "TESTING AMETHST FUNCTIONALITY" >> AMETHST_install.log.txt
-source /home/ubuntu/.profile
+#source /home/ubuntu/.profile
+. /home/ubuntu/.profile
 test_amethst.sh
 echo "DONE testing AMETHST functionality" >> AMETHST_install.log.txt
 echo "________________________________________________________" >> AMETHST_install.log.txt
@@ -310,7 +311,8 @@ cd /home/ubuntu
 curl http://www.mcs.anl.gov/~wtang/files/install_aweclient.sh > install_aweclient.sh
 chmod u=+x install_aweclient.sh
 ./install_aweclient.sh
-source /home/ubuntu/.profile
+#source /home/ubuntu/.profile
+. source /home/ubuntu/.profile
 ### CONFIGURE
 
 # config template from https://github.com/MG-RAST/AWE/blob/master/templates/awec.cfg.template
