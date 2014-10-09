@@ -3,9 +3,7 @@
 set -e # checking of all commands 
 set -x # print each command before execution
 
-echo "AMETHST INSTALLER START"
 echo "AMETHST INSTALLER START" > AMETHST_install.log.txt
-echo "________________________________________________________"
 echo "________________________________________________________" >> AMETHST_install.log.txt
 
 # NOTES: 7-22-14
@@ -59,7 +57,6 @@ echo "________________________________________________________" >> AMETHST_insta
 ####################################################################################
 ### Create environment variables for key options
 ####################################################################################
-echo "Creating environment variables"
 echo "Creating environment variables" >> AMETHST_install.log.txt
 #sudo bash << EOSHELL_1
 cat >>/home/ubuntu/.profile<<EOF_1
@@ -78,9 +75,7 @@ export AWE_LOGS="/data/awe/logs"
 EOF_1
 source /home/ubuntu/.profile
 #EOSHELL_1
-echo "DONE creating environment variables"
 echo "DONE creating environment variables" >> AMETHST_install.log.txt
-echo "________________________________________________________"
 echo "________________________________________________________" >> AMETHST_install.log.txt
 ####################################################################################
 
@@ -88,7 +83,6 @@ echo "________________________________________________________" >> AMETHST_insta
 ### set your KB_AUTH_TOKEN and GROUP TOKEN (by hand - is added to ~/.profile below ) ## DON'T FORGET TO ADD KB_AUTH_TOKEN
 ### THIS SECTION REQUIRED FOR USE AS A COMPUTE CLIENT FOR THE KBase SERVICE VERSION OF AMETHST
 ####################################################################################
-echo "Checking for KB_AUTH_TOKEN and AWE_CLIENT_GROUP_TOKEN variables"
 echo "Checking for KB_AUTH_TOKEN and AWE_CLIENT_GROUP_TOKEN variables" >> AMETHST_install.log.txt
 if [[ -z "$KB_AUTH_TOKEN" ]]; then
     echo "KB_AUTH_TOKEN is not defined, it must be to proceed"
@@ -103,9 +97,7 @@ else
     echo "AWE_CLIENT_GROUP_TOKEN = $KB_AUTH_TOKEN"
 fi
 
-echo "Check for KB_AUTH_TOKEN and AWE_CLIENT_GROUP_TOKEN done"
 echo "Check for KB_AUTH_TOKEN and AWE_CLIENT_GROUP_TOKEN done" >> AMETHST_install.log.txt
-echo "________________________________________________________"
 echo "________________________________________________________" >> AMETHST_install.log.txt
 ####################################################################################
 
@@ -135,7 +127,6 @@ echo "________________________________________________________" >> AMETHST_insta
 ####################################################################################
 ### install dependencies for qiime_deploy and R # requires one manual interaction
 ####################################################################################
-echo "Installing dependencies for qiime_deploy and R"
 echo "Installing dependencies for qiime_deploy and R" >> AMETHST_install.log.txt
 cd /home/ubuntu
 #sudo bash << EOSHELL_3
@@ -164,9 +155,7 @@ apt-get clean
 apt-get --force-yes -o Dpkg::Options::="--force-confnew" --force-yes -fuy upgrade python-dev libncurses5-dev libssl-dev libzmq-dev libgsl0-dev openjdk-6-jdk libxml2 libxslt1.1 libxslt1-dev ant git subversion zlib1g-dev libpng12-dev libfreetype6-dev mpich2 libreadline-dev gfortran unzip libmysqlclient18 libmysqlclient-dev ghc sqlite3 libsqlite3-dev libc6-i386 libbz2-dev libx11-dev libcairo2-dev libcurl4-openssl-dev libglu1-mesa-dev freeglut3-dev mesa-common-dev xorg openbox emacs r-cran-rgl xorg-dev libxml2-dev mongodb-server bzr make gcc mercurial python-qcli
 apt-get clean
 #EOSHELL_3
-echo "DONE Installing dependencies for qiime_deploy and R"
 echo "DONE Installing dependencies for qiime_deploy and R" >> AMETHST_install.log.txt
-echo "________________________________________________________"
 echo "________________________________________________________" >> AMETHST_install.log.txt
 # sudo dpkg --configure -a # if you run tin trouble
 # /etc/apt/sources.list  redundancy
@@ -175,15 +164,12 @@ echo "________________________________________________________" >> AMETHST_insta
 ####################################################################################
 ### Clone repos for qiime-deploy and AMETHST
 ####################################################################################
-echo "Cloning the qiime-deploy and AMETHST git repos"
 echo "Cloning the qiime-deploy and AMETHST git repos" >> AMETHST_install.log.txt
 cd /home/ubuntu/
 git clone git://github.com/qiime/qiime-deploy.git
 git clone https://github.com/MG-RAST/AMETHST.git
 git clone https://github.com/DrOppenheimer/Kevin_Installers.git
-echo "DONE cloning the qiime-deploy and AMETHST git repos"
 echo "DONE cloning the qiime-deploy and AMETHST git repos" >> AMETHST_install.log.txt
-echo "________________________________________________________"
 echo "________________________________________________________" >> AMETHST_install.log.txt
 ####################################################################################
 
@@ -205,9 +191,7 @@ apt-get install cdbfasta
 # rm cdbfasta.tar.gz
 # rm -rf /home/ubuntu/cdbfasta
 #EOSHELL_4
-echo "DONE installing cdbtools"
 echo "DONE installing cdbtools" >> AMETHST_install.log.txt
-echo "________________________________________________________"
 echo "________________________________________________________" >> AMETHST_install.log.txt
 ####################################################################################
 
@@ -225,16 +209,13 @@ cd /home/ubuntu/
 python ./qiime-deploy/qiime-deploy.py /home/ubuntu/qiime_software -f ./AMETHST/qiime_configuration/qiime.amethst.config --force-remove-failed-dirs --force-remove-previous-repos
 apt-get -y clean
 #EOFSHELL4
-echo "DONE Installing Qiime"
 echo "DONE Installing Qiime" >> AMETHST_install.log.txt
-echo "________________________________________________________"
 echo "________________________________________________________" >> AMETHST_install.log.txt
 ####################################################################################
 
 ####################################################################################
 ### INSTALL most current R on Ubuntu 14.04, install multiple non-base packages
 ####################################################################################
-echo "Installing R"
 echo "Installing R" >> AMETHST_install.log.txt
 #sudo bash << EOSHELL_5
 apt-get -y build-dep r-base # install R dependencies (mostly for image production support)
@@ -264,16 +245,13 @@ R --vanilla --slave < install_packages.r
 rm install_packages.r
 #EOSHELL_6
 
-echo "DONE installing R"
 echo "DONE installing R" >> AMETHST_install.log.txt
-echo "________________________________________________________"
 echo "________________________________________________________" >> AMETHST_install.log.txt
 ####################################################################################
 
 ####################################################################################
 #### install perl packages
 ####################################################################################
-echo "Installing perl packages"
 echo "Installing perl packages" >> AMETHST_install.log.txt
 #sudo bash << EOSHELL_7
 #curl -L http://cpanmin.us | perl - --sudo App::cpanminus
@@ -282,16 +260,13 @@ curl -L http://cpanmin.us | perl - --sudo Statistics::Descriptive
 #                       # this may already be installed
 #cpanm Statistics::Descriptive
 #EOSHELL_7
-echo "DONE installing perl packages"
 echo "DONE installing perl packages" >> AMETHST_install.log.txt
-echo "________________________________________________________"
 echo "________________________________________________________" >> AMETHST_install.log.txt
 ####################################################################################
 
 ####################################################################################
 ### Add AMETHST to Envrionment Path (permanently)
 ####################################################################################
-echo "Adding AMETHST to the PATH"
 echo "Adding AMETHST to the PATH" >> AMETHST_install.log.txt
 #sudo bash << EOSHELL_8
 #sudo bash 
@@ -300,9 +275,7 @@ source /home/ubuntu/.profile
 #exit
 #EOSHELL_8
 source /home/ubuntu/.profile
-echo "DONE adding AMETHST to the PATH (full PATH is in /home/ubuntu/.profile)"
 echo "DONE adding AMETHST to the PATH (full PATH is in /home/ubuntu/.profile)" >> AMETHST_install.log.txt
-echo "________________________________________________________"
 echo "________________________________________________________" >> AMETHST_install.log.txt
 # PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games" # original /etc/environment path
 ####################################################################################
@@ -310,13 +283,11 @@ echo "________________________________________________________" >> AMETHST_insta
 ####################################################################################
 ### Test AMETHST functionality
 ####################################################################################
-echo "TESTING AMETHST FUNCTIONALITY"
 echo "TESTING AMETHST FUNCTIONALITY" >> AMETHST_install.log.txt
 source /home/ubuntu/.profile
 test_amethst.sh
 echo "DONE testing AMETHST functionality"
 echo "DONE testing AMETHST functionality" >> AMETHST_install.log.txt
-echo "________________________________________________________"
 echo "________________________________________________________" >> AMETHST_install.log.txt
 ####################################################################################
 
@@ -328,7 +299,6 @@ echo "________________________________________________________" >> AMETHST_insta
 #### DON'T FORGET TO SET A VALUE FOR AWE_CLIENT_GROUP_TOKEN !!!
 #### DON'T FORGET TO SET A VALUE FOR AWE_CLIENT_GROUP_TOKEN !!!
 
-echo "Installing, configuring, and starting the AWE client"
 echo "Installing, configuring, and starting the AWE client" >> AMETHST_install.log.txt
 #sudo bash << EOSHELL_9
 cd /home/ubuntu
@@ -378,9 +348,7 @@ ln -s ${AWE_LOGS}
 echo "export KB_AUTH_TOKEN=\"${KB_AUTH_TOKEN}\"" >> ~/.profile ## DON'T FORGET TO ADD KB_AUTH_TOKEN to ~/.profile
 
 #EOSHELL_9
-echo "DONE installing AWE"
 echo "DONE installing AWE" >> AMETHST_install.log.txt
-echo "________________________________________________________"
 echo "________________________________________________________" >> AMETHST_install.log.txt
 ####################################################################################
 
@@ -389,7 +357,6 @@ echo "________________________________________________________" >> AMETHST_insta
 ### Prep /etc/rc.local
 ####################################################################################
 #sudo bash << EOSHELL_2
-echo "editing /etc/rc.local to start amethst on boot/reboot"
 echo "editing /etc/rc.local to start amethst on boot/reboot" >> AMETHST_install.log.txt
 rm /etc/rc.local
 
@@ -405,16 +372,12 @@ sudo screen -S awe_client -d -m bash -c "source /home/ubuntu/.profile; echo \$PA
 EOF_2
 chmod +x /etc/rc.local
 #EOSHELL_2
-echo "done editing /etc/rc.local"
 echo "done editing /etc/rc.local" >> AMETHST_install.log.txt
-echo "________________________________________________________"
 echo "________________________________________________________" >> AMETHST_install.log.txt
 ####################################################################################
 
 ####################################################################################
-echo "installation of AMETHST is complete -- the VM will reboot in 10 seconds"
 echo "installation of AMETHST is complete -- the VM will reboot in 10 seconds" >> AMETHST_install.log.txt
-echo "________________________________________________________"
 echo "________________________________________________________" >> AMETHST_install.log.txt
 sleep 10
 sudo reboot
