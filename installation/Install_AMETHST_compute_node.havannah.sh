@@ -99,8 +99,8 @@ if [[ ${AWE_CLIENT_GROUP_TOKEN}X = "X" ]]; then
     echo "AWE_CLIENT_GROUP_TOKEN is not defined, it must be to proceed" >> AMETHST_install.log.txt
     exit 1
 else
-    echo "AWE_CLIENT_GROUP_TOKEN = "${KB_AUTH_TOKEN}
-    echo "AWE_CLIENT_GROUP_TOKEN = "${KB_AUTH_TOKEN} >> AMETHST_install.log.txt
+    echo "AWE_CLIENT_GROUP_TOKEN = "${AWE_CLIENT_GROUP_TOKEN}
+    echo "AWE_CLIENT_GROUP_TOKEN = "${AWE_CLIENT_GROUP_TOKEN} >> AMETHST_install.log.txt
 fi
 
 echo "DONE checking for KB_AUTH_TOKEN and AWE_CLIENT_GROUP_TOKEN" >> AMETHST_install.log.txt
