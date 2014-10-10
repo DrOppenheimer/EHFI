@@ -147,17 +147,15 @@ sed -e '/verse$/s/^#\{1,\}//' /etc/apt/sources.list > /etc/apt/sources.list.edit
 sed -e '/verse$/s/^ \{1,\}//' /etc/apt/sources.list > /etc/apt/sources.list.edit; mv /etc/apt/sources.list.edit /etc/apt/sources.list
 ### update and upgrade
 #how apt-get -y install build-essential
+apt-get -y update
 apt-get -y install build-essential
-
 
 unset UCF_FORCE_CONFFOLD
 export UCF_FORCE_CONFFNEW=YES
 ucf --purge /boot/grub/menu.lst
-
 export DEBIAN_FRONTEND=noninteractive
-
-apt-get -y update   
-apt-get -y upgrade  # try without updade # try with --force-yes
+   
+apt-get -y upgrade
 apt-get clean 
 ### install required packages
 apt-get --force-yes -o Dpkg::Options::="--force-confnew" --force-yes -fuy upgrade python-dev libncurses5-dev libssl-dev libzmq-dev libgsl0-dev openjdk-6-jdk libxml2 libxslt1.1 libxslt1-dev ant git subversion zlib1g-dev libpng12-dev libfreetype6-dev mpich2 libreadline-dev gfortran unzip libmysqlclient18 libmysqlclient-dev ghc sqlite3 libsqlite3-dev libc6-i386 libbz2-dev libx11-dev libcairo2-dev libcurl4-openssl-dev libglu1-mesa-dev freeglut3-dev mesa-common-dev xorg openbox emacs r-cran-rgl xorg-dev libxml2-dev mongodb-server bzr make gcc mercurial python-qcli
