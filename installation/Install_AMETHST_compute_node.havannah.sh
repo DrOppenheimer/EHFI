@@ -85,7 +85,7 @@ echo "________________________________________________________" >> AMETHST_insta
 ####################################################################################
 echo "Checking for KB_AUTH_TOKEN and AWE_CLIENT_GROUP_TOKEN variables" >> AMETHST_install.log.txt
 
-if [[ $KB_AUTH_TOKEN = "" ]]; then
+if [[ ${KB_AUTH_TOKEN}X = "X" ]]; then
     echo "KB_AUTH_TOKEN is not defined, it must be to proceed"
     echo "KB_AUTH_TOKEN is not defined, it must be to proceed" >> AMETHST_install.log.txt
     exit 1
@@ -94,7 +94,7 @@ else
     echo "KB_AUTH_TOKEN = $KB_AUTH_TOKEN" >> AMETHST_install.log.txt
 fi
 
-if [[ $AWE_CLIENT_GROUP_TOKEN = "" ]]; then
+if [[ ${AWE_CLIENT_GROUP_TOKEN}X = "X" ]]; then
     echo "AWE_CLIENT_GROUP_TOKEN is not defined, it must be to proceed"
     echo "AWE_CLIENT_GROUP_TOKEN is not defined, it must be to proceed" >> AMETHST_install.log.txt
     exit 1
@@ -105,6 +105,7 @@ fi
 
 echo "DONE checking for KB_AUTH_TOKEN and AWE_CLIENT_GROUP_TOKEN" >> AMETHST_install.log.txt
 echo "________________________________________________________" >> AMETHST_install.log.txt
+exit
 ####################################################################################
 
 ####################################################################################
