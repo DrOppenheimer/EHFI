@@ -142,8 +142,9 @@ cd /home/ubuntu
 echo deb http://cran.rstudio.com/bin/linux/ubuntu trusty/ >> /etc/apt/sources.list  # 14.04 # Only exist for LTS - check version with lsb_release -a
 ### add cran public key # this makes it possible to install most current R below
 apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E084DAB9
-### for qiime install later, uncomment the universe and multiverse repositories from /etc/apt/sources.list
+### for qiime install later, uncomment the universe and multiverse repositories from /etc/apt/sources.list, then remove prefix space
 sed -e '/verse$/s/^#\{1,\}//' /etc/apt/sources.list > /etc/apt/sources.list.edit; mv /etc/apt/sources.list.edit /etc/apt/sources.list
+sed -e '/verse$/s/^ \{1,\}//' /etc/apt/sources.list > /etc/apt/sources.list.edit; mv /etc/apt/sources.list.edit /etc/apt/sources.list
 ### update and upgrade
 #how apt-get -y install build-essential
 apt-get -y install build-essential
