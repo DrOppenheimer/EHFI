@@ -147,7 +147,7 @@ sed -e '/verse$/s/^#\{1,\}//' /etc/apt/sources.list > /etc/apt/sources.list.edit
 sed -e '/verse$/s/^ \{1,\}//' /etc/apt/sources.list > /etc/apt/sources.list.edit; mv /etc/apt/sources.list.edit /etc/apt/sources.list
 ### update and upgrade
 #how apt-get -y install build-essential
-apt-get -y update
+apt-get update
 apt-get -y install build-essential
 
 unset UCF_FORCE_CONFFOLD
