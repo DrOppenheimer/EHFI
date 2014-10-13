@@ -315,7 +315,7 @@ curl http://www.mcs.anl.gov/~wtang/files/install_aweclient.sh > install_aweclien
 chmod u=+x install_aweclient.sh
 ./install_aweclient.sh
 #source /home/ubuntu/.profile
-. source /home/ubuntu/.profile
+. /home/ubuntu/.profile
 ### CONFIGURE
 
 # config template from https://github.com/MG-RAST/AWE/blob/master/templates/awec.cfg.template
