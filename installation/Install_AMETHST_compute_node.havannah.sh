@@ -350,9 +350,9 @@ EOF_4
 
 # create some easy links for awe data, log and work folders
 cd /home/ubuntu
-ln -s ${AWE_DATA}
-ln -s ${AWE_WORK}
-ln -s ${AWE_LOGS}
+ln -s ${AWE_DATA} awe_data   # <- failed here 10-13-14 (used "data" - it was alread there, added awe_ as prefix to the linkname)
+ln -s ${AWE_WORK} awe_work
+ln -s ${AWE_LOGS} awe_logs
 
 # write the auth token to the profile
 echo "export KB_AUTH_TOKEN=\"${KB_AUTH_TOKEN}\"" >> ~/.profile ## DON'T FORGET TO ADD KB_AUTH_TOKEN to ~/.profile
