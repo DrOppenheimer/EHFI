@@ -3,6 +3,9 @@
 set -e # checking of all commands 
 set -x # print each command before execution
 
+# Make sure KB_AUTH_TOKEN and AWE_CLIENT_GROUP_TOKEN have valid values then:
+# sudo -E Install_AMETHST_compute_node.havannah.sh
+
 echo "AMETHST INSTALLER START" > AMETHST_install.log.txt
 echo "________________________________________________________" >> AMETHST_install.log.txt
 
