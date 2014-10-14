@@ -284,11 +284,13 @@ DESCRIPTION:
 Driver script for AMETHST analysis, for use in stand along perl installations
 or as part of the AWE AMETHST service.
 
-Typical Stand alone perl usage (script is executed just once)
+Typical local (stand alone) perl usage (script is executed just once)
 
      AMETHST.pl -f test_analysis_commands -k --summary_name MY_SUMMARY
 
 Typical AWE service usage (script -is executed twice)
+NOTE: These steps are automated in the service version, i.e. you should 
+not use this method for running AMETHST locally.
 
      AMETHST.pl -f test_analysis_commands
      AMETHST.pl -c --summary_name MY_SUMMARY
