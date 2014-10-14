@@ -27,30 +27,29 @@ echo "________________________________________________________" >> AMETHST_insta
 # ./Install_AMETHST_compute_node.sh
 ### To start nodes preconfigured with this script
 # NEW MAGELLAN (Havvanah)
-# vmAWE.pl --create=5 --flavor_name=i2.2xlarge.sd --groupname=am_compute --key_name=kevin_share --image_name="am_comp.8-18-14" --nogroupcheck --greedy
-# vmAWE.pl --create=5 # if other options are specified in .bulkvm
-# OLD MAGELLAN (NOVUS)
-# vmAWE.pl --create=5 --flavor_name=idp.100 --groupname=am_compute --key_name=kevin_share --image_name="am_comp.8-18-14" --nogroupcheck --greedy
+# vmAWE.pl --create=5 --flavor_name=i2.2xlarge.sd --groupname=am_compute --key_name=kevin_share --image_name="mg_amethst_comp.10-14-14" --nogroupcheck --greedy
 # vmAWE.pl --create=5 # if other options are specified in .bulkvm
 
+### KBase
+# vmAWE.pl --create=5 --flavor_name=i2.2xlarge.sd --groupname=am_compute --key_name=kevin_share --image_name="mg_amethst_comp.10-14-14" --nogroupcheck --greedy
 
 # MG-RAST-Dev:
 # compute nodes
-#      Name: mg_amethst_comp.9-10-14
-#      ID: c470c6df-54d9-4738-9c73-36d91a30300e
+#      Name: mg_amethst_comp.10-14-14
+#      ID: 20328984-4e84-49a0-8f6f-b5d70b3f4d72
 #      # vmAWE.pl --create=5 --flavor_name=i2.2xlarge.sd --groupname=amethst --key_name=kevin_share --image_name="mg_amethst_comp.9-10-14" --nogroupcheck --greedy 
 # service node
-#      Name: 
-#      ID: 
+#      Name: mg_amethst_service.9-17-14 
+#      ID: ff07500a-43cf-465b-9883-d87f5a843669
 #      # vmAWE.pl --create=5 --flavor_name=i2.medium.sd --groupname=amethst --key_name=kevin_share --image_name="mg_amethst_comp.9-10-14" --nogroupcheck --greedy
 
 # KBASE_Dev
 # compute nodes
-#      Name: kb_amethst_comp.9-10-14
-#      ID: d9be941e-2fbf-4286-b23f-805c74c09784
+#      Name: kb_amethst_comp.10-14-14
+#      ID: 7911ba9c-0e03-4f09-9657-9c9955c9f7c1
 # service node
-#      Name: kb_amethst_service.9-10-14
-#      ID: d27cdc97-8782-4a4b-aac0-1e570263072d
+#      Name: kb_amethst_service.9-17-14
+#      ID: 1ca3a6d4-f688-4ed6-bffe-9f80c99051ef
 
 
 

@@ -111,9 +111,14 @@ script:               $0
 
 DESCRIPTION:
 Script to write an amethst commands list from a much simpler input.
-File_in should be a tab delimited file that contains the following columns:
+file_in should be a tab delimited file that contains the following columns:
+
 #job_name #data_file #groups_list #num_perm #dist_method #dist_pipe #output_prefix
-note: blank lines or any lines that start with a # will be ignored. 
+
+The script takes this information to create a a valid AMETHST commands file.
+NOTE: Blank lines or any lines in file_in that start with a # will be ignored. 
+
+
    
 USAGE: write_amethst_commands.pl [-m file_search_mode][-w within_file] [-b between_file] [-o output_file] [-j job_name] -h -v -d
  
