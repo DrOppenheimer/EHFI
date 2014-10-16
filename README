@@ -11,9 +11,18 @@
 # functions or taxa), a file that indicates sample groupings, and a number of options
 # that define exactly how the anlaysis will be performed. 
 #     The AMETHST testing procedure has two stages, the first examines how well each
-# analysis method is able to recognize members of each group of samples. The test
-# determines how well an analysis can identify groups in the original data and 
-# multiple permutations of the data (in which )
-
-The first test assesses the ability of an analysis to 
-# differenciate 
+# analysis method is able to recognize members of biological groups (specified by the input
+# sample groupings). This test provides a fairly stringent means to identify poor performing
+# analysis methods - defined as those methods that cannot distinguish groupings in the real,
+# original data, from random permutations of it. The second stage analysis provides a means
+# to assess the signficance with which differences between biological groups are detected.
+# 
+#
+# Typical use
+#
+# stand alone:
+# input files
+# write_amethst_commands.pl
+# AMETHST.pl 
+#
+# service
