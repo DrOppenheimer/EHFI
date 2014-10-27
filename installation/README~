@@ -1,6 +1,6 @@
 ###########################################################################
 # AMETHST Installation
-########################################################################### 
+###########################################################################
 # Amethst can be installed in two different ways, outlined below. 
 # This directory contains one installation script for each method.
 # Both installations require Ubuntu 14.04 LTS. Installation may work 
@@ -16,10 +16,8 @@ sudo Install_local_AMETHST.sh
 # on a single computer or environment. We recommend using a computer/
 # environment with multiple CPUs. Execution of AMETHST with a small 
 # number of CPUs and a large number of permutations is possible, but can
-# take a considerable amount of time. The installer will run the test 
-# script /AMETHST/test_amethst.sh; if this script runs without errors,
-# your installation of AMETHST should be complete. The installer will
-# clone this repository, and add it to your path.
+# take a considerable amount of time.
+#
 #
 #
 # (2) Installation as a backend compute node for the KBase AMETHST service:
