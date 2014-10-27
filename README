@@ -5,10 +5,14 @@
 # the relative performance of multiple analysis methods applied to annotation abundance 
 # data.  AMETHST always requires Ubuntu (currently it has only been tested on 14.04 LTS),
 # bu can be used as a stand alone tool on a local computer/envrionment or can be used as
-# a service in KBase.  AMETHST utilizes permutation (monte-carlo) based statistics to
+# a service in KBase. See the "installation" directory in this repository for installation
+# intructions. 
+#      AMETHST utilizes permutation (monte-carlo) based statistics to
 # perform two seperate tests. For each analysis that AMETHST is used to assess, three
 # inputs are expected, an annotation abundance matrix (columns are samples, rows are 
-# functions or taxa), a file that indicates sample groupings, and a number of options
+# functions or taxa), a file that indicates sample groupings (a comma separated string indicating
+# the groupings by column in the abundance matrix - e.g. a,b,b,a would place the first and
+# last column in one group, the second and third in another), and a number of options
 # that define exactly how the anlaysis will be performed. 
 #     The AMETHST testing procedure has two stages, the first examines how well each
 # analysis method is able to recognize members of biological groups (specified by the input
@@ -20,9 +24,6 @@
 #
 # Typical use
 #
-# stand alone:
-# input files
-# write_amethst_commands.pl
-# AMETHST.pl 
+# stand alone perl script:
 #
-# service
+# KBase service

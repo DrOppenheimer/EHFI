@@ -21,11 +21,16 @@ sudo Install_local_AMETHST.sh
 #
 #
 # (2) Installation as a backend compute node for the KBase AMETHST service:
+# Note: this installation is intended for KBase admins.
  
 sudo -E Install_AMETHST_compute_node.havannah.sh
 
 # NOTES: This installation will prepare a VM to run as a backend compute
 # node for the KBase AMETHST service. Installation requires an envrionment
 # populated with valid KB_AUTH_TOKEN and AWE_CLIENT_GROUP_TOKEN variables.
-
+# Please refer to kbase.us to 
+#  - create a KBase account
+#  - obtain appropriate credentials
+#  - start a KBase VM
+#  - install and run the AMETHST service
 
