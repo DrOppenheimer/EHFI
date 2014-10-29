@@ -1,0 +1,129 @@
+# Analysis_1
+plot_pco_with_stats_all.pl --data_file 4.HMP_reduced_counts.8-20-13.txt.norm.percent_default.included.txt --groups_list HMP_groups.txt --sig_if lt --num_perm 1000 --perm_type dataset_rand --dist_method bray-curtis --dist_pipe MG-RAST_pipe --output_prefix Analysis_1w --cleanup
+plot_pco_with_stats_all.pl --data_file 4.HMP_reduced_counts.8-20-13.txt.norm.percent_default.included.txt --groups_list HMP_groups.txt --sig_if gt --num_perm 1000 --perm_type rowwise_rand --dist_method bray-curtis --dist_pipe MG-RAST_pipe --output_prefix Analysis_1b --cleanup
+combine_summary_stats.pl --file_search_mode pattern --within_pattern Analysis_1w --between_pattern Analysis_1b --groups_list HMP_groups.txt
+
+# Analysis_2
+plot_pco_with_stats_all.pl --data_file 3.HMP_reduced_counts.8-20-13.txt.raw.percent_default.included.txt --groups_list HMP_groups.txt --sig_if lt --num_perm 1000 --perm_type dataset_rand --dist_method bray-curtis --dist_pipe MG-RAST_pipe --output_prefix Analysis_2w --cleanup
+plot_pco_with_stats_all.pl --data_file 3.HMP_reduced_counts.8-20-13.txt.raw.percent_default.included.txt --groups_list HMP_groups.txt --sig_if gt --num_perm 1000 --perm_type rowwise_rand --dist_method bray-curtis --dist_pipe MG-RAST_pipe --output_prefix Analysis_2b --cleanup
+combine_summary_stats.pl --file_search_mode pattern --within_pattern Analysis_2w --between_pattern Analysis_2b --groups_list HMP_groups.txt
+
+# Analysis_3
+plot_pco_with_stats_all.pl --data_file 4.HMP_reduced_counts.8-20-13.txt.norm.percent_default.included.txt --groups_list HMP_groups.txt --sig_if lt --num_perm 1000 --perm_type dataset_rand --dist_method euclidean --dist_pipe MG-RAST_pipe --output_prefix Analysis_3w --cleanup
+plot_pco_with_stats_all.pl --data_file 4.HMP_reduced_counts.8-20-13.txt.norm.percent_default.included.txt --groups_list HMP_groups.txt --sig_if gt --num_perm 1000 --perm_type rowwise_rand --dist_method euclidean --dist_pipe MG-RAST_pipe --output_prefix Analysis_3b --cleanup
+combine_summary_stats.pl --file_search_mode pattern --within_pattern Analysis_3w --between_pattern Analysis_3b --groups_list HMP_groups.txt
+
+# Analysis_4
+plot_pco_with_stats_all.pl --data_file 3.HMP_reduced_counts.8-20-13.txt.raw.percent_default.included.txt --groups_list HMP_groups.txt --sig_if lt --num_perm 1000 --perm_type dataset_rand --dist_method euclidean --dist_pipe MG-RAST_pipe --output_prefix Analysis_4w --cleanup
+plot_pco_with_stats_all.pl --data_file 3.HMP_reduced_counts.8-20-13.txt.raw.percent_default.included.txt --groups_list HMP_groups.txt --sig_if gt --num_perm 1000 --perm_type rowwise_rand --dist_method euclidean --dist_pipe MG-RAST_pipe --output_prefix Analysis_4b --cleanup
+combine_summary_stats.pl --file_search_mode pattern --within_pattern Analysis_4w --between_pattern Analysis_4b --groups_list HMP_groups.txt
+
+# Analysis_8
+plot_pco_with_stats_all.pl --data_file 2.HMP_reduced_counts.8-20-13.txt.norm.percent_default.removed.txt --groups_list HMP_groups.txt --sig_if lt --num_perm 1000 --perm_type dataset_rand --dist_method bray-curtis --dist_pipe MG-RAST_pipe --output_prefix Analysis_8w --cleanup
+plot_pco_with_stats_all.pl --data_file 2.HMP_reduced_counts.8-20-13.txt.norm.percent_default.removed.txt --groups_list HMP_groups.txt --sig_if gt --num_perm 1000 --perm_type rowwise_rand --dist_method bray-curtis --dist_pipe MG-RAST_pipe --output_prefix Analysis_8b --cleanup
+combine_summary_stats.pl --file_search_mode pattern --within_pattern Analysis_8w --between_pattern Analysis_8b --groups_list HMP_groups.txt
+
+# Analysis_9
+plot_pco_with_stats_all.pl --data_file 1.HMP_reduced_counts.8-20-13.txt.raw.percent_default.removed.txt --groups_list HMP_groups.txt --sig_if lt --num_perm 1000 --perm_type dataset_rand --dist_method bray-curtis --dist_pipe MG-RAST_pipe --output_prefix Analysis_9w --cleanup
+plot_pco_with_stats_all.pl --data_file 1.HMP_reduced_counts.8-20-13.txt.raw.percent_default.removed.txt --groups_list HMP_groups.txt --sig_if gt --num_perm 1000 --perm_type rowwise_rand --dist_method bray-curtis --dist_pipe MG-RAST_pipe --output_prefix Analysis_9b --cleanup
+combine_summary_stats.pl --file_search_mode pattern --within_pattern Analysis_9w --between_pattern Analysis_9b --groups_list HMP_groups.txt
+
+# Analysis_10
+plot_pco_with_stats_all.pl --data_file 2.HMP_reduced_counts.8-20-13.txt.norm.percent_default.removed.txt --groups_list HMP_groups.txt --sig_if lt --num_perm 1000 --perm_type dataset_rand --dist_method euclidean --dist_pipe MG-RAST_pipe --output_prefix Analysis_10w --cleanup
+plot_pco_with_stats_all.pl --data_file 2.HMP_reduced_counts.8-20-13.txt.norm.percent_default.removed.txt --groups_list HMP_groups.txt --sig_if gt --num_perm 1000 --perm_type rowwise_rand --dist_method euclidean --dist_pipe MG-RAST_pipe --output_prefix Analysis_10b --cleanup
+combine_summary_stats.pl --file_search_mode pattern --within_pattern Analysis_10w --between_pattern Analysis_10b --groups_list HMP_groups.txt
+
+# Analysis_11
+plot_pco_with_stats_all.pl --data_file 1.HMP_reduced_counts.8-20-13.txt.raw.percent_default.removed.txt --groups_list HMP_groups.txt --sig_if lt --num_perm 1000 --perm_type dataset_rand --dist_method euclidean --dist_pipe MG-RAST_pipe --output_prefix Analysis_11w --cleanup
+plot_pco_with_stats_all.pl --data_file 1.HMP_reduced_counts.8-20-13.txt.raw.percent_default.removed.txt --groups_list HMP_groups.txt --sig_if gt --num_perm 1000 --perm_type rowwise_rand --dist_method euclidean --dist_pipe MG-RAST_pipe --output_prefix Analysis_11b --cleanup
+combine_summary_stats.pl --file_search_mode pattern --within_pattern Analysis_11w --between_pattern Analysis_11b --groups_list HMP_groups.txt
+
+# Analysis_15
+plot_pco_with_stats_all.pl --data_file 8.HMP_reduced_counts.8-20-13.txt.norm.percent_screen_85p.included.txt --groups_list HMP_groups.txt --sig_if lt --num_perm 1000 --perm_type dataset_rand --dist_method bray-curtis --dist_pipe MG-RAST_pipe --output_prefix Analysis_15w --cleanup
+plot_pco_with_stats_all.pl --data_file 8.HMP_reduced_counts.8-20-13.txt.norm.percent_screen_85p.included.txt --groups_list HMP_groups.txt --sig_if gt --num_perm 1000 --perm_type rowwise_rand --dist_method bray-curtis --dist_pipe MG-RAST_pipe --output_prefix Analysis_15b --cleanup
+combine_summary_stats.pl --file_search_mode pattern --within_pattern Analysis_15w --between_pattern Analysis_15b --groups_list HMP_groups.txt
+
+# Analysis_16
+plot_pco_with_stats_all.pl --data_file 7.HMP_reduced_counts.8-20-13.txt.raw.percent_screen_85p.included.txt --groups_list HMP_groups.txt --sig_if lt --num_perm 1000 --perm_type dataset_rand --dist_method bray-curtis --dist_pipe MG-RAST_pipe --output_prefix Analysis_16w --cleanup
+plot_pco_with_stats_all.pl --data_file 7.HMP_reduced_counts.8-20-13.txt.raw.percent_screen_85p.included.txt --groups_list HMP_groups.txt --sig_if gt --num_perm 1000 --perm_type rowwise_rand --dist_method bray-curtis --dist_pipe MG-RAST_pipe --output_prefix Analysis_16b --cleanup
+combine_summary_stats.pl --file_search_mode pattern --within_pattern Analysis_16w --between_pattern Analysis_16b --groups_list HMP_groups.txt
+
+# Analysis_17
+plot_pco_with_stats_all.pl --data_file 8.HMP_reduced_counts.8-20-13.txt.norm.percent_screen_85p.included.txt --groups_list HMP_groups.txt --sig_if lt --num_perm 1000 --perm_type dataset_rand --dist_method euclidean --dist_pipe MG-RAST_pipe --output_prefix Analysis_17w --cleanup
+plot_pco_with_stats_all.pl --data_file 8.HMP_reduced_counts.8-20-13.txt.norm.percent_screen_85p.included.txt --groups_list HMP_groups.txt --sig_if gt --num_perm 1000 --perm_type rowwise_rand --dist_method euclidean --dist_pipe MG-RAST_pipe --output_prefix Analysis_17b --cleanup
+combine_summary_stats.pl --file_search_mode pattern --within_pattern Analysis_17w --between_pattern Analysis_17b --groups_list HMP_groups.txt
+
+# Analysis_18
+plot_pco_with_stats_all.pl --data_file 7.HMP_reduced_counts.8-20-13.txt.raw.percent_screen_85p.included.txt --groups_list HMP_groups.txt --sig_if lt --num_perm 1000 --perm_type dataset_rand --dist_method euclidean --dist_pipe MG-RAST_pipe --output_prefix Analysis_18w --cleanup
+plot_pco_with_stats_all.pl --data_file 7.HMP_reduced_counts.8-20-13.txt.raw.percent_screen_85p.included.txt  --groups_list HMP_groups.txt --sig_if gt --num_perm 1000 --perm_type rowwise_rand --dist_method euclidean --dist_pipe MG-RAST_pipe --output_prefix Analysis_18b --cleanup
+combine_summary_stats.pl --file_search_mode pattern --within_pattern Analysis_18w --between_pattern Analysis_18b --groups_list HMP_groups.txt
+
+# Analysis_22
+plot_pco_with_stats_all.pl --data_file 6.HMP_reduced_counts.8-20-13.txt.norm.percent_screen_85premoved.txt --groups_list HMP_groups.txt --sig_if lt --num_perm 1000 --perm_type dataset_rand --dist_method bray-curtis --dist_pipe MG-RAST_pipe --output_prefix Analysis_22w --cleanup
+plot_pco_with_stats_all.pl --data_file 6.HMP_reduced_counts.8-20-13.txt.norm.percent_screen_85premoved.txt --groups_list HMP_groups.txt --sig_if gt --num_perm 1000 --perm_type rowwise_rand --dist_method bray-curtis --dist_pipe MG-RAST_pipe --output_prefix Analysis_22b --cleanup
+combine_summary_stats.pl --file_search_mode pattern --within_pattern Analysis_22w --between_pattern Analysis_22b --groups_list HMP_groups.txt
+
+# Analysis_23
+plot_pco_with_stats_all.pl --data_file 5.HMP_reduced_counts.8-20-13.txt.raw.percent_screen_85p.removed.txt --groups_list HMP_groups.txt --sig_if lt --num_perm 1000 --perm_type dataset_rand --dist_method bray-curtis --dist_pipe MG-RAST_pipe --output_prefix Analysis_23w --cleanup
+plot_pco_with_stats_all.pl --data_file 5.HMP_reduced_counts.8-20-13.txt.raw.percent_screen_85p.removed.txt --groups_list HMP_groups.txt --sig_if gt --num_perm 1000 --perm_type rowwise_rand --dist_method bray-curtis --dist_pipe MG-RAST_pipe --output_prefix Analysis_23b --cleanup
+combine_summary_stats.pl --file_search_mode pattern --within_pattern Analysis_23w --between_pattern Analysis_23b --groups_list HMP_groups.txt
+
+# Analysis_24
+plot_pco_with_stats_all.pl --data_file 6.HMP_reduced_counts.8-20-13.txt.norm.percent_screen_85premoved.txt --groups_list HMP_groups.txt --sig_if lt --num_perm 1000 --perm_type dataset_rand --dist_method euclidean --dist_pipe MG-RAST_pipe --output_prefix Analysis_24w --cleanup
+plot_pco_with_stats_all.pl --data_file 6.HMP_reduced_counts.8-20-13.txt.norm.percent_screen_85premoved.txt --groups_list HMP_groups.txt --sig_if gt --num_perm 1000 --perm_type rowwise_rand --dist_method euclidean --dist_pipe MG-RAST_pipe --output_prefix Analysis_24b --cleanup
+combine_summary_stats.pl --file_search_mode pattern --within_pattern Analysis_24w --between_pattern Analysis_24b --groups_list HMP_groups.txt
+
+# Analysis_25
+plot_pco_with_stats_all.pl --data_file 5.HMP_reduced_counts.8-20-13.txt.raw.percent_screen_85p.removed.txt --groups_list HMP_groups.txt --sig_if lt --num_perm 1000 --perm_type dataset_rand --dist_method euclidean --dist_pipe MG-RAST_pipe --output_prefix Analysis_25w --cleanup
+plot_pco_with_stats_all.pl --data_file 5.HMP_reduced_counts.8-20-13.txt.raw.percent_screen_85p.removed.txt --groups_list HMP_groups.txt --sig_if gt --num_perm 1000 --perm_type rowwise_rand --dist_method euclidean --dist_pipe MG-RAST_pipe --output_prefix Analysis_25b --cleanup
+combine_summary_stats.pl --file_search_mode pattern --within_pattern Analysis_25w --between_pattern Analysis_25b --groups_list HMP_groups.txt
+
+# Analysis_29
+plot_pco_with_stats_all.pl --data_file 3.HMP_reduced_counts.8-20-13.txt.raw.percent_default.included.txt --groups_list HMP_groups.txt --sig_if lt --num_perm 1000 --perm_type dataset_rand --dist_method euclidean --dist_pipe MG-RAST_pipe --output_prefix Analysis_29w --cleanup
+plot_pco_with_stats_all.pl --data_file 3.HMP_reduced_counts.8-20-13.txt.raw.percent_default.included.txt --groups_list HMP_groups.txt --sig_if gt --num_perm 1000 --perm_type rowwise_rand --dist_method euclidean --dist_pipe MG-RAST_pipe --output_prefix Analysis_29b --cleanup
+combine_summary_stats.pl --file_search_mode pattern --within_pattern Analysis_29w --between_pattern Analysis_29b --groups_list HMP_groups.txt
+
+# Analysis_30
+plot_pco_with_stats_all.pl --data_file 4.HMP_reduced_counts.8-20-13.txt.norm.percent_default.included.txt --groups_list HMP_groups.txt --sig_if lt --num_perm 1000 --perm_type dataset_rand --dist_method euclidean --dist_pipe MG-RAST_pipe --output_prefix Analysis_30w --cleanup
+plot_pco_with_stats_all.pl --data_file 4.HMP_reduced_counts.8-20-13.txt.norm.percent_default.included.txt --groups_list HMP_groups.txt --sig_if gt --num_perm 1000 --perm_type rowwise_rand --dist_method euclidean --dist_pipe MG-RAST_pipe --output_prefix Analysis_30b --cleanup
+combine_summary_stats.pl --file_search_mode pattern --within_pattern Analysis_30w --between_pattern Analysis_30b --groups_list HMP_groups.txt
+
+# Analysis_31
+plot_pco_with_stats_all.pl --data_file 7.HMP_reduced_counts.8-20-13.txt.raw.percent_screen_85p.included.txt --groups_list HMP_groups.txt --sig_if lt --num_perm 1000 --perm_type dataset_rand --dist_method euclidean --dist_pipe MG-RAST_pipe --output_prefix Analysis_31w --cleanup
+plot_pco_with_stats_all.pl --data_file 7.HMP_reduced_counts.8-20-13.txt.raw.percent_screen_85p.included.txt --groups_list HMP_groups.txt --sig_if gt --num_perm 1000 --perm_type rowwise_rand --dist_method euclidean --dist_pipe MG-RAST_pipe --output_prefix Analysis_31b --cleanup
+combine_summary_stats.pl --file_search_mode pattern --within_pattern Analysis_31w --between_pattern Analysis_31b --groups_list HMP_groups.txt
+
+# Analysis_32
+plot_pco_with_stats_all.pl --data_file 8.HMP_reduced_counts.8-20-13.txt.norm.percent_screen_85p.included.txt --groups_list HMP_groups.txt --sig_if lt --num_perm 1000 --perm_type dataset_rand --dist_method euclidean --dist_pipe MG-RAST_pipe --output_prefix Analysis_32w --cleanup
+plot_pco_with_stats_all.pl --data_file 8.HMP_reduced_counts.8-20-13.txt.norm.percent_screen_85p.included.txt --groups_list HMP_groups.txt --sig_if gt --num_perm 1000 --perm_type rowwise_rand --dist_method euclidean --dist_pipe MG-RAST_pipe --output_prefix Analysis_32b --cleanup
+combine_summary_stats.pl --file_search_mode pattern --within_pattern Analysis_32w --between_pattern Analysis_32b --groups_list HMP_groups.txt
+
+# Analysis_33
+plot_pco_with_stats_all.pl --data_file 3.HMP_reduced_counts.8-20-13.txt.raw.percent_default.included.txt --groups_list HMP_groups.txt --sig_if lt --num_perm 1000 --perm_type dataset_rand --dist_method euclidean --dist_pipe MG-RAST_pipe --output_prefix Analysis_33w --cleanup
+plot_pco_with_stats_all.pl --data_file 3.HMP_reduced_counts.8-20-13.txt.raw.percent_default.included.txt --groups_list HMP_groups.txt --sig_if gt --num_perm 1000 --perm_type rowwise_rand --dist_method euclidean --dist_pipe MG-RAST_pipe --output_prefix Analysis_33b --cleanup
+combine_summary_stats.pl --file_search_mode pattern --within_pattern Analysis_33w --between_pattern Analysis_33b --groups_list HMP_groups.txt
+
+# Analysis_34
+plot_pco_with_stats_all.pl --data_file 4.HMP_reduced_counts.8-20-13.txt.norm.percent_default.included.txt --groups_list HMP_groups.txt --sig_if lt --num_perm 1000 --perm_type dataset_rand --dist_method euclidean --dist_pipe MG-RAST_pipe --output_prefix Analysis_34w --cleanup
+plot_pco_with_stats_all.pl --data_file 4.HMP_reduced_counts.8-20-13.txt.norm.percent_default.included.txt --groups_list HMP_groups.txt --sig_if gt --num_perm 1000 --perm_type rowwise_rand --dist_method euclidean --dist_pipe MG-RAST_pipe --output_prefix Analysis_34b --cleanup
+combine_summary_stats.pl --file_search_mode pattern --within_pattern Analysis_34w --between_pattern Analysis_34b --groups_list HMP_groups.txt
+
+# Analysis_35
+plot_pco_with_stats_all.pl --data_file 7.HMP_reduced_counts.8-20-13.txt.raw.percent_screen_85p.included.txt --groups_list HMP_groups.txt --sig_if lt --num_perm 1000 --perm_type dataset_rand --dist_method euclidean --dist_pipe MG-RAST_pipe --output_prefix Analysis_35w --cleanup
+plot_pco_with_stats_all.pl --data_file 7.HMP_reduced_counts.8-20-13.txt.raw.percent_screen_85p.included.txt --groups_list HMP_groups.txt --sig_if gt --num_perm 1000 --perm_type rowwise_rand --dist_method euclidean --dist_pipe MG-RAST_pipe --output_prefix Analysis_35b --cleanup
+combine_summary_stats.pl --file_search_mode pattern --within_pattern Analysis_35w --between_pattern Analysis_35b --groups_list HMP_groups.txt
+
+# Analysis_36
+plot_pco_with_stats_all.pl --data_file 8.HMP_reduced_counts.8-20-13.txt.norm.percent_screen_85p.included.txt --groups_list HMP_groups.txt --sig_if lt --num_perm 1000 --perm_type dataset_rand --dist_method euclidean --dist_pipe MG-RAST_pipe  --output_prefix Analysis_36w --cleanup
+plot_pco_with_stats_all.pl --data_file 8.HMP_reduced_counts.8-20-13.txt.norm.percent_screen_85p.included.txt --groups_list HMP_groups.txt --sig_if gt --num_perm 1000 --perm_type rowwise_rand --dist_method euclidean --dist_pipe MG-RAST_pipe  --output_prefix Analysis_36b --cleanup
+combine_summary_stats.pl --file_search_mode pattern --within_pattern Analysis_36w --between_pattern Analysis_36b --groups_list HMP_groups.txt
+
+# Analysis_37
+plot_pco_with_stats_all.pl --data_file 3.HMP_reduced_counts.8-20-13.txt.raw.percent_default.included.txt --groups_list HMP_groups.txt --sig_if lt --num_perm 1000 --perm_type dataset_rand --dist_method OTU --dist_pipe OTU_pipe --output_prefix Analysis_37w --cleanup
+plot_pco_with_stats_all.pl --data_file 3.HMP_reduced_counts.8-20-13.txt.raw.percent_default.included.txt --groups_list HMP_groups.txt --sig_if gt --num_perm 1000 --perm_type rowwise_rand --dist_method OTU --dist_pipe OTU_pipe --output_prefix Analysis_37b --cleanup
+combine_summary_stats.pl --file_search_mode pattern --within_pattern Analysis_37w --between_pattern Analysis_37b --groups_list HMP_groups.txt
+
+# Analysis_38
+plot_pco_with_stats_all.pl --data_file 3.HMP_reduced_counts.8-20-13.txt.raw.percent_default.included.txt --groups_list HMP_groups.txt --sig_if lt --num_perm 1000 --perm_type dataset_rand --dist_method w_OTU --dist_pipe OTU_pipe --output_prefix Analysis_38w --cleanup
+plot_pco_with_stats_all.pl --data_file 3.HMP_reduced_counts.8-20-13.txt.raw.percent_default.included.txt --groups_list HMP_groups.txt --sig_if gt --num_perm 1000 --perm_type rowwise_rand --dist_method w_OTU --dist_pipe OTU_pipe --output_prefix Analysis_38b --cleanup
+combine_summary_stats.pl --file_search_mode pattern --within_pattern Analysis_38w --between_pattern Analysis_38b --groups_list HMP_groups.txt
