@@ -1,0 +1,63 @@
+###################################################################################################################
+# Running AMETHST
+###################################################################################################################
+# This document is broken into two sections, a QUICK GUIDE that provides you with code to immediately run AMETHST
+# on included example datasets and and EXTENDED GUIDE that provides a much more detailed description of how
+# to run AMETHST - on the included example data, or on any other dataset.
+#
+# NOTE: This guide assumes that you used Install_local_AMETHST.sh to install AMETHST in ~/AMETHST
+###################################################################################################################
+
+###################################################################################################################
+# QUICK GUIDE
+###################################################################################################################
+# Example (1): Run a quick test analysis
+#
+# copy test data, and move into directory containing the copy
+cd ~
+cp -r /home/ubuntu/AMETHST/datasets/test_analysis_data ./
+cd test_analysis_data
+# run AMETHST
+AMETHST.pl --command_file test_analysis_commands --compile_summary --zip_all 
+#
+###################################################################################################################
+# Example (2): Run the HMP analysis presented in the AMETHST manuscript
+#
+# copy data, and move into directory containing the copy
+cd ~
+cp -r ~/AMETHST/datasets/AMETHST_data/Human_microbiome_data ./
+cd Human_microbiome_data
+# run AMETHST
+AMETHST.pl --command_file AMETHST_HMP_commands.1000_perm --compile_summary --zip_all
+###################################################################################################################
+# Example (3): Run the English Channel analysis presented in the AMETHST manuscript
+cd ~
+cp -r ~/AMETHST/datasets/AMETHST_data/English_Channel_data/ ./
+cd English_Channel_data
+AMETHST.pl --command_file amethst_commands.10000_perm --compile_summary --zip_all
+###################################################################################################################
+
+###################################################################################################################
+# DETAILED GUIDE
+###################################################################################################################
+# AMETHST is a tool to compare/analyze multiple analysis methods applied to the same dataset (typically annotation
+# abundance data produced by annotation tools like MG-RAST or Qiime, but it can be used to process any count data).
+# AMETHST has the following input requirements:
+#	For each analysis
+#		(1) An abundance profile in tab delimited, Qiime table, or biom formats
+#               (2) A grouping file: a single comma separated string that indicates sample 
+#			groupings; (e.g.)  "a,b,b,a would place the first and fourth samples
+#			in one group, the second and third in another
+#	For all analyses processed at one time
+#		(3) An AMETHST commands file: This file contains the individual commands for
+#			all analyses processed at one time. The commands file can be created 
+#			by hand, or using the "write_amethst_commands.pl" script. As an improperly
+#			formatted commands file will cause AMETHST to fail, I would recommend using
+#			write_amethst_commands.pl to generate one.  You can use this command
+#			write_amethst_commands.pl -h
+#			for usage instructions.
+#			For each analysis, the commands file specify the command line arguments for 
+#                       three operations, the tier 1 AMETHST analysis, the tier 2 AMETHST analysis
+#                       and commands to sort, compile, and visualize results these analyses 
+
+#job_name\t#data_file\t# groups_list\t# num_perm\t# dist_method\t# dist_pipe\t#output_prefix\t#tree(optional)
