@@ -1,11 +1,19 @@
 ###################################################################################################################
 # Running AMETHST
 ###################################################################################################################
-# This document is broken into two sections, a QUICK GUIDE that provides you with code to immediately run AMETHST
-# on included example datasets and and EXTENDED GUIDE that provides a much more detailed description of how
+# This document is broken into three sections, an INTRODUCTION, a QUICK GUIDE that provides you with code to 
+# immediately run AMETHST on included example datasets, and and EXTENDED GUIDE that provides a much more detailed 
+# description of how
 # to run AMETHST - on the included example data, or on any other dataset.
 #
 # NOTE: This guide assumes that you used Install_local_AMETHST.sh to install AMETHST in ~/AMETHST
+###################################################################################################################
+# AMETHST is a tool to compare/analyze multiple analysis methods applied to the same dataset (typically annotation
+# abundance data produced by annotation tools like MG-RAST or Qiime, but it can be used to process any count data).
+# NOTE for new users:
+# Even with a highly automated procedure - this can still be a relatively difficult task to achieve. I strongly
+# encourage users/ potential users to contact me if they have and trouble implementing AMETHST or suggestions to
+# improve it — please email me: kkeegan.argonne AT gmail.com 
 ###################################################################################################################
 
 ###################################################################################################################
@@ -40,8 +48,6 @@ AMETHST.pl --command_file amethst_commands.10000_perm --compile_summary
 ###################################################################################################################
 # DETAILED GUIDE
 ###################################################################################################################
-# AMETHST is a tool to compare/analyze multiple analysis methods applied to the same dataset (typically annotation
-# abundance data produced by annotation tools like MG-RAST or Qiime, but it can be used to process any count data).
 # AMETHST has the following three input requirements:
 #	For each analysis
 #
@@ -75,7 +81,7 @@ AMETHST.pl --command_file amethst_commands.10000_perm --compile_summary
 #                       and commands to sort, compile, and visualize results these analyses.
 #                       Examples of the AMETHST commands file can also be found in each of the three
 #                       QUICK GUIDE examples provided above
-# 
+################################################################################################################### 
 # To conduct an AMETHST analysis on your data: 
 #		- Perform multiple analyses on your dataset
 #			- be sure that for each analysis you produce an abundance matrix 
@@ -96,8 +102,8 @@ AMETHST.pl --command_file amethst_commands.10000_perm --compile_summary
 #		- Conduct an AMETHST analysis, your command will look like this:
 #			AMETHST.pl --command_file amethst_commands_file --compile_summary
 #
-#	The --compile_summary option is highly advised - it will take all of the AMETHST outputs and organize them into 
-#	a set of 6 summary files and 4 summary directories (described below)
+#	The --compile_summary option is highly advised - it will take all of the AMETHST outputs and organize them 
+#	into a set of 6 summary files and 4 summary directories (described below)
 #	The --zip_all will additionally create a single zipped output that contains all outputs
 #
 #       The --compile_summary option creates 
@@ -106,8 +112,8 @@ AMETHST.pl --command_file amethst_commands.10000_perm --compile_summary
 #	(recommend using with --compile_summary)
 #
 # Interpreting AMETHST outputs
-#	A typical AMETHST analysis (assumed that the --compile_summary was used) will produce 6 summary files along with 4 directories
-#	That can contain a number of additional files
+#	A typical AMETHST analysis (assumed that the --compile_summary was used) will produce 6 summary files along 
+#	with 4 directories that can contain a number of additional files
 #		SUMMARY FILES
 #			(1) *.P_VALUES_SUMMARY.log			
 #				An AMETHST generate log
@@ -118,19 +124,25 @@ AMETHST.pl --command_file amethst_commands.10000_perm --compile_summary
 #			(4) *.P_VALUES_SUMMARY.raw_avg_dist_stdev
 #				The standard deviation of all within and between group distances
 #			(5) *.P_VALUES_SUMMARY.scaled_avg_dist
-#				Scaled within and between group distances (distances are scaled from [min..max] to [0..1] for each analysis 
+#				Scaled within and between group distances (distances are scaled from [min..max] 
+#				to [0..1] for each analysis 
 #			(6) *.P_VALUES_SUMMARY.p_values
-#				The individual and averaged p values calculated for all within and between group measures
+#				The individual and averaged p values calculated for all within and between group 
+#				measures
 #		DIRECTORIES
 #			(1) "PCoA_flat_files"
-#				Flat files containing the PCoA data for each analysis processed with AMETHST - one file for each analysis considered
+#				Flat files containing the PCoA data for each analysis processed with AMETHST - one 
+#				file for each analysis considered
 #			(2) "PCoA_images"
-#				Rendered two and three dimensional PCoAs, automatically colored with respect to sample groups - one file for each analysis considered
+#				Rendered two and three dimensional PCoAs, automatically colored with respect to 
+#				sample groups - one file for each analysis considered
 #			(3) "P_value_summaries"
-#				The p value summaries for each analysis processed with AMETHST - one file for each analysis considered.
+#				The p value summaries for each analysis processed with AMETHST - one file for each 
+#				analysis considered.
 #			(4) "individual_results"
-#				Contains the complete results for each analysis method analyzed with AMETHST. There will be two sub directories
-#				for each analysis - one contains the within group calculations, the other the between group calculations
+#				Contains the complete results for each analysis method analyzed with AMETHST. There 
+#				will be two sub directories for each analysis - one contains the within group 
+#				calculations, the other the between group calculations
 ###################################################################################################################
 
 
