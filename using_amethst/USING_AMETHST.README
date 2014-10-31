@@ -109,7 +109,7 @@ AMETHST.pl --command_file amethst_commands.10000_perm --compile_summary
 #
 #	The --compile_summary option is highly advised - it will take all of the AMETHST outputs and organize them 
 #	into a set of 6 summary files and 4 summary directories (described below)
-#	The --zip_all will additionally create a single zipped output that contains all outputs
+#	The --zip_all option will additionally create a single zipped output that contains all outputs
 #
 #       The --compile_summary option creates 
 #
