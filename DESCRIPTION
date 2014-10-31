@@ -1,6 +1,6 @@
 # AMETHST (Analysis METHod Selection Tool)
 #
-# Brief Description
+# Description
 #      AMETHST is an anlysis that provides a hypothesis driven means to objectively assess
 # the relative performance of multiple analysis methods applied to annotation abundance 
 # data.  AMETHST always requires Ubuntu (currently it has only been tested on 14.04 LTS),
@@ -20,10 +20,3 @@
 # analysis methods - defined as those methods that cannot distinguish groupings in the real,
 # original data, from random permutations of it. The second stage analysis provides a means
 # to assess the signficance with which differences between biological groups are detected.
-# 
-#
-# Typical use
-#
-# stand alone perl script:
-#
-# KBase service
