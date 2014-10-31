@@ -8,12 +8,17 @@
 #
 # NOTE: This guide assumes that you used Install_local_AMETHST.sh to install AMETHST in ~/AMETHST
 ###################################################################################################################
+
+###################################################################################################################
+# INTRODUCTION
+###################################################################################################################
 # AMETHST is a tool to compare/analyze multiple analysis methods applied to the same dataset (typically annotation
 # abundance data produced by annotation tools like MG-RAST or Qiime, but it can be used to process any count data).
 # NOTE for new users:
-# Even with a highly automated procedure - this can still be a relatively difficult task to achieve. I strongly
+# Even with a highly automated procedure - AMETHST analyses can be difficult to complete. I strongly
 # encourage users/ potential users to contact me if they have and trouble implementing AMETHST or suggestions to
-# improve it — please email me: kkeegan.argonne AT gmail.com 
+# improve it — please email me: kkeegan.argonne AT gmail.com
+# Cheers - Kevin  
 ###################################################################################################################
 
 ###################################################################################################################
