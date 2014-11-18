@@ -15,7 +15,7 @@
 # abundance data produced by annotation tools like MG-RAST or Qiime, but it can be used to process any count data).
 # NOTE for new users:
 # Even with a highly automated procedure - AMETHST analyses can be difficult to complete. I strongly
-# encourage users/ potential users to contact me if they have and trouble implementing AMETHST or have suggestions 
+# encourage users/ potential users to contact me if they have any trouble implementing AMETHST or have suggestions 
 # to improve it — please email me: kkeegan.argonne AT gmail.com
 # Cheers - Kevin  
 ###################################################################################################################
@@ -53,7 +53,8 @@ AMETHST.pl --command_file amethst_commands.10000_perm --compile_summary
 # DETAILED GUIDE
 ###################################################################################################################
 # AMETHST has the following three input requirements:
-#	For each analysis
+#
+#	For each analysis:
 #
 #		(1) An abundance table in tab delimited format. The first field is empty.
 #			All remaining fields in the first row are interpreted as sample names.			
@@ -71,7 +72,8 @@ AMETHST.pl --command_file amethst_commands.10000_perm --compile_summary
 #               (2) A grouping file: a single comma separated string that indicates sample 
 #			groupings; (e.g.)  "a,b,b,a would place the first and fourth samples
 #			in one group, the second and third in another
-#	For all analyses processed at one time
+#
+#	For all analyses processed at one time:
 #
 #		(3) An AMETHST commands file: This file contains the individual commands for
 #			all analyses processed at one time. The commands file can be created 
@@ -91,9 +93,16 @@ AMETHST.pl --command_file amethst_commands.10000_perm --compile_summary
 #			- be sure that for each analysis you produce an abundance matrix 
 #				(tab delimited format described above is expected - see notes above for 
 #				handling for biom formatted data)
-#			- be sure that each analysis you produce a grouping file
+#			- be sure that each analysis you also produce a grouping file
 #				NOTE: The metadata_2_amethst_group.r function for R can be used to generate a 
-#				grouping file from a tab delimited formatted metadata file
+#				grouping file from a tab delimited file containing metadata in the following format, sample per row,
+#       metadata per column. A groups file can be generated from a single column of the metadata file like this:
+#            Within R, source the metadata_2_amethst_group.r file:
+             > source(metadata_2_amethst_group.r)
+#            Then use the function like this
+             metadata_2_amethst_group(metadata_table="my_metadata.txt", metadata_column=1)
+#            where metadata_table is the name of the metadata containing tab delimited text
+#            and metadata_column indicates the left to right, 1-based index of the metadata column you want to use 
 #				NOTE: The grouping file will be the same for all analyses if you are testing a 
 #				single hypothesis. The grouping file will be different if you are testing 
 #				multiple hypotheses. 
