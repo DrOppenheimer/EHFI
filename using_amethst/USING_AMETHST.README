@@ -108,15 +108,11 @@ AMETHST.pl --command_file amethst_commands.10000_perm --compile_summary
 #
 #	The --compile_summary option is highly advised - it will take all of the AMETHST outputs and organize them 
 #	into a set of 6 summary files and 4 summary directories (described below)
-#	The --zip_all option will additionally create a single zipped output that contains all outputs
-#
-#       The --compile_summary option creates 
-#
-#	The addition --zip_all option will create a *.tar.gz archive that contains the AMETHST results 
+#	The addition of the --zip_all option will create a *.tar.gz archive that contains the AMETHST results 
 #	(recommend using with --compile_summary)
 #
 # Interpreting AMETHST outputs
-#	A typical AMETHST analysis (assumed that the --compile_summary was used) will produce 6 summary files along 
+#	A typical AMETHST analysis (assumed that the --compile_summary option was used) will produce 6 summary files along 
 #	with 4 directories that can contain a number of additional files
 #		SUMMARY FILES
 #			(1) *.P_VALUES_SUMMARY.log			
@@ -124,7 +120,7 @@ AMETHST.pl --command_file amethst_commands.10000_perm --compile_summary
 #			(2) *.P_VALUES_SUMMARY.num_perm
 #				The number of permutations used for the generation of each p value
 #			(3) *.P_VALUES_SUMMARY.raw_avg_dist
-#				Average distances found within and between all groups of samples
+#				Average distances/dissimilarities found within and between all groups of samples
 #			(4) *.P_VALUES_SUMMARY.raw_avg_dist_stdev
 #				The standard deviation of all within and between group distances
 #			(5) *.P_VALUES_SUMMARY.scaled_avg_dist
@@ -146,7 +142,7 @@ AMETHST.pl --command_file amethst_commands.10000_perm --compile_summary
 #			(4) "individual_results"
 #				Contains the complete results for each analysis method analyzed with AMETHST. There 
 #				will be two sub directories for each analysis - one contains the within group 
-#				calculations, the other the between group calculations
+#				calculations, the other the between group calculations.
 ###################################################################################################################
 
 
