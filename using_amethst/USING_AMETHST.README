@@ -63,7 +63,7 @@ AMETHST.pl --command_file amethst_commands.10000_perm --compile_summary
 #				sample and category.
 #			If your results are in biom format, you can use the following 2-step 
 #                       procedure to convert them to an AMETHST friendly format
-#				(A) Use a qiime script to convert the biom format to an out table: 
+#				(A) Use a qiime script to convert the biom format to an otu table: 
 #					biom convert -i my_input.biom -o my_otu_table.txt --table-type="otu table"
 # 				(B) Use the qiime_2_R.pl in the AMETHST library to convert otu table to an R table:
 #					qiime_2_R.pl -i my_otu_table.txt -c 3
