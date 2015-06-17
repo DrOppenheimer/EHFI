@@ -1,6 +1,7 @@
 MGRAST_plot_pco <- function(
                             file_in,
                             input_dir = "./",
+                            input_type = "file",
                             output_PCoA_dir = "./",
                             print_dist = 1,
                             output_DIST_dir = "./",
@@ -30,7 +31,8 @@ MGRAST_plot_pco <- function(
      the distance matrix used to generate the PCoA.
 
      USAGE: MGRAST_plot_pca(
-                            file_in = no default arg                               # (string)  input data file            
+                            file_in = no default arg                               # (string)  input data file
+                            input_type = \"file\"                                   # (string) file or r_matrix
                             input_dir = \"./\"                                       # (string)  directory(path) of input
                             output_PCoA_dir = \"./\"                                 # (string)  directory(path) for output PCoA file
                             print_dist = 0                                         # (boolean) print the DIST file (distance matrix)
@@ -93,8 +95,17 @@ MGRAST_plot_pco <- function(
   #writeLines("INPUT-DATA-PATH")
   #writeLines(input_data_path)
   #my_data <<- flipud(rot90(data.matrix(read.table(input_data_path, row.names=1, header=TRUE, sep="\t", comment.char="", quote="")))) # edited on 12-14-12, stop character conversions in column names
-  my_data <<- flipud(rot90(data.matrix(read.table(input_data_path, row.names=1, check.names=FALSE, header=TRUE, sep="\t", comment.char="", quote=""))))
-
+  
+  if ( indentical(input_type, "file") ){
+    my_data <<- flipud(rot90(data.matrix(read.table(input_data_path, row.names=1, check.names=FALSE, header=TRUE, sep="\t", comment.char="", quote=""))))
+  } else if ( indentical(input_type, "r_matrix") ) {
+    my_data <<- flipud(rot90(file_in))
+  } else {
+    stop("input_type value is not valid, must be file or r_matrix")
+  }
+  
+  
+  
   
   num_data_rows = dim(my_data)[1] # substitute 0 for NA's if they exist in the data
   num_data_cols = dim(my_data)[2]
