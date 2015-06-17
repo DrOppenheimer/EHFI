@@ -125,15 +125,26 @@ MGRAST_plot_pco <- function(
     }
   }
 
-
+  if( debug==TRUE ){print("MADE IT HERE 4")}
+  
+  # a bit for naming outputs
+  if( file_type(identical, "r_matrix") ){
+    file_in.name <- deparse(substitute(file_in))
+  } else {
+    file_in.name <- file_in
+  }
    
   # calculate distance matrix
   dist_matrix <<- find_dist(my_data, dist_method)
-  DIST_file_out <- gsub(" ", "", paste(output_DIST_dir, file_in, ".", dist_method, ".DIST"))
+  DIST_file_out <- gsub(" ", "", paste(output_DIST_dir, file_in.name, ".", dist_method, ".DIST"))
   if (print_dist > 0) { write_file(file_name = DIST_file_out, data = data.matrix(dist_matrix)) }
+
+  if( debug==TRUE ){print("MADE IT HERE 5")}
 
   # perform the pco
   my_pco <<- pco(dist_matrix)
+
+  if( debug==TRUE ){print("MADE IT HERE 6")}
 
   # scale eigen values from 0 to 1, and label them
   eigen_values <<- my_pco$values
@@ -142,15 +153,25 @@ MGRAST_plot_pco <- function(
   scaled_eigen_values <<- data.matrix(scaled_eigen_values)
   #for (i in (1:dim(as.matrix(scaled_ev))[1])) dimnames(scaled_ev)[i]<<-gsub(" ", "", paste("PCO", i))
 
+  if( debug==TRUE ){print("MADE IT HERE 7")}
+
   # label the eigen vectors
   eigen_vectors <<- data.matrix(my_pco$vectors) 
   dimnames(eigen_vectors)[[1]] <<- dimnames(my_data)[[1]]
 
+  if( debug==TRUE ){print("MADE IT HERE 8")}
+
   # write eigen values and then eigen vectors to file_out
-  PCoA_file_out = gsub(" ", "", paste(output_PCoA_dir, file_in, ".", dist_method, ".PCoA"))
+  if( file_type(identical, "r_matrix") ){
+    #file_in.name <- deparse(substitute(file_in))
+    PCoA_file_out = gsub(" ", "", paste(output_PCoA_dir, deparse(substitute(file_in.name)), ".", dist_method, ".PCoA"))
+  } else {
+    #file_in.name <- file_in
+    PCoA_file_out = gsub(" ", "", paste(output_PCoA_dir, file_in.name, ".", dist_method, ".PCoA"))
+  }
 
   if ( headers == 1 ){
-    write(file = PCoA_file_out, paste("# file_in    :", file_in,
+    write(file = PCoA_file_out, paste("# file_in    :", file_in.name,
             "\n# dist_method:", dist_method,
             "\n#________________________________",
             "\n# EIGEN VALUES (scaled 0 to 1) >",
@@ -161,6 +182,8 @@ MGRAST_plot_pco <- function(
     write.table(scaled_eigen_values, file=PCoA_file_out, col.names=FALSE, row.names=TRUE, append = FALSE, sep="\t", eol="\n")
   }
   
+  if( debug==TRUE ){print("MADE IT HERE 9")}
+  
   if ( headers == 1 ){
     write(file = PCoA_file_out, paste("#________________________________",
             "\n# EIGEN VECTORS >",
@@ -168,8 +191,12 @@ MGRAST_plot_pco <- function(
           append=TRUE)
   }
 
+  if( debug==TRUE ){print("MADE IT HERE 10")}
+
   #write.table(eigen_vectors, file=PCoA_file_out, col.names=FALSE, row.names=TRUE, append = TRUE, sep="\t")
   write.table(eigen_vectors, file=PCoA_file_out, col.names=FALSE, row.names=TRUE, append = TRUE, sep="\t", eol="\n")
+  
+  if( debug==TRUE ){print("MADE IT HERE 11")}
   
 }
 
