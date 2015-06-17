@@ -91,12 +91,13 @@ MGRAST_plot_pco <- function(
 
   #writeLines("FILE-IN")
   #writeLines(file_in)
-  input_data_path = gsub(" ", "", paste(input_dir, file_in))
+  #input_data_path = gsub(" ", "", paste(input_dir, file_in))
   #writeLines("INPUT-DATA-PATH")
   #writeLines(input_data_path)
   #my_data <<- flipud(rot90(data.matrix(read.table(input_data_path, row.names=1, header=TRUE, sep="\t", comment.char="", quote="")))) # edited on 12-14-12, stop character conversions in column names
   
   if ( identical(input_type, "file") ){
+    input_data_path = gsub(" ", "", paste(input_dir, file_in))
     my_data <<- flipud(rot90(data.matrix(read.table(input_data_path, row.names=1, check.names=FALSE, header=TRUE, sep="\t", comment.char="", quote=""))))
   } else if ( identical(input_type, "r_matrix") ) {
     my_data <<- flipud(rot90(file_in))
