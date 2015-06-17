@@ -162,7 +162,7 @@ MGRAST_plot_pco <- function(
   if( debug==TRUE ){print("MADE IT HERE 8")}
 
   # write eigen values and then eigen vectors to file_out
-  PCoA_file_out = gsub(" ", "", paste(output_PCoA_dir, file_in.name)), ".", dist_method, ".PCoA"))
+  PCoA_file_out = gsub(" ", "", paste(output_PCoA_dir, file_in.name, ".", dist_method, ".PCoA"))
 
   if ( headers == 1 ){
     write(file = PCoA_file_out, paste("# file_in    :", file_in.name,
