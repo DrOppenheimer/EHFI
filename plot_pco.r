@@ -128,7 +128,7 @@ MGRAST_plot_pco <- function(
   if( debug==TRUE ){print("MADE IT HERE 4")}
   
   # a bit for naming outputs
-  if( input_type(identical, "r_matrix") ){
+  if( identical(input_type, "r_matrix") ){
     file_in.name <- deparse(substitute(file_in))
   } else {
     file_in.name <- file_in
@@ -162,7 +162,7 @@ MGRAST_plot_pco <- function(
   if( debug==TRUE ){print("MADE IT HERE 8")}
 
   # write eigen values and then eigen vectors to file_out
-  if( input_type(identical, "r_matrix") ){
+  if( identical(input_type, "r_matrix") ){
     #file_in.name <- deparse(substitute(file_in))
     PCoA_file_out = gsub(" ", "", paste(output_PCoA_dir, deparse(substitute(file_in.name)), ".", dist_method, ".PCoA"))
   } else {
