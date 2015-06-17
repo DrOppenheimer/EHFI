@@ -6,7 +6,8 @@ MGRAST_plot_pco <- function(
                             print_dist = 1,
                             output_DIST_dir = "./",
                             dist_method = "euclidean",
-                            headers = 1
+                            headers = 1,
+                            debug=FALSE
                             )
 
 {
@@ -96,16 +97,21 @@ MGRAST_plot_pco <- function(
   #writeLines(input_data_path)
   #my_data <<- flipud(rot90(data.matrix(read.table(input_data_path, row.names=1, header=TRUE, sep="\t", comment.char="", quote="")))) # edited on 12-14-12, stop character conversions in column names
   
+  if( debug==TRUE ){print("MADE IT HERE 1")}
+  
   if ( identical(input_type, "file") ){
+    if( debug==TRUE ){print("MADE IT HERE 2a")}
     input_data_path = gsub(" ", "", paste(input_dir, file_in))
     my_data <<- flipud(rot90(data.matrix(read.table(input_data_path, row.names=1, check.names=FALSE, header=TRUE, sep="\t", comment.char="", quote=""))))
   } else if ( identical(input_type, "r_matrix") ) {
+    if( debug==TRUE ){print("MADE IT HERE 2.b")}
     my_data <<- flipud(rot90(file_in))
   } else {
+    if( debug==TRUE ){print("MADE IT HERE 2.c")}
     stop("input_type value is not valid, must be file or r_matrix")
   }
   
-  
+  if( debug==TRUE ){print("MADE IT HERE 3")}
   
   
   num_data_rows = dim(my_data)[1] # substitute 0 for NA's if they exist in the data
