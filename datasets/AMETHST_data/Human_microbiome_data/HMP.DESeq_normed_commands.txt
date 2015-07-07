@@ -1,0 +1,74 @@
+# Analysis_39
+~/EHFI/plot_pco_with_stats_all.3-4-13.pl -f 9.HMP_reduced_counts.8-20-13.txt.DESeq_norm.percent_default.removed.txt -g HMP_groups_reduced.txt -s lt -p 1000 -t dataset_rand -m bray-curtis -z MG-RAST_pipe -c 10 -o Analysis_39w -cleanup
+~/EHFI/plot_pco_with_stats_all.3-4-13.pl -f 9.HMP_reduced_counts.8-20-13.txt.DESeq_norm.percent_default.removed.txt -g HMP_groups_reduced.txt -s gt -p 1000 -t rowwise_rand -m bray-curtis -z MG-RAST_pipe -c 10 -o Analysis_39b -cleanup
+~/EHFI/combine_summary_stats.pl -m pattern -w Analysis_39w -b Analysis_39b -o Analysis_39.P_VALUE_SUMMARY
+
+# Analysis_40
+~/EHFI/plot_pco_with_stats_all.3-4-13.pl -f 10.HMP_reduced_counts.8-20-13.txt.DESeq_norm.percent_default.included.txt -g HMP_groups_reduced.txt -s lt -p 1000 -t dataset_rand -m bray-curtis -z MG-RAST_pipe -c 10 -o Analysis_40w -cleanup
+~/EHFI/plot_pco_with_stats_all.3-4-13.pl -f 10.HMP_reduced_counts.8-20-13.txt.DESeq_norm.percent_default.included.txt  -g HMP_groups_reduced.txt -s gt -p 1000 -t rowwise_rand -m bray-curtis -z MG-RAST_pipe -c 10 -o Analysis_40b -cleanup
+~/EHFI/combine_summary_stats.pl -m pattern -w Analysis_40w -b Analysis_40b -o Analysis_40.P_VALUE_SUMMARY
+
+# Analysis_41
+~/EHFI/plot_pco_with_stats_all.3-4-13.pl -f 10.HMP_reduced_counts.8-20-13.txt.DESeq_norm.percent_default.included.txt -g HMP_groups_reduced.txt -s lt -p 1000 -t dataset_rand -m euclidean -z MG-RAST_pipe -c 10 -o Analysis_41w -cleanup
+~/EHFI/plot_pco_with_stats_all.3-4-13.pl -f 10.HMP_reduced_counts.8-20-13.txt.DESeq_norm.percent_default.included.txt  -g HMP_groups_reduced.txt -s gt -p 1000 -t rowwise_rand -m euclidean -z MG-RAST_pipe -c 10 -o Analysis_41b -cleanup
+~/EHFI/combine_summary_stats.pl -m pattern -w Analysis_41w -b Analysis_41b -o Analysis_41.P_VALUE_SUMMARY
+
+# Analysis_42
+~/EHFI/plot_pco_with_stats_all.3-4-13.pl -f 9.HMP_reduced_counts.8-20-13.txt.DESeq_norm.percent_default.removed.txt -g HMP_groups_reduced.txt -s lt -p 1000 -t dataset_rand -m bray-curtis -z MG-RAST_pipe -c 10 -o Analysis_42w -cleanup
+~/EHFI/plot_pco_with_stats_all.3-4-13.pl -f 9.HMP_reduced_counts.8-20-13.txt.DESeq_norm.percent_default.removed.txt -g HMP_groups_reduced.txt -s gt -p 1000 -t rowwise_rand -m bray-curtis -z MG-RAST_pipe -c 10 -o Analysis_42b -cleanup
+~/EHFI/combine_summary_stats.pl -m pattern -w Analysis_42w -b Analysis_42b -o Analysis_42.P_VALUE_SUMMARY
+
+# Analysis_43
+~/EHFI/plot_pco_with_stats_all.3-4-13.pl -f 9.HMP_reduced_counts.8-20-13.txt.DESeq_norm.percent_default.removed.txt -g HMP_groups_reduced.txt -s lt -p 1000 -t dataset_rand -m euclidean -z MG-RAST_pipe -c 10 -o Analysis_43w -cleanup
+~/EHFI/plot_pco_with_stats_all.3-4-13.pl -f 9.HMP_reduced_counts.8-20-13.txt.DESeq_norm.percent_default.removed.txt -g HMP_groups_reduced.txt -s gt -p 1000 -t rowwise_rand -m euclidean -z MG-RAST_pipe -c 10 -o Analysis_43b -cleanup
+~/EHFI/combine_summary_stats.pl -m pattern -w Analysis_43w -b Analysis_43b -o Analysis_43.P_VALUE_SUMMARY
+
+# Analysis_44
+~/EHFI/plot_pco_with_stats_all.3-4-13.pl -f 12.HMP_reduced_counts.8-20-13.txt.DESeq_norm.percent_screen_85p.included.txt -g HMP_groups_reduced.txt -s lt -p 1000 -t dataset_rand -m bray-curtis -z MG-RAST_pipe -c 10 -o Analysis_44w -cleanup
+~/EHFI/plot_pco_with_stats_all.3-4-13.pl -f 12.HMP_reduced_counts.8-20-13.txt.DESeq_norm.percent_screen_85p.included.txt  -g HMP_groups_reduced.txt -s gt -p 1000 -t rowwise_rand -m bray-curtis -z MG-RAST_pipe -c 10 -o Analysis_44b -cleanup
+~/EHFI/combine_summary_stats.pl -m pattern -w Analysis_44w -b Analysis_44b -o Analysis_44.P_VALUE_SUMMARY
+
+# Analysis_45
+~/EHFI/plot_pco_with_stats_all.3-4-13.pl -f 12.HMP_reduced_counts.8-20-13.txt.DESeq_norm.percent_screen_85p.included.txt -g HMP_groups_reduced.txt -s lt -p 1000 -t dataset_rand -m euclidean -z MG-RAST_pipe -c 10 -o Analysis_45w -cleanup
+~/EHFI/plot_pco_with_stats_all.3-4-13.pl -f 12.HMP_reduced_counts.8-20-13.txt.DESeq_norm.percent_screen_85p.included.txt  -g HMP_groups_reduced.txt -s gt -p 1000 -t rowwise_rand -m euclidean -z MG-RAST_pipe -c 10 -o Analysis_45b -cleanup
+~/EHFI/combine_summary_stats.pl -m pattern -w Analysis_45w -b Analysis_45b -o Analysis_45.P_VALUE_SUMMARY
+
+# Analysis_46
+~/EHFI/plot_pco_with_stats_all.3-4-13.pl -f 11.HMP_reduced_counts.8-20-13.txt.DESeq_norm.percent_screen_85p.removed.txt -g HMP_groups_reduced.txt -s lt -p 1000 -t dataset_rand -m bray-curtis -z MG-RAST_pipe -c 10 -o Analysis_46w -cleanup
+~/EHFI/plot_pco_with_stats_all.3-4-13.pl -f 11.HMP_reduced_counts.8-20-13.txt.DESeq_norm.percent_screen_85p.removed.txt  -g HMP_groups_reduced.txt -s gt -p 1000 -t rowwise_rand -m bray-curtis -z MG-RAST_pipe -c 10 -o Analysis_46b -cleanup
+~/EHFI/combine_summary_stats.pl -m pattern -w Analysis_46w -b Analysis_46b -o Analysis_46.P_VALUE_SUMMARY
+
+# Analysis_47
+~/EHFI/plot_pco_with_stats_all.3-4-13.pl -f 11.HMP_reduced_counts.8-20-13.txt.DESeq_norm.percent_screen_85p.removed.txt -g HMP_groups_reduced.txt -s lt -p 1000 -t dataset_rand -m euclidean -z MG-RAST_pipe -c 10 -o Analysis_47w -cleanup
+~/EHFI/plot_pco_with_stats_all.3-4-13.pl -f 11.HMP_reduced_counts.8-20-13.txt.DESeq_norm.percent_screen_85p.removed.txt  -g HMP_groups_reduced.txt -s gt -p 1000 -t rowwise_rand -m euclidean -z MG-RAST_pipe -c 10 -o Analysis_47b -cleanup
+~/EHFI/combine_summary_stats.pl -m pattern -w Analysis_47w -b Analysis_47b -o Analysis_47.P_VALUE_SUMMARY
+
+# Analysis_48
+~/EHFI/plot_pco_with_stats_all.3-4-13.pl -f 10.HMP_reduced_counts.8-20-13.txt.DESeq_norm.percent_default.included.txt -g HMP_groups_reduced.txt -s lt -p 1000 -t dataset_rand -m euclidean -z MG-RAST_pipe -c 10 -o Analysis_48w -cleanup
+~/EHFI/plot_pco_with_stats_all.3-4-13.pl -f 10.HMP_reduced_counts.8-20-13.txt.DESeq_norm.percent_default.included.txt  -g HMP_groups_reduced.txt -s gt -p 1000 -t rowwise_rand -m euclidean -z MG-RAST_pipe -c 10 -o Analysis_48b -cleanup
+~/EHFI/combine_summary_stats.pl -m pattern -w Analysis_48w -b Analysis_48b -o Analysis_48.P_VALUE_SUMMARY
+
+# Analysis_49
+~/EHFI/plot_pco_with_stats_all.3-4-13.pl -f 12.HMP_reduced_counts.8-20-13.txt.DESeq_norm.percent_screen_85p.included.txt -g HMP_groups_reduced.txt -s lt -p 1000 -t dataset_rand -m euclidean -z MG-RAST_pipe -c 10 -o Analysis_49w -cleanup
+~/EHFI/plot_pco_with_stats_all.3-4-13.pl -f 12.HMP_reduced_counts.8-20-13.txt.DESeq_norm.percent_screen_85p.included.txt  -g HMP_groups_reduced.txt -s gt -p 1000 -t rowwise_rand -m euclidean -z MG-RAST_pipe -c 10 -o Analysis_49b -cleanup
+~/EHFI/combine_summary_stats.pl -m pattern -w Analysis_49w -b Analysis_49b -o Analysis_49.P_VALUE_SUMMARY
+
+# Analysis_50
+~/EHFI/plot_pco_with_stats_all.3-4-13.pl -f 10.HMP_reduced_counts.8-20-13.txt.DESeq_norm.percent_default.included.txt -g HMP_groups_reduced.txt -s lt -p 1000 -t dataset_rand -m euclidean -z MG-RAST_pipe -c 10 -o Analysis_50w -cleanup
+~/EHFI/plot_pco_with_stats_all.3-4-13.pl -f 10.HMP_reduced_counts.8-20-13.txt.DESeq_norm.percent_default.included.txt  -g HMP_groups_reduced.txt -s gt -p 1000 -t rowwise_rand -m euclidean -z MG-RAST_pipe -c 10 -o Analysis_50b -cleanup
+~/EHFI/combine_summary_stats.pl -m pattern -w Analysis_50w -b Analysis_50b -o Analysis_50.P_VALUE_SUMMARY
+
+# Analysis_51
+~/EHFI/plot_pco_with_stats_all.3-4-13.pl -f 12.HMP_reduced_counts.8-20-13.txt.DESeq_norm.percent_screen_85p.included.txt -g HMP_groups_reduced.txt -s lt -p 1000 -t dataset_rand -m euclidean -z MG-RAST_pipe -c 10 -o Analysis_51w -cleanup
+~/EHFI/plot_pco_with_stats_all.3-4-13.pl -f 12.HMP_reduced_counts.8-20-13.txt.DESeq_norm.percent_screen_85p.included.txt  -g HMP_groups_reduced.txt -s gt -p 1000 -t rowwise_rand -m euclidean -z MG-RAST_pipe -c 10 -o Analysis_51b -cleanup
+~/EHFI/combine_summary_stats.pl -m pattern -w Analysis_51w -b Analysis_51b -o Analysis_51.P_VALUE_SUMMARY
+
+# Analysis_52
+~/EHFI/plot_pco_with_stats_all.3-4-13.pl -f 10.HMP_reduced_counts.8-20-13.txt.DESeq_norm.percent_default.included.txt -g HMP_groups_reduced.txt -s lt -p 1000 -t dataset_rand -m OTU -z OTU_pipe -c 10 -o Analysis_52w -cleanup
+~/EHFI/plot_pco_with_stats_all.3-4-13.pl -f 10.HMP_reduced_counts.8-20-13.txt.DESeq_norm.percent_default.included.txt  -g HMP_groups_reduced.txt -s gt -p 1000 -t rowwise_rand -m OTU -z OTU_pipe -c 10 -o Analysis_52b -cleanup
+~/EHFI/combine_summary_stats.pl -m pattern -w Analysis_52w -b Analysis_52b -o Analysis_52.P_VALUE_SUMMARY
+
+# Analysis_53
+~/EHFI/plot_pco_with_stats_all.3-4-13.pl -f 10.HMP_reduced_counts.8-20-13.txt.DESeq_norm.percent_default.included.txt -g HMP_groups_reduced.txt -s lt -p 1000 -t dataset_rand -m w_OTU -z OTU_pipe -c 10 -o Analysis_53w -cleanup
+~/EHFI/plot_pco_with_stats_all.3-4-13.pl -f 10.HMP_reduced_counts.8-20-13.txt.DESeq_norm.percent_default.included.txt  -g HMP_groups_reduced.txt -s gt -p 1000 -t rowwise_rand -m w_OTU -z OTU_pipe -c 10 -o Analysis_53b -cleanup
+~/EHFI/combine_summary_stats.pl -m pattern -w Analysis_53w -b Analysis_53b -o Analysis_53.P_VALUE_SUMMARY

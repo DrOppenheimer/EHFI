@@ -1,0 +1,26 @@
+##############################################################
+###################### INPUT PARAMETERS ######################
+data_in:               13.Qiime.100p.removed.raw.for_norm
+data_type:             file
+output_object:         13.Qiime.100p.removed.raw.for_norm.DESeq_blind.PREPROCESSED
+output_file:           23.Qiime.100p.removed.norm_DESeq
+removeSg:              FALSEremoveSg_valueMin:     0
+removeSg_rowMin:       0
+log_transform          FALSE
+norm_method:           DESeq_blind
+DESeq_metadata_table:  NA
+DESeq_metadata_column: 1
+DESeq_metadata_type:   file
+DESeq_sharingMode:     maximum
+DESeq_fitType:         local
+scale_0_to_1:          TRUE
+produce_boxplots:      FALSE
+boxplot_height_in:     default
+boxplot_width_in:      default
+debug as.character:    FALSE
+####################### OUTPUT SUMMARY #######################
+output object:         13.Qiime.100p.removed.raw.for_norm.DESeq_blind.PREPROCESSED
+otuput file:           23.Qiime.100p.removed.norm_DESeq
+output boxplot:        NA
+DESeq regression:      13.Qiime.100p.removed.raw.for_norm.DESeq_regression.png
+##############################################################
