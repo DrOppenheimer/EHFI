@@ -1,11 +1,13 @@
 MGRAST_plot_pco <- function(
                             file_in,
                             input_dir = "./",
+                            input_type = "file",
                             output_PCoA_dir = "./",
                             print_dist = 1,
                             output_DIST_dir = "./",
                             dist_method = "euclidean",
-                            headers = 1
+                            headers = 1,
+                            debug=FALSE
                             )
 
 {
@@ -30,7 +32,8 @@ MGRAST_plot_pco <- function(
      the distance matrix used to generate the PCoA.
 
      USAGE: MGRAST_plot_pca(
-                            file_in = no default arg                               # (string)  input data file            
+                            file_in = no default arg                               # (string)  input data file
+                            input_type = \"file\"                                   # (string) file or r_matrix
                             input_dir = \"./\"                                       # (string)  directory(path) of input
                             output_PCoA_dir = \"./\"                                 # (string)  directory(path) for output PCoA file
                             print_dist = 0                                         # (boolean) print the DIST file (distance matrix)
@@ -89,12 +92,27 @@ MGRAST_plot_pco <- function(
 
   #writeLines("FILE-IN")
   #writeLines(file_in)
-  input_data_path = gsub(" ", "", paste(input_dir, file_in))
+  #input_data_path = gsub(" ", "", paste(input_dir, file_in))
   #writeLines("INPUT-DATA-PATH")
   #writeLines(input_data_path)
   #my_data <<- flipud(rot90(data.matrix(read.table(input_data_path, row.names=1, header=TRUE, sep="\t", comment.char="", quote="")))) # edited on 12-14-12, stop character conversions in column names
-  my_data <<- flipud(rot90(data.matrix(read.table(input_data_path, row.names=1, check.names=FALSE, header=TRUE, sep="\t", comment.char="", quote=""))))
-
+  
+  if( debug==TRUE ){print("MADE IT HERE 1")}
+  
+  if ( identical(input_type, "file") ){
+    if( debug==TRUE ){print("MADE IT HERE 2a")}
+    input_data_path = gsub(" ", "", paste(input_dir, file_in))
+    my_data <<- flipud(rot90(data.matrix(read.table(input_data_path, row.names=1, check.names=FALSE, header=TRUE, sep="\t", comment.char="", quote=""))))
+  } else if ( identical(input_type, "r_matrix") ) {
+    if( debug==TRUE ){print("MADE IT HERE 2.b")}
+    my_data <<- flipud(rot90(file_in))
+  } else {
+    if( debug==TRUE ){print("MADE IT HERE 2.c")}
+    stop("input_type value is not valid, must be file or r_matrix")
+  }
+  
+  if( debug==TRUE ){print("MADE IT HERE 3")}
+  
   
   num_data_rows = dim(my_data)[1] # substitute 0 for NA's if they exist in the data
   num_data_cols = dim(my_data)[2]
@@ -107,15 +125,26 @@ MGRAST_plot_pco <- function(
     }
   }
 
-
+  if( debug==TRUE ){print("MADE IT HERE 4")}
+  
+  # a bit for naming outputs
+  if( identical(input_type, "r_matrix") ){
+    file_in.name <- deparse(substitute(file_in))
+  } else {
+    file_in.name <- file_in
+  }
    
   # calculate distance matrix
   dist_matrix <<- find_dist(my_data, dist_method)
-  DIST_file_out <- gsub(" ", "", paste(output_DIST_dir, file_in, ".", dist_method, ".DIST"))
+  DIST_file_out <- gsub(" ", "", paste(output_DIST_dir, file_in.name, ".", dist_method, ".DIST"))
   if (print_dist > 0) { write_file(file_name = DIST_file_out, data = data.matrix(dist_matrix)) }
+
+  if( debug==TRUE ){print("MADE IT HERE 5")}
 
   # perform the pco
   my_pco <<- pco(dist_matrix)
+
+  if( debug==TRUE ){print("MADE IT HERE 6")}
 
   # scale eigen values from 0 to 1, and label them
   eigen_values <<- my_pco$values
@@ -124,15 +153,19 @@ MGRAST_plot_pco <- function(
   scaled_eigen_values <<- data.matrix(scaled_eigen_values)
   #for (i in (1:dim(as.matrix(scaled_ev))[1])) dimnames(scaled_ev)[i]<<-gsub(" ", "", paste("PCO", i))
 
+  if( debug==TRUE ){print("MADE IT HERE 7")}
+
   # label the eigen vectors
   eigen_vectors <<- data.matrix(my_pco$vectors) 
   dimnames(eigen_vectors)[[1]] <<- dimnames(my_data)[[1]]
 
+  if( debug==TRUE ){print("MADE IT HERE 8")}
+
   # write eigen values and then eigen vectors to file_out
-  PCoA_file_out = gsub(" ", "", paste(output_PCoA_dir, file_in, ".", dist_method, ".PCoA"))
+  PCoA_file_out = gsub(" ", "", paste(output_PCoA_dir, file_in.name, ".", dist_method, ".PCoA"))
 
   if ( headers == 1 ){
-    write(file = PCoA_file_out, paste("# file_in    :", file_in,
+    write(file = PCoA_file_out, paste("# file_in    :", file_in.name,
             "\n# dist_method:", dist_method,
             "\n#________________________________",
             "\n# EIGEN VALUES (scaled 0 to 1) >",
@@ -143,6 +176,8 @@ MGRAST_plot_pco <- function(
     write.table(scaled_eigen_values, file=PCoA_file_out, col.names=FALSE, row.names=TRUE, append = FALSE, sep="\t", eol="\n")
   }
   
+  if( debug==TRUE ){print("MADE IT HERE 9")}
+  
   if ( headers == 1 ){
     write(file = PCoA_file_out, paste("#________________________________",
             "\n# EIGEN VECTORS >",
@@ -150,8 +185,12 @@ MGRAST_plot_pco <- function(
           append=TRUE)
   }
 
+  if( debug==TRUE ){print("MADE IT HERE 10")}
+
   #write.table(eigen_vectors, file=PCoA_file_out, col.names=FALSE, row.names=TRUE, append = TRUE, sep="\t")
   write.table(eigen_vectors, file=PCoA_file_out, col.names=FALSE, row.names=TRUE, append = TRUE, sep="\t", eol="\n")
+  
+  if( debug==TRUE ){print("MADE IT HERE 11")}
   
 }
 

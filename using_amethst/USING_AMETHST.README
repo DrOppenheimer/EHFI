@@ -15,7 +15,7 @@
 # abundance data produced by annotation tools like MG-RAST or Qiime, but it can be used to process any count data).
 # NOTE for new users:
 # Even with a highly automated procedure - AMETHST analyses can be difficult to complete. I strongly
-# encourage users/ potential users to contact me if they have and trouble implementing AMETHST or have suggestions 
+# encourage users/ potential users to contact me if they have any trouble implementing AMETHST or have suggestions 
 # to improve it — please email me: kkeegan.argonne AT gmail.com
 # Cheers - Kevin  
 ###################################################################################################################
@@ -53,7 +53,8 @@ AMETHST.pl --command_file amethst_commands.10000_perm --compile_summary
 # DETAILED GUIDE
 ###################################################################################################################
 # AMETHST has the following three input requirements:
-#	For each analysis
+#
+#	For each analysis:
 #
 #		(1) An abundance table in tab delimited format. The first field is empty.
 #			All remaining fields in the first row are interpreted as sample names.			
@@ -63,7 +64,7 @@ AMETHST.pl --command_file amethst_commands.10000_perm --compile_summary
 #				sample and category.
 #			If your results are in biom format, you can use the following 2-step 
 #                       procedure to convert them to an AMETHST friendly format
-#				(A) Use a qiime script to convert the biom format to an out table: 
+#				(A) Use a qiime script to convert the biom format to an otu table: 
 #					biom convert -i my_input.biom -o my_otu_table.txt --table-type="otu table"
 # 				(B) Use the qiime_2_R.pl in the AMETHST library to convert otu table to an R table:
 #					qiime_2_R.pl -i my_otu_table.txt -c 3
@@ -71,7 +72,8 @@ AMETHST.pl --command_file amethst_commands.10000_perm --compile_summary
 #               (2) A grouping file: a single comma separated string that indicates sample 
 #			groupings; (e.g.)  "a,b,b,a would place the first and fourth samples
 #			in one group, the second and third in another
-#	For all analyses processed at one time
+#
+#	For all analyses processed at one time:
 #
 #		(3) An AMETHST commands file: This file contains the individual commands for
 #			all analyses processed at one time. The commands file can be created 
@@ -91,9 +93,16 @@ AMETHST.pl --command_file amethst_commands.10000_perm --compile_summary
 #			- be sure that for each analysis you produce an abundance matrix 
 #				(tab delimited format described above is expected - see notes above for 
 #				handling for biom formatted data)
-#			- be sure that each analysis you produce a grouping file
+#			- be sure that each analysis you also produce a grouping file
 #				NOTE: The metadata_2_amethst_group.r function for R can be used to generate a 
-#				grouping file from a tab delimited formatted metadata file
+#				grouping file from a tab delimited file containing metadata in the following format, sample per row,
+#       metadata per column. A groups file can be generated from a single column of the metadata file like this:
+#            Within R, source the metadata_2_amethst_group.r file:
+             > source(metadata_2_amethst_group.r)
+#            Then use the function like this
+             metadata_2_amethst_group(metadata_table="my_metadata.txt", metadata_column=1)
+#            where metadata_table is the name of the metadata containing tab delimited text
+#            and metadata_column indicates the left to right, 1-based index of the metadata column you want to use 
 #				NOTE: The grouping file will be the same for all analyses if you are testing a 
 #				single hypothesis. The grouping file will be different if you are testing 
 #				multiple hypotheses. 
@@ -108,15 +117,11 @@ AMETHST.pl --command_file amethst_commands.10000_perm --compile_summary
 #
 #	The --compile_summary option is highly advised - it will take all of the AMETHST outputs and organize them 
 #	into a set of 6 summary files and 4 summary directories (described below)
-#	The --zip_all option will additionally create a single zipped output that contains all outputs
-#
-#       The --compile_summary option creates 
-#
-#	The addition --zip_all option will create a *.tar.gz archive that contains the AMETHST results 
+#	The addition of the --zip_all option will create a *.tar.gz archive that contains the AMETHST results 
 #	(recommend using with --compile_summary)
 #
 # Interpreting AMETHST outputs
-#	A typical AMETHST analysis (assumed that the --compile_summary was used) will produce 6 summary files along 
+#	A typical AMETHST analysis (assumed that the --compile_summary option was used) will produce 6 summary files along 
 #	with 4 directories that can contain a number of additional files
 #		SUMMARY FILES
 #			(1) *.P_VALUES_SUMMARY.log			
@@ -124,7 +129,7 @@ AMETHST.pl --command_file amethst_commands.10000_perm --compile_summary
 #			(2) *.P_VALUES_SUMMARY.num_perm
 #				The number of permutations used for the generation of each p value
 #			(3) *.P_VALUES_SUMMARY.raw_avg_dist
-#				Average distances found within and between all groups of samples
+#				Average distances/dissimilarities found within and between all groups of samples
 #			(4) *.P_VALUES_SUMMARY.raw_avg_dist_stdev
 #				The standard deviation of all within and between group distances
 #			(5) *.P_VALUES_SUMMARY.scaled_avg_dist
@@ -146,7 +151,7 @@ AMETHST.pl --command_file amethst_commands.10000_perm --compile_summary
 #			(4) "individual_results"
 #				Contains the complete results for each analysis method analyzed with AMETHST. There 
 #				will be two sub directories for each analysis - one contains the within group 
-#				calculations, the other the between group calculations
+#				calculations, the other the between group calculations.
 ###################################################################################################################
 
 
