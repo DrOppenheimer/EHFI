@@ -5,7 +5,7 @@
 # plot_qiime_pco_with_stats, or
 # plot_OTU_pco_with_stats
 
-use strict;
+#use strict;
 use warnings;
 use Getopt::Long;
 use Cwd;
