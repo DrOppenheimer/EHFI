@@ -112,8 +112,10 @@ unless (-d $output_DIST_dir) { mkdir $output_DIST_dir or die "can't mkdir $outpu
 unless (-d $output_avg_DISTs_dir) { mkdir $output_avg_DISTs_dir or die "can't mkdir $output_avg_DISTs_dir";}
 
 # create a log file and print all of the input parameters to it
-my $log_file_name = $output_prefix."/".$data_file.".".$dist_method.".".$perm_type.".log";
-open($log_file, ">", $log_file_name) or die "cannot open $log_file $log_file_name";
+#my $log_file_name = $output_prefix."/".$data_file.".".$dist_method.".".$perm_type.".log";
+#open($log_file, ">", $log_file_name) or die "cannot open $log_file $log_file_name";
+my $log_file = $output_prefix."/".$data_file.".".$dist_method.".".$perm_type.".log";
+open($log_file, ">", $log_file) or die "cannot open $log_file $log_file";
 print $log_file "start:"."\t".$time_stamp."\n";
 print $log_file "\n"."PARAMETERS USED:"."\n";
 if ($data_file)       {print $log_file "     data_file:      "."\t".$data_file."\n";}
