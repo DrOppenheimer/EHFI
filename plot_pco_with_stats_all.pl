@@ -191,7 +191,7 @@ print $log_file $running_text;
 
 
 ##### Make sure that the groups_list only contains headers that exist in the data file -- kill the program as soon as they don't
-$check_status = check_groups($input_dir, $data_file, $groups_list);
+my $check_status = check_groups($input_dir, $data_file, $groups_list);
 unless ($check_status eq "All groups members match a header from the data file"){
   print $log_file $check_status."JOB KILLED";
   exit 1;
