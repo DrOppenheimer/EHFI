@@ -20,7 +20,7 @@ my ($command_file, $compile_summary, $awe_compile_summary, $compile_all, $debug,
 # Set option defaults
 my $summary_name = "AMETHST.Summary";
 my $all_name = "AMETHST.All_data";
-my $qiime_activate_script = "/home/ubuntu/qiime_software/activate.sh";
+my $qiime_activate_script = "na"; #"/home/ubuntu/qiime_software/activate.sh";
 my $r_path = "/usr/bin";
 my $amethst_path = "/home/ubuntu/AMETHST";
 
@@ -59,10 +59,14 @@ if ( $summary_name eq $all_name){
 }
 
 # Check to make sure that the hard coded files and paths above actually exist
-unless (-e $qiime_activate_script) {
- print STDOUT "The specified qiime activate script:\n$qiime_activate_script\ndoes not exist.\nPlease specify a qiime activations script that exists\n";
- exit 1;
- } 
+#unless (-e $qiime_activate_script) {
+
+# Conditional on qiime_activate_script na
+unless ( $qiime_activate_script eq "na" ){
+  print STDOUT "The specified qiime activate script:\n$qiime_activate_script\ndoes not exist.\nPlease specify a qiime activations script that exists\n";
+  exit 1;
+} 
+
 
 unless (-d $r_path ){
 print STDOUT "The specified path for R:\n$r_path\ndoes not exist.\nPlease specify a valid R path";
@@ -77,18 +81,22 @@ exit 1;
 # Add qiime pathing information by indirectly sourcing the activate script --
 # i.e. read each "export" line and use it to create an envrionment variable for the perl session
 # place old environment in a variable, is added back to end of Qiime based PATH
-my $original_path = $ENV{PATH}; chomp $original_path;
-open(QIIME_ACTIVATION, "<", $qiime_activate_script) or die "can't open QIIME_ACTIVATION $qiime_activate_script"."\n"; 
-while (my $line = <QIIME_ACTIVATION>){
-  if ($line =~ s/^export //){ # identify "export" lines and trim "export " from the line
-    chomp $line;
-    $line =~ s/\s\s+/ /g; # get rid of any whitespace
-    my @line_array=split("=",$line); # split the line
-    my $var_name=$line_array[0]; # first entry is the variable name
-    my $var_value=$line_array[1]; # second entry is the variable value
-    #print STDOUT "\n"."var:"."\t".$var_name."\n"."var_value:"."\t".$var_value."\n\n"; # ENV debugging
-    $ENV{$var_name} = "$var_value"; # load the variables into perls environment variable hash   
-  }  
+
+# conditional on qiime_activate_script na
+unless ( $qiime_activate_script eq "na" ){
+  my $original_path = $ENV{PATH}; chomp $original_path;
+  open(QIIME_ACTIVATION, "<", $qiime_activate_script) or die "can't open QIIME_ACTIVATION $qiime_activate_script"."\n"; 
+  while (my $line = <QIIME_ACTIVATION>){
+    if ($line =~ s/^export //){ # identify "export" lines and trim "export " from the line
+      chomp $line;
+      $line =~ s/\s\s+/ /g; # get rid of any whitespace
+      my @line_array=split("=",$line); # split the line
+      my $var_name=$line_array[0]; # first entry is the variable name
+      my $var_value=$line_array[1]; # second entry is the variable value
+      #print STDOUT "\n"."var:"."\t".$var_name."\n"."var_value:"."\t".$var_value."\n\n"; # ENV debugging
+      $ENV{$var_name} = "$var_value"; # load the variables into perls environment variable hash   
+    }  
+  }
 }
 
 # Add the R and AMETHST path information to beginning of path # also add /bin, which is overwritten 7-7-14
