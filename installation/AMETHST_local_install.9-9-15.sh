@@ -79,43 +79,45 @@ echo "________________________________________________________" >> AMETHST_insta
 ####################################################################################
 ### create bin directry
 ####################################################################################
+echo "Installing ~/bin directory if it isn't already there..." >> AMETHST_install_log.txt
 cd ~
-mkdir -p bin
-echo "created ~/bin directory" > AMETHST_install_log.txt
+mkdir -p bin 2>> AMETHST_install_log.txt
+echo "created ~/bin directory" >> AMETHST_install_log.txt
+echo "DONE" >> AMETHST_install_log.txt 
+echo "________________________________________________________" >> AMETHST_install_log.txt 
 ####################################################################################
 
 
 ####################################################################################
 ### Update grub config so it won't require user input - killing this script
 ####################################################################################
-sed -i s/"GRUB_DEFAULT=0"/"GRUB_DEFAULT=1"/ /etc/default/grub
-sed -i s/"GRUB_TIMEOUT=0"/"GRUB_TIMEOUT=1"/ /etc/default/grub
-sed -i s/"GRUB_HIDDEN_TIMEOUT=0"/"GRUB_HIDDEN_TIMEOUT=1"/ /etc/default/grub
+echo "Update config so grub won't kill script during upgrade..." > AMETHST_install_log.txt
+sed -i s/"GRUB_DEFAULT=0"/"GRUB_DEFAULT=1"/ /etc/default/grub 2>> AMETHST_install_log.txt
+sed -i s/"GRUB_TIMEOUT=0"/"GRUB_TIMEOUT=1"/ /etc/default/grub 2>> AMETHST_install_log.txt
+sed -i s/"GRUB_HIDDEN_TIMEOUT=0"/"GRUB_HIDDEN_TIMEOUT=1"/ /etc/default/grub 2>> AMETHST_install_log.txt
 #sed -i s/"GRUB_HIDDEN_TIMEOUT_QUIET=true"/"GRUB_HIDDEN_TIMEOUT_QUIET=false"/g /etc/default/grub
 update-grub
-echo "update config so grub won't kill script during upgrade" > AMETHST_install_log.txt
-####################################################################################
 
-
-####################################################################################
-### Update the vm and install some necessary programs
-####################################################################################
-#DEBIAN_FRONTEND=noninteractive apt-get -y -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" dist-upgrade
-
-#apt-get update -y --force-yes
-#apt-get upgrade -y --force-yes
 
 unset UCF_FORCE_CONFFOLD
 export UCF_FORCE_CONFFNEW=YES
-ucf --purge /boot/grub/menu.lst
+ucf --purge /boot/grub/menu.lst 2>> AMETHST_install_log.txt
+echo "DONE" >> AMETHST_install_log.txt 
+echo "________________________________________________________" >> AMETHST_install_log.txt 
+####################################################################################
 
+####################################################################################
+### Update and Upgrade
+####################################################################################
+echo "Update and Upgrade..." >> AMETHST_install_log.txt
 export DEBIAN_FRONTEND=noninteractive
-apt-get update
-apt-get -o Dpkg::Options::="--force-confnew" --force-yes -fuy dist-upgrade
+apt-get update 2>> AMETHST_install_log.txt
+apt-get -o Dpkg::Options::="--force-confnew" --force-yes -fuy dist-upgrade 2>> AMETHST_install_log.txt
 
-apt-get install build-essential emacs git -y
-apt-get clean
-echo "update, upgrade, and install build-essential are complete" > AMETHST_install_log.txt
+apt-get install build-essential emacs git -y 2>> AMETHST_install_log.txt
+apt-get clean 2>> AMETHST_install_log.txt
+echo "DONE" >> AMETHST_install_log.txt 
+echo "________________________________________________________" >> AMETHST_install_log.txt 
 ####################################################################################
 
 
@@ -147,7 +149,7 @@ echo "update, upgrade, and install build-essential are complete" > AMETHST_insta
 ####################################################################################
 ### install dependencies for qiime_deploy and R # requires one manual interaction
 ####################################################################################
-echo "Installing dependencies for qiime_deploy and R" >> AMETHST_install_log.txt
+echo "Installing dependencies for qiime_deploy and R..." >> AMETHST_install_log.txt
 cd /home/ubuntu
 #bash << EOSHELL_3
 ### for R install later add cran release specific repos to /etc/apt/sources.list
@@ -170,11 +172,11 @@ sed -e '/verse$/s/^ \{1,\}//' /etc/apt/sources.list > /etc/apt/sources.list.edit
    
 ####> apt-get -y upgrade
 
-apt-get clean 
+apt-get clean 2>> AMETHST_install_log.txt
 ### install required packages
-apt-get --force-yes -o Dpkg::Options::="--force-confnew" --force-yes -fuy upgrade python-dev libncurses5-dev libssl-dev libzmq-dev libgsl0-dev openjdk-6-jdk libxml2 libxslt1.1 libxslt1-dev ant git subversion zlib1g-dev libpng12-dev libfreetype6-dev mpich2 libreadline-dev gfortran unzip libmysqlclient18 libmysqlclient-dev ghc sqlite3 libsqlite3-dev libc6-i386 libbz2-dev libx11-dev libcairo2-dev libcurl4-openssl-dev libglu1-mesa-dev freeglut3-dev mesa-common-dev xorg openbox emacs r-cran-rgl xorg-dev libxml2-dev mongodb-server bzr make gcc mercurial python-qcli python-biom-format python-numpy python-scipy python-matplotlib ipython ipython-notebook python-pandas python-sympy python-nose
+apt-get --force-yes -o Dpkg::Options::="--force-confnew" --force-yes -fuy upgrade python-dev libncurses5-dev libssl-dev libzmq-dev libgsl0-dev openjdk-6-jdk libxml2 libxslt1.1 libxslt1-dev ant git subversion zlib1g-dev libpng12-dev libfreetype6-dev mpich2 libreadline-dev gfortran unzip libmysqlclient18 libmysqlclient-dev ghc sqlite3 libsqlite3-dev libc6-i386 libbz2-dev libx11-dev libcairo2-dev libcurl4-openssl-dev libglu1-mesa-dev freeglut3-dev mesa-common-dev xorg openbox emacs r-cran-rgl xorg-dev libxml2-dev mongodb-server bzr make gcc mercurial python-qcli python-biom-format python-numpy python-scipy python-matplotlib ipython pip ipython-notebook python-pandas python-sympy python-nose 2>> AMETHST_install_log.txt
 
-apt-get clean
+apt-get clean 2>> AMETHST_install_log.txt
 #EOSHELL_3
 echo "DONE Installing dependencies for qiime_deploy and R" >> AMETHST_install_log.txt
 echo "________________________________________________________" >> AMETHST_install_log.txt
@@ -186,11 +188,11 @@ echo "________________________________________________________" >> AMETHST_insta
 ####################################################################################
 ### Clone repos for qiime-deploy and AMETHST
 ####################################################################################
-echo "Cloning the qiime-deploy and AMETHST git repos" >> AMETHST_install_log.txt
+echo "Cloning the qiime-deploy and AMETHST git repos..." >> AMETHST_install_log.txt
 cd /home/ubuntu/
-git clone git://github.com/qiime/qiime-deploy.git
-git clone https://github.com/MG-RAST/AMETHST.git
-git clone https://github.com/DrOppenheimer/Kevin_Installers.git
+git clone git://github.com/qiime/qiime-deploy.git 2>> AMETHST_install_log.txt
+git clone https://github.com/MG-RAST/AMETHST.git 2>> AMETHST_install_log.txt
+git clone https://github.com/DrOppenheimer/Kevin_Installers.git 2>> AMETHST_install_log.txt
 echo "DONE cloning the qiime-deploy and AMETHST git repos" >> AMETHST_install_log.txt
 echo "________________________________________________________" >> AMETHST_install_log.txt
 ####################################################################################
@@ -200,9 +202,9 @@ echo "________________________________________________________" >> AMETHST_insta
 ### INSTALL cdbtools (Took care of the cdb failure above)
 ####################################################################################
 echo "Installing cdbtools"
-echo "Installing cdbtools" >> AMETHST_install_log.txt
+echo "Installing cdbtools..." >> AMETHST_install_log.txt
 #bash << EOSHELL_4
-apt-get install cdbfasta
+apt-get install cdbfasta 2>> AMETHST_install_log.txt
 # mkdir /home/ubuntu/bin
 # curl -L "http://sourceforge.net/projects/cdbfasta/files/latest/download?source=files" > cdbfasta.tar.gz
 # tar zxf cdbfasta.tar.gz
@@ -218,6 +220,24 @@ echo "DONE installing cdbtools" >> AMETHST_install_log.txt
 echo "________________________________________________________" >> AMETHST_install_log.txt
 ####################################################################################
 
+####################################################################################
+## INSTALL packages that usually fail to install during qiime installation
+####################################################################################
+echo "Installing packages that usually fail to install during qiime installation..." >> AMETHST_install_log.txt
+pip install qcli==0.1.0 2>> AMETHST_install_log.txt
+echo "installed qcli"
+pip install raxml==7.3.0 2>> AMETHST_install_log.txt
+echo "installed raxml"
+pip install pysqlite==2.6.3 2>> AMETHST_install_log.txt
+echo "installed pysqlite"
+pip install jcvi==0.5.7 2>> AMETHST_install_log.txt
+echo "installed jcvi (contains CDHIT and many other related tools)"
+echo "DONE installing  packages that usually fail to install during qiime installation" >> AMETHST_install_log.txt
+echo "________________________________________________________" >> AMETHST_install_log.txt
+
+####################################################################################
+
+
 
 ####################################################################################
 ### INSTALL QIIME ### also see https://github.com/qiime/qiime-deploy 4-23-14
@@ -228,26 +248,27 @@ echo "________________________________________________________" >> AMETHST_insta
 ## Uncomment the universe and multiverse repositories from /etc/apt/sources.list
 echo "Installing Qiime"
 echo "Installing Qiime" >> AMETHST_install_log.txt
+echo "     Note: The AMETHST installation frequnetly encounters problems during qiime installation." >> AMETHST_install_log.txt
+echo "           These are qiime installation errors; for help refer to the qiime developers http://qiime.org/" >> AMETHST_install_log.txt
 #bash << EOFSHELL4
 cd /home/ubuntu/
-python ./qiime-deploy/qiime-deploy.py /home/ubuntu/qiime_software -f ./AMETHST/qiime_configuration/qiime.amethst.config --force-remove-failed-dirs --force-remove-previous-repos
-apt-get -y clean
+python ./qiime-deploy/qiime-deploy.py /home/ubuntu/qiime_software -f ./AMETHST/qiime_configuration/qiime.amethst.config --force-remove-failed-dirs --force-remove-previous-repos 2>> AMETHST_install_log.txt
+apt-get -y clean 2>> AMETHST_install_log.txt
 #EOFSHELL4
 echo "DONE Installing Qiime" >> AMETHST_install_log.txt
 echo "________________________________________________________" >> AMETHST_install_log.txt
 ####################################################################################
 
 ##### IT FINISHED QIIME INSTALLATION BUT THEN STOPPED __ DID NOT INSTALL SOME ELEMENTS:
-DEPLOYMENT SUMMARY
+#DEPLOYMENT SUMMARY
 
-Packages deployed successfully:
-rtax, fasttree, data-core, uclust, sourcetracker, ea-utils, python, SQLAlchemy, setuptools, mpi4py, MySQL-python, pyqi, sphinx, numpy, biom-format, pycogent, pynast, tax2tree, matplotlib, qiime
+#Packages deployed successfully:
+#rtax, fasttree, data-core, uclust, sourcetracker, ea-utils, python, SQLAlchemy, setuptools, mpi4py, MySQL-python, pyqi, sphinx, numpy, biom-format, pycogent, pynast, tax2tree, matplotlib, qiime
 
-Packages skipped (assumed successful):
+#Packages skipped (assumed successful):
 
-
-Packages failed to deploy:
-raxml, cdhit, qcli, pysqlite
+#Packages failed to deploy:
+#raxml, cdhit, qcli, pysqlite
 
 
 
@@ -256,9 +277,9 @@ raxml, cdhit, qcli, pysqlite
 ####################################################################################
 echo "Installing R" >> AMETHST_install_log.txt
 #bash << EOSHELL_5
-apt-get -y build-dep r-base # install R dependencies (mostly for image production support)
-apt-get -y install r-base   # install R
-apt-get clean
+apt-get -y build-dep r-base 2>> AMETHST_install_log.txt # install R dependencies (mostly for image production support)
+apt-get -y install r-base 2>> AMETHST_install_log.txt  # install R
+apt-get clean 2>> AMETHST_install_log.txt
 # Install R packages, including matR, along with their dependencies
 #EOSHELL_5
 
@@ -279,8 +300,8 @@ dependencies()
 q()
 EOF_3
 
-R --vanilla --slave < install_packages.r
-rm install_packages.r
+R --vanilla --slave < install_packages.r 2>> AMETHST_install_log.txt
+rm install_packages.r 2>> AMETHST_install_log.txt
 #EOSHELL_6
 
 echo "DONE installing R" >> AMETHST_install_log.txt
@@ -294,7 +315,7 @@ echo "________________________________________________________" >> AMETHST_insta
 echo "Installing perl packages" >> AMETHST_install_log.txt
 #bash << EOSHELL_7
 #curl -L http://cpanmin.us | perl - --App::cpanminus
-curl -L http://cpanmin.us | perl - --Statistics::Descriptive
+curl -L http://cpanmin.us | perl - --Statistics::Descriptive 2>> AMETHST_install_log.txt
 #cpan -f App::cpanminus # ? if this is first run of cpan, it will have to configure, can't figure out how to force yes for its questions
 #                       # this may already be installed
 #cpanm Statistics::Descriptive
@@ -326,29 +347,29 @@ echo "________________________________________________________" >> AMETHST_insta
 ####################################################################################
 echo "TESTING AMETHST FUNCTIONALITY" >> AMETHST_install_log.txt
 #source /home/ubuntu/.profile
-. /home/ubuntu/.profile
-test_amethst.sh
+. /home/ubuntu/.profile 2>> AMETHST_install_log.txt
+test_amethst.sh 2>> AMETHST_install_log.txt
 echo "DONE testing AMETHST functionality" >> AMETHST_install_log.txt
 echo "________________________________________________________" >> AMETHST_install_log.txt
 ####################################################################################
 
 
-####################################################################################
-### Add AMETHST to Envrionment Path (permanently)
-####################################################################################
-export "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/home/ubuntu/AMETHST"
-echo "Adding AMETHST to the PATH" >> AMETHST_install_log.txt
-#sudo bash << EOSHELL_8
-#sudo bash 
-echo "export \"PATH=$PATH:/home/ubuntu/AMETHST"\" >> /home/ubuntu/.profile
-#source /home/ubuntu/.profile
-#exit
-#EOSHELL_8
-. /home/ubuntu/.profile
-echo "DONE adding AMETHST to the PATH (full PATH is in /home/ubuntu/.profile)" >> AMETHST_install_log.txt
-echo "________________________________________________________" >> AMETHST_install_log.txt
-# PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games" # original /etc/environment path
-####################################################################################
+# ####################################################################################
+# ### Add AMETHST to Envrionment Path (permanently)
+# ####################################################################################
+# export "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/home/ubuntu/AMETHST"
+# echo "Adding AMETHST to the PATH" >> AMETHST_install_log.txt
+# #sudo bash << EOSHELL_8
+# #sudo bash 
+# echo "export \"PATH=$PATH:/home/ubuntu/AMETHST"\" >> /home/ubuntu/.profile
+# #source /home/ubuntu/.profile
+# #exit
+# #EOSHELL_8
+# . /home/ubuntu/.profile
+# echo "DONE adding AMETHST to the PATH (full PATH is in /home/ubuntu/.profile)" >> AMETHST_install_log.txt
+# echo "________________________________________________________" >> AMETHST_install_log.txt
+# # PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games" # original /etc/environment path
+# ####################################################################################
 
 
 ####################################################################################
