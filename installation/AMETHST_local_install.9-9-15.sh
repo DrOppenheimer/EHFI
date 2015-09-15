@@ -1,7 +1,16 @@
 #!/bin/bash
 
+# run this script this way
+# cd ~
+# wget https://raw.githubusercontent.com/MG-RAST/AMETHST/master/installation/AMETHST_local_install.9-9-15.sh
+# chmod =+x AMETHST_local_install.9-9-15.sh
+# screen -S install_am
+# sudo ./AMETHST_local_install.9-9-15.sh
+
 set -e # checking of all commands 
 set -x # print each command before execution
+
+
 
 cd ~
 # RUN THIS SCRIPT WITH SUDO!
