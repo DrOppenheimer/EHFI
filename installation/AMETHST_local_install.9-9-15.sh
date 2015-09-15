@@ -174,7 +174,7 @@ sed -e '/verse$/s/^ \{1,\}//' /etc/apt/sources.list > /etc/apt/sources.list.edit
 
 apt-get clean 2>> AMETHST_install_log.txt
 ### install required packages
-apt-get --force-yes -o Dpkg::Options::="--force-confnew" --force-yes -fuy upgrade python-dev libncurses5-dev libssl-dev libzmq-dev libgsl0-dev openjdk-6-jdk libxml2 libxslt1.1 libxslt1-dev ant git subversion zlib1g-dev libpng12-dev libfreetype6-dev mpich2 libreadline-dev gfortran unzip libmysqlclient18 libmysqlclient-dev ghc sqlite3 libsqlite3-dev libc6-i386 libbz2-dev libx11-dev libcairo2-dev libcurl4-openssl-dev libglu1-mesa-dev freeglut3-dev mesa-common-dev xorg openbox emacs r-cran-rgl xorg-dev libxml2-dev mongodb-server bzr make gcc mercurial python-qcli python-biom-format python-numpy python-scipy python-matplotlib ipython pip ipython-notebook python-pandas python-sympy python-nose 2>> AMETHST_install_log.txt
+apt-get --force-yes -o Dpkg::Options::="--force-confnew" --force-yes -fuy upgrade python-dev libncurses5-dev libssl-dev libzmq-dev libgsl0-dev openjdk-6-jdk libxml2 libxslt1.1 libxslt1-dev ant git subversion zlib1g-dev libpng12-dev libfreetype6-dev mpich2 libreadline-dev gfortran unzip libmysqlclient18 libmysqlclient-dev ghc sqlite3 libsqlite3-dev libc6-i386 libbz2-dev libx11-dev libcairo2-dev libcurl4-openssl-dev libglu1-mesa-dev freeglut3-dev mesa-common-dev xorg openbox emacs r-cran-rgl xorg-dev libxml2-dev mongodb-server bzr make gcc mercurial python-qcli python-biom-format python-numpy python-scipy python-matplotlib ipython python-pip ipython-notebook python-pandas python-sympy python-nose 2>> AMETHST_install_log.txt
 
 apt-get clean 2>> AMETHST_install_log.txt
 #EOSHELL_3
@@ -224,13 +224,13 @@ echo "________________________________________________________" >> AMETHST_insta
 ## INSTALL packages that usually fail to install during qiime installation
 ####################################################################################
 echo "Installing packages that usually fail to install during qiime installation..." >> AMETHST_install_log.txt
-pip install qcli==0.1.0 2>> AMETHST_install_log.txt
+pip install --upgrade qcli==0.1.0 2>> AMETHST_install_log.txt
 echo "installed qcli"
-pip install raxml==7.3.0 2>> AMETHST_install_log.txt
+pip install --upgrade raxml==7.3.0 2>> AMETHST_install_log.txt
 echo "installed raxml"
-pip install pysqlite==2.6.3 2>> AMETHST_install_log.txt
+pip install --upgrade pysqlite==2.6.3 2>> AMETHST_install_log.txt
 echo "installed pysqlite"
-pip install jcvi==0.5.7 2>> AMETHST_install_log.txt
+pip install --upgrade jcvi==0.5.7 2>> AMETHST_install_log.txt
 echo "installed jcvi (contains CDHIT and many other related tools)"
 echo "DONE installing  packages that usually fail to install during qiime installation" >> AMETHST_install_log.txt
 echo "________________________________________________________" >> AMETHST_install_log.txt
