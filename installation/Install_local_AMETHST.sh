@@ -131,7 +131,7 @@ echo "DONE cloning the qiime-deploy and AMETHST git repos" >> AMETHST_install.lo
 echo "________________________________________________________" >> AMETHST_install.log.txt
 ####################################################################################
 
-# got to here (past GRUB!) - 11-19-15
+# got to here (past GRUB!) - 11-20-15
 
 ####################################################################################
 ### INSTALL cdbtools (Took care of the cdb failure above)
@@ -164,11 +164,11 @@ echo "________________________________________________________" >> AMETHST_insta
 ## Uncomment the universe and multiverse repositories from /etc/apt/sources.list
 echo "Installing Qiime"
 echo "Installing Qiime" >> AMETHST_install.log.txt
-#sudo bash << EOFSHELL4
+sudo bash << EOFSHELL4
 cd /home/ubuntu/
 python ./qiime-deploy/qiime-deploy.py /home/ubuntu/qiime_software -f ./AMETHST/qiime_configuration/qiime.amethst.config --force-remove-failed-dirs --force-remove-previous-repos
 apt-get -y clean
-#EOFSHELL4
+EOFSHELL4
 echo "DONE Installing Qiime" >> AMETHST_install.log.txt
 echo "________________________________________________________" >> AMETHST_install.log.txt
 ####################################################################################
