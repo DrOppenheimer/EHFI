@@ -131,12 +131,14 @@ echo "DONE cloning the qiime-deploy and AMETHST git repos" >> AMETHST_install.lo
 echo "________________________________________________________" >> AMETHST_install.log.txt
 ####################################################################################
 
+# got to here (past GRUB!) - 11-19-15
+
 ####################################################################################
 ### INSTALL cdbtools (Took care of the cdb failure above)
 ####################################################################################
 echo "Installing cdbtools"
 echo "Installing cdbtools" >> AMETHST_install.log.txt
-#sudo bash << EOSHELL_4
+sudo bash << EOSHELL_4
 apt-get install cdbfasta
 # mkdir /home/ubuntu/bin
 # curl -L "http://sourceforge.net/projects/cdbfasta/files/latest/download?source=files" > cdbfasta.tar.gz
@@ -148,7 +150,7 @@ apt-get install cdbfasta
 # popd
 # rm cdbfasta.tar.gz
 # rm -rf /home/ubuntu/cdbfasta
-#EOSHELL_4
+EOSHELL_4
 echo "DONE installing cdbtools" >> AMETHST_install.log.txt
 echo "________________________________________________________" >> AMETHST_install.log.txt
 ####################################################################################
