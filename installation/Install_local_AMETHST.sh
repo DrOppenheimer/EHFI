@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# bash -x Install_local_AMETHST.sh > debug.log 2>&1 # run like this for verbose debugging 
+
 set -e # checking of all commands 
 set -x # print each command before execution
 
