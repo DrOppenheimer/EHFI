@@ -83,8 +83,8 @@ exit 1;
 # place old environment in a variable, is added back to end of Qiime based PATH
 
 # conditional on qiime_activate_script na
+my $original_path = $ENV{PATH}; chomp $original_path;
 unless ( $qiime_activate_script eq "na" ){
-  my $original_path = $ENV{PATH}; chomp $original_path;
   open(QIIME_ACTIVATION, "<", $qiime_activate_script) or die "can't open QIIME_ACTIVATION $qiime_activate_script"."\n"; 
   while (my $line = <QIIME_ACTIVATION>){
     if ($line =~ s/^export //){ # identify "export" lines and trim "export " from the line

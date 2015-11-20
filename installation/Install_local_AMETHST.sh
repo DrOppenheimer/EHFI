@@ -1,5 +1,6 @@
 #!/bin/bash
 
+# Script was tested on 14.04 LTS 11-20-15
 # bash -x Install_local_AMETHST.sh > debug.log 2>&1 # run like this for verbose debugging 
 
 set -e # checking of all commands 
@@ -63,19 +64,14 @@ echo "________________________________________________________" >> AMETHST_insta
 ####################################################################################
 ### move /tmp to /mnt/tmp (compute frequntly needs the space, exact amount depends on data)
 ####################################################################################
-### First - create script that will check for proper /tmp confuguration and adjust at boot
-### Then reference a script (downloaded from git later) that will make sure tmp is in correct
-### location when this is saved as an image
-### replace tmp on current instance - add acript to /etc/rc.local that will cause it to be replaced in VMs generated from snapshot
-### DON'T DO THIS FOR THE NEW MAGELLAN VMS!
 #sudo bash << EOSHELL_2
 ## rm -r /tmp; mkdir -p /mnt/tmp/; chmod 777 /mnt/tmp/; sudo ln -s /mnt/tmp/ /tmp
 #rm /etc/rc.local
 
 #cat >/etc/rc.local<<EOF_2
-##!/bin/sh -e
+#!/bin/sh -e
 #. /home/ubuntu/.profile
-## /home/ubuntu/Kevin_Installers/change_tmp.sh
+# /home/ubuntu/Kevin_Installers/change_tmp.sh
 #EOF_2
 
 #chmod +x /etc/rc.local
@@ -130,8 +126,6 @@ git clone https://github.com/DrOppenheimer/Kevin_Installers.git
 echo "DONE cloning the qiime-deploy and AMETHST git repos" >> AMETHST_install.log.txt
 echo "________________________________________________________" >> AMETHST_install.log.txt
 ####################################################################################
-
-# got to here (past GRUB!) - 11-20-15
 
 ####################################################################################
 ### INSTALL cdbtools (Took care of the cdb failure above)
@@ -260,3 +254,4 @@ echo "________________________________________________________" >> AMETHST_insta
 echo "DONE installing local AMETHST" >> AMETHST_install.log.txt
 ####################################################################################
 
+# sudo reboot
