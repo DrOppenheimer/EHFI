@@ -86,7 +86,7 @@ echo "________________________________________________________" >> AMETHST_insta
 ####################################################################################
 echo "Installing dependencies for qiime_deploy and R" >> AMETHST_install.log.txt
 cd /home/ubuntu
-#sudo bash << EOSHELL_3
+sudo bash << EOSHELL_3
 ### for R install later add cran release specific repos to /etc/apt/sources.list
 # echo deb http://cran.rstudio.com/bin/linux/ubuntu precise/ >> /etc/apt/sources.list # 12.04 # Only exist for LTS - check version with lsb_release -a
 echo deb http://cran.rstudio.com/bin/linux/ubuntu trusty/ >> /etc/apt/sources.list  # 14.04 # Only exist for LTS - check version with lsb_release -a
@@ -105,12 +105,12 @@ export UCF_FORCE_CONFFNEW=YES
 ucf --purge /boot/grub/menu.lst
 export DEBIAN_FRONTEND=noninteractive
    
-apt-get -y upgrade
+apt-get -y upgrade --force-yes
 apt-get clean 
 ### install required packages
 apt-get --force-yes -o Dpkg::Options::="--force-confnew" --force-yes -fuy upgrade python-dev libncurses5-dev libssl-dev libzmq-dev libgsl0-dev openjdk-6-jdk libxml2 libxslt1.1 libxslt1-dev ant git subversion zlib1g-dev libpng12-dev libfreetype6-dev mpich2 libreadline-dev gfortran unzip libmysqlclient18 libmysqlclient-dev ghc sqlite3 libsqlite3-dev libc6-i386 libbz2-dev libx11-dev libcairo2-dev libcurl4-openssl-dev libglu1-mesa-dev freeglut3-dev mesa-common-dev xorg openbox emacs r-cran-rgl xorg-dev libxml2-dev mongodb-server bzr make gcc mercurial python-qcli
 apt-get clean
-#EOSHELL_3
+EOSHELL_3
 echo "DONE Installing dependencies for qiime_deploy and R" >> AMETHST_install.log.txt
 echo "________________________________________________________" >> AMETHST_install.log.txt
 # sudo dpkg --configure -a # if you run tin trouble
