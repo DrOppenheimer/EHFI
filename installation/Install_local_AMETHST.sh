@@ -177,14 +177,16 @@ echo "________________________________________________________" >> AMETHST_insta
 ### INSTALL most current R on Ubuntu 14.04, install multiple non-base packages
 ####################################################################################
 echo "Installing R" >> AMETHST_install.log.txt
-#sudo bash << EOSHELL_5
+sudo bash << EOSHELL_5
 apt-get -y build-dep r-base # install R dependencies (mostly for image production support)
 apt-get -y install r-base   # install R
 apt-get clean
 # Install R packages, including matR, along with their dependencies
-#EOSHELL_5
+EOSHELL_5
 
-#sudo bash << EOSHELL_6
+# got to here 11-20-15
+
+sudo bash << EOSHELL_6
 cat >install_packages.r<<EOF_3
 ## Simple R script to install packages not included as part of r-base
 # Install these packages for matR and AMETHST
@@ -203,7 +205,7 @@ EOF_3
 
 R --vanilla --slave < install_packages.r
 rm install_packages.r
-#EOSHELL_6
+EOSHELL_6
 
 echo "DONE installing R" >> AMETHST_install.log.txt
 echo "________________________________________________________" >> AMETHST_install.log.txt
