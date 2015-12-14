@@ -106,7 +106,7 @@ export DEBIAN_FRONTEND=noninteractive
 apt-get -y upgrade --force-yes
 apt-get clean 
 ### install required packages
-apt-get --force-yes -o Dpkg::Options::="--force-confnew" --force-yes -fuy upgrade python-dev libncurses5-dev libssl-dev libzmq-dev libgsl0-dev openjdk-6-jdk libxml2 libxslt1.1 libxslt1-dev ant git subversion zlib1g-dev libpng12-dev libfreetype6-dev mpich2 libreadline-dev gfortran unzip libmysqlclient18 libmysqlclient-dev ghc sqlite3 libsqlite3-dev libc6-i386 libbz2-dev libx11-dev libcairo2-dev libcurl4-openssl-dev libglu1-mesa-dev freeglut3-dev mesa-common-dev xorg openbox emacs r-cran-rgl xorg-dev libxml2-dev mongodb-server bzr make gcc mercurial python-qcli
+apt-get --force-yes -o Dpkg::Options::="--force-confnew" --force-yes -fuy upgrade python-dev python-pip libncurses5-dev libssl-dev libzmq-dev libgsl0-dev openjdk-6-jdk libxml2 libxslt1.1 libxslt1-dev ant git subversion zlib1g-dev libpng12-dev libfreetype6-dev mpich2 libreadline-dev gfortran unzip libmysqlclient18 libmysqlclient-dev ghc sqlite3 libsqlite3-dev libc6-i386 libbz2-dev libx11-dev libcairo2-dev libcurl4-openssl-dev libglu1-mesa-dev freeglut3-dev mesa-common-dev xorg openbox emacs r-cran-rgl xorg-dev libxml2-dev mongodb-server bzr make gcc mercurial python-qcli
 apt-get clean
 EOSHELL_3
 echo "DONE Installing dependencies for qiime_deploy and R" >> AMETHST_install.log.txt
@@ -119,8 +119,8 @@ echo "________________________________________________________" >> AMETHST_insta
 ### Clone repos for qiime-deploy and AMETHST
 ####################################################################################
 echo "Cloning the qiime-deploy and AMETHST git repos" >> AMETHST_install.log.txt
-cd /home/ubuntu/
-git clone git://github.com/qiime/qiime-deploy.git
+#cd /home/ubuntu/
+#git clone git://github.com/qiime/qiime-deploy.git
 git clone https://github.com/MG-RAST/AMETHST.git
 git clone https://github.com/DrOppenheimer/Kevin_Installers.git
 echo "DONE cloning the qiime-deploy and AMETHST git repos" >> AMETHST_install.log.txt
@@ -161,10 +161,12 @@ echo "________________________________________________________" >> AMETHST_insta
 echo "Installing Qiime"
 echo " Please contact Qiime developers if you run into problems with Qiime installation and/or operation" 
 echo "Installing Qiime" >> AMETHST_install.log.txt
-sudo bash << EOFSHELL4
 cd /home/ubuntu/
-python ./qiime-deploy/qiime-deploy.py /home/ubuntu/qiime_software -f ./AMETHST/qiime_configuration/qiime.amethst.config --force-remove-failed-dirs --force-remove-previous-repos
-apt-get -y clean
+#python ./qiime-deploy/qiime-deploy.py /home/ubuntu/qiime_software -f ./AMETHST/qiime_configuration/qiime.amethst.config --force-remove-failed-dirs --force-remove-previous-repos
+#apt-get -y clean
+sudo bash << EOFSHELL4
+pip install numpy
+pip install qiime
 EOFSHELL4
 echo "DONE Installing Qiime" >> AMETHST_install.log.txt
 echo "________________________________________________________" >> AMETHST_install.log.txt
