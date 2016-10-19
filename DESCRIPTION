@@ -1,0 +1,22 @@
+# AMETHST (Analysis METHod Selection Tool)
+#
+# Description
+#      AMETHST is an anlysis that provides a hypothesis driven means to objectively assess
+# the relative performance of multiple analysis methods applied to annotation abundance 
+# data.  AMETHST always requires Ubuntu (currently it has only been tested on 14.04 LTS),
+# bu can be used as a stand alone tool on a local computer/envrionment or can be used as
+# a service in KBase. See the "installation" directory in this repository for installation
+# intructions. 
+#      AMETHST utilizes permutation (monte-carlo) based statistics to
+# perform two seperate tests. For each analysis that AMETHST is used to assess, three
+# inputs are expected, an annotation abundance matrix (columns are samples, rows are 
+# functions or taxa), a file that indicates sample groupings (a comma separated string indicating
+# the groupings by column in the abundance matrix - e.g. a,b,b,a would place the first and
+# last column in one group, the second and third in another), and a number of options
+# that define exactly how the anlaysis will be performed. 
+#     The AMETHST testing procedure has two stages, the first examines how well each
+# analysis method is able to recognize members of biological groups (specified by the input
+# sample groupings). This test provides a fairly stringent means to identify poor performing
+# analysis methods - defined as those methods that cannot distinguish groupings in the real,
+# original data, from random permutations of it. The second stage analysis provides a means
+# to assess the signficance with which differences between biological groups are detected.

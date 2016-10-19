@@ -1,0 +1,20 @@
+# If the AMETHST repo was cloned into your home, you can run the test analysis as follows
+# First, make sure AMETHST is in your path ( export PATH=$PATH:~/AMETHST/ ), then 
+# can run AMETHST in one of two ways
+
+# TO RUN WITH PERL CODE LOCALLY
+
+# change to the directory that contains the data
+>cd ~/AMETHST/test_analysis
+
+# run AMETHST
+>AMETHST.pl --command_file test_analysis_commands
+
+# run the postprocessing script to summarize all analyses
+>compile_p-values-summary_files.pl -g
+
+# TO RUN WITH THE KBase AMETHST SERVICE
+
+>mg-amethst --commands test_analysis_commands --token shock_token
+
+# that's it

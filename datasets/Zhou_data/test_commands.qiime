@@ -1,4 +1,0 @@
-# Analysis_5
-~/EHFI/plot_pco_with_stats_all.3-4-13.pl -f Zhou.11.Qiime.Qiime_default.included.raw -g Zhou.groups -s lt -p 100 -t dataset_rand -m unifrac -z qiime_pipe  -q qiime_table  -a ~/qiime_software/gg_otus-12_10-release/trees/97_otus.tree -c 10 -o Analysis_5w -cleanup
-~/EHFI/plot_pco_with_stats_all.3-4-13.pl -f Zhou.11.Qiime.Qiime_default.included.raw  -g Zhou.groups -s gt -p 100 -t rowwise_rand -m unifrac -z qiime_pipe  -q qiime_table  -a ~/qiime_software/gg_otus-12_10-release/trees/97_otus.tree -c 10 -o Analysis_5b -cleanup
-~/EHFI/combine_summary_stats.pl -m pattern -w Analysis_5w -b Analysis_5b -o Analysis_5.P_VALUE_SUMMARY

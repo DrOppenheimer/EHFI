@@ -25,7 +25,7 @@ cd P_VALUE_SUMMARIES
 compile_p-values-summary_files.10-23-12.pl -o somprefix
 
 # 2 - Collecting and plotting the *.PCoA files  
-#     At present, a typical EHFI anlaysis produces two output directories for each analysis
+#     At present, a typical AMETHST anlaysis produces two output directories for each analysis
 #     The statistica for the two analyses are different, but the PCoAs are exactly the same
 #     I generally use *_b (between) and *_w (within) to differenciate the two directories from
 #     each other.  I use a shell command like the following to create non redundant copies of 

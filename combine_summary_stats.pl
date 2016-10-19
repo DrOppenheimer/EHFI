@@ -3,62 +3,78 @@
 use warnings;
 use Getopt::Long;
 use Cwd;
-use Cwd 'abs_path';
+#use Cwd 'abs_path';
+use FindBin;
 use File::Basename;
 use Statistics::Descriptive;
 
 
 
-my($mode, $ouput_file, $within_pattern, $between_pattern, $within_file, $between_file, $help, $verbose, $debug);
+my($within_pattern, $between_pattern, $groups_list, $within_file, $between_file, $output_file, $pcoa_pattern, $pcoa_file, $help, $verbose, $debug, $results_dir);
 
 my $current_dir = getcwd()."/";
-$output_file = "Within_Between.P_VALUE_SUMMARY";
-$mode = "exact";
+my $mode = "exact";
+my $job_name = "job";
+my $log_file = "combine_summary_stats.log";
 
 if($debug){print STDOUT "made it here"."\n";}
 
 # path of this script
-my $DIR=dirname(abs_path($0));  # directory of the current script, used to find other scripts + datafiles
-
+# my $DIR=dirname(abs_path($0));  # directory of the current script, used to find other scripts + datafiles
+my $DIR="$FindBin::Bin/";
 
 # check input args and display usage if not suitable
 if ( (@ARGV > 0) && ($ARGV[0] =~ /-h/) ) { &usage(); }
 
-unless ( @ARGV > 0 || $within_pattern || $between_pattern  ) { &usage(); }
-
 if ( ! GetOptions (
 		   "m|file_search_mode=s" => \$mode,
+		   "j|job_name=s"         => \$job_name,
+		   "g|groups_list=s"      => \$groups_list,
 		   "o|output_file=s"      => \$output_file,
 		   "w|within_pattern=s"   => \$within_pattern,
 		   "b|between_pattern=s"  => \$between_pattern,
+		   "p|pcoa_pattern=s"     => \$pcoa_pattern,
+		   "l|log_file=s"         => \$log_file,
 		   "h|help!"              => \$help, 
 		   "v|verbose!"           => \$verbose,
 		   "d|debug!"             => \$debug
 		  )
    ) { &usage(); }
 
+unless ( @ARGV > 0 || $within_pattern || $between_pattern  ) { &usage(); }
+
 ##################################################
 ##################################################
 ###################### MAIN ######################
 ##################################################
 ##################################################
+unless($output_file){$output_file = $job_name.".P_VALUE_SUMMARY"};
 
 if($debug){print STDOUT "mode: ".$mode."\n\n";}
 
 if($mode eq "pattern"){
-  my $within_search = $current_dir.qx(ls $within_pattern*/*SUMMARY);
+  my $within_search = $current_dir.qx(ls ./$job_name.$within_pattern.RESULTS/*SUMMARY);
   chomp $within_search;
   $within_file = $within_search;
   
-  my $between_search = $current_dir.qx(ls $between_pattern*/*SUMMARY);
+  my $between_search = $current_dir.qx(ls ./$job_name.$between_pattern.RESULTS/*SUMMARY);
   chomp $between_search;
   $between_file = $between_search;
+
+  my $pcoa_search = $current_dir.qx(ls ./$job_name.$within_pattern.RESULTS/*.PCoA);
+  chomp $pcoa_search;
+  $pcoa_file = $pcoa_search; 
   
+  my $dir_search = $current_dir.qx(ls -d $job_name.$within_pattern.RESULTS);
+  chomp $dir_search;
+  $results_dir = $dir_search;
+
   #if($debug){print STDERR "within_file:"."\n"."###".$within_file."###\n";}
   #if($debug){print STDERR "between_file:"."\n"."###".$between_file."###\n";}
 }else{
   $within_file = $within_pattern;
   $between_file = $between_pattern;
+  $pcoa_file = $pcoa_pattern;
 }
 
 
@@ -256,6 +272,27 @@ print OUTPUT_FILE (
 		   "#################################################################################"."\n"
 		  );
 
+# copy and rename the PCoA flat file, then produce a png for it
+open(LOG, ">>", $log_file) or die "can't open LOG $log_file";
+system("cp $pcoa_file ./$job_name.PCoA")==0 or die "died copying $pcoa_file to ./$job_name.PCoA";
+
+# produce an image of teh PCoA if a groups file is specififed (groups used to color it)
+if( $groups_list ){
+  #my $render_pcoa_string = "$DIR/render_calculated_pcoa_shell.sh $job_name.PCoA $groups_list 22 17 300 0.2 0.8 2 2";
+  my $render_pcoa_string = "$DIR/render_calculated_pcoa_shell.sh $job_name.PCoA $groups_list 22 17 300 0.2 0.8"; # replaced last two values - cex values with much better defaults in R code
+  print LOG "render PCoA:"."\n".$render_pcoa_string."\n"; # This is not properly printed in the log -- prints single time corrupted at the bottom of the log -- but the system execution of it works fine???
+  # order of args in the string is 
+  #      pcoa_file ($job_name.PCoA) groups_list ($groups_list) png_width(11) png_height(8.5) png_dpi(300)
+  #      legend_width_scale(0.2) pcoa_width_scale(0.8) legend_cex(0.5) figure_cex(0.7)
+  system($render_pcoa_string)==0 or die "died running"."\n".$render_pcoa_string."\n";
+  # now copy image back to results before zipping
+  # my $copy_rendered_pcoa_string = "cp $job_name.PCoA.$groups_list.png $results_dir/$job_name.PCoA.$groups_list.png";
+  my $copy_rendered_pcoa_string = "cp $job_name.PCoA.AMETHST_GROUPS.PCoA.png $results_dir/$job_name.PCoA.$groups_list.png";
+  print LOG "copy PCoA image back to results:"."\n".$copy_rendered_pcoa_string."\n";
+  system($copy_rendered_pcoa_string)==0 or die "died running"."\n".$copy_rendered_pcoa_string."\n";
+
+}
+close(LOG);
 
 ##################################################
 ##################################################
@@ -276,22 +313,32 @@ DESCRIPTION:
 Script to combine within group *.P_VALUE_SUMMARY of one analysis with
 between group *.P_VALUE_SUMMARY of another
    
-USAGE: combine_summary_stats.pl [-m file_search_mode][-w within_file] [-b between_file] [-o output_file] -h -v -d
+USAGE: combine_summary_stats.pl [-m file_search_mode][-w within_file] [-b between_file] [-o output_file] [-j job_name] -h -v -d
  
-    -m|file_search_mode   (string) default = $mode
-                                   file search mode, can be "exact" to match exact file patch or 
-                                   "prefix" to search using file prefix for path and file
+    -m|--file_search_mode (string)  default = $mode
+                                    file search mode, can be "exact" to match exact file patch or 
+                                    "prefix" to search using file prefix for path and file
+
+    -l|--log_file         (string)  default = $log_file
+                                    name of the log file
           
-    -w|within_pattern     (string) NO DEFAULT
-                                   if search mode is exact, path and name of *.P_VALUE_SUMMARY from which within group stats will be pulled
-                                   if search is "prefix", uses pattern to find path and file of *.P_VALUE_SUMMARY 
+    -w|--within_pattern   (string)  NO DEFAULT
+                                    if search mode is exact, path and name of *.P_VALUE_SUMMARY from which within group stats will be pulled
+                                    if search is "prefix", uses pattern to find path and file of *.P_VALUE_SUMMARY 
 
-    -b|between_pattern    (string) NO DEFAULT
-                                   if search mode is exact, path and name of *.P_VALUE_SUMMARY from which within group stats will be pulled
-                                   if search is "prefix", uses pattern to find path and file of *.P_VALUE_SUMMARY
+    -b|--between_pattern  (string)  NO DEFAULT
+                                    if search mode is exact, path and name of *.P_VALUE_SUMMARY from which within group stats will be pulled
+                                    if search is "prefix", uses pattern to find path and file of *.P_VALUE_SUMMARY
 
-    -o|output_file        (string)  default = $output_file
-                                    name for the output file          
+    -g|--groups_list      (string)  NO DEFAULT
+                                    File that contains AMETHST formatted groupings -- is used to color the PCoA images
+
+    -o|--output_file      (string)  default = $output_file
+                                    name for the output file (taken from commands file if run by AMETHST.pl)          
+
+    -j|--job_name         (string)  default = $job_name 
+                                    job name (taken from commands list if run with AMETHST.pl) - specifies a pattern
+                                    that is added as a prefix to the output
  _______________________________________________________________________________________
 
     -h|help                       (flag)       see the help/usage

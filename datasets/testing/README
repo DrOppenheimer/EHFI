@@ -1,0 +1,5 @@
+# To test that AMETHST is installed properly, make sure that you 
+# have installed AMETHST (see the installation directory in this
+# repository. Then use the /AMETHST/test_amethst.sh
+# Note that this test ran if you used /AMETHST/installation/Install_local_AMETHST.sh
+# to install AMETHST and should not have to be run again separately.

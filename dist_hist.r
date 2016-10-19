@@ -1,4 +1,4 @@
-dist_hist <- function(original_matrix_file, groups_list = "EHFI_groups", perm_dists_path = "./DISTs", write_tables=TRUE, debug = FALSE){
+dist_hist <- function(original_matrix_file, groups_list = "AMETHST_groups", perm_dists_path = "./DISTs", write_tables=TRUE, debug = FALSE){
 
 # dist_hist <- function(distance_matrix_file, file_path = "./", groups_list = "groups", perm_dists_path = "./DISTs", debug = 0){ 
 
@@ -285,7 +285,7 @@ dist_hist <- function(original_matrix_file, groups_list = "EHFI_groups", perm_di
 
 
 
-## dist_hist <- function(distance_matrix_file, groups_list = "EHFI_groups", debug = 0){
+## dist_hist <- function(distance_matrix_file, groups_list = "AMETHST_groups", debug = 0){
 
 ## # dist_hist <- function(distance_matrix_file, file_path = "./", groups_list = "groups", perm_dists_path = "./DISTs", debug = 0){ 
 

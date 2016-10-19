@@ -1,4 +1,4 @@
-# simple script to generate 4 or 8 files used for EHFI analysis of MG-RAST or Qiime counts
+# simple script to generate 4 or 8 files used for AMETHST analysis of MG-RAST or Qiime counts
 create_eight <- function(
                          counts_file,
                          percent_file,
@@ -13,7 +13,7 @@ create_eight <- function(
      You supplied no arguments
 
      DESCRIPTION: (create_eight.r):
-     Script to generate files used for EHFI analyses.
+     Script to generate files used for AMETHST analyses.
 
      create_eight( counts_file, percent_file, percent_screen=100, create=8)
 

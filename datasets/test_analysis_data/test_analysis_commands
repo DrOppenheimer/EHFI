@@ -1,0 +1,16 @@
+#output_zip=test_output.tar.gz
+
+#job test_analysis_1
+plot_pco_with_stats_all.pl --data_file 16.Qiime.100p.included.norm --groups_list AMETHST.stat.groups --sig_if lt --num_perm 10 --perm_type dataset_rand --dist_method euclidean --dist_pipe qiime_pipe --qiime_format qiime_table --output_prefix within --cleanup
+plot_pco_with_stats_all.pl --data_file 16.Qiime.100p.included.norm --groups_list AMETHST.stat.groups --sig_if gt --num_perm 10 --perm_type rowwise_rand --dist_method euclidean --dist_pipe qiime_pipe --qiime_format qiime_table --output_prefix between --cleanup
+combine_summary_stats.pl --file_search_mode pattern --within_pattern within --between_pattern between --groups_list AMETHST.PCoA.groups
+
+#job test_analysis_2
+plot_pco_with_stats_all.pl --data_file 16.Qiime.100p.included.norm --groups_list AMETHST.stat.groups --sig_if lt --num_perm 10 --perm_type dataset_rand --dist_method bray_curtis --dist_pipe qiime_pipe --qiime_format qiime_table --output_prefix within --cleanup
+plot_pco_with_stats_all.pl --data_file 16.Qiime.100p.included.norm --groups_list AMETHST.stat.groups --sig_if gt --num_perm 10 --perm_type rowwise_rand --dist_method bray_curtis --dist_pipe qiime_pipe --qiime_format qiime_table --output_prefix between --cleanup
+combine_summary_stats.pl --file_search_mode pattern --within_pattern within --between_pattern between --groups_list AMETHST.PCoA.groups
+
+#job test_analysis_3
+plot_pco_with_stats_all.pl --data_file 16.Qiime.100p.included.norm --sig_if lt --groups_list AMETHST.stat.groups --num_perm 10 --perm_type dataset_rand --dist_method bray_curtis --dist_pipe qiime_pipe --qiime_format qiime_table --tree 16S_all_gg_2011_1.tree --output_prefix Analysis_44w --cleanup
+plot_pco_with_stats_all.pl --data_file 16.Qiime.100p.included.norm --sig_if gt --groups_list AMETHST.stat.groups --num_perm 10 --perm_type rowwise_rand --dist_method bray_curtis --dist_pipe qiime_pipe --qiime_format qiime_table --tree 16S_all_gg_2011_1.tree --output_prefix Analysis_44b --cleanup
+combine_summary_stats.pl --file_search_mode pattern --within_pattern Analysis_44w --between_pattern Analysis_44b --groups_list AMETHST.PCoA.groups

@@ -1,0 +1,17 @@
+# Installation of stand alone AMETHST can be performed with the following commands
+
+cd ~
+curl https://raw.githubusercontent.com/MG-RAST/AMETHST/master/installation/Install_local_AMETHST.sh
+chmod +x Install_local_AMETHST.sh
+./Install_local_AMETHST.sh
+
+# for more details, and for directions on installing a compute node for the KBase
+# AMETHST service, see the "installation" directory in this repository
+# I would recommend installing AMETHST on an Ubuntu 12.04 or 14.04 LTS running
+# machine or VM with no less than 40GB of available disk. The installation will
+# take about 10GB of space, and usually completes in just under an hour.
+# The additional 30GB of space is used for temporary storage while AMETHST is running.
+# I would recommend using a machine/VM with multiple CPUs - this will greatly reduce
+# compute time.
+#
+# Kevin Keegan, Oct 29 2014
